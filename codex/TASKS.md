@@ -1,22 +1,37 @@
 # TASKS.md
 
-## Proposito
+## Propósito
 
-Backlog inicial para que Codex implemente CRM por fases y agentes.
+Backlog inicial para que Codex implemente CRM por fases, agentes y estrategia Portal-First.
 
-## Fase 0 - Coordinacion
+## Regla de ejecución
 
-- Crear y validar estructura del repositorio.
-- Validar documentos Codex.
-- Validar dependencias con PortalCorporativo.
-- Actualizar docs/coordination.
+Antes de iniciar cualquier fase técnica, Codex debe clasificar cada componente como:
 
-## Fase 1 - Contratos Portal
+```text
+REUSE
+EXTEND
+ADAPT
+CREATE
+BLOCKED
+```
+
+## Fase 0 - Coordinación y bajo consumo de tokens
+
+- Validar `AGENTS.md`.
+- Validar `codex/COORDINADOR_SOLUCION.md`.
+- Validar `codex/PORTAL_INTEGRATION_CONTRACTS.md`.
+- Revisar `PortalCorporativo/codex/REUSABLE_CAPABILITIES.md` si existe.
+- Revisar `CodexCommonAgents/registry/reusable-portal-apis.md` cuando esté disponible.
+- Actualizar `docs/coordination/dependencies.md`.
+- No leer todo el repo si la tarea no lo requiere.
+
+## Fase 1 - Contratos con PortalCorporativo
 
 - Validar APIs reales del portal.
 - Crear clientes/adapters hacia servicios del portal.
-- Crear contratos para seguridad, permisos, menu, configuracion, catalogos, auditoria, notificaciones y documentos.
-- Registrar pendientes en open-issues.md.
+- Crear contratos para seguridad, permisos, menú, configuración, catálogos, auditoría, notificaciones, documentos, reporting e integración.
+- Registrar pendientes en `docs/coordination/open-issues.md`.
 
 ## Fase 2 - Backend CRM Core
 
@@ -30,22 +45,24 @@ Backlog inicial para que Codex implemente CRM por fases y agentes.
 - Implementar Cases.
 - Implementar Campaigns.
 - Integrar permisos del portal.
-- Integrar auditoria del portal.
+- Integrar auditoría del portal.
 - Integrar notificaciones del portal.
 
-## Fase 3 - Base de Datos
+## Fase 3 - Base de datos CRM
 
 - Crear modelo CRM.
 - Crear scripts SQL.
 - Crear seed inicial CRM.
 - Crear modelo Integration Hub.
+- Evitar dependencia directa con bases de datos del portal.
 
 ## Fase 4 - Frontend CRM
 
-- Crear modulo Angular CRM.
+- Crear módulo Angular CRM integrado al shell del portal.
 - Crear rutas CRM.
 - Crear pantallas de clientes, leads, oportunidades y casos.
-- Usar menu, tema, permisos, grids y formularios del portal.
+- Usar menú, tema, permisos, grids y formularios del portal.
+- No quemar colores, logos, menús, botones ni layouts.
 
 ## Fase 5 - CRM Integration Hub
 
@@ -54,22 +71,25 @@ Backlog inicial para que Codex implemente CRM por fases y agentes.
 - Crear EntityMapping.
 - Crear FieldMapping.
 - Crear ExternalEntityReference.
-- Crear Outbox e Inbox.
+- Crear Outbox e Inbox CRM.
 - Crear GenericRestConnector.
 - Crear stubs Salesforce y Dynamics.
+- No acoplar CRM Core directamente a Salesforce/Dynamics.
 
-## Fase 6 - Workers
+## Fase 6 - Workers CRM
 
 - Procesar Outbox.
 - Procesar Inbox.
 - Procesar reintentos.
 - Procesar integraciones.
+- Publicar eventos auditables y notificables.
 
-## Fase 7 - Docker
+## Fase 7 - Docker y ejecución conjunta
 
 - Crear compose CRM.
-- Documentar ejecucion junto al portal.
+- Documentar ejecución junto al portal.
 - Validar variables de entorno.
+- No guardar secretos en código.
 
 ## Fase 8 - QA
 
@@ -77,3 +97,18 @@ Backlog inicial para que Codex implemente CRM por fases y agentes.
 - Crear pruebas API.
 - Crear pruebas de contrato contra portal.
 - Crear pruebas Integration Hub.
+- Validar clasificación REUSE/EXTEND/ADAPT/CREATE/BLOCKED.
+
+## Salida obligatoria por tarea
+
+```text
+Agent:
+Task:
+Portal Capability Checked:
+Reuse Classification:
+Files Created:
+Files Modified:
+Tests Added:
+Risks:
+Next Step:
+```
