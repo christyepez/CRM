@@ -1,0 +1,15 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+node_modules/
+dist/
+.angular/
+.env
+.env.*
+!.env.example
+logs/
+*.log
+.DS_Store
+Thumbs.db
