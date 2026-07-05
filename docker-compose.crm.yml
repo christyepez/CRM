@@ -1,0 +1,47 @@
+services:
+  crm-api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.api
+    container_name: crm-api
+    env_file:
+      - .env
+    ports:
+      - "5100:8080"
+    depends_on:
+      - crm-db
+    networks:
+      - crm-network
+
+  crm-worker:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.worker
+    container_name: crm-worker
+    env_file:
+      - .env
+    depends_on:
+      - crm-db
+    networks:
+      - crm-network
+
+  crm-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: crm-db
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "CHANGE_ME_123"
+    ports:
+      - "14333:1433"
+    volumes:
+      - crm-db-data:/var/opt/mssql
+      - ./infrastructure/sql:/scripts
+    networks:
+      - crm-network
+
+networks:
+  crm-network:
+    driver: bridge
+
+volumes:
+  crm-db-data:
