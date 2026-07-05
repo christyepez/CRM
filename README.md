@@ -1,58 +1,78 @@
 # CRM Corporativo
 
-Repositorio del modulo CRM corporativo integrado al Portal Corporativo.
-
-## Portal base
-
-El CRM debe integrarse con:
-
-```text
-https://github.com/christyepez/PortalCorporativo
-```
+Módulo CRM corporativo integrado a `PortalCorporativo`.
 
 ## Objetivo
 
-Implementar un CRM modular, parametrizable y extensible, reutilizando los componentes transversales del portal.
+Implementar capacidades de gestión comercial y relación con clientes reutilizando las APIs transversales del portal y evitando duplicación de seguridad, auditoría, notificaciones, menús, configuración visual, catálogos y reporting.
 
-## Componentes del portal que se deben reutilizar
+## Repos relacionados
 
-- Seguridad
-- Usuarios
-- Roles
-- Permisos
-- Menu dinamico
-- Temas
-- Configuracion
-- Catalogos
-- Auditoria
-- Notificaciones
-- Documentos
-- Reporteria
+```text
+PortalCorporativo: https://github.com/christyepez/PortalCorporativo
+CRM: https://github.com/christyepez/CRM
+CodexCommonAgents: https://github.com/christyepez/CodexCommonAgents
+```
 
-## Modulos CRM
+## Capacidades propias CRM
 
-- Clientes
-- Contactos
-- Leads
-- Oportunidades
-- Actividades
-- Casos
-- Campanas
-- CRM Integration Hub
-- Workers CRM
+Este repositorio puede crear componentes propios para:
 
-## Lectura obligatoria para Codex
+- Customers.
+- Contacts.
+- Leads.
+- Opportunities.
+- Activities.
+- Cases.
+- Campaigns.
+- Interactions.
+- CRM Integration Hub.
+- Salesforce/Dynamics/Generic REST connectors.
+- Mapeos y transacciones de integración.
 
-Codex debe leer en este orden:
+## Capacidades reutilizadas del portal
 
-1. `codex/COORDINADOR_SOLUCION.md`
-2. `AGENTS.md`
-3. `codex/INSTRUCTIONS.md`
-4. `codex/ARCHITECTURE_RULES.md`
-5. `codex/PORTAL_INTEGRATION_CONTRACTS.md`
-6. `codex/TASKS.md`
-7. `codex/TASK_TEMPLATE.md`
+CRM debe reutilizar o extender:
 
-## Regla principal
+- Security API.
+- Menu API.
+- Configuration API.
+- Catalog API.
+- Audit API.
+- Notification API.
+- Content/File API.
+- Reporting API.
+- Integration API base.
+- Portal Angular Shell.
+- API Gateway.
 
-El CRM es un modulo funcional. El Portal Corporativo es la plataforma transversal. El CRM consume servicios del portal y no los reconstruye.
+## Reglas Codex
+
+Codex debe leer primero:
+
+1. `AGENTS.md`.
+2. `codex/COORDINADOR_SOLUCION.md`.
+3. `codex/INSTRUCTIONS.md`.
+4. `codex/ARCHITECTURE_RULES.md`.
+5. `codex/PORTAL_INTEGRATION_CONTRACTS.md`.
+6. `codex/TASKS.md`.
+
+## Clasificación obligatoria
+
+Toda tarea debe clasificar sus componentes como:
+
+```text
+REUSE   = usar componente del portal.
+EXTEND  = extender configuración, permisos, catálogos, menús o contratos del portal.
+ADAPT   = crear adaptador hacia API/servicio del portal.
+CREATE  = crear componente propio del dominio CRM.
+BLOCKED = no implementar hasta revisar portal.
+```
+
+## Principio de integración
+
+CRM Core no debe acoplarse directamente a Salesforce, Dynamics u otro CRM externo. Toda integración externa debe pasar por `CRM Integration Hub`.
+
+## Modo bajo consumo de tokens
+
+No leer todo el repositorio si la tarea no lo requiere. Usar `AGENTS.md`, `codex/PORTAL_INTEGRATION_CONTRACTS.md`, `codex/TASKS.md` y el playbook aplicable de `CodexCommonAgents`.

@@ -1,87 +1,96 @@
-# Portal Integration Contracts
+# Contratos de integración CRM con PortalCorporativo
 
-## Proposito
+## Propósito
 
-Este archivo define los contratos que CRM debe usar para integrarse con PortalCorporativo.
+Definir cómo el repositorio `CRM` debe consumir, extender o adaptar las capacidades transversales de `PortalCorporativo`.
 
-## Portal base
+## Repositorios
 
-Repositorio: https://github.com/christyepez/PortalCorporativo
+```text
+PortalCorporativo: https://github.com/christyepez/PortalCorporativo
+CRM: https://github.com/christyepez/CRM
+CodexCommonAgents: https://github.com/christyepez/CodexCommonAgents
+```
 
-## Capacidades reutilizables
+## Regla central
 
-CRM debe reutilizar del portal:
+Antes de crear cualquier componente CRM, Codex debe validar si existe una capacidad reutilizable en PortalCorporativo.
 
-- Security
-- Users
-- Roles
-- Permissions
-- Menu
-- Theme
-- Configuration
-- Catalogs
-- Audit
-- Notifications
-- Documents
-- Reporting
+Clasificación obligatoria:
 
-## Reglas
+```text
+REUSE   = usar componente del portal.
+EXTEND  = extender configuración, permisos, catálogos, menús o contratos del portal.
+ADAPT   = crear adaptador hacia API/servicio del portal.
+CREATE  = crear componente propio del dominio CRM.
+BLOCKED = no implementar hasta resolver revisión del portal.
+```
 
-- CRM no crea seguridad propia.
-- CRM no crea auditoria propia.
-- CRM no crea notificaciones propias.
-- CRM no crea menu propio.
-- CRM no crea tema propio.
-- CRM no guarda documentos por fuera del componente documental del portal.
-- CRM valida permisos usando el portal.
-- CRM registra acciones criticas usando auditoria del portal.
+## Matriz de integración
 
-## Permisos CRM sugeridos
+| Capacidad CRM | PortalCorporativo | Clasificación | Criterio |
+|---|---|---|---|
+| Autenticación | Security API | REUSE | CRM no implementa login propio. |
+| Usuarios | Security API | REUSE | CRM consume identidad del portal. |
+| Roles CRM | Security API | EXTEND | Registrar roles/permisos CRM. |
+| Permisos CRM | Security API | EXTEND | Validación real en backend. |
+| Menú CRM | Menu API | EXTEND | Registrar menús dinámicos CRM. |
+| Grids CRM | Configuration API | EXTEND | Columnas, filtros y acciones configurables. |
+| Formularios CRM | Configuration API | EXTEND | Metadata configurable. |
+| Catálogos CRM | Catalog API | EXTEND/CREATE | Globales en portal; específicos en CRM. |
+| Auditoría CRM | Audit API | ADAPT | Publicar eventos auditables. |
+| Notificaciones CRM | Notification API | ADAPT | Notificar eventos comerciales relevantes. |
+| Archivos CRM | Content/File API | ADAPT | Guardar documentos vía portal si aplica. |
+| Reportes CRM | Reporting API | EXTEND | Publicar datasets/reportes CRM. |
+| Integraciones externas | Integration API + CRM Integration Hub | ADAPT/CREATE | Salesforce/Dynamics no acoplados al core. |
+| Outbox CRM | SQL Outbox / Workers | EXTEND/CREATE | Reusar patrón del portal. |
 
-- CRM.CUSTOMERS.VIEW
-- CRM.CUSTOMERS.CREATE
-- CRM.CUSTOMERS.UPDATE
-- CRM.CUSTOMERS.DELETE
-- CRM.LEADS.VIEW
-- CRM.LEADS.CREATE
-- CRM.LEADS.CONVERT
-- CRM.OPPORTUNITIES.VIEW
-- CRM.OPPORTUNITIES.CREATE
-- CRM.OPPORTUNITIES.CHANGE_STAGE
-- CRM.CASES.VIEW
-- CRM.CASES.CLOSE
-- CRM.INTEGRATIONS.VIEW
-- CRM.INTEGRATIONS.CONFIGURE
-- CRM.INTEGRATIONS.RETRY
+## Componentes propios CRM
 
-## Menu CRM sugerido
+Se permite crear:
 
-- CRM
-- Dashboard
-- Clientes
-- Contactos
-- Leads
-- Oportunidades
-- Actividades
-- Casos
-- Campanas
-- Integraciones CRM
+- Customers.
+- Contacts.
+- Leads.
+- Opportunities.
+- Activities.
+- Cases.
+- Campaigns.
+- Interactions.
+- CRM Documents metadata.
+- CRM Integration Hub.
+- Connectors Salesforce/Dynamics/Generic REST.
+- Mapeos de integración.
+- Outbox/Inbox CRM cuando el dominio lo requiera.
 
-## Grids CRM sugeridos
+## Prohibido duplicar
 
-- CRM_CUSTOMERS_GRID
-- CRM_CONTACTS_GRID
-- CRM_LEADS_GRID
-- CRM_OPPORTUNITIES_GRID
-- CRM_CASES_GRID
-- CRM_INTEGRATION_TRANSACTIONS_GRID
+No crear en CRM:
 
-## Interfaces recomendadas
+- Login.
+- Usuarios globales.
+- Roles globales.
+- Menú engine.
+- Configuración visual global.
+- Auditoría transversal.
+- Notificaciones transversales.
+- Gestión genérica de archivos.
+- API Gateway propio.
 
-- IPortalSecurityClient
-- IPortalPermissionClient
-- IPortalConfigurationClient
-- IPortalCatalogClient
-- IPortalAuditClient
-- IPortalNotificationClient
-- IPortalDocumentClient
+## Salida obligatoria de Codex
+
+Cada implementación debe reportar:
+
+```text
+Agent:
+Portal Capability Checked:
+Reuse Classification:
+Portal Components Reused:
+Portal Components Extended:
+New CRM Components Created:
+Files Created:
+Files Modified:
+Tests Added:
+Risks:
+Next Step:
+```
