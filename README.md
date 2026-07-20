@@ -1,5 +1,47 @@
 # CRM Corporativo
 
+## Sprint 1 P1 - Foundation Architecture Baseline
+
+CRM starts as an independent repository foundation using .NET 8, Angular and Docker Compose. The current runtime is non-production and foundation-only.
+
+### Local execution
+
+```powershell
+dotnet restore CRM.sln
+dotnet build CRM.sln
+dotnet test CRM.sln
+docker compose config
+docker compose up -d --build
+Invoke-WebRequest -UseBasicParsing http://localhost:8093/health
+Invoke-WebRequest -UseBasicParsing http://localhost:8093/api/crm/readiness
+```
+
+Frontend:
+
+```powershell
+cd frontend/crm-web
+pnpm install --frozen-lockfile
+pnpm run build
+pnpm test
+```
+
+### Foundation endpoints
+
+- `GET /health`
+- `GET /health/live`
+- `GET /health/ready`
+- `GET /api/crm/readiness`
+
+Readiness returns `module=CRM`, `status=ReadyForFoundationOnly`, `portalIntegration=Planned`, `financialIntegration=Planned` and `runtimeMode=NonProduction`.
+
+### Guardrails
+
+- No login, Identity, token storage or roles propios.
+- No SQL Server propio in Docker Compose.
+- No CRM CRUD endpoints yet.
+- No hardcoded integration with Financiero.
+- Portal Auth/Menu/permissions/Audit/Notification/Configuration remain planned reuse points.
+
 Módulo CRM corporativo integrado a `PortalCorporativo`.
 
 ## Objetivo

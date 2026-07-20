@@ -1,5 +1,20 @@
 # TASKS.md
 
+## CRM Sprint 1 P1 - Repository Foundation and Architecture Baseline
+
+- [x] Confirmar GitHub `main` como fuente principal.
+- [x] Crear rama `crm-sprint-1-p1-foundation-architecture-baseline`.
+- [x] Crear `CRM.sln`.
+- [x] Crear proyectos `CRM.Api`, `CRM.Application`, `CRM.Domain`, `CRM.Infrastructure`.
+- [x] Crear tests `CRM.UnitTests` y `CRM.ArchitectureTests`.
+- [x] Crear API foundation con `/health`, `/health/live`, `/health/ready`, `/api/crm/readiness`.
+- [x] Crear frontend Angular foundation en `frontend/crm-web`.
+- [x] Crear Docker foundation sin SQL Server propio.
+- [x] Crear verificadores foundation.
+- [x] Crear documentación architecture/roadmap/release.
+- [x] Mantener runtime `NonProduction` y `ReadyForFoundationOnly`.
+- [x] No crear CRUD CRM, Identity propio, token storage, Gateway propio, Shell propio, DB/migrations CRM ni integración real con Financiero.
+
 ## Propósito
 
 Backlog inicial para que Codex implemente CRM por fases, agentes y estrategia Portal-First.
