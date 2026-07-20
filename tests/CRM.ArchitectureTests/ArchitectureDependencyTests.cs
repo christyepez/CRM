@@ -43,17 +43,23 @@ public sealed class ArchitectureDependencyTests
     }
 
     [Fact]
-    public void Api_OnlyExposesAllowedNonMutatingContractEndpoints()
+    public void Api_OnlyExposesAllowedContractAndFoundationPreviewEndpoints()
     {
         var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
 
         Assert.Contains("/api/crm/domain-catalog", program);
         Assert.Contains("/api/crm/contracts", program);
         Assert.Contains("/api/crm/integration-boundaries", program);
-        Assert.DoesNotContain("MapPost", program);
+        Assert.Contains("/api/crm/foundation/leads/preview", program);
+        Assert.Contains("/api/crm/foundation/accounts/preview", program);
+        Assert.Contains("/api/crm/foundation/contacts/preview", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
         Assert.DoesNotContain("MapPut", program);
+        Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
-        Assert.DoesNotContain("CreateLead", program);
+        Assert.DoesNotContain("Create" + "Lead", program);
     }
 
     [Fact]

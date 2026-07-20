@@ -24,8 +24,12 @@ function Require-Path($Path) {
     "docs/architecture/crm-security-guardrails.md",
     "docs/domain/crm-domain-model.md",
     "docs/domain/crm-business-rules.md",
+    "docs/domain/crm-leads-foundation.md",
+    "docs/domain/crm-accounts-foundation.md",
+    "docs/domain/crm-contacts-foundation.md",
     "docs/api/crm-api-contracts.md",
     "docs/api/crm-api-index.md",
+    "docs/api/crm-foundation-preview-api.md",
     "docs/integration/crm-portal-boundary.md",
     "docs/integration/crm-financial-boundary.md",
     "docs/roadmap/crm-roadmap.md",
@@ -37,7 +41,11 @@ function Require-Path($Path) {
     "src/CRM.Domain/Entities/Activity.cs",
     "src/CRM.Domain/ValueObjects/ContactValueObjects.cs",
     "src/CRM.Domain/ValueObjects/BusinessValueObjects.cs",
-    "src/CRM.Application/Contracts/CrmDomainCatalogService.cs"
+    "src/CRM.Domain/ValueObjects/FoundationValueObjects.cs",
+    "src/CRM.Application/Contracts/CrmDomainCatalogService.cs",
+    "src/CRM.Application/Foundation/LeadFoundationService.cs",
+    "src/CRM.Application/Foundation/AccountFoundationService.cs",
+    "src/CRM.Application/Foundation/ContactFoundationService.cs"
 ) | ForEach-Object { Require-Path $_ }
 
 $composeText = if (Test-Path "docker-compose.yml") { Get-Content -Raw "docker-compose.yml" } else { "" }
@@ -69,15 +77,26 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
 }
 
-$crudPatterns = "MapPost|MapPut|MapDelete|CreateLead|CreateCustomer|CreateOpportunity"
-if ($apiProgram -match $crudPatterns) {
+if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
     $failures += "Premature CRM mutating endpoint found."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($apiProgram -like "*$productiveRoute*") {
+        $failures += "Productive CRM endpoint found: $productiveRoute"
+    }
+}
+
+$foundationText = ""
+Get-ChildItem -Path "src/CRM.Application/Foundation" -Filter "*.cs" -File | ForEach-Object { $foundationText += "`n" + (Get-Content -Raw $_.FullName) }
+if ($apiProgram -notlike "*Preview only, not persisted*" -and $foundationText -notlike "*Preview only, not persisted*") {
+    $failures += "Foundation preview warning is missing."
 }
 
 $sourceText = ""
@@ -94,7 +113,7 @@ if ($sourceText -match "DbContext|DbSet<|MigrationBuilder|UseSqlServer") {
 }
 
 if (Test-Path "database") {
-    $failures += "Database directory or migration baseline must not exist in P2."
+    $failures += "Database directory or migration baseline must not exist in foundation sprints."
 }
 
 if ($failures.Count -gt 0) {

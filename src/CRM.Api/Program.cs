@@ -6,6 +6,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddHealthChecks();
 builder.Services.AddSingleton<CrmReadinessService>();
 builder.Services.AddSingleton<CrmDomainCatalogService>();
+builder.Services.AddSingleton<LeadFoundationService>();
+builder.Services.AddSingleton<AccountFoundationService>();
+builder.Services.AddSingleton<ContactFoundationService>();
 
 var app = builder.Build();
 
@@ -24,6 +27,15 @@ app.MapGet("/api/crm/contracts", (CrmDomainCatalogService catalog) => Results.Ok
 
 app.MapGet("/api/crm/integration-boundaries", (CrmDomainCatalogService catalog) => Results.Ok(catalog.GetIntegrationBoundaries()))
     .WithName("GetCrmIntegrationBoundaries");
+
+app.MapPost("/api/crm/foundation/leads/preview", (LeadFoundationRequest request, LeadFoundationService service) => Results.Ok(service.Preview(request)))
+    .WithName("PreviewCrmFoundationLead");
+
+app.MapPost("/api/crm/foundation/accounts/preview", (AccountFoundationRequest request, AccountFoundationService service) => Results.Ok(service.Preview(request)))
+    .WithName("PreviewCrmFoundationAccount");
+
+app.MapPost("/api/crm/foundation/contacts/preview", (ContactFoundationRequest request, ContactFoundationService service) => Results.Ok(service.Preview(request)))
+    .WithName("PreviewCrmFoundationContact");
 
 app.Run();
 

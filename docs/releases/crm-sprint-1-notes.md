@@ -12,6 +12,15 @@ Phase: Repository Foundation and Architecture Baseline
 - Added unit and architecture tests for domain behavior and guardrails.
 - Still no DB, migrations, CRUD, Identity, token storage or real integrations.
 
+## P3 - Leads, Accounts and Contacts Foundation
+
+- Strengthened Lead, Account and Contact domain rules.
+- Added foundation-only Application preview services.
+- Added preview endpoints under `/api/crm/foundation/.../preview`.
+- Added domain and Application tests for foundation behavior.
+- Added documentation for Leads, Accounts, Contacts and preview API.
+- Still no DB, migrations, productive CRUD, DELETE, Identity, token storage or real integrations.
+
 ## Summary
 
 CRM repository foundation starts with .NET 8, Angular, Docker Compose and architecture guardrails.

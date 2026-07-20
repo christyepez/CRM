@@ -7,6 +7,12 @@
 - CREATE: architecture and domain tests.
 - BLOCKED/Deferred: persistence, commands, Portal runtime integration and Financiero integration.
 
+## Sprint 1 P3 - Leads, accounts and contacts foundation
+
+- CREATE: foundation-only Lead, Account and Contact rules.
+- CREATE: preview services and preview API contracts.
+- BLOCKED/Deferred: productive persistence, productive CRUD, Portal runtime calls and Financiero integration.
+
 | Sprint | Scope | Can advance isolated | Depends on Portal/SQL |
 |---|---|---|---|
 | Sprint 1 Foundation | Solution, API health, Angular shell, Docker, guardrails. | Yes | No real integration. |

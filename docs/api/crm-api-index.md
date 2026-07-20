@@ -9,6 +9,9 @@
 - `GET /api/crm/domain-catalog`
 - `GET /api/crm/contracts`
 - `GET /api/crm/integration-boundaries`
+- `POST /api/crm/foundation/leads/preview`
+- `POST /api/crm/foundation/accounts/preview`
+- `POST /api/crm/foundation/contacts/preview`
 
 ## Runtime
 
@@ -16,6 +19,7 @@
 - Mode: NonProduction.
 - Contract status: Draft.
 - Database: none.
+- Foundation previews: enabled, not persisted.
 
 ## Next API work
 

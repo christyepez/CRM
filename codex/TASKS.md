@@ -10,6 +10,16 @@
 - [x] Add unit and architecture tests.
 - [x] Keep DB/migrations/auth/token storage out of scope.
 
+## CRM Sprint 1 P3 - Leads, Accounts and Contacts Foundation
+
+- [x] Validate GitHub main contains P2 commit.
+- [x] Strengthen Lead, Account and Contact domain rules.
+- [x] Add foundation-only Application preview services.
+- [x] Add preview endpoints under `/api/crm/foundation/.../preview`.
+- [x] Document foundation rules and preview API.
+- [x] Add unit and architecture tests.
+- [x] Keep persistence, productive CRUD, DELETE, Auth, token storage and integrations out of scope.
+
 ## CRM Sprint 1 P1 - Repository Foundation and Architecture Baseline
 
 - [x] Confirmar GitHub `main` como fuente principal.
