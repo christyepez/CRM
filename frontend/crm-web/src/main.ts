@@ -12,6 +12,10 @@ class CrmReadinessService {
       module: 'CRM',
       status: 'ReadyForFoundationOnly',
       domainCatalog: 'Draft',
+      leadsFoundation: 'PreviewOnly',
+      accountsFoundation: 'PreviewOnly',
+      contactsFoundation: 'PreviewOnly',
+      persistence: 'None',
       portalIntegration: 'Planned',
       financialIntegration: 'Planned',
       runtimeMode: 'NonProduction',
@@ -27,6 +31,10 @@ class CrmReadinessService {
     <section class="card">
       <h1>CRM Foundation</h1>
       <p>CRM Domain Catalog: Draft</p>
+      <p>Leads Foundation: PreviewOnly</p>
+      <p>Accounts Foundation: PreviewOnly</p>
+      <p>Contacts Foundation: PreviewOnly</p>
+      <p>Persistence: None</p>
       <p>Portal Integration Planned</p>
       <p>Financial Integration Planned</p>
       <p>Non-Production</p>

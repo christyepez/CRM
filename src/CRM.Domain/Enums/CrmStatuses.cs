@@ -38,3 +38,24 @@ public enum CustomerConversionStatus
     Converted = 1,
     Rejected = 2
 }
+
+public enum AccountStatus
+{
+    Draft = 0,
+    Active = 1,
+    Inactive = 2
+}
+
+public enum ContactStatus
+{
+    Draft = 0,
+    Active = 1,
+    Inactive = 2
+}
+
+public enum PreferredContactMethod
+{
+    NotSpecified = 0,
+    Email = 1,
+    Phone = 2
+}

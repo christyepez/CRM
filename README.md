@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 1 P3 - Leads, Accounts and Contacts Foundation
+
+P3 adds foundation-only rules and preview endpoints for Leads, Accounts and Contacts. These endpoints validate contracts and business rules, but do not persist, do not integrate, and are not productive CRM APIs.
+
+Preview endpoints:
+
+- `POST /api/crm/foundation/leads/preview`
+- `POST /api/crm/foundation/accounts/preview`
+- `POST /api/crm/foundation/contacts/preview`
+
+Every preview response includes `foundationMode=true`, `persistence=None`, `runtimeMode=NonProduction` and `warning=Preview only, not persisted`.
+
 ## Sprint 1 P2 - Core Domain Discovery and API Contract Baseline
 
 P2 adds a draft CRM domain model and read-only contract endpoints. It remains non-production and does not add persistence, migrations, CRM CRUD, login, Identity, token storage or real Portal/Financiero integration.

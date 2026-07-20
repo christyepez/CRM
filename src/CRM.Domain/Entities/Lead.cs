@@ -9,12 +9,14 @@ public sealed class Lead
 {
     private readonly List<DomainEvent> _domainEvents = [];
 
-    private Lead(CrmId id, PersonName name, EmailAddress email, CompanyName? company)
+    private Lead(CrmId id, PersonName name, EmailAddress email, CompanyName? company, LeadSource? source, CrmId? campaignId)
     {
         Id = id;
         Name = name;
         Email = email;
         Company = company;
+        Source = source;
+        CampaignId = campaignId;
         Status = LeadStatus.New;
     }
 
@@ -22,23 +24,53 @@ public sealed class Lead
     public PersonName Name { get; }
     public EmailAddress Email { get; }
     public CompanyName? Company { get; }
+    public LeadSource? Source { get; }
+    public CrmId? CampaignId { get; }
+    public DisqualificationReason? DisqualificationReason { get; private set; }
     public LeadStatus Status { get; private set; }
     public IReadOnlyCollection<DomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public static Lead Create(CrmId id, PersonName name, EmailAddress email, CompanyName? company, DateTimeOffset occurredAtUtc)
+    public static Lead Create(CrmId id, PersonName name, EmailAddress email, CompanyName? company, DateTimeOffset occurredAtUtc, LeadSource? source = null, CrmId? campaignId = null)
     {
-        var lead = new Lead(id, name, email, company);
+        var lead = new Lead(id, name, email, company, source, campaignId);
         lead._domainEvents.Add(new LeadCreatedDomainEvent(id, occurredAtUtc));
         return lead;
     }
 
+    public void MarkContacted()
+    {
+        EnsureStatus(LeadStatus.New, "Only new leads can be marked as contacted.");
+        Status = LeadStatus.Contacted;
+    }
+
     public void Qualify()
     {
-        if (Status is LeadStatus.Disqualified or LeadStatus.Converted)
+        EnsureStatus(LeadStatus.Contacted, "Only contacted leads can be qualified.");
+        Status = LeadStatus.Qualified;
+    }
+
+    public void Convert()
+    {
+        EnsureStatus(LeadStatus.Qualified, "Only qualified leads can be converted.");
+        Status = LeadStatus.Converted;
+    }
+
+    public void Disqualify(DisqualificationReason reason)
+    {
+        if (Status is LeadStatus.Converted or LeadStatus.Disqualified)
         {
-            throw new InvalidOperationException("Only active leads can be qualified.");
+            throw new InvalidOperationException("Converted or already disqualified leads cannot be disqualified.");
         }
 
-        Status = LeadStatus.Qualified;
+        DisqualificationReason = reason;
+        Status = LeadStatus.Disqualified;
+    }
+
+    private void EnsureStatus(LeadStatus expected, string message)
+    {
+        if (Status != expected)
+        {
+            throw new InvalidOperationException(message);
+        }
     }
 }

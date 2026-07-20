@@ -30,6 +30,7 @@ public sealed class DomainCoreTests
             CompanyName.From("Example Co"),
             new DateTimeOffset(2026, 7, 20, 0, 0, 0, TimeSpan.Zero));
 
+        lead.MarkContacted();
         lead.Qualify();
 
         Assert.Equal(LeadStatus.Qualified, lead.Status);

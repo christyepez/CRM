@@ -11,6 +11,13 @@ Sprint 1 P2 adds a draft domain and API contract baseline. CRM is not production
 - Portal and Financiero boundaries documented.
 - No persistence or production commands.
 
+## Sprint 1 P3
+
+- Lead, Account and Contact foundation rules.
+- Foundation-only preview services and endpoints.
+- Persistence remains none.
+- Productive CRM APIs remain blocked.
+
 ## Roadmap
 
 1. Repository foundation and architecture baseline.

@@ -35,3 +35,13 @@ Returns explicit boundaries:
 - CreateLead/UpdateLead/DeleteLead.
 - Database-backed queries.
 - Own login, Identity or token storage.
+
+## P3 foundation preview endpoints
+
+P3 allows POST endpoints only under `/api/crm/foundation/.../preview`.
+
+- `POST /api/crm/foundation/leads/preview`
+- `POST /api/crm/foundation/accounts/preview`
+- `POST /api/crm/foundation/contacts/preview`
+
+These endpoints return `foundationMode: true`, `persistence: None` and `warning: Preview only, not persisted`.
