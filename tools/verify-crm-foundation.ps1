@@ -22,10 +22,22 @@ function Require-Path($Path) {
     "docs/architecture/crm-clean-architecture.md",
     "docs/architecture/crm-portal-integration-principles.md",
     "docs/architecture/crm-security-guardrails.md",
+    "docs/domain/crm-domain-model.md",
+    "docs/domain/crm-business-rules.md",
+    "docs/api/crm-api-contracts.md",
+    "docs/api/crm-api-index.md",
+    "docs/integration/crm-portal-boundary.md",
+    "docs/integration/crm-financial-boundary.md",
     "docs/roadmap/crm-roadmap.md",
     "docs/roadmap/crm-sprint-plan.md",
     "docs/releases/crm-sprint-1-notes.md",
-    "frontend/crm-web/package.json"
+    "frontend/crm-web/package.json",
+    "src/CRM.Domain/Entities/Lead.cs",
+    "src/CRM.Domain/Entities/Opportunity.cs",
+    "src/CRM.Domain/Entities/Activity.cs",
+    "src/CRM.Domain/ValueObjects/ContactValueObjects.cs",
+    "src/CRM.Domain/ValueObjects/BusinessValueObjects.cs",
+    "src/CRM.Application/Contracts/CrmDomainCatalogService.cs"
 ) | ForEach-Object { Require-Path $_ }
 
 $composeText = if (Test-Path "docker-compose.yml") { Get-Content -Raw "docker-compose.yml" } else { "" }
@@ -39,7 +51,7 @@ if (Test-Path ".env") {
 }
 
 $scanRoots = @("src", "tests", "frontend", "docker-compose.yml", "docker-compose.crm.yml")
-$patterns = "BEGIN PRIVATE KEY|BEGIN CERTIFICATE|access_token=|id_token=|refresh_token=|localStorage|sessionStorage|Microsoft\.AspNetCore\.Identity|AddIdentity|HardcodedFinanciero|https://github\.com/christyepez/Financiero/.*/api"
+$patterns = "BEGIN PRIVATE KEY|BEGIN CERTIFICATE|access_token=|id_token=|refresh_token=|localStorage|sessionStorage|Microsoft\.AspNetCore\.Identity|AddIdentity|HardcodedFinanciero|https://github\.com/christyepez/Financiero/.*/api|https?://.*Financiero|https?://.*PortalCorporativo"
 foreach ($root in $scanRoots) {
     if (Test-Path $root) {
         $paths = if ((Get-Item $root).PSIsContainer) {
@@ -57,7 +69,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -66,6 +78,23 @@ foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readi
 $crudPatterns = "MapPost|MapPut|MapDelete|CreateLead|CreateCustomer|CreateOpportunity"
 if ($apiProgram -match $crudPatterns) {
     $failures += "Premature CRM mutating endpoint found."
+}
+
+$sourceText = ""
+foreach ($root in @("src")) {
+    if (Test-Path $root) {
+        Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
+            Where-Object { $_.FullName -notmatch "\\(bin|obj)\\" } |
+            ForEach-Object { $sourceText += "`n" + (Get-Content -Raw $_.FullName) }
+    }
+}
+
+if ($sourceText -match "DbContext|DbSet<|MigrationBuilder|UseSqlServer") {
+    $failures += "Productive persistence, migration or DbContext reference found."
+}
+
+if (Test-Path "database") {
+    $failures += "Database directory or migration baseline must not exist in P2."
 }
 
 if ($failures.Count -gt 0) {

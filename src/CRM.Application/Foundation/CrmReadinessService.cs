@@ -1,13 +1,7 @@
+using CRM.Application.Contracts;
 using CRM.Domain.Foundation;
 
 namespace CRM.Application.Foundation;
-
-public sealed record CrmReadinessResponse(
-    string Module,
-    string Status,
-    string PortalIntegration,
-    string FinancialIntegration,
-    string RuntimeMode);
 
 public sealed class CrmReadinessService
 {
@@ -17,5 +11,6 @@ public sealed class CrmReadinessService
             CrmFoundationStatus.Status,
             CrmFoundationStatus.PortalIntegration,
             CrmFoundationStatus.FinancialIntegration,
-            CrmFoundationStatus.RuntimeMode);
+            CrmFoundationStatus.RuntimeMode,
+            "Draft");
 }

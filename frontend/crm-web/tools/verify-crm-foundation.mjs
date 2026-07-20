@@ -9,7 +9,7 @@ const required = [
   'src/index.html',
   'src/styles.css'
 ];
-const forbidden = ['localStorage', 'sessionStorage', 'token', 'login', 'Identity', 'roles'];
+const forbidden = ['localStorage', 'sessionStorage', 'token', 'login', 'Identity', 'roles', '<form', 'FormGroup', 'ngSubmit', 'CreateLead', 'UpdateLead', 'DeleteLead'];
 const failures = [];
 
 for (const file of required) {
@@ -33,6 +33,13 @@ for (const file of files(join(root, 'src'))) {
     if (text.includes(token)) {
       failures.push(`Forbidden token '${token}' in ${file}`);
     }
+  }
+}
+
+const main = readFileSync(join(root, 'src/main.ts'), 'utf8');
+for (const expected of ['CRM Domain Catalog: Draft', 'Portal Integration Planned', 'Financial Integration Planned', 'Non-Production']) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing readiness label '${expected}'`);
   }
 }
 

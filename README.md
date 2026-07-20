@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 1 P2 - Core Domain Discovery and API Contract Baseline
+
+P2 adds a draft CRM domain model and read-only contract endpoints. It remains non-production and does not add persistence, migrations, CRM CRUD, login, Identity, token storage or real Portal/Financiero integration.
+
+Additional endpoints:
+
+- `GET /api/crm/domain-catalog`
+- `GET /api/crm/contracts`
+- `GET /api/crm/integration-boundaries`
+
+Domain concepts now documented and represented in pure domain code: Lead, Account, Contact, Opportunity, Pipeline, PipelineStage, Activity, Note, Campaign and Segment.
+
 ## Sprint 1 P1 - Foundation Architecture Baseline
 
 CRM starts as an independent repository foundation using .NET 8, Angular and Docker Compose. The current runtime is non-production and foundation-only.
