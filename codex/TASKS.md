@@ -1,5 +1,15 @@
 # TASKS.md
 
+## CRM Sprint 1 P2 - Core Domain Discovery and API Contract Baseline
+
+- [x] Validate GitHub main contains P1 commit.
+- [x] Create pure CRM domain baseline.
+- [x] Create application contract catalog.
+- [x] Add non-mutating API contract endpoints.
+- [x] Document domain, API and integration boundaries.
+- [x] Add unit and architecture tests.
+- [x] Keep DB/migrations/auth/token storage out of scope.
+
 ## CRM Sprint 1 P1 - Repository Foundation and Architecture Baseline
 
 - [x] Confirmar GitHub `main` como fuente principal.

@@ -2,7 +2,14 @@
 
 ## Current status
 
-Sprint 1 P1 creates the foundation only. CRM is not production-ready and does not contain business CRUD.
+Sprint 1 P2 adds a draft domain and API contract baseline. CRM is not production-ready and does not contain business CRUD, persistence or real integrations.
+
+## Sprint 1 P2
+
+- Draft CRM domain model.
+- Draft API contract catalog.
+- Portal and Financiero boundaries documented.
+- No persistence or production commands.
 
 ## Roadmap
 

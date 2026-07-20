@@ -11,6 +11,7 @@ class CrmReadinessService {
     return {
       module: 'CRM',
       status: 'ReadyForFoundationOnly',
+      domainCatalog: 'Draft',
       portalIntegration: 'Planned',
       financialIntegration: 'Planned',
       runtimeMode: 'NonProduction',
@@ -25,6 +26,7 @@ class CrmReadinessService {
   template: `
     <section class="card">
       <h1>CRM Foundation</h1>
+      <p>CRM Domain Catalog: Draft</p>
       <p>Portal Integration Planned</p>
       <p>Financial Integration Planned</p>
       <p>Non-Production</p>

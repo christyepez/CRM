@@ -1,5 +1,12 @@
 # CRM Sprint Plan
 
+## Sprint 1 P2 - Core domain and contracts
+
+- CREATE: pure CRM domain concepts.
+- CREATE: read-only contract/catalog endpoints.
+- CREATE: architecture and domain tests.
+- BLOCKED/Deferred: persistence, commands, Portal runtime integration and Financiero integration.
+
 | Sprint | Scope | Can advance isolated | Depends on Portal/SQL |
 |---|---|---|---|
 | Sprint 1 Foundation | Solution, API health, Angular shell, Docker, guardrails. | Yes | No real integration. |
