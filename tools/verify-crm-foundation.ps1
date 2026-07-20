@@ -27,9 +27,14 @@ function Require-Path($Path) {
     "docs/domain/crm-leads-foundation.md",
     "docs/domain/crm-accounts-foundation.md",
     "docs/domain/crm-contacts-foundation.md",
+    "docs/data/crm-persistence-strategy.md",
+    "docs/data/crm-read-models.md",
+    "docs/data/crm-data-ownership.md",
+    "docs/data/crm-migration-readiness-checklist.md",
     "docs/api/crm-api-contracts.md",
     "docs/api/crm-api-index.md",
     "docs/api/crm-foundation-preview-api.md",
+    "docs/api/crm-read-model-preview-api.md",
     "docs/integration/crm-portal-boundary.md",
     "docs/integration/crm-financial-boundary.md",
     "docs/roadmap/crm-roadmap.md",
@@ -45,7 +50,10 @@ function Require-Path($Path) {
     "src/CRM.Application/Contracts/CrmDomainCatalogService.cs",
     "src/CRM.Application/Foundation/LeadFoundationService.cs",
     "src/CRM.Application/Foundation/AccountFoundationService.cs",
-    "src/CRM.Application/Foundation/ContactFoundationService.cs"
+    "src/CRM.Application/Foundation/ContactFoundationService.cs",
+    "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
+    "src/CRM.Application/ReadModels/ReadModelContracts.cs",
+    "src/CRM.Application/ReadModels/ReadModelPreviewServices.cs"
 ) | ForEach-Object { Require-Path $_ }
 
 $composeText = if (Test-Path "docker-compose.yml") { Get-Content -Raw "docker-compose.yml" } else { "" }
@@ -77,7 +85,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -97,6 +105,18 @@ $foundationText = ""
 Get-ChildItem -Path "src/CRM.Application/Foundation" -Filter "*.cs" -File | ForEach-Object { $foundationText += "`n" + (Get-Content -Raw $_.FullName) }
 if ($apiProgram -notlike "*Preview only, not persisted*" -and $foundationText -notlike "*Preview only, not persisted*") {
     $failures += "Foundation preview warning is missing."
+}
+
+$readModelText = Get-Content -Raw "src/CRM.Application/ReadModels/ReadModelPreviewServices.cs"
+if ($apiProgram -notlike "*Read model preview only, not persisted*" -and $readModelText -notlike "*Read model preview only, not persisted*") {
+    $failures += "Read model preview warning is missing."
+}
+
+$portText = Get-Content -Raw "src/CRM.Application/Persistence/CrmPersistencePorts.cs"
+foreach ($port in @("ILeadReadModelStore", "IAccountReadModelStore", "IContactReadModelStore", "ICrmUnitOfWork", "ICrmClock", "FuturePersistencePort")) {
+    if ($portText -notlike "*$port*") {
+        $failures += "Missing persistence port marker: $port"
+    }
 }
 
 $sourceText = ""

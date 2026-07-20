@@ -13,6 +13,13 @@
 - CREATE: preview services and preview API contracts.
 - BLOCKED/Deferred: productive persistence, productive CRUD, Portal runtime calls and Financiero integration.
 
+## Sprint 1 P4 - Controlled persistence and read models
+
+- CREATE: persistence strategy documentation.
+- CREATE: Application persistence ports and read model contracts.
+- CREATE: foundation mock read model services and GET preview endpoints.
+- BLOCKED/Deferred: real database, migrations, productive CRUD and runtime integrations.
+
 | Sprint | Scope | Can advance isolated | Depends on Portal/SQL |
 |---|---|---|---|
 | Sprint 1 Foundation | Solution, API health, Angular shell, Docker, guardrails. | Yes | No real integration. |

@@ -1,5 +1,6 @@
 using CRM.Application.Contracts;
 using CRM.Application.Foundation;
+using CRM.Application.ReadModels;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,10 @@ builder.Services.AddSingleton<CrmDomainCatalogService>();
 builder.Services.AddSingleton<LeadFoundationService>();
 builder.Services.AddSingleton<AccountFoundationService>();
 builder.Services.AddSingleton<ContactFoundationService>();
+builder.Services.AddSingleton<LeadReadModelPreviewService>();
+builder.Services.AddSingleton<AccountReadModelPreviewService>();
+builder.Services.AddSingleton<ContactReadModelPreviewService>();
+builder.Services.AddSingleton<CrmReadModelStatusService>();
 
 var app = builder.Build();
 
@@ -36,6 +41,18 @@ app.MapPost("/api/crm/foundation/accounts/preview", (AccountFoundationRequest re
 
 app.MapPost("/api/crm/foundation/contacts/preview", (ContactFoundationRequest request, ContactFoundationService service) => Results.Ok(service.Preview(request)))
     .WithName("PreviewCrmFoundationContact");
+
+app.MapGet("/api/crm/foundation/leads/read-model-preview", (LeadReadModelPreviewService service, string? search, int page = 1, int pageSize = 25) => Results.Ok(service.Preview(new CrmReadModelQuery(search, page, pageSize))))
+    .WithName("PreviewCrmFoundationLeadReadModel");
+
+app.MapGet("/api/crm/foundation/accounts/read-model-preview", (AccountReadModelPreviewService service, string? search, int page = 1, int pageSize = 25) => Results.Ok(service.Preview(new CrmReadModelQuery(search, page, pageSize))))
+    .WithName("PreviewCrmFoundationAccountReadModel");
+
+app.MapGet("/api/crm/foundation/contacts/read-model-preview", (ContactReadModelPreviewService service, string? search, int page = 1, int pageSize = 25) => Results.Ok(service.Preview(new CrmReadModelQuery(search, page, pageSize))))
+    .WithName("PreviewCrmFoundationContactReadModel");
+
+app.MapGet("/api/crm/foundation/read-model-status", (CrmReadModelStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationReadModelStatus");
 
 app.Run();
 

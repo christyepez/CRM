@@ -37,7 +37,7 @@ for (const file of files(join(root, 'src'))) {
 }
 
 const main = readFileSync(join(root, 'src/main.ts'), 'utf8');
-for (const expected of ['CRM Domain Catalog: Draft', 'Leads Foundation: PreviewOnly', 'Accounts Foundation: PreviewOnly', 'Contacts Foundation: PreviewOnly', 'Persistence: None', 'Portal Integration Planned', 'Financial Integration Planned', 'Non-Production']) {
+for (const expected of ['CRM Domain Catalog: Draft', 'Leads Foundation: PreviewOnly', 'Accounts Foundation: PreviewOnly', 'Contacts Foundation: PreviewOnly', 'Read Models: PreviewOnly', 'Persistence Strategy: Draft', 'Persistence: None', 'Portal Integration Planned', 'Financial Integration Planned', 'Non-Production']) {
   if (!main.includes(expected)) {
     failures.push(`Missing readiness label '${expected}'`);
   }

@@ -1,5 +1,18 @@
 # CRM Corporativo
 
+## Sprint 1 P4 - Controlled Persistence and Read Model Design
+
+P4 defines future persistence/read-model architecture without productive activation. It adds Application ports, read model contracts and foundation mock read-model endpoints. It still does not add DB, migrations, productive CRUD, DELETE, Auth, token storage or runtime Portal/Financiero integration.
+
+Read model preview endpoints:
+
+- `GET /api/crm/foundation/leads/read-model-preview`
+- `GET /api/crm/foundation/accounts/read-model-preview`
+- `GET /api/crm/foundation/contacts/read-model-preview`
+- `GET /api/crm/foundation/read-model-status`
+
+Every read-model preview response includes `source=FoundationMock`, `persistence=None` and `warning=Read model preview only, not persisted`.
+
 ## Sprint 1 P3 - Leads, Accounts and Contacts Foundation
 
 P3 adds foundation-only rules and preview endpoints for Leads, Accounts and Contacts. These endpoints validate contracts and business rules, but do not persist, do not integrate, and are not productive CRM APIs.
