@@ -208,3 +208,17 @@ Sprint 1 is closed as foundation only:
 - Next Gate: Sprint2Planning
 
 The closure endpoint is `/api/crm/foundation/sprint-1/closure-status`.
+
+# CRM Sprint 2 P1 Controlled Persistence Design Review
+
+CRM exposes foundation-only persistence readiness at `/api/crm/foundation/persistence/readiness`.
+
+Current persistence status:
+
+- Persistence Design Review: Active
+- Persistence Mode: DesignOnly
+- Database Configured: false
+- Migration Ready: false
+- Next Gate: Sprint2P2PersistenceSeam
+
+No database, migration, DbContext, DbSet, SQL Server or productive CRUD is active.

@@ -28,3 +28,4 @@
 | GET | `/api/crm/foundation/reporting/dashboards` | Dashboard catalog | FoundationMock | None | None | NotReady | No embed |
 | GET | `/api/crm/foundation/reporting/analytics-read-models` | Analytics metadata | FoundationMock | None | None | NotReady | No ETL |
 | GET | `/api/crm/foundation/sprint-1/closure-status` | Sprint 1 closure | FoundationClosed | None | None | NotReady | Closure only |
+| GET | `/api/crm/foundation/persistence/readiness` | Persistence design review | DesignOnly | None | None | NotReady | No DB configured |

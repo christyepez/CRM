@@ -11,3 +11,5 @@ Productization remains `NotReady` until:
 - Docker build is validated outside `BLOCKED_EXTERNAL_REGISTRY` conditions.
 
 No production activation may bypass these gates.
+
+Sprint 2 P1 adds persistence readiness metadata but keeps productization `NotReady`.
