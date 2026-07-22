@@ -76,3 +76,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-2/productization-gate` | Closes Sprint 2 with NoGoForProductiveActivation and Sprint 3 planning GO. |
+
+## Sprint 3 P1 durable persistence setup
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/durable-persistence-setup` | Describes design-only durable persistence setup gates without DB, EF runtime, migrations or connection strings. |

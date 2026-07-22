@@ -297,3 +297,22 @@ Current P6 decision:
 - Warning: Productization gate decision only; no productive activation
 
 No DB real, Auth real, Portal runtime, productive route, DELETE endpoint or product UI activation occurs in P6.
+
+### CRM Sprint 3 P1 - Durable persistence setup design
+
+CRM Sprint 3 P1 starts durable persistence preparation as design-only work.
+
+- Sprint 3 P1 Durable Persistence Setup: DesignOnly
+- Real Database Configured: false
+- EF Runtime Enabled: false
+- DbContext Configured: false
+- Migrations Created: false
+- Connection Strings Configured: false
+- SQL Server Owned By CRM: false
+- Secret Strategy: PlannedOnly
+- Migration Strategy: PlannedOnly
+- Productive Activation: NoGo
+- Next Gate: Sprint3P2CommonDbConnectionContractAndSecretStrategy
+- Warning: Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured
+
+No DB real, EF runtime, migrations, connection strings, SQL Server container, secrets, `.env`, productive routes or DELETE endpoint are added in P1.
