@@ -193,6 +193,24 @@ Out of scope:
 - DB, migrations, DbContext, SQL Server.
 - Login, token storage, DELETE or productive CRM APIs.
 
+# CRM Sprint 2 P1
+
+Status: implemented in branch `crm-sprint-2-p1-controlled-persistence-design-review`.
+
+Scope:
+
+- Persistence design review documentation.
+- Logical data model contracts.
+- Foundation-only persistence readiness endpoint.
+- GO/NO-GO gates for Sprint 2 P2.
+
+Out of scope:
+
+- Database activation.
+- EF migrations, DbContext, DbSet.
+- SQL Server owned by CRM.
+- Productive CRUD or DELETE endpoints.
+
 # CRM Sprint 1 P6
 
 Status: implemented in branch `crm-sprint-1-p6-financial-adapter-contracts`.

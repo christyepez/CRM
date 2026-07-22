@@ -37,6 +37,11 @@ class CrmReadinessService {
       productization: 'NotReady',
       nextGate: 'Sprint2Planning',
       dockerExternalRegistryNote: 'BLOCKED_EXTERNAL_REGISTRY documented when MCR times out',
+      persistenceDesignReview: 'Active',
+      persistenceMode: 'DesignOnly',
+      databaseConfigured: false,
+      migrationReady: false,
+      persistenceNextGate: 'Sprint2P2PersistenceSeam',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -76,6 +81,11 @@ class CrmReadinessService {
       <p>Next Gate: Sprint2Planning</p>
       <p>Runtime: NonProduction</p>
       <p>Docker External Registry Note: BLOCKED_EXTERNAL_REGISTRY documented when MCR times out</p>
+      <p>Persistence Design Review: Active</p>
+      <p>Persistence Mode: DesignOnly</p>
+      <p>Database Configured: false</p>
+      <p>Migration Ready: false</p>
+      <p>Persistence Next Gate: Sprint2P2PersistenceSeam</p>
       <p>Non-Production</p>
     </section>
   `

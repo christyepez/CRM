@@ -8,3 +8,5 @@
 6. Sprint 2 P6: Productization gate decision.
 
 This path is conservative: it activates infrastructure seams before product behavior.
+
+Sprint 2 P1 is active as design review only. Sprint 2 P2 remains gated by database approval, Portal authorization expectations and migration plan approval.

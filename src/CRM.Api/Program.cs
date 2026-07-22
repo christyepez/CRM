@@ -1,6 +1,7 @@
 using CRM.Application.Contracts;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
+using CRM.Application.Persistence;
 using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
@@ -21,6 +22,7 @@ builder.Services.AddSingleton<CrmPortalIntegrationStatusService>();
 builder.Services.AddSingleton<CrmFinancialIntegrationStatusService>();
 builder.Services.AddSingleton<CrmReportingIntegrationStatusService>();
 builder.Services.AddSingleton<CrmSprint1ClosureStatusService>();
+builder.Services.AddSingleton<CrmPersistenceReadinessService>();
 
 var app = builder.Build();
 
@@ -96,6 +98,9 @@ app.MapGet("/api/crm/foundation/reporting/analytics-read-models", (CrmReportingI
 
 app.MapGet("/api/crm/foundation/sprint-1/closure-status", (CrmSprint1ClosureStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint1ClosureStatus");
+
+app.MapGet("/api/crm/foundation/persistence/readiness", (CrmPersistenceReadinessService service) => Results.Ok(service.GetReadiness()))
+    .WithName("GetCrmFoundationPersistenceReadiness");
 
 app.Run();
 

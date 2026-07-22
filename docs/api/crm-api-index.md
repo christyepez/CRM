@@ -68,3 +68,11 @@ Closure readiness endpoint:
 - `GET /api/crm/foundation/sprint-1/closure-status`
 
 This endpoint is closure metadata only and must not be treated as productive CRM API activation.
+
+# CRM API Index - Sprint 2 P1 Addendum
+
+Persistence readiness endpoint:
+
+- `GET /api/crm/foundation/persistence/readiness`
+
+This endpoint is design-review metadata only and must not be treated as DB activation.

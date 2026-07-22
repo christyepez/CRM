@@ -83,3 +83,9 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Added endpoint inventory, guardrail register and sensitive data policy.
 - Added Sprint 2 options, recommended path and productization gates.
 - Added foundation-only closure status endpoint.
+
+# Sprint 2 P1 - Controlled Persistence Design Review
+
+- Added design-only persistence readiness contracts and endpoint.
+- Added persistence design review documentation and activation gates.
+- Kept database, migrations, DbContext, DbSet and productive CRUD disabled.

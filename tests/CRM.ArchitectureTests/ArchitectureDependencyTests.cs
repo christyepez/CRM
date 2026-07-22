@@ -35,7 +35,7 @@ public sealed class ArchitectureDependencyTests
     [Fact]
     public void Infrastructure_DoesNotContainProductivePersistenceYet()
     {
-        var source = ReadSourceFiles("src", "CRM.Infrastructure");
+        var source = ReadSourceFiles(Path.Combine("src", "CRM.Infrastructure"));
 
         Assert.DoesNotContain("DbContext", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
@@ -69,6 +69,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/reporting/dashboards", program);
         Assert.Contains("/api/crm/foundation/reporting/analytics-read-models", program);
         Assert.Contains("/api/crm/foundation/sprint-1/closure-status", program);
+        Assert.Contains("/api/crm/foundation/persistence/readiness", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -278,6 +279,18 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-1", program);
         Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/sprint-1", program);
         Assert.Contains("Foundation closure only; no productive activation", ReadSourceFiles("src", "CRM.Application"));
+    }
+
+    [Fact]
+    public void PersistenceReadinessEndpoint_IsFoundationGetOnly()
+    {
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/persistence/readiness\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/persistence", program);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/persistence", program);
+        Assert.Contains("Persistence design review only; no database configured", ReadSourceFiles("src", "CRM.Application"));
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

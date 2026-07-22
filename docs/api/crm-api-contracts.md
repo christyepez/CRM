@@ -95,3 +95,11 @@ Sprint 1 P8 adds a foundation-only closure endpoint:
 - `GET /api/crm/foundation/sprint-1/closure-status`
 
 It returns `FoundationClosed`, `ProductizationStatus=NotReady`, `NextGate=Sprint2Planning` and `Foundation closure only; no productive activation`.
+
+# CRM API Contracts - Sprint 2 P1 Persistence Readiness
+
+Sprint 2 P1 adds a foundation-only persistence readiness endpoint:
+
+- `GET /api/crm/foundation/persistence/readiness`
+
+It returns `persistenceMode=DesignOnly`, `databaseConfigured=false`, `migrationReady=false`, `dbContextConfigured=false`, `sqlServerOwnedByCrm=false` and `Persistence design review only; no database configured`.
