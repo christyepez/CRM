@@ -155,3 +155,11 @@ P1 adds a read-only foundation endpoint:
 - `GET /api/crm/foundation/sprint-3/durable-persistence-setup`
 
 It returns `status=DurablePersistenceSetupDesign`, `durablePersistenceMode=DesignOnly`, `realDatabaseConfigured=false`, `efRuntimeEnabled=false`, `dbContextConfigured=false`, `migrationsCreated=false`, `connectionStringsConfigured=false`, `sqlServerOwnedByCrm=false`, `productiveActivation=NoGo`, `nextGate=Sprint3P2CommonDbConnectionContractAndSecretStrategy` and `Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured`.
+
+## Sprint 3 P2 common DB connection strategy
+
+P2 adds a read-only foundation endpoint:
+
+- `GET /api/crm/foundation/sprint-3/common-db-connection-strategy`
+
+It returns `status=CommonDbConnectionStrategy`, `realDatabaseConfigured=false`, `connectionStringsConfigured=false`, `secretProviderConfigured=false`, `secretProviderRuntimeConnected=false`, `sqlServerOwnedByCrm=false`, `efRuntimeEnabled=false`, `dbContextConfigured=false`, `migrationsCreated=false`, `logicalDatabaseName=CrmDb`, `logicalDatabaseNameIsPlaceholder=true`, `secretStrategy=ContractOnly`, `connectionStringPolicy=NoRealValuesInRepository`, `nextGate=Sprint3P3EfDbContextPrototypeBehindDisabledFlag` and `Common DB connection contract only; no real database or secrets configured`.

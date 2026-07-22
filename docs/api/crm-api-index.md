@@ -94,3 +94,7 @@ P6 productization gate endpoint is read-only and closes Sprint 2 without activat
 Sprint 3 P1 durable persistence setup endpoint is read-only and design-only:
 
 - `GET /api/crm/foundation/sprint-3/durable-persistence-setup`
+
+Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-only:
+
+- `GET /api/crm/foundation/sprint-3/common-db-connection-strategy`

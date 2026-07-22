@@ -10,3 +10,5 @@ Rules:
 - Future configuration source: Portal Configuration, external secret provider or secure runtime environment.
 
 Sprint 3 P2 must define the common DB connection contract and secret injection strategy before any runtime persistence work.
+
+Sprint 3 P2 result: `ContractOnly`; no secret provider runtime, no `.env`, and no connection string values are configured.

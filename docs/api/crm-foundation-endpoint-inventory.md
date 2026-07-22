@@ -82,3 +82,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/durable-persistence-setup` | Describes design-only durable persistence setup gates without DB, EF runtime, migrations or connection strings. |
+
+## Sprint 3 P2 common DB connection strategy
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/common-db-connection-strategy` | Describes contract-only common DB and secret strategy without real DB, secrets or connection values. |

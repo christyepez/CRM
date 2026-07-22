@@ -103,3 +103,5 @@ P5 adds integration readiness review and does not activate DB, Auth or productiv
 P6 closes Sprint 2 with `OverallDecision=NoGoForProductiveActivation`, keeps `ProductizationStatus=NotReady`, and approves Sprint 3 planning only.
 
 Sprint 3 P1 starts durable persistence setup design only; no DB, EF runtime, migrations, connection strings, secrets or productive activation are added.
+
+Sprint 3 P2 defines common DB connection and secret strategy contracts only; no real DB, real secrets, connection values, EF runtime or productive activation are added.
