@@ -181,3 +181,17 @@ Current status:
 - Integration patterns: API + Events + NoSharedDatabase
 
 CRM does not create invoices, collections, SRI, ATS, RIDE, XAdES, shared databases, FinancieroDb queries or runtime Financiero calls.
+
+# CRM Sprint 1 P7 Reporting/BI Contract Foundation
+
+CRM exposes foundation-only Reporting readiness endpoints under `/api/crm/foundation/reporting/...`.
+
+Current status:
+
+- Analytics mode: Planned
+- Runtime mode: NonProduction
+- Connected: false
+- Source: FoundationMock
+- Power BI Embed: NotConfigured
+
+CRM does not implement real dashboards, Power BI embedding, datasets, ETL, workspace IDs, report IDs, embed tokens, SQL queries or productive analytics endpoints.

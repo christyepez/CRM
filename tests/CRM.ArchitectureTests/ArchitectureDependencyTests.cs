@@ -64,6 +64,10 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/financial-integration/contracts", program);
         Assert.Contains("/api/crm/foundation/financial-integration/required-capabilities", program);
         Assert.Contains("/api/crm/foundation/financial-integration/events", program);
+        Assert.Contains("/api/crm/foundation/reporting/status", program);
+        Assert.Contains("/api/crm/foundation/reporting/kpis", program);
+        Assert.Contains("/api/crm/foundation/reporting/dashboards", program);
+        Assert.Contains("/api/crm/foundation/reporting/analytics-read-models", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -202,6 +206,65 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("RIDE", source, StringComparison.Ordinal);
         Assert.DoesNotContain("XAdES", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("ATS", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ReportingPorts_AreApplicationInterfacesOnly()
+    {
+        var root = FindRepositoryRoot();
+        var portsPath = Path.Combine(root, "src", "CRM.Application", "Ports", "Reporting");
+
+        Assert.True(Directory.Exists(portsPath));
+        foreach (var file in Directory.EnumerateFiles(portsPath, "*.cs"))
+        {
+            var source = File.ReadAllText(file);
+
+            Assert.Contains("interface", source, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("FutureReportingAdapter", source, StringComparison.Ordinal);
+            Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("PowerBI", source, StringComparison.Ordinal);
+            Assert.DoesNotContain("EmbedToken", source, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    [Fact]
+    public void Domain_DoesNotReferenceReportingPorts()
+    {
+        var source = ReadSourceFiles(Path.Combine("src", "CRM.Domain"));
+
+        Assert.DoesNotContain("CRM.Application.Ports.Reporting", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("ICrmKpi", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("ICrmDashboard", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ReportingPlaceholder_DoesNotUsePowerBiRuntimeOrIds()
+    {
+        var source = ReadSourceFiles(Path.Combine("src", "CRM.Infrastructure"))
+            .Replace("FuturePowerBiEmbedding", string.Empty, StringComparison.Ordinal)
+            .Replace("\"EmbedToken\"", string.Empty, StringComparison.Ordinal);
+
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Microsoft.PowerBI", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("EmbedToken", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("WorkspaceId", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ReportId", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DatasetId", source, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("NonProductionPlaceholder", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void ReportingEndpoints_AreFoundationGetOnly()
+    {
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/reporting/status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/reporting/kpis\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/reporting/dashboards\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/reporting/analytics-read-models\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/reporting", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/reporting", program);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/reporting", program);
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

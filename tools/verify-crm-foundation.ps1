@@ -46,6 +46,12 @@ function Require-Path($Path) {
     "docs/integration/crm-financial-event-contracts.md",
     "docs/security/crm-portal-security-boundary.md",
     "docs/security/crm-financial-security-boundary.md",
+    "docs/security/crm-reporting-security-boundary.md",
+    "docs/reporting/crm-reporting-contracts.md",
+    "docs/reporting/crm-kpi-catalog.md",
+    "docs/reporting/crm-dashboard-catalog.md",
+    "docs/reporting/crm-analytics-read-models.md",
+    "docs/reporting/crm-powerbi-readiness-checklist.md",
     "docs/roadmap/crm-roadmap.md",
     "docs/roadmap/crm-sprint-plan.md",
     "docs/releases/crm-sprint-1-notes.md",
@@ -83,6 +89,14 @@ function Require-Path($Path) {
     "src/CRM.Application/Ports/Financial/IFinancialEventPublisher.cs",
     "src/CRM.Infrastructure/Financial/FinancialAdapterNotConfiguredException.cs",
     "src/CRM.Infrastructure/Financial/FinancialIntegrationPlaceholder.cs",
+    "src/CRM.Application/Reporting/CrmReportingIntegrationStatusService.cs",
+    "src/CRM.Application/Reporting/ReportingContracts.cs",
+    "src/CRM.Application/Ports/Reporting/ICrmKpiCatalogProvider.cs",
+    "src/CRM.Application/Ports/Reporting/ICrmDashboardCatalogProvider.cs",
+    "src/CRM.Application/Ports/Reporting/ICrmAnalyticsReadModelProvider.cs",
+    "src/CRM.Application/Ports/Reporting/ICrmReportAuthorizationContext.cs",
+    "src/CRM.Infrastructure/Reporting/ReportingAdapterNotConfiguredException.cs",
+    "src/CRM.Infrastructure/Reporting/ReportingIntegrationPlaceholder.cs",
     "src/CRM.Application/ReadModels/ReadModelContracts.cs",
     "src/CRM.Application/ReadModels/ReadModelPreviewServices.cs"
 ) | ForEach-Object { Require-Path $_ }
@@ -116,7 +130,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -132,6 +146,10 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/portal
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/financial-integration") {
     $failures += "Financial integration endpoints must remain GET-only foundation endpoints."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/reporting") {
+    $failures += "Reporting endpoints must remain GET-only foundation endpoints."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -183,12 +201,22 @@ foreach ($marker in @("Financial integration contracts only; no runtime calls co
     }
 }
 
+foreach ($marker in @("Reporting contracts only; no analytics runtime configured", "FutureReportingAdapter", "LeadConversionRate", "CRM Executive Overview", "FoundationMock")) {
+    if ($sourceText -notlike "*$marker*") {
+        $failures += "Missing Reporting guardrail marker: $marker"
+    }
+}
+
 if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
     $failures += "Runtime Portal adapter, URL or HTTP client found before integration approval."
 }
 
 if ($sourceText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
     $failures += "Runtime Financial adapter, connection string, shared DB or URL found before integration approval."
+}
+
+if ($sourceText -cmatch "Microsoft\.PowerBI|embedToken|workspaceId|reportId|datasetId|embedUrl|powerbi\.com|ConnectionString") {
+    $failures += "Runtime BI adapter, token, ID, URL or connection string found before analytics approval."
 }
 
 if (Test-Path "database") {

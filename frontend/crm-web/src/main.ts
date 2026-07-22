@@ -27,6 +27,12 @@ class CrmReadinessService {
       financialCapabilityOwner: 'Financiero',
       financialIntegrationPattern: 'API + Events + NoSharedDatabase',
       taxArtifacts: 'SRI/ATS/RIDE/XAdES: NotImplementedInCRM',
+      reportingIntegration: 'Planned',
+      reportingConnected: false,
+      analyticsMode: 'Planned',
+      kpiCatalog: 'Foundation',
+      dashboardCatalog: 'Foundation',
+      powerBiEmbed: 'NotConfigured',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -55,6 +61,12 @@ class CrmReadinessService {
       <p>Financial Capability Owner: Financiero</p>
       <p>Integration Pattern: API + Events + NoSharedDatabase</p>
       <p>SRI/ATS/RIDE/XAdES: NotImplementedInCRM</p>
+      <p>Reporting Integration: Planned</p>
+      <p>Reporting Connected: false</p>
+      <p>Analytics Mode: Planned</p>
+      <p>KPI Catalog: Foundation</p>
+      <p>Dashboard Catalog: Foundation</p>
+      <p>Power BI Embed: NotConfigured</p>
       <p>Non-Production</p>
     </section>
   `

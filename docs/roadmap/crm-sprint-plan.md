@@ -40,3 +40,5 @@ CRM may proceed independently only as foundation and isolated domain work. Produ
 P5 prepares Portal adapter contracts only. It does not implement real integration, CRM-owned security, CRM-owned menu, CRM-owned audit, CRM-owned notification, CRM-owned configuration, database persistence or productive CRM endpoints.
 
 P6 prepares Financial adapter contracts only. It does not implement real Financiero integration, shared database access, invoices, collections, SRI, ATS, RIDE, XAdES, database persistence or productive CRM endpoints.
+
+P7 prepares Reporting/BI contracts only. It does not implement real Power BI embedding, datasets, ETL, report IDs, workspace IDs, embed tokens, database persistence or productive analytics endpoints.

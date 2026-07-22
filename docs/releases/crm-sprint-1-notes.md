@@ -67,3 +67,11 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Added NonProduction placeholder in Infrastructure without HTTP clients, URLs, connection strings or DB access.
 - Added foundation-only Financial integration readiness endpoints.
 - Added guardrail tests and verification checks to prevent direct coupling or shared database usage.
+
+# Sprint 1 P7 - Reporting and BI Contract Foundation
+
+- Added CRM Application ports for future reporting and BI adapters.
+- Added KPI, dashboard, analytics read model and metric definition contracts.
+- Added NonProduction reporting placeholder without Power BI runtime, IDs, URLs or tokens.
+- Added foundation-only Reporting readiness endpoints.
+- Added documentation and guardrail tests to prevent productive analytics activation.

@@ -76,3 +76,14 @@ Sprint 1 P6 adds foundation-only Financial adapter contract endpoints:
 - `GET /api/crm/foundation/financial-integration/events`
 
 All responses are NonProduction readiness contracts with `integrationMode=Planned`, `connected=false`, `capabilityOwner=Financiero` and `integrationPatterns=API, Events, NoSharedDatabase`. They do not call Financiero at runtime.
+
+# CRM API Contracts - P7 Reporting/BI
+
+Sprint 1 P7 adds foundation-only Reporting/BI contract endpoints:
+
+- `GET /api/crm/foundation/reporting/status`
+- `GET /api/crm/foundation/reporting/kpis`
+- `GET /api/crm/foundation/reporting/dashboards`
+- `GET /api/crm/foundation/reporting/analytics-read-models`
+
+All responses are NonProduction readiness contracts with `analyticsMode=Planned`, `connected=false`, `source=FoundationMock` and no analytics runtime configured.
