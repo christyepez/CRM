@@ -98,3 +98,6 @@ Sprint 3 P1 durable persistence setup endpoint is read-only and design-only:
 Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-only:
 
 - `GET /api/crm/foundation/sprint-3/common-db-connection-strategy`
+# Sprint 3 P3
+
+- `GET /api/crm/foundation/sprint-3/ef-prototype-status`: EF/DbContext prototype status, disabled runtime.

@@ -26,6 +26,7 @@ builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
 builder.Services.AddSingleton<CrmSprint2ProductizationGateService>();
 builder.Services.AddSingleton<CrmDurablePersistenceSetupStatusService>();
 builder.Services.AddSingleton<CrmCommonDbConnectionStrategyStatusService>();
+builder.Services.AddSingleton<CrmEfPrototypeStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -88,6 +89,9 @@ app.MapGet("/api/crm/foundation/sprint-3/durable-persistence-setup", (CrmDurable
 
 app.MapGet("/api/crm/foundation/sprint-3/common-db-connection-strategy", (CrmCommonDbConnectionStrategyStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint3CommonDbConnectionStrategy");
+
+app.MapGet("/api/crm/foundation/sprint-3/ef-prototype-status", (CrmEfPrototypeStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint3EfPrototypeStatus");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

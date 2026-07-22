@@ -15,3 +15,12 @@ Next gate: `Sprint3P1DurablePersistenceSetupDesign`.
 Sprint 3 P1 result: durable persistence setup is `DesignOnly`; continue to `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.
 
 Sprint 3 P2 result: common DB connection strategy is `ContractOnly`; continue to `Sprint3P3EfDbContextPrototypeBehindDisabledFlag`.
+# Sprint 3 P3 gates
+
+- EF prototype exists: `true`.
+- EF runtime enabled: `false`.
+- DbContext runtime active: `false`.
+- Migrations created: `false`.
+- Real database configured: `false`.
+- Provider configured: `false`.
+- Next gate: `Sprint3P4PortalAuthRuntimeContractValidation`.

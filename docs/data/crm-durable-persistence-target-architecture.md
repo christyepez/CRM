@@ -10,3 +10,6 @@ Target:
 Sprint 3 P1 remains design-only. Runtime persistence remains `NonProductionSeam` with in-memory stores.
 
 Sprint 3 P2 adds common DB connection strategy as `ContractOnly`; runtime persistence still remains inactive.
+# Sprint 3 P3 EF prototype note
+
+`CrmDbContextPrototype` exists as a review-only placeholder. EF runtime, provider configuration, migrations, real database and productive CRUD remain disabled. Activation moves to `Sprint3P4PortalAuthRuntimeContractValidation`.

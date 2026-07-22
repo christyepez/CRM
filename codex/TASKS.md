@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 3 P3 - EF/DbContext Prototype Behind Disabled Flag
+
+- [x] Validate GitHub main contains Sprint 3 P2 commit.
+- [x] Add disabled EF prototype contracts and status service.
+- [x] Add `CrmDbContextPrototype` placeholder without EF runtime inheritance.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-3/ef-prototype-status`.
+- [x] Document disabled flag policy, prototype design, migrations no-go policy and runtime activation gates.
+- [x] Keep `EF Runtime Enabled: false`, `DbContext Runtime Active: false`, `Migrations Created: false`, `Real Database Configured: false`, `Connection Strings Configured: false`, `Provider Configured: false`, `UseSqlServer Configured: false`, `Foundation Stores Remain Active: true` and `Productive CRUD Enabled: false`.
+- [x] Next Gate: `Sprint3P4PortalAuthRuntimeContractValidation`.
+- [x] Do not add EF provider packages, real database, connection values, migrations, SQL Server container, Auth runtime or productive endpoints.
+
 ## CRM Sprint 1 P2 - Core Domain Discovery and API Contract Baseline
 
 - [x] Validate GitHub main contains P1 commit.

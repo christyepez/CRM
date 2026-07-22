@@ -13,3 +13,6 @@ Required before Sprint 3 P2 implementation:
 Current gate result: `NoGo` for productive activation.
 
 Sprint 3 P2 gate result: common DB strategy is `ContractOnly`; continue to `Sprint3P3EfDbContextPrototypeBehindDisabledFlag` only after review.
+# Sprint 3 P3 nonproduction gate
+
+Foundation stores remain active. The EF/DbContext prototype is present only for review and does not change runtime persistence.

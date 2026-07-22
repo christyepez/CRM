@@ -163,3 +163,8 @@ P2 adds a read-only foundation endpoint:
 - `GET /api/crm/foundation/sprint-3/common-db-connection-strategy`
 
 It returns `status=CommonDbConnectionStrategy`, `realDatabaseConfigured=false`, `connectionStringsConfigured=false`, `secretProviderConfigured=false`, `secretProviderRuntimeConnected=false`, `sqlServerOwnedByCrm=false`, `efRuntimeEnabled=false`, `dbContextConfigured=false`, `migrationsCreated=false`, `logicalDatabaseName=CrmDb`, `logicalDatabaseNameIsPlaceholder=true`, `secretStrategy=ContractOnly`, `connectionStringPolicy=NoRealValuesInRepository`, `nextGate=Sprint3P3EfDbContextPrototypeBehindDisabledFlag` and `Common DB connection contract only; no real database or secrets configured`.
+# Sprint 3 P3 EF prototype status
+
+`GET /api/crm/foundation/sprint-3/ef-prototype-status`
+
+Returns `EfDbContextPrototypeDisabled`, `CRM_EF_RUNTIME_ENABLED=false`, `CRM_DBCONTEXT_RUNTIME_ACTIVE=false`, `Foundation Stores Remain Active: true` and `Next Gate: Sprint3P4PortalAuthRuntimeContractValidation`.
