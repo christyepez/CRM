@@ -49,3 +49,14 @@ Financial foundation readiness endpoints:
 - `GET /api/crm/foundation/financial-integration/events`
 
 These endpoints are contract/readiness only and must not be treated as productive CRM or financial APIs.
+
+# CRM API Index - P7 Addendum
+
+Reporting foundation readiness endpoints:
+
+- `GET /api/crm/foundation/reporting/status`
+- `GET /api/crm/foundation/reporting/kpis`
+- `GET /api/crm/foundation/reporting/dashboards`
+- `GET /api/crm/foundation/reporting/analytics-read-models`
+
+These endpoints are metadata/readiness only and must not be treated as productive analytics APIs.

@@ -193,3 +193,21 @@ Out of scope:
 - Direct references to Financiero projects or assemblies.
 - Shared database, FinancieroDb queries, migrations, DbContext, SQL Server.
 - Invoices, collections, SRI, ATS, RIDE, XAdES.
+
+# CRM Sprint 1 P7
+
+Status: implemented in branch `crm-sprint-1-p7-reporting-bi-contract-foundation`.
+
+Scope:
+
+- Reporting/BI adapter ports in Application.
+- KPI, dashboard, analytics read model and metric definition contracts.
+- NonProduction reporting placeholder in Infrastructure.
+- Foundation-only Reporting status endpoints.
+- Documentation and guardrail tests.
+
+Out of scope:
+
+- Power BI runtime, embed tokens, report IDs, workspace IDs, dataset IDs.
+- Real dashboards, real datasets, ETL, SQL queries.
+- Database, migrations, DbContext, SQL Server.

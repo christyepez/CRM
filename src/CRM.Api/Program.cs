@@ -2,6 +2,7 @@ using CRM.Application.Contracts;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
 using CRM.Application.Portal;
+using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddSingleton<ContactReadModelPreviewService>();
 builder.Services.AddSingleton<CrmReadModelStatusService>();
 builder.Services.AddSingleton<CrmPortalIntegrationStatusService>();
 builder.Services.AddSingleton<CrmFinancialIntegrationStatusService>();
+builder.Services.AddSingleton<CrmReportingIntegrationStatusService>();
 
 var app = builder.Build();
 
@@ -78,6 +80,18 @@ app.MapGet("/api/crm/foundation/financial-integration/required-capabilities", (C
 
 app.MapGet("/api/crm/foundation/financial-integration/events", (CrmFinancialIntegrationStatusService service) => Results.Ok(service.GetConceptualEvents()))
     .WithName("GetCrmFoundationFinancialIntegrationEvents");
+
+app.MapGet("/api/crm/foundation/reporting/status", (CrmReportingIntegrationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationReportingStatus");
+
+app.MapGet("/api/crm/foundation/reporting/kpis", (CrmReportingIntegrationStatusService service) => Results.Ok(service.GetKpis()))
+    .WithName("GetCrmFoundationReportingKpis");
+
+app.MapGet("/api/crm/foundation/reporting/dashboards", (CrmReportingIntegrationStatusService service) => Results.Ok(service.GetDashboards()))
+    .WithName("GetCrmFoundationReportingDashboards");
+
+app.MapGet("/api/crm/foundation/reporting/analytics-read-models", (CrmReportingIntegrationStatusService service) => Results.Ok(service.GetAnalyticsReadModels()))
+    .WithName("GetCrmFoundationReportingAnalyticsReadModels");
 
 app.Run();
 
