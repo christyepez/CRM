@@ -12,6 +12,10 @@
 - `POST /api/crm/foundation/leads/preview`
 - `POST /api/crm/foundation/accounts/preview`
 - `POST /api/crm/foundation/contacts/preview`
+- `GET /api/crm/foundation/leads/read-model-preview`
+- `GET /api/crm/foundation/accounts/read-model-preview`
+- `GET /api/crm/foundation/contacts/read-model-preview`
+- `GET /api/crm/foundation/read-model-status`
 
 ## Runtime
 
@@ -20,6 +24,7 @@
 - Contract status: Draft.
 - Database: none.
 - Foundation previews: enabled, not persisted.
+- Read models: PreviewOnly.
 
 ## Next API work
 

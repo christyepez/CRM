@@ -18,6 +18,13 @@ Sprint 1 P2 adds a draft domain and API contract baseline. CRM is not production
 - Persistence remains none.
 - Productive CRM APIs remain blocked.
 
+## Sprint 1 P4
+
+- Persistence strategy documented.
+- Read model contracts and preview endpoints added.
+- Application ports prepared without productive activation.
+- Database and migrations remain blocked.
+
 ## Roadmap
 
 1. Repository foundation and architecture baseline.

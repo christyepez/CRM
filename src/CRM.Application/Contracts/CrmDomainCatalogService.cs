@@ -31,7 +31,11 @@ public sealed class CrmDomainCatalogService
             "GET /api/crm/integration-boundaries",
             "POST /api/crm/foundation/leads/preview",
             "POST /api/crm/foundation/accounts/preview",
-            "POST /api/crm/foundation/contacts/preview"
+            "POST /api/crm/foundation/contacts/preview",
+            "GET /api/crm/foundation/leads/read-model-preview",
+            "GET /api/crm/foundation/accounts/read-model-preview",
+            "GET /api/crm/foundation/contacts/read-model-preview",
+            "GET /api/crm/foundation/read-model-status"
         }
     };
 

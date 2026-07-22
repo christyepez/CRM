@@ -45,3 +45,14 @@ P3 allows POST endpoints only under `/api/crm/foundation/.../preview`.
 - `POST /api/crm/foundation/contacts/preview`
 
 These endpoints return `foundationMode: true`, `persistence: None` and `warning: Preview only, not persisted`.
+
+## P4 read model preview endpoints
+
+P4 allows GET endpoints only under `/api/crm/foundation/...`.
+
+- `GET /api/crm/foundation/leads/read-model-preview`
+- `GET /api/crm/foundation/accounts/read-model-preview`
+- `GET /api/crm/foundation/contacts/read-model-preview`
+- `GET /api/crm/foundation/read-model-status`
+
+These endpoints return `source: FoundationMock`, `persistence: None` and `warning: Read model preview only, not persisted`.

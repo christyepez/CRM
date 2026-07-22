@@ -20,6 +20,15 @@
 - [x] Add unit and architecture tests.
 - [x] Keep persistence, productive CRUD, DELETE, Auth, token storage and integrations out of scope.
 
+## CRM Sprint 1 P4 - Controlled Persistence and Read Model Design
+
+- [x] Validate GitHub main contains P3 commit.
+- [x] Document persistence strategy and data ownership.
+- [x] Add conceptual Application persistence ports.
+- [x] Add read model contracts and foundation mock services.
+- [x] Add GET read-model preview endpoints under `/api/crm/foundation/...`.
+- [x] Keep DB, migrations, productive CRUD, DELETE, Auth, token storage and integrations out of scope.
+
 ## CRM Sprint 1 P1 - Repository Foundation and Architecture Baseline
 
 - [x] Confirmar GitHub `main` como fuente principal.

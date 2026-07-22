@@ -53,6 +53,10 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/leads/preview", program);
         Assert.Contains("/api/crm/foundation/accounts/preview", program);
         Assert.Contains("/api/crm/foundation/contacts/preview", program);
+        Assert.Contains("/api/crm/foundation/leads/read-model-preview", program);
+        Assert.Contains("/api/crm/foundation/accounts/read-model-preview", program);
+        Assert.Contains("/api/crm/foundation/contacts/read-model-preview", program);
+        Assert.Contains("/api/crm/foundation/read-model-status", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);

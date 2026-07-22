@@ -21,6 +21,15 @@ Phase: Repository Foundation and Architecture Baseline
 - Added documentation for Leads, Accounts, Contacts and preview API.
 - Still no DB, migrations, productive CRUD, DELETE, Identity, token storage or real integrations.
 
+## P4 - Controlled Persistence and Read Model Design
+
+- Added future persistence strategy and read model documentation.
+- Added Application persistence ports as conceptual interfaces only.
+- Added read model contracts and foundation mock read model services.
+- Added GET read-model preview endpoints under `/api/crm/foundation/...`.
+- Added Infrastructure placeholder guardrail exception.
+- Still no DB, migrations, productive CRUD, DELETE, Identity, token storage or real integrations.
+
 ## Summary
 
 CRM repository foundation starts with .NET 8, Angular, Docker Compose and architecture guardrails.

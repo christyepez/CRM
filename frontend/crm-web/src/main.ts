@@ -15,6 +15,8 @@ class CrmReadinessService {
       leadsFoundation: 'PreviewOnly',
       accountsFoundation: 'PreviewOnly',
       contactsFoundation: 'PreviewOnly',
+      readModels: 'PreviewOnly',
+      persistenceStrategy: 'Draft',
       persistence: 'None',
       portalIntegration: 'Planned',
       financialIntegration: 'Planned',
@@ -34,6 +36,8 @@ class CrmReadinessService {
       <p>Leads Foundation: PreviewOnly</p>
       <p>Accounts Foundation: PreviewOnly</p>
       <p>Contacts Foundation: PreviewOnly</p>
+      <p>Read Models: PreviewOnly</p>
+      <p>Persistence Strategy: Draft</p>
       <p>Persistence: None</p>
       <p>Portal Integration Planned</p>
       <p>Financial Integration Planned</p>
