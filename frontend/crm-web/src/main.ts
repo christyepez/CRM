@@ -23,6 +23,10 @@ class CrmReadinessService {
       capabilityOwner: 'PortalCorporativo',
       portalCapabilities: 'Auth/Menu/Permissions/Audit/Notification/Configuration: External',
       financialIntegration: 'Planned',
+      financialConnected: false,
+      financialCapabilityOwner: 'Financiero',
+      financialIntegrationPattern: 'API + Events + NoSharedDatabase',
+      taxArtifacts: 'SRI/ATS/RIDE/XAdES: NotImplementedInCRM',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -47,6 +51,10 @@ class CrmReadinessService {
       <p>Capability Owner: PortalCorporativo</p>
       <p>Auth/Menu/Permissions/Audit/Notification/Configuration: External</p>
       <p>Financial Integration Planned</p>
+      <p>Financial Connected: false</p>
+      <p>Financial Capability Owner: Financiero</p>
+      <p>Integration Pattern: API + Events + NoSharedDatabase</p>
+      <p>SRI/ATS/RIDE/XAdES: NotImplementedInCRM</p>
       <p>Non-Production</p>
     </section>
   `

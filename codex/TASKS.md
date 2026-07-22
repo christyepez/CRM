@@ -173,3 +173,23 @@ Out of scope:
 - Runtime Portal calls.
 - CRM-owned login, identity, menu, permissions, audit, notification, configuration, gateway.
 - Database, migrations, DbContext, SQL Server.
+
+# CRM Sprint 1 P6
+
+Status: implemented in branch `crm-sprint-1-p6-financial-adapter-contracts`.
+
+Scope:
+
+- Financial adapter ports in Application.
+- Financial integration contracts in Application.
+- Conceptual CRM/Financiero events.
+- NonProduction placeholder in Infrastructure.
+- Foundation-only Financial integration status endpoints.
+- Documentation and guardrail tests.
+
+Out of scope:
+
+- Runtime Financiero calls.
+- Direct references to Financiero projects or assemblies.
+- Shared database, FinancieroDb queries, migrations, DbContext, SQL Server.
+- Invoices, collections, SRI, ATS, RIDE, XAdES.

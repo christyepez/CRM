@@ -38,3 +38,14 @@ Portal foundation readiness endpoints:
 - `GET /api/crm/foundation/portal-integration/required-capabilities`
 
 These endpoints are contract/readiness only and must not be treated as productive CRM domain APIs.
+
+# CRM API Index - P6 Addendum
+
+Financial foundation readiness endpoints:
+
+- `GET /api/crm/foundation/financial-integration/status`
+- `GET /api/crm/foundation/financial-integration/contracts`
+- `GET /api/crm/foundation/financial-integration/required-capabilities`
+- `GET /api/crm/foundation/financial-integration/events`
+
+These endpoints are contract/readiness only and must not be treated as productive CRM or financial APIs.

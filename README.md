@@ -167,3 +167,17 @@ Current status:
 - Capability owner: PortalCorporativo
 
 CRM does not duplicate Portal security, menu, permissions, audit, notification, configuration or gateway capabilities.
+
+# CRM Sprint 1 P6 Financial Adapter Contracts
+
+CRM exposes foundation-only Financial integration readiness endpoints under `/api/crm/foundation/financial-integration/...`.
+
+Current status:
+
+- Integration mode: Planned
+- Runtime mode: NonProduction
+- Connected: false
+- Capability owner: Financiero
+- Integration patterns: API + Events + NoSharedDatabase
+
+CRM does not create invoices, collections, SRI, ATS, RIDE, XAdES, shared databases, FinancieroDb queries or runtime Financiero calls.

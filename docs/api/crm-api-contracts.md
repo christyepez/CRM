@@ -65,3 +65,14 @@ Sprint 1 P5 adds foundation-only Portal adapter contract endpoints:
 - `GET /api/crm/foundation/portal-integration/required-capabilities`
 
 All responses are NonProduction readiness contracts with `integrationMode=Planned`, `connected=false` and `capabilityOwner=PortalCorporativo`. They do not call Portal at runtime.
+
+# CRM API Contracts - P6 Financial Integration
+
+Sprint 1 P6 adds foundation-only Financial adapter contract endpoints:
+
+- `GET /api/crm/foundation/financial-integration/status`
+- `GET /api/crm/foundation/financial-integration/contracts`
+- `GET /api/crm/foundation/financial-integration/required-capabilities`
+- `GET /api/crm/foundation/financial-integration/events`
+
+All responses are NonProduction readiness contracts with `integrationMode=Planned`, `connected=false`, `capabilityOwner=Financiero` and `integrationPatterns=API, Events, NoSharedDatabase`. They do not call Financiero at runtime.

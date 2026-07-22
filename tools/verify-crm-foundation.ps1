@@ -40,7 +40,12 @@ function Require-Path($Path) {
     "docs/integration/crm-portal-capability-map.md",
     "docs/integration/crm-portal-readiness-checklist.md",
     "docs/integration/crm-financial-boundary.md",
+    "docs/integration/crm-financial-adapter-contracts.md",
+    "docs/integration/crm-financial-capability-map.md",
+    "docs/integration/crm-financial-readiness-checklist.md",
+    "docs/integration/crm-financial-event-contracts.md",
     "docs/security/crm-portal-security-boundary.md",
+    "docs/security/crm-financial-security-boundary.md",
     "docs/roadmap/crm-roadmap.md",
     "docs/roadmap/crm-sprint-plan.md",
     "docs/releases/crm-sprint-1-notes.md",
@@ -67,6 +72,17 @@ function Require-Path($Path) {
     "src/CRM.Application/Ports/Portal/IPortalCorrelationContext.cs",
     "src/CRM.Infrastructure/Portal/PortalAdapterNotConfiguredException.cs",
     "src/CRM.Infrastructure/Portal/PortalIntegrationPlaceholder.cs",
+    "src/CRM.Application/Financial/CrmFinancialIntegrationStatusService.cs",
+    "src/CRM.Application/Financial/FinancialIntegrationContracts.cs",
+    "src/CRM.Application/Financial/FinancialConceptualEvents.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialCustomerLookupPort.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialAccountStatusPort.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialInvoiceAwarenessPort.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialPaymentStatusPort.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialCollectionsSignalPort.cs",
+    "src/CRM.Application/Ports/Financial/IFinancialEventPublisher.cs",
+    "src/CRM.Infrastructure/Financial/FinancialAdapterNotConfiguredException.cs",
+    "src/CRM.Infrastructure/Financial/FinancialIntegrationPlaceholder.cs",
     "src/CRM.Application/ReadModels/ReadModelContracts.cs",
     "src/CRM.Application/ReadModels/ReadModelPreviewServices.cs"
 ) | ForEach-Object { Require-Path $_ }
@@ -100,7 +116,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -112,6 +128,10 @@ if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|Crea
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/portal-integration") {
     $failures += "Portal integration endpoints must remain GET-only foundation endpoints."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/financial-integration") {
+    $failures += "Financial integration endpoints must remain GET-only foundation endpoints."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -157,8 +177,18 @@ foreach ($marker in @("Portal integration contracts only; no runtime calls confi
     }
 }
 
+foreach ($marker in @("Financial integration contracts only; no runtime calls configured", "FutureFinancialAdapter", "NoSharedDatabase", "CustomerConvertedForFinancialIntegration", "CollectionsRiskRaisedFinancialSignal")) {
+    if ($sourceText -notlike "*$marker*") {
+        $failures += "Missing Financial integration guardrail marker: $marker"
+    }
+}
+
 if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
     $failures += "Runtime Portal adapter, URL or HTTP client found before integration approval."
+}
+
+if ($sourceText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
+    $failures += "Runtime Financial adapter, connection string, shared DB or URL found before integration approval."
 }
 
 if (Test-Path "database") {
