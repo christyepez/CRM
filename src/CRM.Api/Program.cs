@@ -22,6 +22,7 @@ builder.Services.AddSingleton<FoundationLeadCrudService>();
 builder.Services.AddSingleton<FoundationAccountCrudService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
+builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -72,6 +73,9 @@ app.MapPost("/api/crm/foundation/contacts/preview", (ContactFoundationRequest re
 
 app.MapGet("/api/crm/foundation/crud/status", (FoundationCrudStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationCrudStatus");
+
+app.MapGet("/api/crm/foundation/sprint-2/integration-readiness", (CrmSprint2IntegrationReadinessService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint2IntegrationReadiness");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

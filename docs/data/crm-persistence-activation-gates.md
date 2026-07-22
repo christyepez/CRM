@@ -12,3 +12,5 @@ GO only when every gate is approved.
 ## Sprint 2 P2 update
 
 `NonProductionSeam` is active for foundation preview storage only. Productive persistence remains gated by Portal authorization simulation, migration approval and explicit database activation. Current values remain: `databaseConfigured=false`, `dbContextConfigured=false`, `migrationReady=false`, `durablePersistence=false`, `productiveCrudEnabled=false`.
+
+P5 confirms durable persistence remains NO-GO until DB, secrets, migrations, rollback, retention and backup/restore gates are approved.

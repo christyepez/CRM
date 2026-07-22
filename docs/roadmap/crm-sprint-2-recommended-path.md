@@ -20,3 +20,7 @@ P3 implements Portal authorization adapter simulation. The recommended next step
 ## Sprint 2 P4 status
 
 P4 implements controlled foundation CRUD previews. The recommended next step is `Sprint2P5IntegrationReadinessReview`.
+
+## Sprint 2 P5 status
+
+P5 recommends `ContinueReview`. DB real, Auth real and productive CRUD remain NO-GO. The next gate is `Sprint2P6ProductizationGateDecision`.

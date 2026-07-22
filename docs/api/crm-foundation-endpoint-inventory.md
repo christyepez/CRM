@@ -64,3 +64,9 @@
 | GET | `/api/crm/foundation/contacts/{id}` | Reads one in-memory contact preview. |
 | POST | `/api/crm/foundation/contacts` | Creates one contact preview. |
 | PUT | `/api/crm/foundation/contacts/{id}` | Updates one contact preview. |
+
+## Sprint 2 P5 integration readiness
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-2/integration-readiness` | Summarizes P1-P4 evidence and P5 GO/NO-GO readiness. |

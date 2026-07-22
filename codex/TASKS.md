@@ -279,3 +279,14 @@ Status: implemented for PR review.
 - Extended in-memory foundation stores with lookup by preview id.
 - Kept productive CRUD, DELETE, DB, EF, migrations, real Auth and Portal runtime disabled.
 - Next: Sprint2P5IntegrationReadinessReview.
+
+## CRM Sprint 2 P5 - Integration readiness review
+
+Status: implemented for PR review.
+
+- Added P5 readiness review documents, evidence, GO/NO-GO, risk register and decision record.
+- Added activation gate matrix and DB/Auth/CRUD readiness map.
+- Added productization readiness contracts and service.
+- Added `GET /api/crm/foundation/sprint-2/integration-readiness`.
+- Recommendation: ContinueReview; DB/Auth/productive CRUD remain NO-GO.
+- Next: Sprint2P6ProductizationGateDecision.

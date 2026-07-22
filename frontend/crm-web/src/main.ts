@@ -60,6 +60,12 @@ class CrmReadinessService {
       contactFoundationCrud: 'Enabled',
       crudAuthorizationMode: 'FoundationSimulation',
       crudNextGate: 'Sprint2P5IntegrationReadinessReview',
+      sprint2P5ReadinessReview: 'Active',
+      databaseReady: false,
+      authReady: false,
+      productiveCrudReady: false,
+      recommendedDecision: 'ContinueReview',
+      productizationNextGate: 'Sprint2P6ProductizationGateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -122,6 +128,12 @@ class CrmReadinessService {
       <p>Contact Foundation CRUD: Enabled</p>
       <p>Authorization Mode: FoundationSimulation</p>
       <p>CRUD Next Gate: Sprint2P5IntegrationReadinessReview</p>
+      <p>Sprint 2 P5 Readiness Review: Active</p>
+      <p>Database Ready: false</p>
+      <p>Auth Ready: false</p>
+      <p>Productive CRUD Ready: false</p>
+      <p>Recommended Decision: ContinueReview</p>
+      <p>Productization Next Gate: Sprint2P6ProductizationGateDecision</p>
       <p>Non-Production</p>
     </section>
   `

@@ -131,3 +131,11 @@ Responses include `foundationMode=true`, `simulationMode=FoundationSimulation`, 
 P4 adds GET/POST/PUT preview routes for Lead, Account and Contact under `/api/crm/foundation/...` plus `GET /api/crm/foundation/crud/status`.
 
 These routes are not productive CRUD. They use in-memory foundation stores, Portal permission simulation and return `Foundation CRUD only; no productive endpoint or database configured`.
+
+## Sprint 2 P5 integration readiness
+
+P5 adds a read-only foundation endpoint:
+
+- `GET /api/crm/foundation/sprint-2/integration-readiness`
+
+It returns `status=IntegrationReadinessReview`, `productizationStatus=NotReady`, `databaseReady=false`, `authReady=false`, `productiveCrudReady=false`, `recommendedDecision=ContinueReview`, `nextGate=Sprint2P6ProductizationGateDecision` and `Integration readiness review only; no productive activation`.
