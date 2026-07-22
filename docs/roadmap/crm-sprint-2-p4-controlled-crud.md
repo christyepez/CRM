@@ -18,3 +18,5 @@ Deferred:
 - Database migrations.
 
 Next gate: `Sprint2P5IntegrationReadinessReview`.
+
+P5 result: foundation CRUD remains non-productive; proceed to `Sprint2P6ProductizationGateDecision`.

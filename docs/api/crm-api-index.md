@@ -84,3 +84,5 @@ Persistence seam endpoints are foundation-only and documented in `crm-api-contra
 Portal authorization simulation endpoints are foundation-only and do not activate productive Auth, Portal runtime or CRUD.
 
 P4 foundation CRUD endpoints are preview-only, in-memory and stay under `/api/crm/foundation/...`.
+
+P5 integration readiness endpoint is read-only and exists only to summarize GO/NO-GO evidence before productization.

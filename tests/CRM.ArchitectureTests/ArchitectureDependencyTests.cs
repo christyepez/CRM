@@ -80,6 +80,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/portal-authorization/sample-user-context", program);
         Assert.Contains("/api/crm/foundation/portal-authorization/check-permission", program);
         Assert.Contains("/api/crm/foundation/crud/status", program);
+        Assert.Contains("/api/crm/foundation/sprint-2/integration-readiness", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -370,6 +371,29 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
         Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void IntegrationReadinessReview_IsFoundationReadOnlyAndNonProductive()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("CrmSprint2IntegrationReadinessService", source);
+        Assert.Contains("Integration readiness review only; no productive activation", source);
+        Assert.Contains("Sprint2P6ProductizationGateDecision", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-2/integration-readiness\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-2", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-2", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
         Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);

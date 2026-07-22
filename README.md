@@ -262,3 +262,19 @@ Current state:
 - Next Gate: Sprint2P5IntegrationReadinessReview
 
 No productive CRM routes, DELETE endpoints, DB, EF, migrations, real Auth or Portal runtime are active.
+
+### CRM Sprint 2 P5 - Integration readiness review
+
+CRM now exposes `GET /api/crm/foundation/sprint-2/integration-readiness`.
+
+Current P5 decision:
+
+- Sprint 2 P5 Readiness Review: Active
+- Database Ready: false
+- Auth Ready: false
+- Productive CRUD Ready: false
+- Productization Status: NotReady
+- Recommended Decision: ContinueReview
+- Next Gate: Sprint2P6ProductizationGateDecision
+
+No DB real, Auth real, Portal runtime or productive endpoint activation occurs in P5.

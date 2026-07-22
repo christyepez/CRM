@@ -23,3 +23,5 @@ This is not productive security. It uses no real Portal runtime, no external cal
 Next gate: `Sprint2P4ControlledCrudBehindFoundationFlag`.
 
 P4 consumes this simulation for foundation CRUD permission checks only. It still does not activate real Portal runtime authorization.
+
+P5 confirms real Portal Auth remains NO-GO until runtime user, tenant, permission and audit integration are approved.
