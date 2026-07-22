@@ -40,3 +40,6 @@ Sprint 1 P2 adds a draft domain and API contract baseline. CRM is not production
 ## Dependency posture
 
 Sprints 1-5 can advance with isolated architecture and domain work. Sprints 6-9 require Portal readiness, shared DB strategy and governance approval.
+# Roadmap Addendum - Portal Integration
+
+After Sprint 1 P5, CRM remains disconnected from Portal at runtime. The next step is a controlled adapter sprint only after PortalCorporativo publishes stable consumer contracts and environment configuration.

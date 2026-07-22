@@ -35,3 +35,6 @@
 ## P1 decision
 
 CRM may proceed independently only as foundation and isolated domain work. Production and cross-system runtime integration remain blocked until Portal/SQL and governance decisions are accepted.
+# Sprint Plan Addendum - P5
+
+P5 prepares Portal adapter contracts only. It does not implement real integration, CRM-owned security, CRM-owned menu, CRM-owned audit, CRM-owned notification, CRM-owned configuration, database persistence or productive CRM endpoints.

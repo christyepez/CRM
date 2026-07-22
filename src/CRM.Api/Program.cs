@@ -1,5 +1,6 @@
 using CRM.Application.Contracts;
 using CRM.Application.Foundation;
+using CRM.Application.Portal;
 using CRM.Application.ReadModels;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,7 @@ builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
 builder.Services.AddSingleton<CrmReadModelStatusService>();
+builder.Services.AddSingleton<CrmPortalIntegrationStatusService>();
 
 var app = builder.Build();
 
@@ -53,6 +55,15 @@ app.MapGet("/api/crm/foundation/contacts/read-model-preview", (ContactReadModelP
 
 app.MapGet("/api/crm/foundation/read-model-status", (CrmReadModelStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationReadModelStatus");
+
+app.MapGet("/api/crm/foundation/portal-integration/status", (CrmPortalIntegrationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationPortalIntegrationStatus");
+
+app.MapGet("/api/crm/foundation/portal-integration/contracts", (CrmPortalIntegrationStatusService service) => Results.Ok(service.GetContracts()))
+    .WithName("GetCrmFoundationPortalIntegrationContracts");
+
+app.MapGet("/api/crm/foundation/portal-integration/required-capabilities", (CrmPortalIntegrationStatusService service) => Results.Ok(service.GetRequiredCapabilities()))
+    .WithName("GetCrmFoundationPortalRequiredCapabilities");
 
 app.Run();
 

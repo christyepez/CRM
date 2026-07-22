@@ -52,3 +52,10 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Gateway or Portal Shell.
 - Real Financiero integration.
 - Production activation.
+# Sprint 1 P5 - Portal Adapter Contracts
+
+- Added CRM Application ports for future PortalCorporativo adapters.
+- Added safe DTO contracts for Portal user, tenant, permission, menu, audit, notification, configuration and correlation context.
+- Added NonProduction placeholder in Infrastructure without HTTP clients or URLs.
+- Added foundation-only Portal integration readiness endpoints.
+- Added guardrail tests and verification checks to prevent Portal capability duplication.

@@ -156,3 +156,20 @@ Tests Added:
 Risks:
 Next Step:
 ```
+# CRM Sprint 1 P5
+
+Status: implemented in branch `crm-sprint-1-p5-portal-adapter-contracts`.
+
+Scope:
+
+- Portal adapter ports in Application.
+- Portal integration contracts in Application.
+- NonProduction placeholder in Infrastructure.
+- Foundation-only Portal integration status endpoints.
+- Documentation and guardrail tests.
+
+Out of scope:
+
+- Runtime Portal calls.
+- CRM-owned login, identity, menu, permissions, audit, notification, configuration, gateway.
+- Database, migrations, DbContext, SQL Server.

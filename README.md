@@ -155,3 +155,15 @@ CRM Core no debe acoplarse directamente a Salesforce, Dynamics u otro CRM extern
 ## Modo bajo consumo de tokens
 
 No leer todo el repositorio si la tarea no lo requiere. Usar `AGENTS.md`, `codex/PORTAL_INTEGRATION_CONTRACTS.md`, `codex/TASKS.md` y el playbook aplicable de `CodexCommonAgents`.
+# CRM Sprint 1 P5 Portal Adapter Contracts
+
+CRM exposes foundation-only Portal integration readiness endpoints under `/api/crm/foundation/portal-integration/...`.
+
+Current status:
+
+- Integration mode: Planned
+- Runtime mode: NonProduction
+- Connected: false
+- Capability owner: PortalCorporativo
+
+CRM does not duplicate Portal security, menu, permissions, audit, notification, configuration or gateway capabilities.

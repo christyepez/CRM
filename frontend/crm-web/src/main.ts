@@ -19,6 +19,9 @@ class CrmReadinessService {
       persistenceStrategy: 'Draft',
       persistence: 'None',
       portalIntegration: 'Planned',
+      portalConnected: false,
+      capabilityOwner: 'PortalCorporativo',
+      portalCapabilities: 'Auth/Menu/Permissions/Audit/Notification/Configuration: External',
       financialIntegration: 'Planned',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
@@ -40,6 +43,9 @@ class CrmReadinessService {
       <p>Persistence Strategy: Draft</p>
       <p>Persistence: None</p>
       <p>Portal Integration Planned</p>
+      <p>Portal Connected: false</p>
+      <p>Capability Owner: PortalCorporativo</p>
+      <p>Auth/Menu/Permissions/Audit/Notification/Configuration: External</p>
       <p>Financial Integration Planned</p>
       <p>Non-Production</p>
     </section>
