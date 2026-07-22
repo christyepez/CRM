@@ -60,6 +60,10 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/portal-integration/status", program);
         Assert.Contains("/api/crm/foundation/portal-integration/contracts", program);
         Assert.Contains("/api/crm/foundation/portal-integration/required-capabilities", program);
+        Assert.Contains("/api/crm/foundation/financial-integration/status", program);
+        Assert.Contains("/api/crm/foundation/financial-integration/contracts", program);
+        Assert.Contains("/api/crm/foundation/financial-integration/required-capabilities", program);
+        Assert.Contains("/api/crm/foundation/financial-integration/events", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -130,6 +134,74 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/portal-integration", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/portal-integration", program);
         Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/portal-integration", program);
+    }
+
+    [Fact]
+    public void FinancialPorts_AreApplicationInterfacesOnly()
+    {
+        var root = FindRepositoryRoot();
+        var portsPath = Path.Combine(root, "src", "CRM.Application", "Ports", "Financial");
+
+        Assert.True(Directory.Exists(portsPath));
+        foreach (var file in Directory.EnumerateFiles(portsPath, "*.cs"))
+        {
+            var source = File.ReadAllText(file);
+
+            Assert.Contains("interface", source, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("FutureFinancialAdapter", source, StringComparison.Ordinal);
+            Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("ConnectionString", source, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    [Fact]
+    public void Domain_DoesNotReferenceFinancialIntegrationPorts()
+    {
+        var source = ReadSourceFiles(Path.Combine("src", "CRM.Domain"));
+
+        Assert.DoesNotContain("CRM.Application.Ports.Financial", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("IFinancial", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void FinancialPlaceholder_DoesNotMakeRuntimeFinancialCallsOrDbAccess()
+    {
+        var source = ReadSourceFiles("src", "CRM.Infrastructure");
+
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("FinancieroUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("NonProductionPlaceholder", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void FinancialEndpoints_AreFoundationGetOnly()
+    {
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/financial-integration/status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/financial-integration/contracts\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/financial-integration/required-capabilities\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/financial-integration/events\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/financial-integration", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/financial-integration", program);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/financial-integration", program);
+    }
+
+    [Fact]
+    public void Source_DoesNotReferenceFinancieroRuntimeSriOrSharedDatabase()
+    {
+        var source = ReadSourceFiles("src", "docker-compose.yml", "docker-compose.crm.yml");
+
+        Assert.DoesNotContain("ProjectReference Include=\"..\\..\\Financiero", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("FinancieroDb", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SharedDatabase", source.Replace("NoSharedDatabase", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SriClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("RIDE", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("XAdES", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ATS", source, StringComparison.Ordinal);
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

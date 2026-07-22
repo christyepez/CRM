@@ -59,3 +59,11 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Added NonProduction placeholder in Infrastructure without HTTP clients or URLs.
 - Added foundation-only Portal integration readiness endpoints.
 - Added guardrail tests and verification checks to prevent Portal capability duplication.
+
+# Sprint 1 P6 - Financial Adapter Contracts
+
+- Added CRM Application ports for future Financiero adapters.
+- Added safe DTO contracts for financial customer reference, account status, invoice awareness, payment status, collections signal and conceptual financial events.
+- Added NonProduction placeholder in Infrastructure without HTTP clients, URLs, connection strings or DB access.
+- Added foundation-only Financial integration readiness endpoints.
+- Added guardrail tests and verification checks to prevent direct coupling or shared database usage.

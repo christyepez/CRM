@@ -43,3 +43,5 @@ Sprints 1-5 can advance with isolated architecture and domain work. Sprints 6-9 
 # Roadmap Addendum - Portal Integration
 
 After Sprint 1 P5, CRM remains disconnected from Portal at runtime. The next step is a controlled adapter sprint only after PortalCorporativo publishes stable consumer contracts and environment configuration.
+
+After Sprint 1 P6, CRM also remains disconnected from Financiero at runtime. The next step is contract approval for API/event integration with `NoSharedDatabase`.

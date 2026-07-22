@@ -1,4 +1,5 @@
 using CRM.Application.Contracts;
+using CRM.Application.Financial;
 using CRM.Application.Foundation;
 using CRM.Application.Portal;
 using CRM.Application.ReadModels;
@@ -16,6 +17,7 @@ builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
 builder.Services.AddSingleton<CrmReadModelStatusService>();
 builder.Services.AddSingleton<CrmPortalIntegrationStatusService>();
+builder.Services.AddSingleton<CrmFinancialIntegrationStatusService>();
 
 var app = builder.Build();
 
@@ -64,6 +66,18 @@ app.MapGet("/api/crm/foundation/portal-integration/contracts", (CrmPortalIntegra
 
 app.MapGet("/api/crm/foundation/portal-integration/required-capabilities", (CrmPortalIntegrationStatusService service) => Results.Ok(service.GetRequiredCapabilities()))
     .WithName("GetCrmFoundationPortalRequiredCapabilities");
+
+app.MapGet("/api/crm/foundation/financial-integration/status", (CrmFinancialIntegrationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationFinancialIntegrationStatus");
+
+app.MapGet("/api/crm/foundation/financial-integration/contracts", (CrmFinancialIntegrationStatusService service) => Results.Ok(service.GetContracts()))
+    .WithName("GetCrmFoundationFinancialIntegrationContracts");
+
+app.MapGet("/api/crm/foundation/financial-integration/required-capabilities", (CrmFinancialIntegrationStatusService service) => Results.Ok(service.GetRequiredCapabilities()))
+    .WithName("GetCrmFoundationFinancialRequiredCapabilities");
+
+app.MapGet("/api/crm/foundation/financial-integration/events", (CrmFinancialIntegrationStatusService service) => Results.Ok(service.GetConceptualEvents()))
+    .WithName("GetCrmFoundationFinancialIntegrationEvents");
 
 app.Run();
 
