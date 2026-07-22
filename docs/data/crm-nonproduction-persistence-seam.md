@@ -20,3 +20,5 @@ This seam is not:
 Runtime flags remain safe: `CRM_FOUNDATION_MODE=true`, `CRM_PERSISTENCE_SEAM_ENABLED=true`, `CRM_PERSISTENCE_ENABLED=false`, `CRM_PRODUCTIVE_CRUD_ENABLED=false`, `CRM_DURABLE_PERSISTENCE_ENABLED=false`.
 
 Next gate: `Sprint2P3PortalAuthorizationAdapterSimulation`.
+
+P4 uses the same in-memory seam for controlled foundation CRUD previews. Durable persistence remains disabled.

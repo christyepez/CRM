@@ -268,3 +268,14 @@ Status: implemented for PR review.
 - Clear-preview now returns simulated permission result for `crm.foundation.preview.clear`.
 - Kept login, productive Auth, Portal runtime, token storage, DB and productive CRUD disabled.
 - Next: Sprint2P4ControlledCrudBehindFoundationFlag.
+
+## CRM Sprint 2 P4 - Controlled foundation CRUD
+
+Status: implemented for PR review.
+
+- Added foundation CRUD contracts for Lead, Account and Contact.
+- Added foundation CRUD use cases and status service.
+- Added GET/POST/PUT endpoints under `/api/crm/foundation/...`.
+- Extended in-memory foundation stores with lookup by preview id.
+- Kept productive CRUD, DELETE, DB, EF, migrations, real Auth and Portal runtime disabled.
+- Next: Sprint2P5IntegrationReadinessReview.

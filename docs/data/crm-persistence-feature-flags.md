@@ -13,3 +13,5 @@ P2 hardcodes safe non-production flags through `ICrmPersistenceFeatureFlagProvid
 Warning returned by the API: `Non-production persistence seam only; no database configured`.
 
 Plain markers for automated verification: `CRM_PERSISTENCE_SEAM_ENABLED=true`, `CRM_PRODUCTIVE_CRUD_ENABLED=false`, `CRM_DURABLE_PERSISTENCE_ENABLED=false`.
+
+P4 allows foundation CRUD previews while keeping productive CRUD disabled.

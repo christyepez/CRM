@@ -18,6 +18,10 @@ builder.Services.AddSingleton<CrmDomainCatalogService>();
 builder.Services.AddSingleton<LeadFoundationService>();
 builder.Services.AddSingleton<AccountFoundationService>();
 builder.Services.AddSingleton<ContactFoundationService>();
+builder.Services.AddSingleton<FoundationLeadCrudService>();
+builder.Services.AddSingleton<FoundationAccountCrudService>();
+builder.Services.AddSingleton<FoundationContactCrudService>();
+builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -65,6 +69,45 @@ app.MapPost("/api/crm/foundation/accounts/preview", (AccountFoundationRequest re
 
 app.MapPost("/api/crm/foundation/contacts/preview", (ContactFoundationRequest request, ContactFoundationService service) => Results.Ok(service.Preview(request)))
     .WithName("PreviewCrmFoundationContact");
+
+app.MapGet("/api/crm/foundation/crud/status", (FoundationCrudStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationCrudStatus");
+
+app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationLeads");
+
+app.MapGet("/api/crm/foundation/leads/{id}", async (string id, FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetByIdAsync(id, cancellationToken)))
+    .WithName("GetCrmFoundationLeadById");
+
+app.MapPost("/api/crm/foundation/leads", async (FoundationLeadCreateRequest request, FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.CreateAsync(request, cancellationToken)))
+    .WithName("CreateCrmFoundationLead");
+
+app.MapPut("/api/crm/foundation/leads/{id}", async (string id, FoundationLeadUpdateRequest request, FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.UpdateAsync(id, request, cancellationToken)))
+    .WithName("UpdateCrmFoundationLead");
+
+app.MapGet("/api/crm/foundation/accounts", async (FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationAccounts");
+
+app.MapGet("/api/crm/foundation/accounts/{id}", async (string id, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetByIdAsync(id, cancellationToken)))
+    .WithName("GetCrmFoundationAccountById");
+
+app.MapPost("/api/crm/foundation/accounts", async (FoundationAccountCreateRequest request, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.CreateAsync(request, cancellationToken)))
+    .WithName("CreateCrmFoundationAccount");
+
+app.MapPut("/api/crm/foundation/accounts/{id}", async (string id, FoundationAccountUpdateRequest request, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.UpdateAsync(id, request, cancellationToken)))
+    .WithName("UpdateCrmFoundationAccount");
+
+app.MapGet("/api/crm/foundation/contacts", async (FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationContacts");
+
+app.MapGet("/api/crm/foundation/contacts/{id}", async (string id, FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetByIdAsync(id, cancellationToken)))
+    .WithName("GetCrmFoundationContactById");
+
+app.MapPost("/api/crm/foundation/contacts", async (FoundationContactCreateRequest request, FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.CreateAsync(request, cancellationToken)))
+    .WithName("CreateCrmFoundationContact");
+
+app.MapPut("/api/crm/foundation/contacts/{id}", async (string id, FoundationContactUpdateRequest request, FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.UpdateAsync(id, request, cancellationToken)))
+    .WithName("UpdateCrmFoundationContact");
 
 app.MapGet("/api/crm/foundation/leads/read-model-preview", (LeadReadModelPreviewService service, string? search, int page = 1, int pageSize = 25) => Results.Ok(service.Preview(new CrmReadModelQuery(search, page, pageSize))))
     .WithName("PreviewCrmFoundationLeadReadModel");

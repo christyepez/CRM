@@ -125,3 +125,9 @@ New foundation-only endpoints:
 - `POST /api/crm/foundation/portal-authorization/check-permission`
 
 Responses include `foundationMode=true`, `simulationMode=FoundationSimulation`, `portalRuntimeConnected=false`, `authOwnedBy=PortalCorporativo`, `crmOwnsAuth=false` and the warning `Portal authorization simulation only; no real Portal runtime configured`.
+
+## Sprint 2 P4 controlled foundation CRUD
+
+P4 adds GET/POST/PUT preview routes for Lead, Account and Contact under `/api/crm/foundation/...` plus `GET /api/crm/foundation/crud/status`.
+
+These routes are not productive CRUD. They use in-memory foundation stores, Portal permission simulation and return `Foundation CRUD only; no productive endpoint or database configured`.

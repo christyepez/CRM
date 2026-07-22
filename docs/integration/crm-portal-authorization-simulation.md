@@ -21,3 +21,5 @@ Foundation permissions:
 This is not productive security. It uses no real Portal runtime, no external calls, no credentials, no token storage and no persisted roles.
 
 Next gate: `Sprint2P4ControlledCrudBehindFoundationFlag`.
+
+P4 consumes this simulation for foundation CRUD permission checks only. It still does not activate real Portal runtime authorization.

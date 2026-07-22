@@ -95,3 +95,5 @@ Sprint 1 remains closed. P2 adds only a non-production seam for preview persiste
 ## Sprint 2 P3 note
 
 Sprint 1 remains closed. P3 adds only Portal authorization simulation and does not reopen Sprint 1 scope or activate productive security.
+
+P4 adds controlled foundation CRUD previews and does not reopen Sprint 1 scope or activate productive CRM CRUD.

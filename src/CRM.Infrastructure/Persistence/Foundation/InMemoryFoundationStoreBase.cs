@@ -23,6 +23,15 @@ public abstract class InMemoryFoundationStoreBase
         }
     }
 
+    public Task<CrmFoundationPreviewItemContract?> GetPreviewByIdAsync(string id, CancellationToken cancellationToken = default)
+    {
+        cancellationToken.ThrowIfCancellationRequested();
+        lock (sync)
+        {
+            return Task.FromResult(previews.FirstOrDefault(item => string.Equals(item.Id, id, StringComparison.OrdinalIgnoreCase)));
+        }
+    }
+
     public Task<CrmFoundationPreviewItemContract> SavePreviewAsync(CrmFoundationPreviewItemContract preview, CancellationToken cancellationToken = default)
     {
         cancellationToken.ThrowIfCancellationRequested();

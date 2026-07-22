@@ -46,3 +46,21 @@
 | GET | `/api/crm/foundation/portal-authorization/permissions` | Lists fictitious CRM foundation permissions. |
 | GET | `/api/crm/foundation/portal-authorization/sample-user-context` | Shows sample simulated user and tenant context. |
 | POST | `/api/crm/foundation/portal-authorization/check-permission` | Checks one simulated permission; not productive authorization. |
+
+## Sprint 2 P4 controlled foundation CRUD
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/crud/status` | Shows foundation CRUD status and gates. |
+| GET | `/api/crm/foundation/leads` | Lists in-memory lead previews. |
+| GET | `/api/crm/foundation/leads/{id}` | Reads one in-memory lead preview. |
+| POST | `/api/crm/foundation/leads` | Creates one lead preview. |
+| PUT | `/api/crm/foundation/leads/{id}` | Updates one lead preview. |
+| GET | `/api/crm/foundation/accounts` | Lists in-memory account previews. |
+| GET | `/api/crm/foundation/accounts/{id}` | Reads one in-memory account preview. |
+| POST | `/api/crm/foundation/accounts` | Creates one account preview. |
+| PUT | `/api/crm/foundation/accounts/{id}` | Updates one account preview. |
+| GET | `/api/crm/foundation/contacts` | Lists in-memory contact previews. |
+| GET | `/api/crm/foundation/contacts/{id}` | Reads one in-memory contact preview. |
+| POST | `/api/crm/foundation/contacts` | Creates one contact preview. |
+| PUT | `/api/crm/foundation/contacts/{id}` | Updates one contact preview. |
