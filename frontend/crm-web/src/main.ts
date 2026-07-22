@@ -76,6 +76,15 @@ class CrmReadinessService {
       productiveCrudApiDecision: 'NoGo',
       sprint3PlanningDecision: 'Go',
       sprint3NextGate: 'Sprint3P1DurablePersistenceSetupDesign',
+      sprint3P1DurablePersistenceSetup: 'DesignOnly',
+      realDatabaseConfigured: false,
+      efRuntimeEnabled: false,
+      migrationsCreated: false,
+      connectionStringsConfigured: false,
+      sqlServerOwnedByCrm: false,
+      secretStrategy: 'PlannedOnly',
+      migrationStrategy: 'PlannedOnly',
+      durablePersistenceSetupNextGate: 'Sprint3P2CommonDbConnectionContractAndSecretStrategy',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -154,6 +163,16 @@ class CrmReadinessService {
       <p>Productive CRUD API Decision: NoGo</p>
       <p>Sprint 3 Planning: Go</p>
       <p>Next Gate: Sprint3P1DurablePersistenceSetupDesign</p>
+      <p>Sprint 3 P1 Durable Persistence Setup: DesignOnly</p>
+      <p>Real Database Configured: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>Connection Strings Configured: false</p>
+      <p>SQL Server Owned By CRM: false</p>
+      <p>Secret Strategy: PlannedOnly</p>
+      <p>Migration Strategy: PlannedOnly</p>
+      <p>Productive Activation: NoGo</p>
+      <p>Next Gate: Sprint3P2CommonDbConnectionContractAndSecretStrategy</p>
       <p>Non-Production</p>
     </section>
   `

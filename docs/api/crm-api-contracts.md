@@ -147,3 +147,11 @@ P6 adds a read-only foundation endpoint:
 - `GET /api/crm/foundation/sprint-2/productization-gate`
 
 It returns `status=Sprint2Closed`, `productizationStatus=NotReady`, `overallDecision=NoGoForProductiveActivation`, `foundationCrudDecision=GoFoundationOnly`, `durablePersistenceDecision=NoGo`, `realDatabaseDecision=NoGo`, `portalAuthRuntimeDecision=NoGo`, `productiveCrudApiDecision=NoGo`, `sprint3PlanningDecision=Go`, `nextGate=Sprint3P1DurablePersistenceSetupDesign` and `Productization gate decision only; no productive activation`.
+
+## Sprint 3 P1 durable persistence setup
+
+P1 adds a read-only foundation endpoint:
+
+- `GET /api/crm/foundation/sprint-3/durable-persistence-setup`
+
+It returns `status=DurablePersistenceSetupDesign`, `durablePersistenceMode=DesignOnly`, `realDatabaseConfigured=false`, `efRuntimeEnabled=false`, `dbContextConfigured=false`, `migrationsCreated=false`, `connectionStringsConfigured=false`, `sqlServerOwnedByCrm=false`, `productiveActivation=NoGo`, `nextGate=Sprint3P2CommonDbConnectionContractAndSecretStrategy` and `Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured`.

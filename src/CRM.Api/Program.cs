@@ -24,6 +24,7 @@ builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
 builder.Services.AddSingleton<CrmSprint2ProductizationGateService>();
+builder.Services.AddSingleton<CrmDurablePersistenceSetupStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -80,6 +81,9 @@ app.MapGet("/api/crm/foundation/sprint-2/integration-readiness", (CrmSprint2Inte
 
 app.MapGet("/api/crm/foundation/sprint-2/productization-gate", (CrmSprint2ProductizationGateService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint2ProductizationGate");
+
+app.MapGet("/api/crm/foundation/sprint-3/durable-persistence-setup", (CrmDurablePersistenceSetupStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint3DurablePersistenceSetup");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

@@ -25,3 +25,5 @@ P4 completes controlled foundation CRUD previews, but productization remains `No
 P5 confirms productization remains `NotReady`. Continue to P6 for an explicit productization gate decision.
 
 P6 closes Sprint 2 with `OverallDecision=NoGoForProductiveActivation`. Sprint 3 Planning is `Go` and the next gate is `Sprint3P1DurablePersistenceSetupDesign`.
+
+Sprint 3 P1 keeps productization blocked: Durable Persistence is `DesignOnly`, Real DB is `NotConfigured`, EF Runtime is `NotEnabled`, migrations are `PlannedOnly`, and the next gate is `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.

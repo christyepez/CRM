@@ -101,3 +101,5 @@ P4 adds controlled foundation CRUD previews and does not reopen Sprint 1 scope o
 P5 adds integration readiness review and does not activate DB, Auth or productive CRUD.
 
 P6 closes Sprint 2 with `OverallDecision=NoGoForProductiveActivation`, keeps `ProductizationStatus=NotReady`, and approves Sprint 3 planning only.
+
+Sprint 3 P1 starts durable persistence setup design only; no DB, EF runtime, migrations, connection strings, secrets or productive activation are added.

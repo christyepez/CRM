@@ -11,3 +11,9 @@ Sequence:
 6. Run Sprint 3 productization review.
 
 Constraint: no productive CRM behavior until a formal GO.
+
+## Sprint 3 P1 status
+
+P1 starts durable persistence setup as `DesignOnly`. Real DB, EF runtime, migrations and connection strings remain not configured.
+
+Next gate: `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.

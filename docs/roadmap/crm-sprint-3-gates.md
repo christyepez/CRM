@@ -11,3 +11,5 @@ Required gates:
 - Security and data reviews pass.
 
 Next gate: `Sprint3P1DurablePersistenceSetupDesign`.
+
+Sprint 3 P1 result: durable persistence setup is `DesignOnly`; continue to `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.

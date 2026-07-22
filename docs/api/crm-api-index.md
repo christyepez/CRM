@@ -90,3 +90,7 @@ P5 integration readiness endpoint is read-only and exists only to summarize GO/N
 P6 productization gate endpoint is read-only and closes Sprint 2 without activation:
 
 - `GET /api/crm/foundation/sprint-2/productization-gate`
+
+Sprint 3 P1 durable persistence setup endpoint is read-only and design-only:
+
+- `GET /api/crm/foundation/sprint-3/durable-persistence-setup`

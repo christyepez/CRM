@@ -309,3 +309,22 @@ Status: implemented for PR review.
 - Sprint3PlanningDecision: Go.
 - NextGate: Sprint3P1DurablePersistenceSetupDesign.
 - Guardrail: Productization gate decision only; no productive activation.
+
+## CRM Sprint 3 P1 - Durable persistence setup design
+
+Status: implemented for PR review.
+
+- Added durable persistence setup design docs.
+- Added common DB usage, migration/rollback and secrets strategy docs.
+- Added durable persistence setup contracts and service.
+- Added `GET /api/crm/foundation/sprint-3/durable-persistence-setup`.
+- DurablePersistenceMode: DesignOnly.
+- RealDatabaseConfigured: false.
+- EfRuntimeEnabled: false.
+- DbContextConfigured: false.
+- MigrationsCreated: false.
+- ConnectionStringsConfigured: false.
+- SqlServerOwnedByCrm: false.
+- ProductiveActivation: NoGo.
+- NextGate: Sprint3P2CommonDbConnectionContractAndSecretStrategy.
+- Guardrail: Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured.
