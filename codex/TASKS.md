@@ -248,3 +248,12 @@ Out of scope:
 - Power BI runtime, embed tokens, report IDs, workspace IDs, dataset IDs.
 - Real dashboards, real datasets, ETL, SQL queries.
 - Database, migrations, DbContext, SQL Server.
+## CRM Sprint 2 P2 - Non-production persistence seam
+
+Status: implemented for PR review.
+
+- Added Application foundation store ports.
+- Added Infrastructure in-memory foundation stores.
+- Added seam status, feature flags, stores status and clear-preview foundation endpoints.
+- Kept DB, EF, migrations, SQL Server and productive CRUD disabled.
+- Next: Sprint2P3PortalAuthorizationAdapterSimulation.

@@ -12,3 +12,6 @@ Future migration design should define:
 - No Portal-owned data duplicated in CRM tables.
 
 Sprint 2 P2 may create a persistence seam only after approval.
+## Sprint 2 P2 update
+
+No migration was created in P2. The in-memory foundation seam intentionally avoids EF Core, DbContext, DbSet, SQL scripts and durable storage. Migration work remains deferred until a future persistence activation sprint.

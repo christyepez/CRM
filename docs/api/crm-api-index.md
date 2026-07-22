@@ -76,3 +76,6 @@ Persistence readiness endpoint:
 - `GET /api/crm/foundation/persistence/readiness`
 
 This endpoint is design-review metadata only and must not be treated as DB activation.
+## Sprint 2 P2 additions
+
+Persistence seam endpoints are foundation-only and documented in `crm-api-contracts.md` and `crm-foundation-endpoint-inventory.md`.

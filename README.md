@@ -222,3 +222,15 @@ Current persistence status:
 - Next Gate: Sprint2P2PersistenceSeam
 
 No database, migration, DbContext, DbSet, SQL Server or productive CRUD is active.
+### CRM Sprint 2 P2 - Non-production persistence seam
+
+CRM now exposes a foundation-only `NonProductionSeam` for Lead, Account and Contact previews. It uses in-memory adapters and keeps `DatabaseConfigured=false`, `DbContextConfigured=false`, `MigrationReady=false`, `DurablePersistence=false` and `ProductiveCrudEnabled=false`.
+
+Useful local checks:
+
+- `GET /api/crm/foundation/persistence/seam-status`
+- `GET /api/crm/foundation/persistence/feature-flags`
+- `GET /api/crm/foundation/persistence/stores/status`
+- `POST /api/crm/foundation/persistence/stores/clear-preview`
+
+No productive CRM CRUD endpoints are active in this sprint.

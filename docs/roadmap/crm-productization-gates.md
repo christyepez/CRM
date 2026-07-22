@@ -13,3 +13,6 @@ Productization remains `NotReady` until:
 No production activation may bypass these gates.
 
 Sprint 2 P1 adds persistence readiness metadata but keeps productization `NotReady`.
+## P2 gate result
+
+Foundation store seam is active, but productization remains `NotReady` until Portal authorization simulation, migration strategy approval and durable persistence activation are completed.
