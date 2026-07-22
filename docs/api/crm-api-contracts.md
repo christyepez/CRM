@@ -113,3 +113,15 @@ New non-productive endpoints:
 - `POST /api/crm/foundation/persistence/stores/clear-preview`
 
 All return `foundationMode=true` and keep `productiveCrudEnabled=false`. No productive `/api/crm/leads`, `/api/crm/accounts` or `/api/crm/contacts` endpoints are active.
+
+## Sprint 2 P3 Portal authorization simulation
+
+New foundation-only endpoints:
+
+- `GET /api/crm/foundation/portal-authorization/simulation-status`
+- `GET /api/crm/foundation/portal-authorization/scenarios`
+- `GET /api/crm/foundation/portal-authorization/permissions`
+- `GET /api/crm/foundation/portal-authorization/sample-user-context`
+- `POST /api/crm/foundation/portal-authorization/check-permission`
+
+Responses include `foundationMode=true`, `simulationMode=FoundationSimulation`, `portalRuntimeConnected=false`, `authOwnedBy=PortalCorporativo`, `crmOwnsAuth=false` and the warning `Portal authorization simulation only; no real Portal runtime configured`.

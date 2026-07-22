@@ -234,3 +234,16 @@ Useful local checks:
 - `POST /api/crm/foundation/persistence/stores/clear-preview`
 
 No productive CRM CRUD endpoints are active in this sprint.
+### CRM Sprint 2 P3 - Portal authorization simulation
+
+CRM now exposes a foundation-only Portal authorization simulation. It keeps `PortalRuntimeConnected=false`, `AuthOwnedBy=PortalCorporativo`, `CrmOwnsAuth=false`, `TokenStorage=false` and `ProductiveAuthorization=false`.
+
+Useful local checks:
+
+- `GET /api/crm/foundation/portal-authorization/simulation-status`
+- `GET /api/crm/foundation/portal-authorization/scenarios`
+- `GET /api/crm/foundation/portal-authorization/permissions`
+- `GET /api/crm/foundation/portal-authorization/sample-user-context`
+- `POST /api/crm/foundation/portal-authorization/check-permission`
+
+No login, productive Auth, Portal runtime call, token storage, menu runtime or CRUD UI is active.

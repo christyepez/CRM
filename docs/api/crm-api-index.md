@@ -79,3 +79,6 @@ This endpoint is design-review metadata only and must not be treated as DB activ
 ## Sprint 2 P2 additions
 
 Persistence seam endpoints are foundation-only and documented in `crm-api-contracts.md` and `crm-foundation-endpoint-inventory.md`.
+## Sprint 2 P3 additions
+
+Portal authorization simulation endpoints are foundation-only and do not activate productive Auth, Portal runtime or CRUD.

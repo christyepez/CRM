@@ -3,10 +3,12 @@ using CRM.Application.Financial;
 using CRM.Application.Foundation;
 using CRM.Application.Persistence;
 using CRM.Application.Ports.Persistence;
+using CRM.Application.Ports.Portal;
 using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 using CRM.Infrastructure.Persistence.Foundation;
+using CRM.Infrastructure.Portal.Simulation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,11 @@ builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundation
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
 builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
 builder.Services.AddSingleton<CrmPersistenceSeamStatusService>();
+builder.Services.AddSingleton<IPortalUserContextProvider, SimulatedPortalUserContextProvider>();
+builder.Services.AddSingleton<IPortalPermissionProvider, SimulatedPortalPermissionProvider>();
+builder.Services.AddSingleton<IPortalAuthorizationScenarioProvider, SimulatedPortalAuthorizationScenarioProvider>();
+builder.Services.AddSingleton<CrmFoundationPermissionGuard>();
+builder.Services.AddSingleton<CrmPortalAuthorizationSimulationService>();
 
 var app = builder.Build();
 
@@ -119,8 +126,36 @@ app.MapGet("/api/crm/foundation/persistence/feature-flags", (CrmPersistenceSeamS
 app.MapGet("/api/crm/foundation/persistence/stores/status", async (CrmPersistenceSeamStatusService service, CancellationToken cancellationToken) => Results.Ok(await service.GetStoresStatusAsync(cancellationToken)))
     .WithName("GetCrmFoundationPersistenceStoresStatus");
 
-app.MapPost("/api/crm/foundation/persistence/stores/clear-preview", async (CrmPersistenceSeamStatusService service, CancellationToken cancellationToken) => Results.Ok(await service.ClearPreviewAsync(cancellationToken)))
+app.MapPost("/api/crm/foundation/persistence/stores/clear-preview", async (CrmPersistenceSeamStatusService service, CrmFoundationPermissionGuard permissionGuard, CancellationToken cancellationToken) =>
+{
+    var permission = await permissionGuard.CheckAsync("crm.foundation.preview.clear", cancellationToken);
+    var seam = permission.Allowed ? await service.ClearPreviewAsync(cancellationToken) : await service.GetStatusAsync(cancellationToken);
+    return Results.Ok(new
+    {
+        foundationMode = true,
+        permissionSimulation = permission.SimulationMode,
+        requiredPermission = permission.Permission,
+        allowed = permission.Allowed,
+        warning = permission.Warning,
+        seam
+    });
+})
     .WithName("ClearCrmFoundationPersistenceStorePreview");
+
+app.MapGet("/api/crm/foundation/portal-authorization/simulation-status", async (CrmPortalAuthorizationSimulationService service, CancellationToken cancellationToken) => Results.Ok(await service.GetStatusAsync(cancellationToken)))
+    .WithName("GetCrmFoundationPortalAuthorizationSimulationStatus");
+
+app.MapGet("/api/crm/foundation/portal-authorization/scenarios", (CrmPortalAuthorizationSimulationService service) => Results.Ok(service.GetScenarios()))
+    .WithName("GetCrmFoundationPortalAuthorizationScenarios");
+
+app.MapGet("/api/crm/foundation/portal-authorization/permissions", (CrmPortalAuthorizationSimulationService service) => Results.Ok(service.GetPermissions()))
+    .WithName("GetCrmFoundationPortalAuthorizationPermissions");
+
+app.MapGet("/api/crm/foundation/portal-authorization/sample-user-context", async (CrmPortalAuthorizationSimulationService service, CancellationToken cancellationToken) => Results.Ok(await service.GetSampleUserContextAsync(cancellationToken)))
+    .WithName("GetCrmFoundationPortalAuthorizationSampleUserContext");
+
+app.MapPost("/api/crm/foundation/portal-authorization/check-permission", async (CrmPortalPermissionCheckRequest request, CrmPortalAuthorizationSimulationService service, CancellationToken cancellationToken) => Results.Ok(await service.CheckPermissionAsync(request.RequiredPermission, cancellationToken)))
+    .WithName("CheckCrmFoundationPortalAuthorizationPermission");
 
 app.Run();
 

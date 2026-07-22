@@ -257,3 +257,14 @@ Status: implemented for PR review.
 - Added seam status, feature flags, stores status and clear-preview foundation endpoints.
 - Kept DB, EF, migrations, SQL Server and productive CRUD disabled.
 - Next: Sprint2P3PortalAuthorizationAdapterSimulation.
+## CRM Sprint 2 P3 - Portal authorization simulation
+
+Status: implemented for PR review.
+
+- Added Portal authorization simulation contracts and service.
+- Added Infrastructure simulated Portal user, permission and scenario providers.
+- Added foundation permission guard.
+- Added foundation-only Portal authorization simulation endpoints.
+- Clear-preview now returns simulated permission result for `crm.foundation.preview.clear`.
+- Kept login, productive Auth, Portal runtime, token storage, DB and productive CRUD disabled.
+- Next: Sprint2P4ControlledCrudBehindFoundationFlag.

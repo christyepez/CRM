@@ -13,3 +13,6 @@ Sprint 2 P1 is active as design review only. Sprint 2 P2 remains gated by databa
 ## Sprint 2 P2 status
 
 P2 implements the non-production persistence seam. The recommended next step is `Sprint2P3PortalAuthorizationAdapterSimulation`, still without productive CRUD.
+## Sprint 2 P3 status
+
+P3 implements Portal authorization adapter simulation. The recommended next step is `Sprint2P4ControlledCrudBehindFoundationFlag`.

@@ -49,12 +49,15 @@ function Require-Path($Path) {
     "docs/integration/crm-portal-adapter-contracts.md",
     "docs/integration/crm-portal-capability-map.md",
     "docs/integration/crm-portal-readiness-checklist.md",
+    "docs/integration/crm-portal-authorization-simulation.md",
     "docs/integration/crm-financial-boundary.md",
     "docs/integration/crm-financial-adapter-contracts.md",
     "docs/integration/crm-financial-capability-map.md",
     "docs/integration/crm-financial-readiness-checklist.md",
     "docs/integration/crm-financial-event-contracts.md",
     "docs/security/crm-portal-security-boundary.md",
+    "docs/security/crm-portal-authorization-boundary.md",
+    "docs/security/crm-foundation-permission-simulation.md",
     "docs/security/crm-financial-security-boundary.md",
     "docs/security/crm-reporting-security-boundary.md",
     "docs/reporting/crm-reporting-contracts.md",
@@ -78,6 +81,7 @@ function Require-Path($Path) {
     "docs/security/crm-sensitive-data-policy.md",
     "docs/roadmap/crm-sprint-2-options.md",
     "docs/roadmap/crm-sprint-2-recommended-path.md",
+    "docs/roadmap/crm-sprint-2-p3-portal-auth-simulation.md",
     "docs/roadmap/crm-productization-gates.md",
     "frontend/crm-web/package.json",
     "src/CRM.Domain/Entities/Lead.cs",
@@ -108,6 +112,10 @@ function Require-Path($Path) {
     "src/CRM.Infrastructure/Persistence/Foundation/StaticCrmPersistenceFeatureFlagProvider.cs",
     "src/CRM.Application/Portal/CrmPortalIntegrationStatusService.cs",
     "src/CRM.Application/Portal/PortalIntegrationContracts.cs",
+    "src/CRM.Application/Portal/CrmPortalAuthorizationSimulationContracts.cs",
+    "src/CRM.Application/Portal/CrmPortalAuthorizationSimulationService.cs",
+    "src/CRM.Application/Portal/CrmFoundationPermissionGuard.cs",
+    "src/CRM.Application/Ports/Portal/IPortalAuthorizationScenarioProvider.cs",
     "src/CRM.Application/Ports/Portal/IPortalUserContextProvider.cs",
     "src/CRM.Application/Ports/Portal/IPortalPermissionProvider.cs",
     "src/CRM.Application/Ports/Portal/IPortalMenuRegistrationProvider.cs",
@@ -117,6 +125,9 @@ function Require-Path($Path) {
     "src/CRM.Application/Ports/Portal/IPortalCorrelationContext.cs",
     "src/CRM.Infrastructure/Portal/PortalAdapterNotConfiguredException.cs",
     "src/CRM.Infrastructure/Portal/PortalIntegrationPlaceholder.cs",
+    "src/CRM.Infrastructure/Portal/Simulation/SimulatedPortalUserContextProvider.cs",
+    "src/CRM.Infrastructure/Portal/Simulation/SimulatedPortalPermissionProvider.cs",
+    "src/CRM.Infrastructure/Portal/Simulation/SimulatedPortalAuthorizationScenarioProvider.cs",
     "src/CRM.Application/Financial/CrmFinancialIntegrationStatusService.cs",
     "src/CRM.Application/Financial/FinancialIntegrationContracts.cs",
     "src/CRM.Application/Financial/FinancialConceptualEvents.cs",
@@ -169,7 +180,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -275,6 +286,16 @@ foreach ($marker in @("Non-production persistence seam only; no database configu
 
 if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
     $failures += "Runtime Portal adapter, URL or HTTP client found before integration approval."
+}
+
+foreach ($marker in @("Portal authorization simulation only; no real Portal runtime configured", "PortalAuthorizationSimulationActive", "FoundationSimulation", "Sprint2P4ControlledCrudBehindFoundationFlag", "CrmPortalAuthorizationSimulationService", "CrmFoundationPermissionGuard", "SimulatedPortalUserContextProvider", "SimulatedPortalPermissionProvider", "SimulatedPortalAuthorizationScenarioProvider", "crm.foundation.preview.clear")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/integration/crm-portal-authorization-simulation.md") + "`n" + (Get-Content -Raw "docs/security/crm-foundation-permission-simulation.md")) -notlike "*$marker*") {
+        $failures += "Missing Portal authorization simulation marker: $marker"
+    }
+}
+
+if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
+    $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }
 
 if ($sourceText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
