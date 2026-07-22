@@ -89,3 +89,6 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Added design-only persistence readiness contracts and endpoint.
 - Added persistence design review documentation and activation gates.
 - Kept database, migrations, DbContext, DbSet and productive CRUD disabled.
+## Sprint 2 P2 note
+
+Sprint 1 remains closed. P2 adds only a non-production seam for preview persistence and does not reopen Sprint 1 scope.

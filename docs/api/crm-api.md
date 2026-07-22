@@ -1,20 +1,7 @@
 # CRM API
 
-## Endpoints minimos
+## Sprint 2 P2 active endpoints
 
-- GET /api/crm/customers
-- GET /api/crm/customers/{id}
-- POST /api/crm/customers
-- PUT /api/crm/customers/{id}
-- DELETE /api/crm/customers/{id}
-- GET /api/crm/leads
-- POST /api/crm/leads
-- POST /api/crm/leads/{id}/convert
-- GET /api/crm/opportunities
-- POST /api/crm/opportunities
-- POST /api/crm/opportunities/{id}/change-stage
-- POST /api/crm/opportunities/{id}/win
-- POST /api/crm/opportunities/{id}/lose
-- GET /api/crm/cases
-- POST /api/crm/cases
-- POST /api/crm/cases/{id}/close
+Only health, readiness, catalog, contracts, integration-boundary and foundation endpoints are active.
+
+Productive customer, lead, account, contact, opportunity and case CRUD routes are not active in P2. They remain behind future productization gates and must not be exposed before Portal authorization and durable persistence approval.

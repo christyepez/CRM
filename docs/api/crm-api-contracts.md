@@ -103,3 +103,13 @@ Sprint 2 P1 adds a foundation-only persistence readiness endpoint:
 - `GET /api/crm/foundation/persistence/readiness`
 
 It returns `persistenceMode=DesignOnly`, `databaseConfigured=false`, `migrationReady=false`, `dbContextConfigured=false`, `sqlServerOwnedByCrm=false` and `Persistence design review only; no database configured`.
+## Sprint 2 P2 foundation persistence seam
+
+New non-productive endpoints:
+
+- `GET /api/crm/foundation/persistence/seam-status`
+- `GET /api/crm/foundation/persistence/feature-flags`
+- `GET /api/crm/foundation/persistence/stores/status`
+- `POST /api/crm/foundation/persistence/stores/clear-preview`
+
+All return `foundationMode=true` and keep `productiveCrudEnabled=false`. No productive `/api/crm/leads`, `/api/crm/accounts` or `/api/crm/contacts` endpoints are active.

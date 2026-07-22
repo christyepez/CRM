@@ -70,6 +70,10 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/reporting/analytics-read-models", program);
         Assert.Contains("/api/crm/foundation/sprint-1/closure-status", program);
         Assert.Contains("/api/crm/foundation/persistence/readiness", program);
+        Assert.Contains("/api/crm/foundation/persistence/seam-status", program);
+        Assert.Contains("/api/crm/foundation/persistence/feature-flags", program);
+        Assert.Contains("/api/crm/foundation/persistence/stores/status", program);
+        Assert.Contains("/api/crm/foundation/persistence/stores/clear-preview", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -287,10 +291,43 @@ public sealed class ArchitectureDependencyTests
         var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
 
         Assert.Contains("MapGet(\"/api/crm/foundation/persistence/readiness\"", program);
-        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/persistence/seam-status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/persistence/feature-flags\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/persistence/stores/status\"", program);
+        Assert.Contains("MapPost(\"/api/crm/foundation/persistence/stores/clear-preview\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence/readiness", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence/seam-status", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence/feature-flags", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/persistence/stores/status", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/persistence", program);
         Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/persistence", program);
         Assert.Contains("Persistence design review only; no database configured", ReadSourceFiles("src", "CRM.Application"));
+        Assert.Contains("Non-production persistence seam only; no database configured", ReadSourceFiles("src", "CRM.Application"));
+    }
+
+    [Fact]
+    public void PersistenceSeam_UsesOnlyFoundationStorePortsAndInMemoryAdapters()
+    {
+        var applicationSource = ReadSourceFiles(Path.Combine("src", "CRM.Application"));
+        var infrastructureSource = ReadSourceFiles(Path.Combine("src", "CRM.Infrastructure"));
+        var source = applicationSource + Environment.NewLine + infrastructureSource;
+
+        Assert.Contains("ILeadFoundationStore", applicationSource);
+        Assert.Contains("IAccountFoundationStore", applicationSource);
+        Assert.Contains("IContactFoundationStore", applicationSource);
+        Assert.Contains("ICrmFoundationUnitOfWork", applicationSource);
+        Assert.Contains("ICrmPersistenceFeatureFlagProvider", applicationSource);
+        Assert.Contains("InMemoryLeadFoundationStore", infrastructureSource);
+        Assert.Contains("InMemoryAccountFoundationStore", infrastructureSource);
+        Assert.Contains("InMemoryContactFoundationStore", infrastructureSource);
+        Assert.Contains("StaticCrmPersistenceFeatureFlagProvider", infrastructureSource);
+        Assert.Contains("NonProductionSeam", source);
+        Assert.Contains("ProductiveCrudEnabled", source);
+        Assert.DoesNotContain("Repository", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

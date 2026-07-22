@@ -2,9 +2,11 @@ using CRM.Application.Contracts;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
 using CRM.Application.Persistence;
+using CRM.Application.Ports.Persistence;
 using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
+using CRM.Infrastructure.Persistence.Foundation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,6 +25,12 @@ builder.Services.AddSingleton<CrmFinancialIntegrationStatusService>();
 builder.Services.AddSingleton<CrmReportingIntegrationStatusService>();
 builder.Services.AddSingleton<CrmSprint1ClosureStatusService>();
 builder.Services.AddSingleton<CrmPersistenceReadinessService>();
+builder.Services.AddSingleton<ILeadFoundationStore, InMemoryLeadFoundationStore>();
+builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundationStore>();
+builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
+builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
+builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
+builder.Services.AddSingleton<CrmPersistenceSeamStatusService>();
 
 var app = builder.Build();
 
@@ -101,6 +109,18 @@ app.MapGet("/api/crm/foundation/sprint-1/closure-status", (CrmSprint1ClosureStat
 
 app.MapGet("/api/crm/foundation/persistence/readiness", (CrmPersistenceReadinessService service) => Results.Ok(service.GetReadiness()))
     .WithName("GetCrmFoundationPersistenceReadiness");
+
+app.MapGet("/api/crm/foundation/persistence/seam-status", async (CrmPersistenceSeamStatusService service, CancellationToken cancellationToken) => Results.Ok(await service.GetStatusAsync(cancellationToken)))
+    .WithName("GetCrmFoundationPersistenceSeamStatus");
+
+app.MapGet("/api/crm/foundation/persistence/feature-flags", (CrmPersistenceSeamStatusService service) => Results.Ok(service.GetFeatureFlags()))
+    .WithName("GetCrmFoundationPersistenceFeatureFlags");
+
+app.MapGet("/api/crm/foundation/persistence/stores/status", async (CrmPersistenceSeamStatusService service, CancellationToken cancellationToken) => Results.Ok(await service.GetStoresStatusAsync(cancellationToken)))
+    .WithName("GetCrmFoundationPersistenceStoresStatus");
+
+app.MapPost("/api/crm/foundation/persistence/stores/clear-preview", async (CrmPersistenceSeamStatusService service, CancellationToken cancellationToken) => Results.Ok(await service.ClearPreviewAsync(cancellationToken)))
+    .WithName("ClearCrmFoundationPersistenceStorePreview");
 
 app.Run();
 

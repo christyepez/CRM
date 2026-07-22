@@ -10,3 +10,6 @@
 This path is conservative: it activates infrastructure seams before product behavior.
 
 Sprint 2 P1 is active as design review only. Sprint 2 P2 remains gated by database approval, Portal authorization expectations and migration plan approval.
+## Sprint 2 P2 status
+
+P2 implements the non-production persistence seam. The recommended next step is `Sprint2P3PortalAuthorizationAdapterSimulation`, still without productive CRUD.

@@ -37,6 +37,10 @@ function Require-Path($Path) {
     "docs/data/crm-feature-flags-for-persistence.md",
     "docs/data/crm-nonproduction-data-policy.md",
     "docs/data/crm-migration-design-plan.md",
+    "docs/data/crm-nonproduction-persistence-seam.md",
+    "docs/data/crm-foundation-store-contracts.md",
+    "docs/data/crm-persistence-feature-flags.md",
+    "docs/data/crm-persistence-seam-risk-register.md",
     "docs/api/crm-api-contracts.md",
     "docs/api/crm-api-index.md",
     "docs/api/crm-foundation-preview-api.md",
@@ -90,6 +94,18 @@ function Require-Path($Path) {
     "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceDesignContracts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceReadinessService.cs",
+    "src/CRM.Application/Persistence/CrmPersistenceSeamContracts.cs",
+    "src/CRM.Application/Persistence/CrmPersistenceSeamStatusService.cs",
+    "src/CRM.Application/Ports/Persistence/ILeadFoundationStore.cs",
+    "src/CRM.Application/Ports/Persistence/IAccountFoundationStore.cs",
+    "src/CRM.Application/Ports/Persistence/IContactFoundationStore.cs",
+    "src/CRM.Application/Ports/Persistence/ICrmFoundationUnitOfWork.cs",
+    "src/CRM.Application/Ports/Persistence/ICrmPersistenceFeatureFlagProvider.cs",
+    "src/CRM.Infrastructure/Persistence/Foundation/InMemoryLeadFoundationStore.cs",
+    "src/CRM.Infrastructure/Persistence/Foundation/InMemoryAccountFoundationStore.cs",
+    "src/CRM.Infrastructure/Persistence/Foundation/InMemoryContactFoundationStore.cs",
+    "src/CRM.Infrastructure/Persistence/Foundation/InMemoryCrmFoundationUnitOfWork.cs",
+    "src/CRM.Infrastructure/Persistence/Foundation/StaticCrmPersistenceFeatureFlagProvider.cs",
     "src/CRM.Application/Portal/CrmPortalIntegrationStatusService.cs",
     "src/CRM.Application/Portal/PortalIntegrationContracts.cs",
     "src/CRM.Application/Ports/Portal/IPortalUserContextProvider.cs",
@@ -153,7 +169,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -179,8 +195,8 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint
     $failures += "Closure endpoint must remain GET-only foundation endpoint."
 }
 
-if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persistence") {
-    $failures += "Persistence readiness endpoint must remain GET-only foundation endpoint."
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persistence/readiness|Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persistence/seam-status|Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persistence/feature-flags|Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persistence/stores/status|Map(Put|Patch|Delete)\(`"/api/crm/foundation/persistence") {
+    $failures += "Persistence seam endpoints must remain foundation-only; only clear-preview POST is allowed."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -248,6 +264,12 @@ foreach ($marker in @("Foundation closure only; no productive activation", "Foun
 foreach ($marker in @("Persistence design review only; no database configured", "PersistenceDesignReview", "DesignOnly", "Sprint2P2PersistenceSeam", "CRM_PERSISTENCE_ENABLED=false")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-feature-flags-for-persistence.md")) -notlike "*$marker*") {
         $failures += "Missing persistence design marker: $marker"
+    }
+}
+
+foreach ($marker in @("Non-production persistence seam only; no database configured", "PersistenceSeamActive", "NonProductionSeam", "Sprint2P3PortalAuthorizationAdapterSimulation", "CRM_PERSISTENCE_SEAM_ENABLED=true", "CRM_PRODUCTIVE_CRUD_ENABLED=false", "CRM_DURABLE_PERSISTENCE_ENABLED=false", "ILeadFoundationStore", "IAccountFoundationStore", "IContactFoundationStore", "InMemoryLeadFoundationStore", "InMemoryAccountFoundationStore", "InMemoryContactFoundationStore")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-persistence-feature-flags.md")) -notlike "*$marker*") {
+        $failures += "Missing persistence seam marker: $marker"
     }
 }
 
