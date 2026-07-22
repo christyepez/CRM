@@ -36,7 +36,11 @@ function Require-Path($Path) {
     "docs/api/crm-foundation-preview-api.md",
     "docs/api/crm-read-model-preview-api.md",
     "docs/integration/crm-portal-boundary.md",
+    "docs/integration/crm-portal-adapter-contracts.md",
+    "docs/integration/crm-portal-capability-map.md",
+    "docs/integration/crm-portal-readiness-checklist.md",
     "docs/integration/crm-financial-boundary.md",
+    "docs/security/crm-portal-security-boundary.md",
     "docs/roadmap/crm-roadmap.md",
     "docs/roadmap/crm-sprint-plan.md",
     "docs/releases/crm-sprint-1-notes.md",
@@ -52,6 +56,17 @@ function Require-Path($Path) {
     "src/CRM.Application/Foundation/AccountFoundationService.cs",
     "src/CRM.Application/Foundation/ContactFoundationService.cs",
     "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
+    "src/CRM.Application/Portal/CrmPortalIntegrationStatusService.cs",
+    "src/CRM.Application/Portal/PortalIntegrationContracts.cs",
+    "src/CRM.Application/Ports/Portal/IPortalUserContextProvider.cs",
+    "src/CRM.Application/Ports/Portal/IPortalPermissionProvider.cs",
+    "src/CRM.Application/Ports/Portal/IPortalMenuRegistrationProvider.cs",
+    "src/CRM.Application/Ports/Portal/IPortalAuditPublisher.cs",
+    "src/CRM.Application/Ports/Portal/IPortalNotificationPublisher.cs",
+    "src/CRM.Application/Ports/Portal/IPortalConfigurationProvider.cs",
+    "src/CRM.Application/Ports/Portal/IPortalCorrelationContext.cs",
+    "src/CRM.Infrastructure/Portal/PortalAdapterNotConfiguredException.cs",
+    "src/CRM.Infrastructure/Portal/PortalIntegrationPlaceholder.cs",
     "src/CRM.Application/ReadModels/ReadModelContracts.cs",
     "src/CRM.Application/ReadModels/ReadModelPreviewServices.cs"
 ) | ForEach-Object { Require-Path $_ }
@@ -85,7 +100,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -93,6 +108,10 @@ foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readi
 
 if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
     $failures += "Premature CRM mutating endpoint found."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/portal-integration") {
+    $failures += "Portal integration endpoints must remain GET-only foundation endpoints."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -130,6 +149,16 @@ foreach ($root in @("src")) {
 
 if ($sourceText -match "DbContext|DbSet<|MigrationBuilder|UseSqlServer") {
     $failures += "Productive persistence, migration or DbContext reference found."
+}
+
+foreach ($marker in @("Portal integration contracts only; no runtime calls configured", "FuturePortalAdapter", "NonProductionPlaceholder")) {
+    if ($sourceText -notlike "*$marker*") {
+        $failures += "Missing Portal integration guardrail marker: $marker"
+    }
+}
+
+if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
+    $failures += "Runtime Portal adapter, URL or HTTP client found before integration approval."
 }
 
 if (Test-Path "database") {

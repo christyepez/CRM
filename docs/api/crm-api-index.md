@@ -29,3 +29,12 @@
 ## Next API work
 
 Future sprints may add read models and controlled command endpoints only after Portal Security, Audit and Configuration boundaries are wired.
+# CRM API Index - P5 Addendum
+
+Portal foundation readiness endpoints:
+
+- `GET /api/crm/foundation/portal-integration/status`
+- `GET /api/crm/foundation/portal-integration/contracts`
+- `GET /api/crm/foundation/portal-integration/required-capabilities`
+
+These endpoints are contract/readiness only and must not be treated as productive CRM domain APIs.

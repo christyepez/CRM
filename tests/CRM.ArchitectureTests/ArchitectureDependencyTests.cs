@@ -57,6 +57,9 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/accounts/read-model-preview", program);
         Assert.Contains("/api/crm/foundation/contacts/read-model-preview", program);
         Assert.Contains("/api/crm/foundation/read-model-status", program);
+        Assert.Contains("/api/crm/foundation/portal-integration/status", program);
+        Assert.Contains("/api/crm/foundation/portal-integration/contracts", program);
+        Assert.Contains("/api/crm/foundation/portal-integration/required-capabilities", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -76,6 +79,57 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("mcr.microsoft.com/" + "mssql", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PortalPorts_AreApplicationInterfacesOnly()
+    {
+        var root = FindRepositoryRoot();
+        var portsPath = Path.Combine(root, "src", "CRM.Application", "Ports", "Portal");
+
+        Assert.True(Directory.Exists(portsPath));
+        foreach (var file in Directory.EnumerateFiles(portsPath, "*.cs"))
+        {
+            var source = File.ReadAllText(file);
+
+            Assert.Contains("interface", source, StringComparison.OrdinalIgnoreCase);
+            Assert.Contains("FuturePortalAdapter", source, StringComparison.Ordinal);
+            Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("BaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        }
+    }
+
+    [Fact]
+    public void Domain_DoesNotReferencePortalIntegrationPorts()
+    {
+        var source = ReadSourceFiles(Path.Combine("src", "CRM.Domain"));
+
+        Assert.DoesNotContain("CRM.Application.Ports.Portal", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("IPortal", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void PortalPlaceholder_DoesNotMakeRuntimePortalCalls()
+    {
+        var source = ReadSourceFiles("src", "CRM.Infrastructure");
+
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("NonProductionPlaceholder", source, StringComparison.Ordinal);
+    }
+
+    [Fact]
+    public void PortalEndpoints_AreFoundationGetOnly()
+    {
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-integration/status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-integration/contracts\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-integration/required-capabilities\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/portal-integration", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/portal-integration", program);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/portal-integration", program);
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

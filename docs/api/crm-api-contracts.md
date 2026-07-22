@@ -56,3 +56,12 @@ P4 allows GET endpoints only under `/api/crm/foundation/...`.
 - `GET /api/crm/foundation/read-model-status`
 
 These endpoints return `source: FoundationMock`, `persistence: None` and `warning: Read model preview only, not persisted`.
+# CRM API Contracts - P5 Portal Integration
+
+Sprint 1 P5 adds foundation-only Portal adapter contract endpoints:
+
+- `GET /api/crm/foundation/portal-integration/status`
+- `GET /api/crm/foundation/portal-integration/contracts`
+- `GET /api/crm/foundation/portal-integration/required-capabilities`
+
+All responses are NonProduction readiness contracts with `integrationMode=Planned`, `connected=false` and `capabilityOwner=PortalCorporativo`. They do not call Portal at runtime.
