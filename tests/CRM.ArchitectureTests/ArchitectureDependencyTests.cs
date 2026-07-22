@@ -68,6 +68,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/reporting/kpis", program);
         Assert.Contains("/api/crm/foundation/reporting/dashboards", program);
         Assert.Contains("/api/crm/foundation/reporting/analytics-read-models", program);
+        Assert.Contains("/api/crm/foundation/sprint-1/closure-status", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -265,6 +266,18 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/reporting", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/reporting", program);
         Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/reporting", program);
+    }
+
+    [Fact]
+    public void ClosureEndpoint_IsFoundationGetOnly()
+    {
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-1/closure-status\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-1", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-1", program);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/sprint-1", program);
+        Assert.Contains("Foundation closure only; no productive activation", ReadSourceFiles("src", "CRM.Application"));
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

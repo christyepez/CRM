@@ -47,3 +47,5 @@ After Sprint 1 P5, CRM remains disconnected from Portal at runtime. The next ste
 After Sprint 1 P6, CRM also remains disconnected from Financiero at runtime. The next step is contract approval for API/event integration with `NoSharedDatabase`.
 
 After Sprint 1 P7, CRM has reporting/BI metadata contracts only. Real analytics activation depends on Portal authorization and approved BI platform configuration.
+
+After Sprint 1 P8, Sprint 1 is formally closed as `FoundationClosed`; Sprint 2 should begin with controlled persistence activation design review.

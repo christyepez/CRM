@@ -195,3 +195,16 @@ Current status:
 - Power BI Embed: NotConfigured
 
 CRM does not implement real dashboards, Power BI embedding, datasets, ETL, workspace IDs, report IDs, embed tokens, SQL queries or productive analytics endpoints.
+
+# CRM Sprint 1 P8 Foundation Closure
+
+Sprint 1 is closed as foundation only:
+
+- Sprint 1 Foundation: Closed
+- Runtime: NonProduction
+- Persistence: None
+- Portal/Financial/Reporting: Planned
+- Productization: NotReady
+- Next Gate: Sprint2Planning
+
+The closure endpoint is `/api/crm/foundation/sprint-1/closure-status`.

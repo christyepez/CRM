@@ -60,3 +60,11 @@ Reporting foundation readiness endpoints:
 - `GET /api/crm/foundation/reporting/analytics-read-models`
 
 These endpoints are metadata/readiness only and must not be treated as productive analytics APIs.
+
+# CRM API Index - P8 Addendum
+
+Closure readiness endpoint:
+
+- `GET /api/crm/foundation/sprint-1/closure-status`
+
+This endpoint is closure metadata only and must not be treated as productive CRM API activation.

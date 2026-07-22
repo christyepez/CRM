@@ -87,3 +87,11 @@ Sprint 1 P7 adds foundation-only Reporting/BI contract endpoints:
 - `GET /api/crm/foundation/reporting/analytics-read-models`
 
 All responses are NonProduction readiness contracts with `analyticsMode=Planned`, `connected=false`, `source=FoundationMock` and no analytics runtime configured.
+
+# CRM API Contracts - P8 Closure
+
+Sprint 1 P8 adds a foundation-only closure endpoint:
+
+- `GET /api/crm/foundation/sprint-1/closure-status`
+
+It returns `FoundationClosed`, `ProductizationStatus=NotReady`, `NextGate=Sprint2Planning` and `Foundation closure only; no productive activation`.

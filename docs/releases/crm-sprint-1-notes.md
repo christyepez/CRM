@@ -75,3 +75,11 @@ CRM repository foundation starts with .NET 8, Angular, Docker Compose and archit
 - Added NonProduction reporting placeholder without Power BI runtime, IDs, URLs or tokens.
 - Added foundation-only Reporting readiness endpoints.
 - Added documentation and guardrail tests to prevent productive analytics activation.
+
+# Sprint 1 P8 - Foundation Closure
+
+- Added formal Sprint 1 closure documentation and integrated evidence.
+- Added integrated capability matrix, ownership boundaries and dependency map.
+- Added endpoint inventory, guardrail register and sensitive data policy.
+- Added Sprint 2 options, recommended path and productization gates.
+- Added foundation-only closure status endpoint.
