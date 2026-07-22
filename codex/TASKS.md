@@ -174,6 +174,25 @@ Out of scope:
 - CRM-owned login, identity, menu, permissions, audit, notification, configuration, gateway.
 - Database, migrations, DbContext, SQL Server.
 
+# CRM Sprint 1 P8
+
+Status: implemented in branch `crm-sprint-1-p8-foundation-closure-readiness-roadmap`.
+
+Scope:
+
+- Sprint 1 closure documentation.
+- Integrated evidence and capability matrix.
+- Endpoint inventory and guardrail register.
+- Sprint 2 roadmap and productization gates.
+- Foundation-only closure status endpoint.
+
+Out of scope:
+
+- Productive activation.
+- Runtime Portal/Financiero/BI integrations.
+- DB, migrations, DbContext, SQL Server.
+- Login, token storage, DELETE or productive CRM APIs.
+
 # CRM Sprint 1 P6
 
 Status: implemented in branch `crm-sprint-1-p6-financial-adapter-contracts`.

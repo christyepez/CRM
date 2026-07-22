@@ -20,6 +20,7 @@ builder.Services.AddSingleton<CrmReadModelStatusService>();
 builder.Services.AddSingleton<CrmPortalIntegrationStatusService>();
 builder.Services.AddSingleton<CrmFinancialIntegrationStatusService>();
 builder.Services.AddSingleton<CrmReportingIntegrationStatusService>();
+builder.Services.AddSingleton<CrmSprint1ClosureStatusService>();
 
 var app = builder.Build();
 
@@ -92,6 +93,9 @@ app.MapGet("/api/crm/foundation/reporting/dashboards", (CrmReportingIntegrationS
 
 app.MapGet("/api/crm/foundation/reporting/analytics-read-models", (CrmReportingIntegrationStatusService service) => Results.Ok(service.GetAnalyticsReadModels()))
     .WithName("GetCrmFoundationReportingAnalyticsReadModels");
+
+app.MapGet("/api/crm/foundation/sprint-1/closure-status", (CrmSprint1ClosureStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint1ClosureStatus");
 
 app.Run();
 

@@ -46,7 +46,8 @@ public sealed class CrmDomainCatalogService
             "GET /api/crm/foundation/reporting/status",
             "GET /api/crm/foundation/reporting/kpis",
             "GET /api/crm/foundation/reporting/dashboards",
-            "GET /api/crm/foundation/reporting/analytics-read-models"
+            "GET /api/crm/foundation/reporting/analytics-read-models",
+            "GET /api/crm/foundation/sprint-1/closure-status"
         }
     };
 

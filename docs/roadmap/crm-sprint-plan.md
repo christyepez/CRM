@@ -42,3 +42,5 @@ P5 prepares Portal adapter contracts only. It does not implement real integratio
 P6 prepares Financial adapter contracts only. It does not implement real Financiero integration, shared database access, invoices, collections, SRI, ATS, RIDE, XAdES, database persistence or productive CRM endpoints.
 
 P7 prepares Reporting/BI contracts only. It does not implement real Power BI embedding, datasets, ETL, report IDs, workspace IDs, embed tokens, database persistence or productive analytics endpoints.
+
+P8 closes Sprint 1 foundation. It adds evidence, matrices, guardrails, endpoint inventory and Sprint 2 roadmap only. It does not activate product behavior.

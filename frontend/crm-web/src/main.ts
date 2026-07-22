@@ -33,6 +33,10 @@ class CrmReadinessService {
       kpiCatalog: 'Foundation',
       dashboardCatalog: 'Foundation',
       powerBiEmbed: 'NotConfigured',
+      sprint1Foundation: 'Closed',
+      productization: 'NotReady',
+      nextGate: 'Sprint2Planning',
+      dockerExternalRegistryNote: 'BLOCKED_EXTERNAL_REGISTRY documented when MCR times out',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -67,6 +71,11 @@ class CrmReadinessService {
       <p>KPI Catalog: Foundation</p>
       <p>Dashboard Catalog: Foundation</p>
       <p>Power BI Embed: NotConfigured</p>
+      <p>Sprint 1 Foundation: Closed</p>
+      <p>Productization: NotReady</p>
+      <p>Next Gate: Sprint2Planning</p>
+      <p>Runtime: NonProduction</p>
+      <p>Docker External Registry Note: BLOCKED_EXTERNAL_REGISTRY documented when MCR times out</p>
       <p>Non-Production</p>
     </section>
   `

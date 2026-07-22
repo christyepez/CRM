@@ -55,6 +55,20 @@ function Require-Path($Path) {
     "docs/roadmap/crm-roadmap.md",
     "docs/roadmap/crm-sprint-plan.md",
     "docs/releases/crm-sprint-1-notes.md",
+    "docs/releases/crm-sprint-1-foundation-closure.md",
+    "docs/releases/crm-sprint-1-integrated-evidence.md",
+    "docs/releases/crm-sprint-1-go-no-go.md",
+    "docs/releases/crm-sprint-1-open-risks.md",
+    "docs/releases/crm-sprint-1-next-sprint-options.md",
+    "docs/architecture/crm-integrated-capability-matrix.md",
+    "docs/architecture/crm-ownership-boundaries.md",
+    "docs/architecture/crm-cross-module-dependency-map.md",
+    "docs/api/crm-foundation-endpoint-inventory.md",
+    "docs/security/crm-foundation-guardrail-register.md",
+    "docs/security/crm-sensitive-data-policy.md",
+    "docs/roadmap/crm-sprint-2-options.md",
+    "docs/roadmap/crm-sprint-2-recommended-path.md",
+    "docs/roadmap/crm-productization-gates.md",
     "frontend/crm-web/package.json",
     "src/CRM.Domain/Entities/Lead.cs",
     "src/CRM.Domain/Entities/Opportunity.cs",
@@ -63,6 +77,7 @@ function Require-Path($Path) {
     "src/CRM.Domain/ValueObjects/BusinessValueObjects.cs",
     "src/CRM.Domain/ValueObjects/FoundationValueObjects.cs",
     "src/CRM.Application/Contracts/CrmDomainCatalogService.cs",
+    "src/CRM.Application/Foundation/CrmSprint1ClosureStatusService.cs",
     "src/CRM.Application/Foundation/LeadFoundationService.cs",
     "src/CRM.Application/Foundation/AccountFoundationService.cs",
     "src/CRM.Application/Foundation/ContactFoundationService.cs",
@@ -130,7 +145,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -150,6 +165,10 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/financ
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/reporting") {
     $failures += "Reporting endpoints must remain GET-only foundation endpoints."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-1") {
+    $failures += "Closure endpoint must remain GET-only foundation endpoint."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -204,6 +223,12 @@ foreach ($marker in @("Financial integration contracts only; no runtime calls co
 foreach ($marker in @("Reporting contracts only; no analytics runtime configured", "FutureReportingAdapter", "LeadConversionRate", "CRM Executive Overview", "FoundationMock")) {
     if ($sourceText -notlike "*$marker*") {
         $failures += "Missing Reporting guardrail marker: $marker"
+    }
+}
+
+foreach ($marker in @("Foundation closure only; no productive activation", "FoundationClosed", "NotReady", "Sprint2Planning")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md")) -notlike "*$marker*") {
+        $failures += "Missing closure guardrail marker: $marker"
     }
 }
 
