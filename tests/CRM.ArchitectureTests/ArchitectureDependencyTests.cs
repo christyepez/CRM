@@ -83,6 +83,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-2/integration-readiness", program);
         Assert.Contains("/api/crm/foundation/sprint-2/productization-gate", program);
         Assert.Contains("/api/crm/foundation/sprint-3/durable-persistence-setup", program);
+        Assert.Contains("/api/crm/foundation/sprint-3/common-db-connection-strategy", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -174,7 +175,7 @@ public sealed class ArchitectureDependencyTests
             Assert.Contains("interface", source, StringComparison.OrdinalIgnoreCase);
             Assert.Contains("FutureFinancialAdapter", source, StringComparison.Ordinal);
             Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
-            Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+            Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal).Replace("CrmConnectionStringPolicyContract", string.Empty, StringComparison.Ordinal).Replace("ConnectionStringPolicy", string.Empty, StringComparison.Ordinal).Replace("connectionStringPolicy", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
             Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
         }
     }
@@ -195,7 +196,7 @@ public sealed class ArchitectureDependencyTests
 
         Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("FinancieroUrl", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal).Replace("CrmConnectionStringPolicyContract", string.Empty, StringComparison.Ordinal).Replace("ConnectionStringPolicy", string.Empty, StringComparison.Ordinal).Replace("connectionStringPolicy", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("NonProductionPlaceholder", source, StringComparison.Ordinal);
     }
@@ -373,7 +374,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
         Assert.DoesNotContain("MapDelete", program);
-        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal).Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
@@ -396,7 +397,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
-        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal).Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
@@ -422,11 +423,11 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
-        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal).Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal).Replace("CrmConnectionStringPolicyContract", string.Empty, StringComparison.Ordinal).Replace("ConnectionStringPolicy", string.Empty, StringComparison.Ordinal).Replace("connectionStringPolicy", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
@@ -452,14 +453,58 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
-        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal).Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal).Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal).Replace("CrmConnectionStringPolicyContract", string.Empty, StringComparison.Ordinal).Replace("ConnectionStringPolicy", string.Empty, StringComparison.Ordinal).Replace("connectionStringPolicy", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void CommonDbConnectionStrategy_IsContractOnlyAndDoesNotReadSecretsOrConnectDatabase()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal)
+            .Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal)
+            .Replace("DbContext Configured", string.Empty, StringComparison.Ordinal)
+            .Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal);
+        var connectionScanSource = source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal)
+            .Replace("connectionStringsConfigured", string.Empty, StringComparison.Ordinal)
+            .Replace("Connection Strings Configured", string.Empty, StringComparison.Ordinal)
+            .Replace("CrmConnectionStringPolicyContract", string.Empty, StringComparison.Ordinal)
+            .Replace("ConnectionStringPolicy", string.Empty, StringComparison.Ordinal)
+            .Replace("connectionStringPolicy", string.Empty, StringComparison.Ordinal);
+
+        Assert.Contains("CrmCommonDbConnectionStrategyStatusService", source);
+        Assert.Contains("CrmSecretProviderPlaceholder", source);
+        Assert.Contains("CrmDatabaseConfigurationPlaceholder", source);
+        Assert.Contains("Common DB connection contract only; no real database or secrets configured", source);
+        Assert.Contains("CommonDbConnectionStrategy", source);
+        Assert.Contains("NoRealValuesInRepository", source);
+        Assert.Contains("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-3/common-db-connection-strategy\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-3/common-db-connection-strategy", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-3/common-db-connection-strategy", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
     }
@@ -482,8 +527,11 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("StaticCrmPersistenceFeatureFlagProvider", infrastructureSource);
         Assert.Contains("NonProductionSeam", source);
         Assert.Contains("ProductiveCrudEnabled", source);
-        Assert.DoesNotContain("Repository", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        var repositoryScanSource = source.Replace("NoRealValuesInRepository", string.Empty, StringComparison.Ordinal)
+            .Replace("RealValuesAllowedInRepository", string.Empty, StringComparison.Ordinal)
+            .Replace("PasswordsAllowedInRepository", string.Empty, StringComparison.Ordinal);
+        Assert.DoesNotContain("Repository", repositoryScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);

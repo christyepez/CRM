@@ -85,6 +85,12 @@ class CrmReadinessService {
       secretStrategy: 'PlannedOnly',
       migrationStrategy: 'PlannedOnly',
       durablePersistenceSetupNextGate: 'Sprint3P2CommonDbConnectionContractAndSecretStrategy',
+      sprint3P2CommonDbStrategy: 'ContractOnly',
+      logicalDatabaseName: 'CrmDb',
+      logicalDbPlaceholder: true,
+      secretProviderConfigured: false,
+      secretProviderRuntimeConnected: false,
+      commonDbStrategyNextGate: 'Sprint3P3EfDbContextPrototypeBehindDisabledFlag',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -173,6 +179,12 @@ class CrmReadinessService {
       <p>Migration Strategy: PlannedOnly</p>
       <p>Productive Activation: NoGo</p>
       <p>Next Gate: Sprint3P2CommonDbConnectionContractAndSecretStrategy</p>
+      <p>Sprint 3 P2 Common DB Strategy: ContractOnly</p>
+      <p>Logical Database Name: CrmDb</p>
+      <p>Logical DB Placeholder: true</p>
+      <p>Secret Provider Configured: false</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>Next Gate: Sprint3P3EfDbContextPrototypeBehindDisabledFlag</p>
       <p>Non-Production</p>
     </section>
   `

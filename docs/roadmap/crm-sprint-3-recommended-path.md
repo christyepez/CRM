@@ -17,3 +17,9 @@ Constraint: no productive CRM behavior until a formal GO.
 P1 starts durable persistence setup as `DesignOnly`. Real DB, EF runtime, migrations and connection strings remain not configured.
 
 Next gate: `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.
+
+## Sprint 3 P2 status
+
+P2 defines the common DB connection and secret strategy as `ContractOnly`. Real DB, secret provider runtime, EF runtime, migrations and connection string values remain not configured.
+
+Next gate: `Sprint3P3EfDbContextPrototypeBehindDisabledFlag`.

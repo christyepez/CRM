@@ -11,3 +11,5 @@ Required before Sprint 3 P2 implementation:
 - Productive CRUD remains blocked.
 
 Current gate result: `NoGo` for productive activation.
+
+Sprint 3 P2 gate result: common DB strategy is `ContractOnly`; continue to `Sprint3P3EfDbContextPrototypeBehindDisabledFlag` only after review.

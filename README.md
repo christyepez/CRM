@@ -316,3 +316,21 @@ CRM Sprint 3 P1 starts durable persistence preparation as design-only work.
 - Warning: Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured
 
 No DB real, EF runtime, migrations, connection strings, SQL Server container, secrets, `.env`, productive routes or DELETE endpoint are added in P1.
+
+### CRM Sprint 3 P2 - Common DB connection and secret strategy
+
+CRM Sprint 3 P2 defines the common DB connection contract and secret strategy as contract-only work.
+
+- Sprint 3 P2 Common DB Strategy: ContractOnly
+- Logical Database Name: CrmDb
+- Logical DB Placeholder: true
+- Real Database Configured: false
+- Connection Strings Configured: false
+- Secret Provider Configured: false
+- Secret Provider Runtime Connected: false
+- SQL Server Owned By CRM: false
+- EF Runtime Enabled: false
+- Next Gate: Sprint3P3EfDbContextPrototypeBehindDisabledFlag
+- Warning: Common DB connection contract only; no real database or secrets configured
+
+No real DB, real secrets, connection string values, EF runtime, migrations, SQL Server container, Portal runtime or productive API activation occurs in P2.

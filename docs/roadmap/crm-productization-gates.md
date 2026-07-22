@@ -27,3 +27,5 @@ P5 confirms productization remains `NotReady`. Continue to P6 for an explicit pr
 P6 closes Sprint 2 with `OverallDecision=NoGoForProductiveActivation`. Sprint 3 Planning is `Go` and the next gate is `Sprint3P1DurablePersistenceSetupDesign`.
 
 Sprint 3 P1 keeps productization blocked: Durable Persistence is `DesignOnly`, Real DB is `NotConfigured`, EF Runtime is `NotEnabled`, migrations are `PlannedOnly`, and the next gate is `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.
+
+Sprint 3 P2 keeps productization blocked: common DB and secret strategy are `ContractOnly`, no real secrets or connection values are configured, and the next gate is `Sprint3P3EfDbContextPrototypeBehindDisabledFlag`.

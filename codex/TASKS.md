@@ -328,3 +328,23 @@ Status: implemented for PR review.
 - ProductiveActivation: NoGo.
 - NextGate: Sprint3P2CommonDbConnectionContractAndSecretStrategy.
 - Guardrail: Durable persistence setup design only; no database, EF runtime, migrations, or connection strings configured.
+
+## CRM Sprint 3 P2 - Common DB connection and secret strategy
+
+Status: implemented for PR review.
+
+- Added common DB connection and secret strategy documentation.
+- Added logical DB naming and connection string policy docs.
+- Added common DB connection strategy contracts and service.
+- Added safe Infrastructure placeholders for secret provider and database configuration.
+- Added `GET /api/crm/foundation/sprint-3/common-db-connection-strategy`.
+- RealDatabaseConfigured: false.
+- ConnectionStringsConfigured: false.
+- SecretProviderConfigured: false.
+- SecretProviderRuntimeConnected: false.
+- LogicalDatabaseName: CrmDb.
+- LogicalDatabaseNameIsPlaceholder: true.
+- SecretStrategy: ContractOnly.
+- ConnectionStringPolicy: NoRealValuesInRepository.
+- NextGate: Sprint3P3EfDbContextPrototypeBehindDisabledFlag.
+- Guardrail: Common DB connection contract only; no real database or secrets configured.

@@ -8,3 +8,5 @@ Target:
 - CRM must not duplicate Portal user, tenant or permission data.
 
 Sprint 3 P1 remains design-only. Runtime persistence remains `NonProductionSeam` with in-memory stores.
+
+Sprint 3 P2 adds common DB connection strategy as `ContractOnly`; runtime persistence still remains inactive.
