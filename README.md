@@ -278,3 +278,22 @@ Current P5 decision:
 - Next Gate: Sprint2P6ProductizationGateDecision
 
 No DB real, Auth real, Portal runtime or productive endpoint activation occurs in P5.
+
+### CRM Sprint 2 P6 - Productization gate closure
+
+CRM Sprint 2 is closed with `ProductizationStatus=NotReady` and `OverallDecision=NoGoForProductiveActivation`.
+
+Current P6 decision:
+
+- Sprint 2: Closed
+- Overall Decision: NoGoForProductiveActivation
+- Foundation CRUD: GoFoundationOnly
+- Durable Persistence: NoGo
+- Real Database: NoGo
+- Portal Auth Runtime: NoGo
+- Productive CRUD API: NoGo
+- Sprint 3 Planning: Go
+- Next Gate: Sprint3P1DurablePersistenceSetupDesign
+- Warning: Productization gate decision only; no productive activation
+
+No DB real, Auth real, Portal runtime, productive route, DELETE endpoint or product UI activation occurs in P6.

@@ -86,3 +86,7 @@ Portal authorization simulation endpoints are foundation-only and do not activat
 P4 foundation CRUD endpoints are preview-only, in-memory and stay under `/api/crm/foundation/...`.
 
 P5 integration readiness endpoint is read-only and exists only to summarize GO/NO-GO evidence before productization.
+
+P6 productization gate endpoint is read-only and closes Sprint 2 without activation:
+
+- `GET /api/crm/foundation/sprint-2/productization-gate`

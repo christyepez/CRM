@@ -139,3 +139,11 @@ P5 adds a read-only foundation endpoint:
 - `GET /api/crm/foundation/sprint-2/integration-readiness`
 
 It returns `status=IntegrationReadinessReview`, `productizationStatus=NotReady`, `databaseReady=false`, `authReady=false`, `productiveCrudReady=false`, `recommendedDecision=ContinueReview`, `nextGate=Sprint2P6ProductizationGateDecision` and `Integration readiness review only; no productive activation`.
+
+## Sprint 2 P6 productization gate
+
+P6 adds a read-only foundation endpoint:
+
+- `GET /api/crm/foundation/sprint-2/productization-gate`
+
+It returns `status=Sprint2Closed`, `productizationStatus=NotReady`, `overallDecision=NoGoForProductiveActivation`, `foundationCrudDecision=GoFoundationOnly`, `durablePersistenceDecision=NoGo`, `realDatabaseDecision=NoGo`, `portalAuthRuntimeDecision=NoGo`, `productiveCrudApiDecision=NoGo`, `sprint3PlanningDecision=Go`, `nextGate=Sprint3P1DurablePersistenceSetupDesign` and `Productization gate decision only; no productive activation`.

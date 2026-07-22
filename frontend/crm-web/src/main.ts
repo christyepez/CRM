@@ -66,6 +66,16 @@ class CrmReadinessService {
       productiveCrudReady: false,
       recommendedDecision: 'ContinueReview',
       productizationNextGate: 'Sprint2P6ProductizationGateDecision',
+      sprint2: 'Closed',
+      productizationStatus: 'NotReady',
+      overallDecision: 'NoGoForProductiveActivation',
+      foundationCrudDecision: 'GoFoundationOnly',
+      durablePersistenceDecision: 'NoGo',
+      realDatabaseDecision: 'NoGo',
+      portalAuthRuntimeDecision: 'NoGo',
+      productiveCrudApiDecision: 'NoGo',
+      sprint3PlanningDecision: 'Go',
+      sprint3NextGate: 'Sprint3P1DurablePersistenceSetupDesign',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -134,6 +144,16 @@ class CrmReadinessService {
       <p>Productive CRUD Ready: false</p>
       <p>Recommended Decision: ContinueReview</p>
       <p>Productization Next Gate: Sprint2P6ProductizationGateDecision</p>
+      <p>Sprint 2: Closed</p>
+      <p>Productization Status: NotReady</p>
+      <p>Overall Decision: NoGoForProductiveActivation</p>
+      <p>Foundation CRUD Decision: GoFoundationOnly</p>
+      <p>Durable Persistence Decision: NoGo</p>
+      <p>Real Database Decision: NoGo</p>
+      <p>Portal Auth Runtime Decision: NoGo</p>
+      <p>Productive CRUD API Decision: NoGo</p>
+      <p>Sprint 3 Planning: Go</p>
+      <p>Next Gate: Sprint3P1DurablePersistenceSetupDesign</p>
       <p>Non-Production</p>
     </section>
   `

@@ -23,3 +23,5 @@ P3 completes the Portal authorization simulation gate, but productization remain
 P4 completes controlled foundation CRUD previews, but productization remains `NotReady` until real Portal authorization and durable persistence are approved.
 
 P5 confirms productization remains `NotReady`. Continue to P6 for an explicit productization gate decision.
+
+P6 closes Sprint 2 with `OverallDecision=NoGoForProductiveActivation`. Sprint 3 Planning is `Go` and the next gate is `Sprint3P1DurablePersistenceSetupDesign`.
