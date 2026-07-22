@@ -32,3 +32,7 @@ Sprint 3 P2 keeps productization blocked: common DB and secret strategy are `Con
 # Sprint 3 P3 productization status
 
 Productization remains `NoGo`. The EF/DbContext prototype is disabled and does not enable productive CRUD, DB runtime or Portal authorization runtime.
+
+# Sprint 3 P4 productization status
+
+Productization remains `NoGo`. Portal Auth runtime is contract-only and does not enable middleware, guards, credential storage or productive CRM routes.

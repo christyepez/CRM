@@ -100,6 +100,16 @@ class CrmReadinessService {
       productiveCrudEnabled: false,
       efPrototypeWarning: 'EF/DbContext prototype only; runtime disabled and no database configured',
       efPrototypeNextGate: 'Sprint3P4PortalAuthRuntimeContractValidation',
+      sprint3P4PortalAuthRuntimeContract: 'ContractOnly',
+      authRuntimeEnabled: false,
+      credentialRuntimeStorageEnabled: false,
+      crmLoginImplementedByCrm: false,
+      identityImplementedByCrm: false,
+      permissionsPersistedInCrm: false,
+      foundationSimulationActive: true,
+      productiveAuthorizationEnabled: false,
+      portalAuthRuntimeWarning: 'Portal Auth runtime contract validation only; no real Auth runtime configured',
+      portalAuthRuntimeNextGate: 'Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -207,6 +217,19 @@ class CrmReadinessService {
       <p>Productive CRUD Enabled: false</p>
       <p>EF Prototype Warning: EF/DbContext prototype only; runtime disabled and no database configured</p>
       <p>Next Gate: Sprint3P4PortalAuthRuntimeContractValidation</p>
+      <p>Sprint 3 P4 Portal Auth Runtime Contract: ContractOnly</p>
+      <p>Portal Runtime Connected: false</p>
+      <p>Auth Runtime Enabled: false</p>
+      <p>CRM Owns Auth: false</p>
+      <p>Auth Owned By: PortalCorporativo</p>
+      <p>Token Storage Enabled: false</p>
+      <p>Login Implemented By CRM: false</p>
+      <p>Identity Implemented By CRM: false</p>
+      <p>Permissions Persisted In CRM: false</p>
+      <p>Foundation Simulation Active: true</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>Portal Auth Runtime Warning: Portal Auth runtime contract validation only; no real Auth runtime configured</p>
+      <p>Next Gate: Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag</p>
       <p>Non-Production</p>
     </section>
   `

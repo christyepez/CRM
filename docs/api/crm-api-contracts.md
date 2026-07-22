@@ -168,3 +168,9 @@ It returns `status=CommonDbConnectionStrategy`, `realDatabaseConfigured=false`, 
 `GET /api/crm/foundation/sprint-3/ef-prototype-status`
 
 Returns `EfDbContextPrototypeDisabled`, `CRM_EF_RUNTIME_ENABLED=false`, `CRM_DBCONTEXT_RUNTIME_ACTIVE=false`, `Foundation Stores Remain Active: true` and `Next Gate: Sprint3P4PortalAuthRuntimeContractValidation`.
+
+# Sprint 3 P4 Portal Auth runtime contract
+
+`GET /api/crm/foundation/sprint-3/portal-auth-runtime-contract`
+
+Returns `PortalAuthRuntimeContractValidation`, `portalRuntimeConnected=false`, `authRuntimeEnabled=false`, `crmOwnsAuth=false`, `authOwnedBy=PortalCorporativo`, `tokenStorageEnabled=false`, `loginImplementedByCrm=false`, `identityImplementedByCrm=false`, `permissionsPersistedInCrm=false`, `foundationSimulationActive=true`, `productiveAuthorizationEnabled=false` and `nextGate=Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.

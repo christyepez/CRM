@@ -26,3 +26,7 @@ Next gate: `Sprint3P3EfDbContextPrototypeBehindDisabledFlag`.
 # Sprint 3 P3 completed path
 
 P3 adds the EF/DbContext prototype behind disabled flags. Next Gate: `Sprint3P4PortalAuthRuntimeContractValidation`.
+
+# Sprint 3 P4 completed path
+
+P4 validates Portal Auth runtime contracts without real Auth activation. Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.

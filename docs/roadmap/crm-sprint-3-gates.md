@@ -24,3 +24,12 @@ Sprint 3 P2 result: common DB connection strategy is `ContractOnly`; continue to
 - Real database configured: `false`.
 - Provider configured: `false`.
 - Next gate: `Sprint3P4PortalAuthRuntimeContractValidation`.
+
+# Sprint 3 P4 gates
+
+- Portal runtime connected: `false`.
+- Auth runtime enabled: `false`.
+- CRM owns Auth: `false`.
+- Foundation simulation active: `true`.
+- Productive authorization enabled: `false`.
+- Next gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.

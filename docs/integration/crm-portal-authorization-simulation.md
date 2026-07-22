@@ -1,5 +1,7 @@
 # CRM Portal Authorization Simulation
 
+Sprint 3 P4 keeps this `FoundationSimulation` active while validating the future Portal Auth runtime contract. Portal Runtime Connected: `false`; Auth Runtime Enabled: `false`; Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
 Sprint 2 P3 adds `FoundationSimulation` for future Portal authorization integration.
 
 CRM does not own authentication, users, tenants, roles, permissions or SSO. Ownership remains in PortalCorporativo.

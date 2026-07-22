@@ -47,6 +47,7 @@ builder.Services.AddSingleton<IPortalPermissionProvider, SimulatedPortalPermissi
 builder.Services.AddSingleton<IPortalAuthorizationScenarioProvider, SimulatedPortalAuthorizationScenarioProvider>();
 builder.Services.AddSingleton<CrmFoundationPermissionGuard>();
 builder.Services.AddSingleton<CrmPortalAuthorizationSimulationService>();
+builder.Services.AddSingleton<CrmPortalAuthRuntimeContractStatusService>();
 
 var app = builder.Build();
 
@@ -92,6 +93,9 @@ app.MapGet("/api/crm/foundation/sprint-3/common-db-connection-strategy", (CrmCom
 
 app.MapGet("/api/crm/foundation/sprint-3/ef-prototype-status", (CrmEfPrototypeStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint3EfPrototypeStatus");
+
+app.MapGet("/api/crm/foundation/sprint-3/portal-auth-runtime-contract", (CrmPortalAuthRuntimeContractStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint3PortalAuthRuntimeContract");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
