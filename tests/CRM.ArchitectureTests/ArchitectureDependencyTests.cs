@@ -74,6 +74,11 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/persistence/feature-flags", program);
         Assert.Contains("/api/crm/foundation/persistence/stores/status", program);
         Assert.Contains("/api/crm/foundation/persistence/stores/clear-preview", program);
+        Assert.Contains("/api/crm/foundation/portal-authorization/simulation-status", program);
+        Assert.Contains("/api/crm/foundation/portal-authorization/scenarios", program);
+        Assert.Contains("/api/crm/foundation/portal-authorization/permissions", program);
+        Assert.Contains("/api/crm/foundation/portal-authorization/sample-user-context", program);
+        Assert.Contains("/api/crm/foundation/portal-authorization/check-permission", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -303,6 +308,35 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/persistence", program);
         Assert.Contains("Persistence design review only; no database configured", ReadSourceFiles("src", "CRM.Application"));
         Assert.Contains("Non-production persistence seam only; no database configured", ReadSourceFiles("src", "CRM.Application"));
+    }
+
+    [Fact]
+    public void PortalAuthorizationSimulation_DoesNotAddProductiveAuthentication()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("CrmPortalAuthorizationSimulationService", source);
+        Assert.Contains("SimulatedPortalUserContextProvider", source);
+        Assert.Contains("SimulatedPortalPermissionProvider", source);
+        Assert.Contains("SimulatedPortalAuthorizationScenarioProvider", source);
+        Assert.Contains("CrmFoundationPermissionGuard", source);
+        Assert.Contains("FoundationSimulation", source);
+        Assert.Contains("Portal authorization simulation only; no real Portal runtime configured", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-authorization/simulation-status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-authorization/scenarios\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-authorization/permissions\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/portal-authorization/sample-user-context\"", program);
+        Assert.Contains("MapPost(\"/api/crm/foundation/portal-authorization/check-permission\"", program);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MapDelete", program, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]

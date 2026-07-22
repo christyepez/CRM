@@ -47,6 +47,13 @@ class CrmReadinessService {
       durablePersistence: false,
       productiveCrud: false,
       persistenceNextGate: 'Sprint2P3PortalAuthorizationAdapterSimulation',
+      portalAuthorizationSimulation: 'Active',
+      portalRuntimeConnected: false,
+      authOwnedBy: 'PortalCorporativo',
+      crmOwnsAuth: false,
+      credentialStorage: false,
+      productiveAuthorization: false,
+      authorizationNextGate: 'Sprint2P4ControlledCrudBehindFoundationFlag',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -96,6 +103,13 @@ class CrmReadinessService {
       <p>Durable Persistence: false</p>
       <p>Productive CRUD: false</p>
       <p>Persistence Next Gate: Sprint2P3PortalAuthorizationAdapterSimulation</p>
+      <p>Portal Authorization Simulation: Active</p>
+      <p>Portal Runtime Connected: false</p>
+      <p>Auth Owned By: PortalCorporativo</p>
+      <p>CRM Owns Auth: false</p>
+      <p>Token Storage: false</p>
+      <p>Productive Authorization: false</p>
+      <p>Authorization Next Gate: Sprint2P4ControlledCrudBehindFoundationFlag</p>
       <p>Non-Production</p>
     </section>
   `

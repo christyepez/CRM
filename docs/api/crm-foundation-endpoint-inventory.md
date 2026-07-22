@@ -37,3 +37,12 @@
 | GET | `/api/crm/foundation/persistence/feature-flags` | Shows safe persistence flags. |
 | GET | `/api/crm/foundation/persistence/stores/status` | Shows in-memory foundation store status. |
 | POST | `/api/crm/foundation/persistence/stores/clear-preview` | Clears in-memory preview state; not productive DELETE. |
+## Sprint 2 P3 Portal authorization simulation
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/portal-authorization/simulation-status` | Shows foundation authorization simulation status. |
+| GET | `/api/crm/foundation/portal-authorization/scenarios` | Lists fictitious permission scenarios. |
+| GET | `/api/crm/foundation/portal-authorization/permissions` | Lists fictitious CRM foundation permissions. |
+| GET | `/api/crm/foundation/portal-authorization/sample-user-context` | Shows sample simulated user and tenant context. |
+| POST | `/api/crm/foundation/portal-authorization/check-permission` | Checks one simulated permission; not productive authorization. |
