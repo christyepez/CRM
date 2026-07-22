@@ -88,3 +88,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/common-db-connection-strategy` | Describes contract-only common DB and secret strategy without real DB, secrets or connection values. |
+
+## Sprint 3 P3 EF prototype disabled flag
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/ef-prototype-status` | Shows disabled EF/DbContext prototype status with no runtime context, no provider, no migrations, no real DB and no productive CRUD. |

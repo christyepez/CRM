@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 3 P3 - EF/DbContext Prototype Behind Disabled Flag
+
+P3 adds a review-only EF/DbContext prototype. It confirms `Sprint 3 P3 EF Prototype: Exists`, but keeps `EF Runtime Enabled: false`, `DbContext Runtime Active: false`, `Migrations Created: false`, `Real Database Configured: false`, `Connection Strings Configured: false`, `Provider Configured: false`, `UseSqlServer Configured: false`, `Foundation Stores Remain Active: true` and `Productive CRUD Enabled: false`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-3/ef-prototype-status`
+
+Warning: `EF/DbContext prototype only; runtime disabled and no database configured`. Next Gate: `Sprint3P4PortalAuthRuntimeContractValidation`.
+
 ## Sprint 1 P4 - Controlled Persistence and Read Model Design
 
 P4 defines future persistence/read-model architecture without productive activation. It adds Application ports, read model contracts and foundation mock read-model endpoints. It still does not add DB, migrations, productive CRUD, DELETE, Auth, token storage or runtime Portal/Financiero integration.

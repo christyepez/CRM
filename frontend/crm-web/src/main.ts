@@ -91,6 +91,15 @@ class CrmReadinessService {
       secretProviderConfigured: false,
       secretProviderRuntimeConnected: false,
       commonDbStrategyNextGate: 'Sprint3P3EfDbContextPrototypeBehindDisabledFlag',
+      sprint3P3EfPrototype: 'Exists',
+      efPrototypeExists: true,
+      dbContextRuntimeActive: false,
+      providerConfigured: false,
+      useSqlServerConfigured: false,
+      foundationStoresRemainActive: true,
+      productiveCrudEnabled: false,
+      efPrototypeWarning: 'EF/DbContext prototype only; runtime disabled and no database configured',
+      efPrototypeNextGate: 'Sprint3P4PortalAuthRuntimeContractValidation',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -185,6 +194,19 @@ class CrmReadinessService {
       <p>Secret Provider Configured: false</p>
       <p>Secret Provider Runtime Connected: false</p>
       <p>Next Gate: Sprint3P3EfDbContextPrototypeBehindDisabledFlag</p>
+      <p>Sprint 3 P3 EF Prototype: Exists</p>
+      <p>EF Prototype Exists: true</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>DbContext Runtime Active: false</p>
+      <p>Migrations Created: false</p>
+      <p>Real Database Configured: false</p>
+      <p>Connection Strings Configured: false</p>
+      <p>Provider Configured: false</p>
+      <p>UseSqlServer Configured: false</p>
+      <p>Foundation Stores Remain Active: true</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>EF Prototype Warning: EF/DbContext prototype only; runtime disabled and no database configured</p>
+      <p>Next Gate: Sprint3P4PortalAuthRuntimeContractValidation</p>
       <p>Non-Production</p>
     </section>
   `

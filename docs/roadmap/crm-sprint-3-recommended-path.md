@@ -23,3 +23,6 @@ Next gate: `Sprint3P2CommonDbConnectionContractAndSecretStrategy`.
 P2 defines the common DB connection and secret strategy as `ContractOnly`. Real DB, secret provider runtime, EF runtime, migrations and connection string values remain not configured.
 
 Next gate: `Sprint3P3EfDbContextPrototypeBehindDisabledFlag`.
+# Sprint 3 P3 completed path
+
+P3 adds the EF/DbContext prototype behind disabled flags. Next Gate: `Sprint3P4PortalAuthRuntimeContractValidation`.

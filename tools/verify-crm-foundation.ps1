@@ -51,6 +51,11 @@ function Require-Path($Path) {
     "docs/data/crm-secrets-and-connection-management-strategy.md",
     "docs/data/crm-nonproduction-durable-persistence-gates.md",
     "docs/data/crm-sprint-3-p2-common-db-connection-secret-strategy.md",
+    "docs/data/crm-sprint-3-p3-ef-dbcontext-prototype.md",
+    "docs/data/crm-ef-prototype-disabled-flag-policy.md",
+    "docs/data/crm-dbcontext-prototype-design.md",
+    "docs/data/crm-ef-migrations-no-go-policy.md",
+    "docs/data/crm-ef-runtime-activation-gates.md",
     "docs/data/crm-common-db-logical-naming.md",
     "docs/data/crm-db-secret-provider-contract.md",
     "docs/data/crm-connection-string-policy.md",
@@ -148,8 +153,13 @@ function Require-Path($Path) {
     "src/CRM.Application/Foundation/CrmDurablePersistenceSetupStatusService.cs",
     "src/CRM.Application/Foundation/CrmCommonDbConnectionStrategyContracts.cs",
     "src/CRM.Application/Foundation/CrmCommonDbConnectionStrategyStatusService.cs",
+    "src/CRM.Application/Foundation/CrmEfPrototypeContracts.cs",
+    "src/CRM.Application/Foundation/CrmEfPrototypeStatusService.cs",
     "src/CRM.Infrastructure/Configuration/CrmSecretProviderPlaceholder.cs",
     "src/CRM.Infrastructure/Configuration/CrmDatabaseConfigurationPlaceholder.cs",
+    "src/CRM.Infrastructure/Persistence/EfPrototype/CrmEfPrototypeOptions.cs",
+    "src/CRM.Infrastructure/Persistence/EfPrototype/CrmEfPrototypeMarker.cs",
+    "src/CRM.Infrastructure/Persistence/EfPrototype/CrmDbContextPrototype.cs",
     "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceDesignContracts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceReadinessService.cs",
@@ -235,7 +245,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness', '/api/crm/foundation/sprint-2/productization-gate', '/api/crm/foundation/sprint-3/durable-persistence-setup', '/api/crm/foundation/sprint-3/common-db-connection-strategy')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness', '/api/crm/foundation/sprint-2/productization-gate', '/api/crm/foundation/sprint-3/durable-persistence-setup', '/api/crm/foundation/sprint-3/common-db-connection-strategy', '/api/crm/foundation/sprint-3/ef-prototype-status')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -290,6 +300,10 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint
     $failures += "Common DB connection strategy endpoint must remain GET-only foundation endpoint."
 }
 
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-3/ef-prototype-status") {
+    $failures += "EF prototype endpoint must remain GET-only foundation endpoint."
+}
+
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
     if ($apiProgram -like "*$productiveRoute*") {
         $failures += "Productive CRM endpoint found: $productiveRoute"
@@ -323,8 +337,8 @@ foreach ($root in @("src")) {
     }
 }
 
-$persistenceScanText = $sourceText.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "")
-if ($persistenceScanText -match "DbContext|DbSet<|MigrationBuilder|UseSqlServer") {
+$persistenceScanText = $sourceText.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
+if ($persistenceScanText -match "DbContext|DbSet<|MigrationBuilder|UseSqlServer|UseNpgsql|AddDbContext") {
     $failures += "Productive persistence, migration or DbContext reference found."
 }
 
@@ -404,11 +418,17 @@ foreach ($marker in @("Common DB connection contract only; no real database or s
     }
 }
 
+foreach ($marker in @("EF/DbContext prototype only; runtime disabled and no database configured", "EfDbContextPrototypeDisabled", "CrmEfPrototypeStatusService", "CrmDbContextPrototype", "CrmEfPrototypeMarker", "CRM_EF_RUNTIME_ENABLED=false", "CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "Sprint3P4PortalAuthRuntimeContractValidation", "Sprint 3 P3 EF Prototype: Exists", "DbContext Runtime Active: false", "Provider Configured: false", "UseSqlServer Configured: false", "Foundation Stores Remain Active: true", "Productive CRUD Enabled: false")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-sprint-3-p3-ef-dbcontext-prototype.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing EF prototype disabled marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }
 
-$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "")
+$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "")
 if ($connectionScanText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
     $failures += "Runtime Financial adapter, connection string, shared DB or URL found before integration approval."
 }
