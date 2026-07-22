@@ -24,3 +24,9 @@ P4 implements controlled foundation CRUD previews. The recommended next step is 
 ## Sprint 2 P5 status
 
 P5 recommends `ContinueReview`. DB real, Auth real and productive CRUD remain NO-GO. The next gate is `Sprint2P6ProductizationGateDecision`.
+
+## Sprint 2 P6 status
+
+P6 closes Sprint 2 with `Sprint2Closed`, `ProductizationStatus=NotReady` and `OverallDecision=NoGoForProductiveActivation`.
+
+Sprint 3 planning is GO. The next gate is `Sprint3P1DurablePersistenceSetupDesign`.

@@ -43,6 +43,7 @@ function Require-Path($Path) {
     "docs/data/crm-persistence-seam-risk-register.md",
     "docs/data/crm-foundation-crud-nonproduction-policy.md",
     "docs/data/crm-durable-persistence-readiness-checklist.md",
+    "docs/data/crm-durable-persistence-no-go.md",
     "docs/api/crm-api-contracts.md",
     "docs/api/crm-api-index.md",
     "docs/api/crm-foundation-preview-api.md",
@@ -82,20 +83,31 @@ function Require-Path($Path) {
     "docs/releases/crm-sprint-2-p5-go-no-go.md",
     "docs/releases/crm-sprint-2-p5-open-risks.md",
     "docs/releases/crm-sprint-2-p5-decision-record.md",
+    "docs/releases/crm-sprint-2-closure.md",
+    "docs/releases/crm-sprint-2-productization-gate-decision.md",
+    "docs/releases/crm-sprint-2-integrated-evidence.md",
+    "docs/releases/crm-sprint-2-open-risks.md",
+    "docs/releases/crm-sprint-2-decision-record.md",
     "docs/architecture/crm-integrated-capability-matrix.md",
     "docs/architecture/crm-ownership-boundaries.md",
     "docs/architecture/crm-cross-module-dependency-map.md",
     "docs/architecture/crm-sprint-2-activation-gate-matrix.md",
     "docs/architecture/crm-db-auth-crud-readiness-map.md",
+    "docs/architecture/crm-sprint-2-productization-decision-matrix.md",
+    "docs/architecture/crm-sprint-3-option-map.md",
     "docs/api/crm-foundation-endpoint-inventory.md",
     "docs/security/crm-foundation-guardrail-register.md",
     "docs/security/crm-sensitive-data-policy.md",
     "docs/security/crm-productive-security-readiness-checklist.md",
+    "docs/security/crm-auth-productization-no-go.md",
     "docs/roadmap/crm-sprint-2-options.md",
     "docs/roadmap/crm-sprint-2-recommended-path.md",
     "docs/roadmap/crm-sprint-2-p3-portal-auth-simulation.md",
     "docs/roadmap/crm-sprint-2-p4-controlled-crud.md",
     "docs/roadmap/crm-productization-gates.md",
+    "docs/roadmap/crm-sprint-3-options.md",
+    "docs/roadmap/crm-sprint-3-recommended-path.md",
+    "docs/roadmap/crm-sprint-3-gates.md",
     "frontend/crm-web/package.json",
     "src/CRM.Domain/Entities/Lead.cs",
     "src/CRM.Domain/Entities/Opportunity.cs",
@@ -118,6 +130,8 @@ function Require-Path($Path) {
     "src/CRM.Application/Foundation/FoundationCrudStatusService.cs",
     "src/CRM.Application/Foundation/CrmSprint2IntegrationReadinessContracts.cs",
     "src/CRM.Application/Foundation/CrmSprint2IntegrationReadinessService.cs",
+    "src/CRM.Application/Foundation/CrmSprint2ProductizationGateContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint2ProductizationGateService.cs",
     "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceDesignContracts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceReadinessService.cs",
@@ -203,7 +217,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness', '/api/crm/foundation/sprint-2/productization-gate')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -244,6 +258,10 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/persis
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-2/integration-readiness") {
     $failures += "Integration readiness endpoint must remain GET-only foundation endpoint."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-2/productization-gate") {
+    $failures += "Productization gate endpoint must remain GET-only foundation endpoint."
 }
 
 foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
@@ -339,6 +357,12 @@ foreach ($marker in @("Foundation CRUD only; no productive endpoint or database 
 foreach ($marker in @("Integration readiness review only; no productive activation", "IntegrationReadinessReview", "Sprint2P6ProductizationGateDecision", "ContinueReview", "CrmSprint2IntegrationReadinessService", "Database Ready: false", "Auth Ready: false", "Productive CRUD Ready: false")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/releases/crm-sprint-2-p5-integration-readiness-review.md") + "`n" + (Get-Content -Raw "docs/architecture/crm-sprint-2-activation-gate-matrix.md")) -notlike "*$marker*") {
         $failures += "Missing integration readiness marker: $marker"
+    }
+}
+
+foreach ($marker in @("Productization gate decision only; no productive activation", "Sprint2Closed", "NoGoForProductiveActivation", "GoFoundationOnly", "Sprint3P1DurablePersistenceSetupDesign", "CrmSprint2ProductizationGateService", "Sprint 2: Closed", "Overall Decision: NoGoForProductiveActivation", "Sprint 3 Planning: Go")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/releases/crm-sprint-2-productization-gate-decision.md") + "`n" + (Get-Content -Raw "docs/architecture/crm-sprint-2-productization-decision-matrix.md")) -notlike "*$marker*") {
+        $failures += "Missing productization gate marker: $marker"
     }
 }
 

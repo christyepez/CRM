@@ -290,3 +290,22 @@ Status: implemented for PR review.
 - Added `GET /api/crm/foundation/sprint-2/integration-readiness`.
 - Recommendation: ContinueReview; DB/Auth/productive CRUD remain NO-GO.
 - Next: Sprint2P6ProductizationGateDecision.
+
+## CRM Sprint 2 P6 - Productization gate decision and closure
+
+Status: implemented for PR review.
+
+- Added Sprint 2 closure and productization gate documentation.
+- Added productization decision matrix and Sprint 3 roadmap.
+- Added productization gate contracts and service.
+- Added `GET /api/crm/foundation/sprint-2/productization-gate`.
+- ProductizationStatus: NotReady.
+- OverallDecision: NoGoForProductiveActivation.
+- FoundationCrudDecision: GoFoundationOnly.
+- DurablePersistenceDecision: NoGo.
+- RealDatabaseDecision: NoGo.
+- PortalAuthRuntimeDecision: NoGo.
+- ProductiveCrudApiDecision: NoGo.
+- Sprint3PlanningDecision: Go.
+- NextGate: Sprint3P1DurablePersistenceSetupDesign.
+- Guardrail: Productization gate decision only; no productive activation.

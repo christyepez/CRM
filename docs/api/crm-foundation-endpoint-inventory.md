@@ -70,3 +70,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-2/integration-readiness` | Summarizes P1-P4 evidence and P5 GO/NO-GO readiness. |
+
+## Sprint 2 P6 productization gate
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-2/productization-gate` | Closes Sprint 2 with NoGoForProductiveActivation and Sprint 3 planning GO. |
