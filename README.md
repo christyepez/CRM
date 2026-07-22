@@ -247,3 +247,18 @@ Useful local checks:
 - `POST /api/crm/foundation/portal-authorization/check-permission`
 
 No login, productive Auth, Portal runtime call, token storage, menu runtime or CRUD UI is active.
+
+### CRM Sprint 2 P4 - Controlled foundation CRUD
+
+CRM now exposes foundation-only GET/POST/PUT preview endpoints for Lead, Account and Contact under `/api/crm/foundation/...`.
+
+Current state:
+
+- Foundation CRUD: Enabled
+- Productive CRUD: false
+- Durable Persistence: false
+- Database Configured: false
+- Authorization Mode: FoundationSimulation
+- Next Gate: Sprint2P5IntegrationReadinessReview
+
+No productive CRM routes, DELETE endpoints, DB, EF, migrations, real Auth or Portal runtime are active.

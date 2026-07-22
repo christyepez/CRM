@@ -16,3 +16,7 @@ P2 implements the non-production persistence seam. The recommended next step is 
 ## Sprint 2 P3 status
 
 P3 implements Portal authorization adapter simulation. The recommended next step is `Sprint2P4ControlledCrudBehindFoundationFlag`.
+
+## Sprint 2 P4 status
+
+P4 implements controlled foundation CRUD previews. The recommended next step is `Sprint2P5IntegrationReadinessReview`.

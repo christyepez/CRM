@@ -40,4 +40,23 @@ public sealed class InMemoryFoundationStoreTests
         Assert.False(status.DurablePersistence);
         Assert.Equal(CrmPersistenceSeamStatusService.WarningText, status.Warning);
     }
+
+    [Fact]
+    public async Task GetPreviewByIdAsync_ReturnsSavedFoundationPreview()
+    {
+        var store = new InMemoryContactFoundationStore();
+        var preview = new CrmFoundationPreviewItemContract(
+            "contact-preview-test",
+            "Contact",
+            "Contact Preview",
+            "PreviewOnly",
+            new DateTimeOffset(2026, 7, 22, 0, 0, 0, TimeSpan.Zero),
+            new Dictionary<string, string> { ["email"] = "contact@example.test" });
+
+        await store.SavePreviewAsync(preview);
+        var result = await store.GetPreviewByIdAsync("contact-preview-test");
+
+        Assert.NotNull(result);
+        Assert.Equal("Contact Preview", result.DisplayName);
+    }
 }

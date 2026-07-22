@@ -41,9 +41,11 @@ function Require-Path($Path) {
     "docs/data/crm-foundation-store-contracts.md",
     "docs/data/crm-persistence-feature-flags.md",
     "docs/data/crm-persistence-seam-risk-register.md",
+    "docs/data/crm-foundation-crud-nonproduction-policy.md",
     "docs/api/crm-api-contracts.md",
     "docs/api/crm-api-index.md",
     "docs/api/crm-foundation-preview-api.md",
+    "docs/api/crm-foundation-crud-contracts.md",
     "docs/api/crm-read-model-preview-api.md",
     "docs/integration/crm-portal-boundary.md",
     "docs/integration/crm-portal-adapter-contracts.md",
@@ -58,6 +60,7 @@ function Require-Path($Path) {
     "docs/security/crm-portal-security-boundary.md",
     "docs/security/crm-portal-authorization-boundary.md",
     "docs/security/crm-foundation-permission-simulation.md",
+    "docs/security/crm-foundation-crud-security-boundary.md",
     "docs/security/crm-financial-security-boundary.md",
     "docs/security/crm-reporting-security-boundary.md",
     "docs/reporting/crm-reporting-contracts.md",
@@ -82,6 +85,7 @@ function Require-Path($Path) {
     "docs/roadmap/crm-sprint-2-options.md",
     "docs/roadmap/crm-sprint-2-recommended-path.md",
     "docs/roadmap/crm-sprint-2-p3-portal-auth-simulation.md",
+    "docs/roadmap/crm-sprint-2-p4-controlled-crud.md",
     "docs/roadmap/crm-productization-gates.md",
     "frontend/crm-web/package.json",
     "src/CRM.Domain/Entities/Lead.cs",
@@ -95,6 +99,14 @@ function Require-Path($Path) {
     "src/CRM.Application/Foundation/LeadFoundationService.cs",
     "src/CRM.Application/Foundation/AccountFoundationService.cs",
     "src/CRM.Application/Foundation/ContactFoundationService.cs",
+    "src/CRM.Application/Foundation/FoundationLeadCrudContracts.cs",
+    "src/CRM.Application/Foundation/FoundationAccountCrudContracts.cs",
+    "src/CRM.Application/Foundation/FoundationContactCrudContracts.cs",
+    "src/CRM.Application/Foundation/FoundationCrudStatusContracts.cs",
+    "src/CRM.Application/Foundation/FoundationLeadCrudService.cs",
+    "src/CRM.Application/Foundation/FoundationAccountCrudService.cs",
+    "src/CRM.Application/Foundation/FoundationContactCrudService.cs",
+    "src/CRM.Application/Foundation/FoundationCrudStatusService.cs",
     "src/CRM.Application/Persistence/CrmPersistencePorts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceDesignContracts.cs",
     "src/CRM.Application/Persistence/CrmPersistenceReadinessService.cs",
@@ -180,14 +192,23 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
 }
 
 if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
+    $allowedMutationsProgram = $apiProgram.
+        Replace('MapPut("/api/crm/foundation/leads/{id}"', '').
+        Replace('MapPut("/api/crm/foundation/accounts/{id}"', '').
+        Replace('MapPut("/api/crm/foundation/contacts/{id}"', '')
+    if ($allowedMutationsProgram -notmatch "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
+        $null = $true
+    }
+    else {
     $failures += "Premature CRM mutating endpoint found."
+    }
 }
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/portal-integration") {
@@ -291,6 +312,12 @@ if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBase
 foreach ($marker in @("Portal authorization simulation only; no real Portal runtime configured", "PortalAuthorizationSimulationActive", "FoundationSimulation", "Sprint2P4ControlledCrudBehindFoundationFlag", "CrmPortalAuthorizationSimulationService", "CrmFoundationPermissionGuard", "SimulatedPortalUserContextProvider", "SimulatedPortalPermissionProvider", "SimulatedPortalAuthorizationScenarioProvider", "crm.foundation.preview.clear")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/integration/crm-portal-authorization-simulation.md") + "`n" + (Get-Content -Raw "docs/security/crm-foundation-permission-simulation.md")) -notlike "*$marker*") {
         $failures += "Missing Portal authorization simulation marker: $marker"
+    }
+}
+
+foreach ($marker in @("Foundation CRUD only; no productive endpoint or database configured", "FoundationCrudEnabled", "Sprint2P5IntegrationReadinessReview", "FoundationLeadCrudService", "FoundationAccountCrudService", "FoundationContactCrudService", "FoundationCrudStatusService")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/api/crm-foundation-crud-contracts.md") + "`n" + (Get-Content -Raw "docs/data/crm-foundation-crud-nonproduction-policy.md")) -notlike "*$marker*") {
+        $failures += "Missing foundation CRUD marker: $marker"
     }
 }
 

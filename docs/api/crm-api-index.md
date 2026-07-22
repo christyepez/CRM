@@ -82,3 +82,5 @@ Persistence seam endpoints are foundation-only and documented in `crm-api-contra
 ## Sprint 2 P3 additions
 
 Portal authorization simulation endpoints are foundation-only and do not activate productive Auth, Portal runtime or CRUD.
+
+P4 foundation CRUD endpoints are preview-only, in-memory and stay under `/api/crm/foundation/...`.

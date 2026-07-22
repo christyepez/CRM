@@ -54,6 +54,12 @@ class CrmReadinessService {
       credentialStorage: false,
       productiveAuthorization: false,
       authorizationNextGate: 'Sprint2P4ControlledCrudBehindFoundationFlag',
+      foundationCrud: 'Enabled',
+      leadFoundationCrud: 'Enabled',
+      accountFoundationCrud: 'Enabled',
+      contactFoundationCrud: 'Enabled',
+      crudAuthorizationMode: 'FoundationSimulation',
+      crudNextGate: 'Sprint2P5IntegrationReadinessReview',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -110,6 +116,12 @@ class CrmReadinessService {
       <p>Token Storage: false</p>
       <p>Productive Authorization: false</p>
       <p>Authorization Next Gate: Sprint2P4ControlledCrudBehindFoundationFlag</p>
+      <p>Foundation CRUD: Enabled</p>
+      <p>Lead Foundation CRUD: Enabled</p>
+      <p>Account Foundation CRUD: Enabled</p>
+      <p>Contact Foundation CRUD: Enabled</p>
+      <p>Authorization Mode: FoundationSimulation</p>
+      <p>CRUD Next Gate: Sprint2P5IntegrationReadinessReview</p>
       <p>Non-Production</p>
     </section>
   `

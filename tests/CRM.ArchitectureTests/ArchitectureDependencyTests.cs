@@ -79,10 +79,16 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/portal-authorization/permissions", program);
         Assert.Contains("/api/crm/foundation/portal-authorization/sample-user-context", program);
         Assert.Contains("/api/crm/foundation/portal-authorization/check-permission", program);
+        Assert.Contains("/api/crm/foundation/crud/status", program);
+        Assert.Contains("/api/crm/foundation/leads", program);
+        Assert.Contains("/api/crm/foundation/accounts", program);
+        Assert.Contains("/api/crm/foundation/contacts", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
-        Assert.DoesNotContain("MapPut", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/", program.Replace("MapPut(\"/api/crm/foundation/leads/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/accounts/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/contacts/{id}\"", string.Empty, StringComparison.Ordinal));
         Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("Create" + "Lead", program);
@@ -337,6 +343,38 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MapDelete", program, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void FoundationCrud_IsOnlyFoundationAndNonProductive()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+
+        Assert.Contains("FoundationLeadCrudService", source);
+        Assert.Contains("FoundationAccountCrudService", source);
+        Assert.Contains("FoundationContactCrudService", source);
+        Assert.Contains("FoundationCrudStatusService", source);
+        Assert.Contains("Foundation CRUD only; no productive endpoint or database configured", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/crud/status\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/leads\"", program);
+        Assert.Contains("MapPost(\"/api/crm/foundation/leads\"", program);
+        Assert.Contains("MapPut(\"/api/crm/foundation/leads/{id}\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/accounts\"", program);
+        Assert.Contains("MapPost(\"/api/crm/foundation/accounts\"", program);
+        Assert.Contains("MapPut(\"/api/crm/foundation/accounts/{id}\"", program);
+        Assert.Contains("MapGet(\"/api/crm/foundation/contacts\"", program);
+        Assert.Contains("MapPost(\"/api/crm/foundation/contacts\"", program);
+        Assert.Contains("MapPut(\"/api/crm/foundation/contacts/{id}\"", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("DbContext", source.Replace("DbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("dbContextConfigured", string.Empty, StringComparison.Ordinal).Replace("DbContext Configured", string.Empty, StringComparison.Ordinal), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
