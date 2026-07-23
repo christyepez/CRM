@@ -94,3 +94,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/ef-prototype-status` | Shows disabled EF/DbContext prototype status with no runtime context, no provider, no migrations, no real DB and no productive CRUD. |
+
+## Sprint 3 P4 Portal Auth runtime contract validation
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/portal-auth-runtime-contract` | Shows Portal Auth runtime contract-only status with no real Auth runtime, no token storage, no Portal HTTP and no productive authorization. |

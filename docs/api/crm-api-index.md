@@ -101,3 +101,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 3 P3
 
 - `GET /api/crm/foundation/sprint-3/ef-prototype-status`: EF/DbContext prototype status, disabled runtime.
+
+# Sprint 3 P4
+
+- `GET /api/crm/foundation/sprint-3/portal-auth-runtime-contract`: Portal Auth runtime contract status, no real Auth activation.

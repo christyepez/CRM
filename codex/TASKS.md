@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 3 P4 - Portal Auth Runtime Contract Validation
+
+- [x] Validate GitHub main contains Sprint 3 P3 commit.
+- [x] Document future Portal Auth runtime contract without Auth activation.
+- [x] Add Application contracts and `CrmPortalAuthRuntimeContractStatusService`.
+- [x] Add Infrastructure contract-only placeholders without HTTP, URLs, credential storage or external I/O.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-3/portal-auth-runtime-contract`.
+- [x] Keep FoundationSimulation active.
+- [x] Keep `portalRuntimeConnected=false`, `authRuntimeEnabled=false`, `crmOwnsAuth=false`, `authOwnedBy=PortalCorporativo`, `tokenStorageEnabled=false`, `loginImplementedByCrm=false`, `identityImplementedByCrm=false`, `permissionsPersistedInCrm=false` and `productiveAuthorizationEnabled=false`.
+- [x] Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+- [x] Do not add login, Identity, JWT/cookie auth, Portal HTTP, Portal URLs, persisted roles/permissions, DB, migrations, connection strings, productive routes or DELETE.
+
 ## CRM Sprint 3 P3 - EF/DbContext Prototype Behind Disabled Flag
 
 - [x] Validate GitHub main contains Sprint 3 P2 commit.

@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 3 P4 - Portal Auth Runtime Contract Validation
+
+P4 validates the future Portal Auth runtime contract without activating real Auth. PortalCorporativo remains owner of Auth/SSO/user/tenant/permissions, while CRM keeps `Portal Runtime Connected: false`, `Auth Runtime Enabled: false`, `CRM Owns Auth: false`, `Token Storage Enabled: false`, `Login Implemented By CRM: false`, `Identity Implemented By CRM: false`, `Permissions Persisted In CRM: false`, `Foundation Simulation Active: true` and `Productive Authorization Enabled: false`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-3/portal-auth-runtime-contract`
+
+Warning: `Portal Auth runtime contract validation only; no real Auth runtime configured`. Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
 ## Sprint 3 P3 - EF/DbContext Prototype Behind Disabled Flag
 
 P3 adds a review-only EF/DbContext prototype. It confirms `Sprint 3 P3 EF Prototype: Exists`, but keeps `EF Runtime Enabled: false`, `DbContext Runtime Active: false`, `Migrations Created: false`, `Real Database Configured: false`, `Connection Strings Configured: false`, `Provider Configured: false`, `UseSqlServer Configured: false`, `Foundation Stores Remain Active: true` and `Productive CRUD Enabled: false`.

@@ -108,3 +108,5 @@ Sprint 3 P2 defines common DB connection and secret strategy contracts only; no 
 # Later sprint guardrail note
 
 Sprint 3 P3 introduced a disabled EF/DbContext prototype only. This does not alter Sprint 1 foundation scope or activate durable persistence.
+
+Sprint 3 P4 introduced Portal Auth runtime contract validation only. This does not alter Sprint 1 foundation scope or activate real Auth.
