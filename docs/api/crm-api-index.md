@@ -105,3 +105,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 3 P4
 
 - `GET /api/crm/foundation/sprint-3/portal-auth-runtime-contract`: Portal Auth runtime contract status, no real Auth activation.
+
+# Sprint 3 P5
+
+- `GET /api/crm/foundation/sprint-3/productive-api-route-draft`: Productive API route draft status, no active productive routes.

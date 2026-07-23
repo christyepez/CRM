@@ -36,3 +36,7 @@ Productization remains `NoGo`. The EF/DbContext prototype is disabled and does n
 # Sprint 3 P4 productization status
 
 Productization remains `NoGo`. Portal Auth runtime is contract-only and does not enable middleware, guards, credential storage or productive CRM routes.
+
+# Sprint 3 P5 productization status
+
+Productization remains `NoGo`. Productive API routes are draft-only and not registered.

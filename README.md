@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 3 P5 - Productive API Route Draft Behind Disabled Flag
+
+P5 creates the productive API route draft for future Lead, Account and Contact APIs without registering active productive routes. Productive API Draft: `Exists`; Productive Routes Registered: `false`; Productive CRUD Enabled: `false`; Productive Authorization Enabled: `false`; Durable Persistence Enabled: `false`; Real Database Configured: `false`; EF Runtime Enabled: `false`; DELETE Endpoints Enabled: `false`; Foundation CRUD Still Separate: `true`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-3/productive-api-route-draft`
+
+Warning: `Productive API route draft only; routes are not active`. Next Gate: `Sprint3P6Sprint3ProductizationReview`.
+
 ## Sprint 3 P4 - Portal Auth Runtime Contract Validation
 
 P4 validates the future Portal Auth runtime contract without activating real Auth. PortalCorporativo remains owner of Auth/SSO/user/tenant/permissions, while CRM keeps `Portal Runtime Connected: false`, `Auth Runtime Enabled: false`, `CRM Owns Auth: false`, `Token Storage Enabled: false`, `Login Implemented By CRM: false`, `Identity Implemented By CRM: false`, `Permissions Persisted In CRM: false`, `Foundation Simulation Active: true` and `Productive Authorization Enabled: false`.

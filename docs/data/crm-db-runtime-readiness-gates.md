@@ -12,3 +12,5 @@ Current result: `NoGo` for runtime database activation.
 # Sprint 3 P3 gate update
 
 P3 status is `EfDbContextPrototypeDisabled`. Required values remain: `EF Runtime Enabled: false`, `DbContext Runtime Active: false`, `Real Database Configured: false`, `Connection Strings Configured: false`, `Provider Configured: false`, `UseSqlServer Configured: false` and `Migrations Created: false`.
+
+Sprint 3 P5 keeps Real Database Configured: `false` while productive API routes remain unregistered.

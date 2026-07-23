@@ -100,3 +100,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/portal-auth-runtime-contract` | Shows Portal Auth runtime contract-only status with no real Auth runtime, no token storage, no Portal HTTP and no productive authorization. |
+
+## Sprint 3 P5 Productive API route draft
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/productive-api-route-draft` | Shows productive API route draft status while productive routes remain unregistered and disabled. |
