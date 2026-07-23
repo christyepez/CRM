@@ -112,3 +112,6 @@ Sprint 3 P3 introduced a disabled EF/DbContext prototype only. This does not alt
 Sprint 3 P4 introduced Portal Auth runtime contract validation only. This does not alter Sprint 1 foundation scope or activate real Auth.
 
 Sprint 3 P5 introduced productive API route draft documentation and a foundation status endpoint only. This does not activate productive routes.
+# Sprint 3 P6 guardrail note
+
+Sprint 3 is closed as foundation-only. Productive activation remains `NoGoForRealActivation`; Sprint 4 planning is `Go`.

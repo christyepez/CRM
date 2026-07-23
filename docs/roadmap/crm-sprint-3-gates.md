@@ -42,3 +42,8 @@ Sprint 3 P2 result: common DB connection strategy is `ContractOnly`; continue to
 - DELETE endpoints enabled: `false`.
 - Foundation CRUD still separate: `true`.
 - Next gate: `Sprint3P6Sprint3ProductizationReview`.
+# Sprint 3 P6 gate
+
+Decision: `NoGoForRealActivation`.
+
+Next: `Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening`.

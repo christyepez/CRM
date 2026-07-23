@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 3 P6 - Productization Review Before Any Real Activation
+
+P6 closes Sprint 3 with a formal productization review. Overall Decision: `NoGoForRealActivation`; Productization Status: `NotReady`; Durable Persistence: `NoGo`; Real Database: `NoGo`; EF Runtime: `NoGo`; Portal Auth Runtime: `NoGo`; Productive API Routes: `NoGo`; Productive CRM UI: `NoGo`; Foundation Capabilities: `GoFoundationOnly`; Sprint 4 Planning: `Go`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-3/productization-review`
+
+Warning: `Sprint 3 productization review only; no real activation`. Next Gate: `Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening`.
+
 ## Sprint 3 P5 - Productive API Route Draft Behind Disabled Flag
 
 P5 creates the productive API route draft for future Lead, Account and Contact APIs without registering active productive routes. Productive API Draft: `Exists`; Productive Routes Registered: `false`; Productive CRUD Enabled: `false`; Productive Authorization Enabled: `false`; Durable Persistence Enabled: `false`; Real Database Configured: `false`; EF Runtime Enabled: `false`; DELETE Endpoints Enabled: `false`; Foundation CRUD Still Separate: `true`.
