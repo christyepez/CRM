@@ -40,3 +40,6 @@ Productization remains `NoGo`. Portal Auth runtime is contract-only and does not
 # Sprint 3 P5 productization status
 
 Productization remains `NoGo`. Productive API routes are draft-only and not registered.
+# Sprint 3 P6 closure
+
+Sprint 3 closes with `OverallDecision=NoGoForRealActivation`. Foundation capabilities remain `GoFoundationOnly`, Sprint 4 planning is `Go`, and the next gate is `Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening`.
