@@ -33,3 +33,12 @@ Sprint 3 P2 result: common DB connection strategy is `ContractOnly`; continue to
 - Foundation simulation active: `true`.
 - Productive authorization enabled: `false`.
 - Next gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
+# Sprint 3 P5 gates
+
+- Productive API route draft exists: `true`.
+- Productive routes registered: `false`.
+- Productive CRUD enabled: `false`.
+- DELETE endpoints enabled: `false`.
+- Foundation CRUD still separate: `true`.
+- Next gate: `Sprint3P6Sprint3ProductizationReview`.

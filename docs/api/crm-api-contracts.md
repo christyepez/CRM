@@ -174,3 +174,9 @@ Returns `EfDbContextPrototypeDisabled`, `CRM_EF_RUNTIME_ENABLED=false`, `CRM_DBC
 `GET /api/crm/foundation/sprint-3/portal-auth-runtime-contract`
 
 Returns `PortalAuthRuntimeContractValidation`, `portalRuntimeConnected=false`, `authRuntimeEnabled=false`, `crmOwnsAuth=false`, `authOwnedBy=PortalCorporativo`, `tokenStorageEnabled=false`, `loginImplementedByCrm=false`, `identityImplementedByCrm=false`, `permissionsPersistedInCrm=false`, `foundationSimulationActive=true`, `productiveAuthorizationEnabled=false` and `nextGate=Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
+# Sprint 3 P5 Productive API route draft
+
+`GET /api/crm/foundation/sprint-3/productive-api-route-draft`
+
+Returns `ProductiveApiRouteDraft`, `productiveApiRouteDraftExists=true`, `productiveRoutesRegistered=false`, `productiveCrudEnabled=false`, `productiveAuthorizationEnabled=false`, `authRuntimeEnabled=false`, `portalRuntimeConnected=false`, `durablePersistenceEnabled=false`, `realDatabaseConfigured=false`, `efRuntimeEnabled=false`, `deleteEndpointsEnabled=false`, `foundationCrudStillSeparate=true` and `nextGate=Sprint3P6Sprint3ProductizationReview`.

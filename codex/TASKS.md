@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 3 P5 - Productive API Route Draft Behind Disabled Flag
+
+- [x] Validate GitHub main contains Sprint 3 P4 commit.
+- [x] Document future productive routes for Lead, Account and Contact.
+- [x] Keep productive routes unregistered.
+- [x] Add `CrmProductiveApiRouteDraftStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-3/productive-api-route-draft`.
+- [x] Keep `productiveRoutesRegistered=false`, `productiveCrudEnabled=false`, `productiveAuthorizationEnabled=false`, `durablePersistenceEnabled=false`, `realDatabaseConfigured=false`, `efRuntimeEnabled=false`, `deleteEndpointsEnabled=false` and `foundationCrudStillSeparate=true`.
+- [x] Next Gate: `Sprint3P6Sprint3ProductizationReview`.
+- [x] Do not add DELETE, Auth real, Portal runtime, EF runtime, DB, migrations, connection strings, product UI or active productive routes.
+
 ## CRM Sprint 3 P4 - Portal Auth Runtime Contract Validation
 
 - [x] Validate GitHub main contains Sprint 3 P3 commit.

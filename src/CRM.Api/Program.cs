@@ -27,6 +27,7 @@ builder.Services.AddSingleton<CrmSprint2ProductizationGateService>();
 builder.Services.AddSingleton<CrmDurablePersistenceSetupStatusService>();
 builder.Services.AddSingleton<CrmCommonDbConnectionStrategyStatusService>();
 builder.Services.AddSingleton<CrmEfPrototypeStatusService>();
+builder.Services.AddSingleton<CrmProductiveApiRouteDraftStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -96,6 +97,9 @@ app.MapGet("/api/crm/foundation/sprint-3/ef-prototype-status", (CrmEfPrototypeSt
 
 app.MapGet("/api/crm/foundation/sprint-3/portal-auth-runtime-contract", (CrmPortalAuthRuntimeContractStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint3PortalAuthRuntimeContract");
+
+app.MapGet("/api/crm/foundation/sprint-3/productive-api-route-draft", (CrmProductiveApiRouteDraftStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint3ProductiveApiRouteDraft");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

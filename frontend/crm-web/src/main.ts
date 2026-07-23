@@ -110,6 +110,14 @@ class CrmReadinessService {
       productiveAuthorizationEnabled: false,
       portalAuthRuntimeWarning: 'Portal Auth runtime contract validation only; no real Auth runtime configured',
       portalAuthRuntimeNextGate: 'Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag',
+      sprint3P5ProductiveApiDraft: 'Exists',
+      productiveApiRouteDraftExists: true,
+      productiveRoutesRegistered: false,
+      durablePersistenceEnabled: false,
+      deleteEndpointsEnabled: false,
+      foundationCrudStillSeparate: true,
+      productiveApiDraftWarning: 'Productive API route draft only; routes are not active',
+      productiveApiDraftNextGate: 'Sprint3P6Sprint3ProductizationReview',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -230,6 +238,19 @@ class CrmReadinessService {
       <p>Productive Authorization Enabled: false</p>
       <p>Portal Auth Runtime Warning: Portal Auth runtime contract validation only; no real Auth runtime configured</p>
       <p>Next Gate: Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag</p>
+      <p>Sprint 3 P5 Productive API Draft: Exists</p>
+      <p>Productive Routes Registered: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>Auth Runtime Enabled: false</p>
+      <p>Portal Runtime Connected: false</p>
+      <p>Durable Persistence Enabled: false</p>
+      <p>Real Database Configured: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>DELETE Endpoints Enabled: false</p>
+      <p>Foundation CRUD Still Separate: true</p>
+      <p>Productive API Draft Warning: Productive API route draft only; routes are not active</p>
+      <p>Next Gate: Sprint3P6Sprint3ProductizationReview</p>
       <p>Non-Production</p>
     </section>
   `

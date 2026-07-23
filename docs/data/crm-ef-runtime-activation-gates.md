@@ -19,3 +19,5 @@ Until all gates are green:
 - DbContext Runtime Active: `false`.
 - Real Database Configured: `false`.
 - Productive CRUD Enabled: `false`.
+
+Sprint 3 P5 keeps EF Runtime Enabled: `false` while productive API route contracts are draft-only.

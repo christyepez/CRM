@@ -14,3 +14,5 @@ Before productive Auth activation:
 8. Productive API routes remain behind disabled flag.
 
 Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
+Sprint 3 P5 keeps Auth Runtime Enabled: `false` and Productive Authorization Enabled: `false` while drafting productive API route contracts.

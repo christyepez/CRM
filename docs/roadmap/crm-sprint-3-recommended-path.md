@@ -30,3 +30,7 @@ P3 adds the EF/DbContext prototype behind disabled flags. Next Gate: `Sprint3P4P
 # Sprint 3 P4 completed path
 
 P4 validates Portal Auth runtime contracts without real Auth activation. Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
+
+# Sprint 3 P5 completed path
+
+P5 creates the productive API route draft without registering active productive routes. Next Gate: `Sprint3P6Sprint3ProductizationReview`.
