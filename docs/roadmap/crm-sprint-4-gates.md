@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P4 productive routes locked stub validation
+
+Decision: document-only preferred. `Productive routes locked stub validation only; no productive routes are active`.
+
+Next: `Sprint4P5NonProductionE2EPilotReadiness`.
+
 ## P3 Portal Auth runtime probe
 
 Decision: disabled probe only. `Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted`.

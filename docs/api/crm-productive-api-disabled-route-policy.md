@@ -1,5 +1,9 @@
 # CRM Productive API Disabled Route Policy
 
+## Sprint 4 P4 decision
+
+Productive routes remain disabled and unregistered. Locked stubs are not registered by default. DELETE remains prohibited.
+
 Productive routes remain disabled in P5.
 
 Policy:

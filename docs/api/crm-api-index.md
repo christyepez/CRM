@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 4 P4
+
+- `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`: productive route locked stub validation; document-only preferred, no productive routes registered.
+
 ## Sprint 4 P3
 
 - `GET /api/crm/foundation/sprint-4/portal-auth-runtime-probe`: controlled Portal Auth runtime probe status; disabled by default, no token read and no Portal runtime call.
@@ -133,3 +137,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 4 P3
 
 - `GET /api/crm/foundation/sprint-4/portal-auth-runtime-probe`: Portal Auth runtime probe contract, disabled by default.
+
+# Sprint 4 P4
+
+- `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`: Productive route locked stub validation, document-only by default.

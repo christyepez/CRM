@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 4 P4 - Productive Routes Locked Stub Validation
+
+- [x] Validate GitHub main contains Sprint 4 P3 commit.
+- [x] Add productive routes locked stub validation documentation.
+- [x] Select `DocumentOnlyPreferred` strategy.
+- [x] Add `CrmProductiveRoutesLockedStubStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/productive-routes-locked-stub`.
+- [x] Keep `productiveRoutesRegistered=false`, `lockedStubsRegistered=false`, `productiveCrudEnabled=false`, `productiveAuthorizationEnabled=false`, `deleteEndpointsEnabled=false`, `dbRequired=false`, `authRuntimeRequired=false` and `foundationCrudStillSeparate=true`.
+- [x] Next Gate: `Sprint4P5NonProductionE2EPilotReadiness`.
+- [x] Do not register productive route stubs, productive CRUD, DELETE, DB runtime, Auth runtime, Portal runtime, token reads, login/Identity or UI productiva.
+
 ## CRM Sprint 4 P3 - Portal Auth Runtime Probe Behind Disabled Flag
 
 - [x] Validate GitHub main contains Sprint 4 P2 commit.

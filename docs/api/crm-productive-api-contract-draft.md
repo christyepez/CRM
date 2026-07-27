@@ -1,5 +1,9 @@
 # CRM Productive API Contract Draft
 
+## Sprint 4 P4 locked stub validation
+
+Productive route shapes remain draft/documented only. `LockedStubsStrategy=DocumentOnlyPreferred`, `ProductiveRoutesRegistered=false` and `LockedStubsRegistered=false`.
+
 Future productive routes, not registered in P5:
 
 | Method | Route | Resource | P5 status |

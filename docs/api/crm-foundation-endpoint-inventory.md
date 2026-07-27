@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 4 P4 productive routes locked stub validation
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/productive-routes-locked-stub` | Reports document-only productive route strategy without registering productive route stubs or activating CRUD. |
+
 ## Sprint 4 P3 Portal Auth runtime probe
 
 | Method | Endpoint | Purpose |

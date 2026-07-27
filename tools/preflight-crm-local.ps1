@@ -57,6 +57,16 @@ foreach ($file in @("src/CRM.Application/Portal/CrmPortalAuthRuntimeProbeStatusS
 if ($portalAuthProbeText -like "*Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted*") { Pass "Sprint 4 P3 disabled Portal Auth probe warning present." } else { Fail "Sprint 4 P3 disabled Portal Auth probe warning missing." }
 if ($portalAuthProbeText -like "*Sprint4P4ProductiveRoutesLockedStubValidation*") { Pass "Sprint 4 P3 next gate points to P4 productive route locked validation." } else { Fail "Sprint 4 P3 next gate marker missing." }
 
+if ($programText -like "*/api/crm/foundation/sprint-4/productive-routes-locked-stub*") { Pass "Sprint 4 P4 productive routes locked stub validation endpoint registered." } else { Fail "Sprint 4 P4 productive routes locked stub validation endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/productive-routes-locked-stub") { Fail "Sprint 4 P4 productive routes locked stub endpoint must remain GET-only." }
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($programText -like "*$productiveRoute*") { Fail "Productive CRM route is registered: $productiveRoute" }
+}
+
+$productiveRouteStubText = if (Test-Path "src/CRM.Application/Foundation/CrmProductiveRoutesLockedStubStatusService.cs") { Get-Content -Raw "src/CRM.Application/Foundation/CrmProductiveRoutesLockedStubStatusService.cs" } else { "" }
+if ($productiveRouteStubText -like "*Productive routes locked stub validation only; no productive routes are active*") { Pass "Sprint 4 P4 locked stub warning present." } else { Fail "Sprint 4 P4 locked stub warning missing." }
+if ($productiveRouteStubText -like "*DocumentOnlyPreferred*" -and $productiveRouteStubText -like "*Sprint4P5NonProductionE2EPilotReadiness*") { Pass "Sprint 4 P4 document-only decision and P5 next gate present." } else { Fail "Sprint 4 P4 decision or next gate marker missing." }
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

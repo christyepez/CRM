@@ -1,5 +1,9 @@
 # CRM Productive API Persistence Gates
 
+## Sprint 4 P4 result
+
+Productive routes remain document-only. No DB is required, no DB call is made, no migration is added and foundation CRUD remains separate.
+
 Productive API routes require:
 
 1. Durable persistence GO.
