@@ -127,3 +127,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm productive routes are not registered by default.
 - Confirm negative route checks return 404.
 - Confirm no DELETE, DB, Auth, Portal runtime or productive UI was added.
+## Sprint 5 P6 Gate Decision
+
+- Confirm Sprint 5 closure docs exist.
+- Confirm Sprint 6 roadmap docs exist.
+- Confirm gate decision endpoint exists.
+- Confirm real activation remains NoGo.
+- Confirm productive route negative checks remain 404.

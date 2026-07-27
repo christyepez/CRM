@@ -171,3 +171,6 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 5 P5 Foundation Endpoint
 
 - `/api/crm/foundation/sprint-5/locked-productive-route-stub-trial` documents locked productive route stubs without runtime registration.
+## Sprint 5 P6 Foundation Endpoint
+
+- `/api/crm/foundation/sprint-5/gate-decision` documents Sprint 5 closure and Sprint 6 planning.

@@ -284,6 +284,22 @@ const expectedLabels = [
   'Portal Runtime Required: false',
   'Locked Productive Route Stub Trial Warning: Locked productive route stub trial only; no productive routes are registered by default',
   'Next Gate: Sprint5P6Sprint5GateDecision',
+  'Sprint 5: Closed',
+  'Sprint 5 Gate Decision: Completed',
+  'Overall Decision: GoForControlledNonProductionPreparation',
+  'Real Activation Decision: NoGo',
+  'Productization Status: NotReady',
+  'Secret Provider Runtime: NoGoForRuntimeRead',
+  'Common DB Runtime: NoGoForConnectionAttempt',
+  'Portal Auth Runtime: NoGoForPortalHttpOrTokenRead',
+  'Productive Routes: NoGo',
+  'Locked Stub Runtime: NoGoForRuntimeRegistration',
+  'Productive CRUD: NoGo',
+  'DELETE: NoGo',
+  'Productive UI: NoGo',
+  'Sprint 6 Planning: Go',
+  'Sprint 5 Gate Decision Warning: Sprint 5 gate decision only; no real activation',
+  'Next Gate: Sprint6P1NonProductionRuntimeApprovalPackage',
   'Non-Production'
 ];
 

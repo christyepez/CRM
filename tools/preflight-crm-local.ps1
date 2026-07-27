@@ -180,5 +180,37 @@ foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api
     if ($programText -like "*$productiveRoute*") { Fail "Productive CRM route is registered by default: $productiveRoute" }
 }
 
+# Sprint 5 P6 Gate Decision checks
+$P6RequiredFiles = @(
+    "docs/releases/crm-sprint-5-closure.md",
+    "docs/releases/crm-sprint-5-integrated-evidence.md",
+    "docs/releases/crm-sprint-5-gate-decision.md",
+    "docs/releases/crm-sprint-5-go-no-go.md",
+    "docs/releases/crm-sprint-5-open-risks.md",
+    "docs/releases/crm-sprint-5-decision-record.md",
+    "docs/architecture/crm-sprint-5-gate-matrix.md",
+    "docs/security/crm-sprint-5-security-gate-review.md",
+    "docs/data/crm-sprint-5-persistence-gate-review.md",
+    "docs/api/crm-sprint-5-api-gate-review.md",
+    "docs/testing/crm-sprint-5-e2e-gate-review.md",
+    "docs/roadmap/crm-sprint-6-options.md",
+    "docs/roadmap/crm-sprint-6-recommended-path.md",
+    "docs/roadmap/crm-sprint-6-gates.md",
+    "src/CRM.Application/Foundation/CrmSprint5GateDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint5GateDecisionStatusService.cs"
+)
+foreach ($P6RequiredFile in $P6RequiredFiles) {
+    if (-not (Test-Path $P6RequiredFile)) { Fail "Missing Sprint 5 P6 required file: $P6RequiredFile" } else { Pass "Required P6 file exists: $P6RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-5/gate-decision*") { Pass "Sprint 5 P6 gate decision endpoint registered." } else { Fail "Sprint 5 P6 gate decision endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/gate-decision") { Fail "Sprint 5 P6 gate decision endpoint must remain GET-only." }
+$P6Text = ""
+foreach ($P6File in @("src/CRM.Application/Foundation/CrmSprint5GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint5GateDecisionStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P6File) { $P6Text += "`n" + (Get-Content -Raw $P6File) }
+}
+foreach ($P6Marker in @("Sprint5GateDecision", "GoForControlledNonProductionPreparation", "NoGoForRuntimeRead", "NoGoForConnectionAttempt", "NoGoForPortalHttpOrTokenRead", "NoGoForRuntimeRegistration", "Sprint6P1NonProductionRuntimeApprovalPackage", "Sprint 5 gate decision only; no real activation")) {
+    if ($P6Text -notmatch [regex]::Escape($P6Marker)) { Fail "Missing Sprint 5 P6 marker: $P6Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

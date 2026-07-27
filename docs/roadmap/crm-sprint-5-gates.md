@@ -26,3 +26,6 @@ Portal Auth probe optional activation exists, approval is false, runtime connect
 ## P5 Gate
 
 Locked productive route stub trial exists; registration approval is false, stubs are not registered, productive routes remain 404 by default, and the next gate is `Sprint5P6Sprint5GateDecision`.
+## P6 Gate
+
+Sprint 5 gate decision is complete. Next gate: `Sprint6P1NonProductionRuntimeApprovalPackage`.

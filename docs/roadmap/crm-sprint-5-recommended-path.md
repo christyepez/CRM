@@ -27,3 +27,6 @@ P4 adds a disabled-by-default Portal Auth probe optional activation contract. Ne
 ## P5 Locked Productive Route Stub Trial
 
 P5 adds a document-only preferred locked productive route stub trial. No productive routes are registered by default. Next gate: `Sprint5P6Sprint5GateDecision`.
+## P6 Sprint 5 Gate Decision
+
+Sprint 5 closes with `GoForControlledNonProductionPreparation`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady`, and `Sprint6PlanningDecision=Go`.

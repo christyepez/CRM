@@ -504,3 +504,6 @@ Status: implemented as contract-only, disabled by default. Next gate: Sprint5P5L
 ## Sprint 5 P5 - Locked Productive Route Stub Trial
 
 Status: implemented as document-only preferred, disabled by default. Next gate: Sprint5P6Sprint5GateDecision.
+## Sprint 5 P6 - Sprint 5 Gate Decision
+
+Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProductionRuntimeApprovalPackage.
