@@ -134,3 +134,15 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm gate decision endpoint exists.
 - Confirm real activation remains NoGo.
 - Confirm productive route negative checks remain 404.
+
+## Sprint 6 P1 NonProduction Runtime Approval Package
+
+- Confirm approval package docs exist.
+- Confirm `/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package` is registered as GET-only.
+- Confirm `CrmNonProductionRuntimeApprovalPackageStatusService` exists.
+- Confirm `nonProductionRuntimeApprovalPackageExists=true`.
+- Confirm all runtime approvals remain false.
+- Confirm synthetic data, rollback, observability, security review and architecture review remain required.
+- Confirm the warning is `NonProduction runtime approval package only; no runtime approval is granted`.
+- Confirm next gate is `Sprint6P2SecretProviderSafeMockActivation`.
+- Confirm no secrets, DB connection, Portal HTTP, token/header reads, locked stubs runtime, productive routes, DELETE or productive UI were enabled.

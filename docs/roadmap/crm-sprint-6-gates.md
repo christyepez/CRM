@@ -2,7 +2,7 @@
 
 | Gate | Purpose | Default |
 |---|---|---|
-| Sprint6P1NonProductionRuntimeApprovalPackage | Approvals and evidence package | Required |
+| Sprint6P1NonProductionRuntimeApprovalPackage | Approvals and evidence package | Exists; approvals not granted |
 | Sprint6P2SecretProviderSafeMockActivation | Mock-only secret provider activation | Not started |
 | Sprint6P3CommonDbConnectivityDryRunContract | DB dry-run contract without real activation | Not started |
 | Sprint6P4PortalAuthTokenPropagationDryRunContract | Token propagation dry-run contract | Not started |

@@ -103,6 +103,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation", program);
         Assert.Contains("/api/crm/foundation/sprint-5/locked-productive-route-stub-trial", program);
         Assert.Contains("/api/crm/foundation/sprint-5/gate-decision", program);
+        Assert.Contains("/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -1231,6 +1232,65 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void NonProductionRuntimeApprovalPackage_DoesNotGrantRuntimeOrActivateProductiveRoutes()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmNonProductionRuntimeApprovalPackageStatusService", source);
+        Assert.Contains("NonProductionRuntimeApprovalPackage", source);
+        Assert.Contains("NonProductionRuntimeApprovalPackageExists", source);
+        Assert.Contains("NonProductionRuntimeApprovalGranted", source);
+        Assert.Contains("SecretProviderMockApprovalGranted", source);
+        Assert.Contains("CommonDbDryRunApprovalGranted", source);
+        Assert.Contains("PortalAuthDryRunApprovalGranted", source);
+        Assert.Contains("LockedStubRuntimeTrialApprovalGranted", source);
+        Assert.Contains("RealActivationApprovalGranted", source);
+        Assert.Contains("ProductiveRoutesApprovalGranted", source);
+        Assert.Contains("DeleteApprovalGranted", source);
+        Assert.Contains("Sprint6P2SecretProviderSafeMockActivation", source);
+        Assert.Contains("NonProduction runtime approval package only; no runtime approval is granted", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);

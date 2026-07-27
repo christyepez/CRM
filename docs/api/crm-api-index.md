@@ -174,3 +174,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 5 P6 Foundation Endpoint
 
 - `/api/crm/foundation/sprint-5/gate-decision` documents Sprint 5 closure and Sprint 6 planning.
+
+## Sprint 6 P1 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package`: documents the non-production runtime approval package; all runtime approvals remain false and the next gate is `Sprint6P2SecretProviderSafeMockActivation`.

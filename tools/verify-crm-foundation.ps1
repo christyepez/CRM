@@ -730,6 +730,31 @@ foreach ($marker in @("Sprint 5 gate decision only; no real activation", "Sprint
     }
 }
 
+foreach ($path in @("docs/operations/crm-sprint-6-p1-nonproduction-runtime-approval-package.md", "docs/operations/crm-nonproduction-runtime-approval-matrix.md", "docs/operations/crm-nonproduction-runtime-entry-exit-criteria.md", "docs/operations/crm-nonproduction-runtime-rollback-approval.md", "docs/security/crm-nonproduction-runtime-security-approval.md", "docs/architecture/crm-nonproduction-runtime-architecture-approval.md", "src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageContracts.cs", "src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageStatusService.cs")) {
+    Require-Path $path
+}
+
+$p1Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($p1Program -notlike "*/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package*") {
+    $failures += "Sprint 6 P1 non-production runtime approval package endpoint missing."
+}
+
+if ($p1Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package") {
+    $failures += "Sprint 6 P1 non-production runtime approval package endpoint must remain GET-only."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($p1Program -like "*$productiveRoute*") {
+        $failures += "Productive CRM route is registered by default: $productiveRoute"
+    }
+}
+
+foreach ($marker in @("NonProduction runtime approval package only; no runtime approval is granted", "NonProductionRuntimeApprovalPackage", "CrmNonProductionRuntimeApprovalPackageStatusService", "NonProductionRuntimeApprovalPackageExists", "NonProductionRuntimeApprovalGranted", "SecretProviderMockApprovalGranted", "CommonDbDryRunApprovalGranted", "PortalAuthDryRunApprovalGranted", "LockedStubRuntimeTrialApprovalGranted", "RealActivationApprovalGranted", "ProductiveRoutesApprovalGranted", "DeleteApprovalGranted", "Sprint6P2SecretProviderSafeMockActivation", "Sprint 6 P1 NonProduction Runtime Approval Package: Exists", "NonProduction Runtime Approval Granted: false")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/operations/crm-sprint-6-p1-nonproduction-runtime-approval-package.md") + "`n" + (Get-Content -Raw "docs/operations/crm-nonproduction-runtime-approval-matrix.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 6 P1 approval package marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

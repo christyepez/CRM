@@ -288,6 +288,23 @@ class CrmReadinessService {
       sprint6PlanningDecision: 'Go',
       sprint5GateDecisionWarning: 'Sprint 5 gate decision only; no real activation',
       sprint5GateDecisionNextGate: 'Sprint6P1NonProductionRuntimeApprovalPackage',
+      sprint6P1NonProductionRuntimeApprovalPackage: 'Exists',
+      nonProductionRuntimeApprovalPackageExists: true,
+      nonProductionRuntimeApprovalGranted: false,
+      secretProviderMockApprovalGranted: false,
+      commonDbDryRunApprovalGranted: false,
+      portalAuthDryRunApprovalGranted: false,
+      lockedStubRuntimeTrialApprovalGranted: false,
+      sprint6RealActivationApprovalGranted: false,
+      sprint6ProductiveRoutesApprovalGranted: false,
+      sprint6DeleteApprovalGranted: false,
+      sprint6SyntheticDataApprovalRequired: true,
+      sprint6RollbackApprovalRequired: true,
+      sprint6ObservabilityApprovalRequired: true,
+      sprint6SecurityReviewRequired: true,
+      sprint6ArchitectureReviewRequired: true,
+      sprint6P1Warning: 'NonProduction runtime approval package only; no runtime approval is granted',
+      sprint6P1NextGate: 'Sprint6P2SecretProviderSafeMockActivation',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -596,6 +613,23 @@ class CrmReadinessService {
       <p>Sprint 6 Planning: Go</p>
       <p>Sprint 5 Gate Decision Warning: Sprint 5 gate decision only; no real activation</p>
       <p>Next Gate: Sprint6P1NonProductionRuntimeApprovalPackage</p>
+      <p>Sprint 6 P1 NonProduction Runtime Approval Package: Exists</p>
+      <p>NonProduction Runtime Approval Package Exists: true</p>
+      <p>NonProduction Runtime Approval Granted: false</p>
+      <p>Secret Provider Mock Approval Granted: false</p>
+      <p>Common DB Dry-Run Approval Granted: false</p>
+      <p>Portal Auth Dry-Run Approval Granted: false</p>
+      <p>Locked Stub Runtime Trial Approval Granted: false</p>
+      <p>Real Activation Approval Granted: false</p>
+      <p>Productive Routes Approval Granted: false</p>
+      <p>DELETE Approval Granted: false</p>
+      <p>Synthetic Data Approval Required: true</p>
+      <p>Rollback Approval Required: true</p>
+      <p>Observability Approval Required: true</p>
+      <p>Security Review Required: true</p>
+      <p>Architecture Review Required: true</p>
+      <p>NonProduction Runtime Approval Warning: NonProduction runtime approval package only; no runtime approval is granted</p>
+      <p>Next Gate: Sprint6P2SecretProviderSafeMockActivation</p>
       <p>Non-Production</p>
     </section>
   `

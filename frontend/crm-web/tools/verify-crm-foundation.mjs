@@ -300,6 +300,23 @@ const expectedLabels = [
   'Sprint 6 Planning: Go',
   'Sprint 5 Gate Decision Warning: Sprint 5 gate decision only; no real activation',
   'Next Gate: Sprint6P1NonProductionRuntimeApprovalPackage',
+  'Sprint 6 P1 NonProduction Runtime Approval Package: Exists',
+  'NonProduction Runtime Approval Package Exists: true',
+  'NonProduction Runtime Approval Granted: false',
+  'Secret Provider Mock Approval Granted: false',
+  'Common DB Dry-Run Approval Granted: false',
+  'Portal Auth Dry-Run Approval Granted: false',
+  'Locked Stub Runtime Trial Approval Granted: false',
+  'Real Activation Approval Granted: false',
+  'Productive Routes Approval Granted: false',
+  'DELETE Approval Granted: false',
+  'Synthetic Data Approval Required: true',
+  'Rollback Approval Required: true',
+  'Observability Approval Required: true',
+  'Security Review Required: true',
+  'Architecture Review Required: true',
+  'NonProduction Runtime Approval Warning: NonProduction runtime approval package only; no runtime approval is granted',
+  'Next Gate: Sprint6P2SecretProviderSafeMockActivation',
   'Non-Production'
 ];
 

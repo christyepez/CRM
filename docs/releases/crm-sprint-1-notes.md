@@ -160,3 +160,7 @@ Locked productive route stub trial added as a foundation contract. No productive
 ## Sprint 5 P6 Note
 
 Sprint 5 closed with controlled non-production preparation approved and real activation denied.
+
+## Sprint 6 P1 Note
+
+Sprint 6 P1 adds the non-production runtime approval package. The package exists, but non-production runtime approval, secret provider mock approval, common DB dry-run approval, Portal Auth dry-run approval, locked stub runtime trial approval, real activation, productive routes and DELETE remain denied.
