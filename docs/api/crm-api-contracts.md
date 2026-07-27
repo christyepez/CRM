@@ -186,3 +186,9 @@ Returns `ProductiveApiRouteDraft`, `productiveApiRouteDraftExists=true`, `produc
 `GET /api/crm/foundation/sprint-3/productization-review`
 
 Returns `Sprint3ProductizationReview`, `overallDecision=NoGoForRealActivation`, `productizationStatus=NotReady`, `durablePersistenceDecision=NoGo`, `realDatabaseDecision=NoGo`, `efRuntimeDecision=NoGo`, `portalAuthRuntimeDecision=NoGo`, `productiveApiRoutesDecision=NoGo`, `productiveCrmUiDecision=NoGo`, `foundationCapabilitiesDecision=GoFoundationOnly`, `sprint4PlanningDecision=Go`, `nextGate=Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening` and `Sprint 3 productization review only; no real activation`.
+
+# Sprint 4 P1 runtime readiness
+
+`GET /api/crm/foundation/sprint-4/runtime-readiness`
+
+Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort=8093`, `sqlServerOwnedByCrm=false`, `nodePathRequiredForFrontendVerifier=false`, `productiveRoutesActive=false`, `deleteEndpointsEnabled=false`, `realDatabaseConfigured=false`, `authRuntimeEnabled=false`, `portalRuntimeConnected=false`, `productizationStatus=NotReady`, `nextGate=Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag` and `Runtime readiness only; no real activation`.

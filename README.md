@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P1 - Runtime Environment Readiness and Local Tooling Hardening
+
+P1 hardens local tooling before controlled runtime probes. Status: `RuntimeEnvironmentReadiness`; Docker Compose Expected: `true`; CRM API Port: `8093`; SQL Server Owned By CRM: `false`; Node PATH Required For Frontend Verifier: `false`; Productive Routes Active: `false`; DELETE Endpoints Enabled: `false`; Real Database Configured: `false`; Auth Runtime Enabled: `false`; Portal Runtime Connected: `false`; Productization Status: `NotReady`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/runtime-readiness`
+
+Warning: `Runtime readiness only; no real activation`. Next Gate: `Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag`.
+
 ## Sprint 3 P6 - Productization Review Before Any Real Activation
 
 P6 closes Sprint 3 with a formal productization review. Overall Decision: `NoGoForRealActivation`; Productization Status: `NotReady`; Durable Persistence: `NoGo`; Real Database: `NoGo`; EF Runtime: `NoGo`; Portal Auth Runtime: `NoGo`; Productive API Routes: `NoGo`; Productive CRM UI: `NoGo`; Foundation Capabilities: `GoFoundationOnly`; Sprint 4 Planning: `Go`.

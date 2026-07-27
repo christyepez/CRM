@@ -132,6 +132,13 @@ class CrmReadinessService {
       sprint4Planning: 'Go',
       sprint3ProductizationWarning: 'Sprint 3 productization review only; no real activation',
       sprint4NextGate: 'Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening',
+      sprint4P1RuntimeReadiness: 'Active',
+      dockerComposeExpected: true,
+      crmApiPort: 8093,
+      nodePathRequiredForFrontendVerifier: false,
+      productiveRoutesActive: false,
+      sprint4RuntimeReadinessWarning: 'Runtime readiness only; no real activation',
+      sprint4P1NextGate: 'Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -279,6 +286,19 @@ class CrmReadinessService {
       <p>Sprint 4 Planning: Go</p>
       <p>Productization Review Warning: Sprint 3 productization review only; no real activation</p>
       <p>Next Gate: Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening</p>
+      <p>Sprint 4 P1 Runtime Readiness: Active</p>
+      <p>Docker Compose Expected: true</p>
+      <p>CRM API Port: 8093</p>
+      <p>SQL Server Owned By CRM: false</p>
+      <p>Node PATH Required For Frontend Verifier: false</p>
+      <p>Productive Routes Active: false</p>
+      <p>DELETE Endpoints Enabled: false</p>
+      <p>Real Database Configured: false</p>
+      <p>Auth Runtime Enabled: false</p>
+      <p>Portal Runtime Connected: false</p>
+      <p>Productization Status: NotReady</p>
+      <p>Runtime Readiness Warning: Runtime readiness only; no real activation</p>
+      <p>Next Gate: Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag</p>
       <p>Non-Production</p>
     </section>
   `

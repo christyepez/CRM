@@ -115,3 +115,7 @@ Sprint 3 P5 introduced productive API route draft documentation and a foundation
 # Sprint 3 P6 guardrail note
 
 Sprint 3 is closed as foundation-only. Productive activation remains `NoGoForRealActivation`; Sprint 4 planning is `Go`.
+
+## Sprint 4 P1 guardrail note
+
+Sprint 4 P1 adds runtime readiness tooling only. No DB, Auth, Portal runtime, productive route, DELETE or productive UI activation is allowed.

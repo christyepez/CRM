@@ -113,3 +113,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 3 P6
 
 - `GET /api/crm/foundation/sprint-3/productization-review`: Sprint 3 productization review status, `NoGoForRealActivation`, no real activation.
+
+# Sprint 4 P1
+
+- `GET /api/crm/foundation/sprint-4/runtime-readiness`: Local runtime readiness and tooling status, no real activation.
