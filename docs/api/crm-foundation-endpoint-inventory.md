@@ -175,3 +175,7 @@
 ## Sprint 5 P6
 
 - `GET /api/crm/foundation/sprint-5/gate-decision` - Sprint 5 gate decision only; no real activation.
+
+## Sprint 6 P1
+
+- `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package` - approval package exists, but no non-production runtime approval is granted.

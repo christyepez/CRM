@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 6 P1 - NonProduction Runtime Approval Package
+
+Sprint 6 P1 creates the approval package for future non-production runtime trials. The package exists, but no runtime approval is granted.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package`
+
+Current decision: `NonProductionRuntimeApprovalPackageExists=true`, `NonProductionRuntimeApprovalGranted=false`, `SecretProviderMockApprovalGranted=false`, `CommonDbDryRunApprovalGranted=false`, `PortalAuthDryRunApprovalGranted=false`, `LockedStubRuntimeTrialApprovalGranted=false`, `RealActivationApprovalGranted=false`, `ProductiveRoutesApprovalGranted=false`, `DeleteApprovalGranted=false`.
+
+Required gates remain: synthetic data, rollback, observability, security review and architecture review. Warning: `NonProduction runtime approval package only; no runtime approval is granted`. Next Gate: `Sprint6P2SecretProviderSafeMockActivation`.
+
 ## Sprint 5 P3 - Common DB Probe Optional Activation
 
 Sprint 5 P3 prepares Common DB probe optional activation for non-production only. Status: `CommonDbProbeOptionalActivation`; Common DB Probe Optional Activation Exists: `true`; Common DB Probe Activation Approved: `false`; Common DB Probe Enabled: `false`; Common DB Connection Attempted: `false`; Secret Provider Runtime Required: `true`; Secret Provider Runtime Connected: `false`; Secret Reads Required Before Activation: `true`; Secret Reads Enabled: `false`; Real Database Configured: `false`; Connection Strings Configured: `false`; EF Runtime Enabled: `false`; Migrations Created: `false`; API Requires Database: `false`.

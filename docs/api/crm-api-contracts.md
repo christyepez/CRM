@@ -252,3 +252,8 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 
 - `GET /api/crm/foundation/sprint-5/gate-decision` returns the Sprint 5 closure decision.
 - Overall decision is `GoForControlledNonProductionPreparation`; real activation remains `NoGo`.
+
+## Sprint 6 P1 NonProduction Runtime Approval Package
+
+- `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package` returns `status=NonProductionRuntimeApprovalPackage`, `nonProductionRuntimeApprovalPackageExists=true`, `nonProductionRuntimeApprovalGranted=false`, `secretProviderMockApprovalGranted=false`, `commonDbDryRunApprovalGranted=false`, `portalAuthDryRunApprovalGranted=false`, `lockedStubRuntimeTrialApprovalGranted=false`, `realActivationApprovalGranted=false`, `productiveRoutesApprovalGranted=false`, `deleteApprovalGranted=false`, `syntheticDataApprovalRequired=true`, `rollbackApprovalRequired=true`, `observabilityApprovalRequired=true`, `securityReviewRequired=true`, `architectureReviewRequired=true`, `nextGate=Sprint6P2SecretProviderSafeMockActivation` and `NonProduction runtime approval package only; no runtime approval is granted`.
+- This endpoint is GET-only and does not read secrets, connect to DB, call Portal, read headers/tokens, register locked stubs runtime, enable productive routes or modify state.

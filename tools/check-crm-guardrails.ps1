@@ -199,6 +199,30 @@ foreach ($P6Marker in @("Sprint5GateDecision", "GoForControlledNonProductionPrep
     if ($P6Text -notmatch [regex]::Escape($P6Marker)) { Fail "Missing Sprint 5 P6 marker: $P6Marker" }
 }
 
+# Sprint 6 P1 NonProduction Runtime Approval Package checks
+$P1RequiredFiles = @(
+    "docs/operations/crm-sprint-6-p1-nonproduction-runtime-approval-package.md",
+    "docs/operations/crm-nonproduction-runtime-approval-matrix.md",
+    "docs/operations/crm-nonproduction-runtime-entry-exit-criteria.md",
+    "docs/operations/crm-nonproduction-runtime-rollback-approval.md",
+    "docs/security/crm-nonproduction-runtime-security-approval.md",
+    "docs/architecture/crm-nonproduction-runtime-architecture-approval.md",
+    "src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageContracts.cs",
+    "src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageStatusService.cs"
+)
+foreach ($P1RequiredFile in $P1RequiredFiles) {
+    if (-not (Test-Path $P1RequiredFile)) { Fail "Missing Sprint 6 P1 required file: $P1RequiredFile" } else { Pass "Required Sprint 6 P1 file exists: $P1RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package*") { Fail "Sprint 6 P1 approval package route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package") { Fail "Sprint 6 P1 approval package endpoint must remain GET-only." }
+$P1Text = ""
+foreach ($P1File in @("src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageContracts.cs", "src/CRM.Application/Foundation/CrmNonProductionRuntimeApprovalPackageStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P1File) { $P1Text += "`n" + (Get-Content -Raw $P1File) }
+}
+foreach ($P1Marker in @("NonProductionRuntimeApprovalPackage", "NonProductionRuntimeApprovalPackageExists", "NonProductionRuntimeApprovalGranted", "SecretProviderMockApprovalGranted", "CommonDbDryRunApprovalGranted", "PortalAuthDryRunApprovalGranted", "LockedStubRuntimeTrialApprovalGranted", "RealActivationApprovalGranted", "ProductiveRoutesApprovalGranted", "DeleteApprovalGranted", "Sprint6P2SecretProviderSafeMockActivation", "NonProduction runtime approval package only; no runtime approval is granted")) {
+    if ($P1Text -notmatch [regex]::Escape($P1Marker)) { Fail "Missing Sprint 6 P1 marker: $P1Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

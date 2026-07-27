@@ -88,3 +88,7 @@ Productive route registration remains blocked. CRM still has no productive CRUD,
 ## Sprint 5 P6 Productization Gate
 
 Productization remains `NotReady`. Real activation, productive CRUD, DELETE, DB runtime, Auth runtime, Portal runtime and productive UI remain NoGo.
+
+## Sprint 6 P1 Productization Gate
+
+The non-production runtime approval package exists, but all approvals remain false. Productization remains `NotReady`; real activation, productive routes, DELETE, secret reads, DB runtime, Portal Auth runtime and locked stub runtime registration remain blocked.

@@ -1,5 +1,18 @@
 # TASKS.md
 
+## CRM Sprint 6 P1 - NonProduction Runtime Approval Package
+
+- [x] Validate GitHub main contains Sprint 5 P6 commit.
+- [x] Create non-production runtime approval package documentation.
+- [x] Create approval matrix, entry/exit criteria, rollback, security and architecture approval docs.
+- [x] Add `CrmNonProductionRuntimeApprovalPackageStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package`.
+- [x] Keep `nonProductionRuntimeApprovalPackageExists=true`.
+- [x] Keep all approvals false: non-production runtime, secret provider mock, common DB dry-run, Portal Auth dry-run, locked stub runtime trial, real activation, productive routes and DELETE.
+- [x] Require synthetic data, rollback, observability, security review and architecture review.
+- [x] Next Gate: `Sprint6P2SecretProviderSafeMockActivation`.
+- [x] Do not activate secrets, DB, Portal Auth runtime, token/header reads, productive routes, locked stubs runtime, DELETE, login, Identity or productive UI.
+
 ## CRM Sprint 5 P3 - Common DB Probe Optional Activation
 
 - [x] Create Common DB probe optional activation documentation.

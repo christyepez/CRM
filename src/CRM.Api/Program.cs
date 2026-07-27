@@ -41,6 +41,7 @@ builder.Services.AddSingleton<CrmCommonDbProbeOptionalActivationStatusService>()
 builder.Services.AddSingleton<CrmPortalAuthProbeOptionalActivationStatusService>();
 builder.Services.AddSingleton<CrmLockedProductiveRouteStubTrialStatusService>();
 builder.Services.AddSingleton<CrmSprint5GateDecisionStatusService>();
+builder.Services.AddSingleton<CrmNonProductionRuntimeApprovalPackageStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -152,6 +153,9 @@ app.MapGet("/api/crm/foundation/sprint-5/locked-productive-route-stub-trial", (C
 
 app.MapGet("/api/crm/foundation/sprint-5/gate-decision", (CrmSprint5GateDecisionStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint5GateDecision");
+
+app.MapGet("/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", (CrmNonProductionRuntimeApprovalPackageStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint6NonProductionRuntimeApprovalPackage");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
