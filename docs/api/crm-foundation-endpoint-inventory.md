@@ -106,3 +106,9 @@
 | Method | Route | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/productive-api-route-draft` | Shows productive API route draft status while productive routes remain unregistered and disabled. |
+
+## Sprint 3 P6 productization review
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-3/productization-review` | Closes Sprint 3 as NoGoForRealActivation and recommends Sprint 4 runtime gate preparation. |

@@ -1,5 +1,18 @@
 # TASKS.md
 
+## CRM Sprint 3 P6 - Productization Review Before Any Real Activation
+
+- [x] Validate GitHub main contains Sprint 3 P5 commit.
+- [x] Create Sprint 3 closure documentation and integrated evidence.
+- [x] Create GO/NO-GO and decision records.
+- [x] Create productization review matrix and no-go reviews for Security, Persistence and API.
+- [x] Create Sprint 4 options, recommended path and gates.
+- [x] Add `CrmSprint3ProductizationReviewStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-3/productization-review`.
+- [x] Keep `OverallDecision=NoGoForRealActivation`, `ProductizationStatus=NotReady`, `FoundationCapabilitiesDecision=GoFoundationOnly` and `Sprint4PlanningDecision=Go`.
+- [x] Next Gate: `Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening`.
+- [x] Do not activate DB, EF runtime, migrations, Auth runtime, Portal runtime, productive routes, DELETE or productive UI.
+
 ## CRM Sprint 3 P5 - Productive API Route Draft Behind Disabled Flag
 
 - [x] Validate GitHub main contains Sprint 3 P4 commit.

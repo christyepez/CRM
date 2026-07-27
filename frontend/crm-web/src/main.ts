@@ -118,6 +118,20 @@ class CrmReadinessService {
       foundationCrudStillSeparate: true,
       productiveApiDraftWarning: 'Productive API route draft only; routes are not active',
       productiveApiDraftNextGate: 'Sprint3P6Sprint3ProductizationReview',
+      sprint3: 'Closed',
+      productizationReview: 'Completed',
+      sprint3OverallDecision: 'NoGoForRealActivation',
+      sprint3ProductizationStatus: 'NotReady',
+      sprint3DurablePersistence: 'NoGo',
+      sprint3RealDatabase: 'NoGo',
+      sprint3EfRuntime: 'NoGo',
+      sprint3PortalAuthRuntime: 'NoGo',
+      sprint3ProductiveApiRoutes: 'NoGo',
+      sprint3ProductiveCrmUi: 'NoGo',
+      sprint3FoundationCapabilities: 'GoFoundationOnly',
+      sprint4Planning: 'Go',
+      sprint3ProductizationWarning: 'Sprint 3 productization review only; no real activation',
+      sprint4NextGate: 'Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -251,6 +265,20 @@ class CrmReadinessService {
       <p>Foundation CRUD Still Separate: true</p>
       <p>Productive API Draft Warning: Productive API route draft only; routes are not active</p>
       <p>Next Gate: Sprint3P6Sprint3ProductizationReview</p>
+      <p>Sprint 3: Closed</p>
+      <p>Productization Review: Completed</p>
+      <p>Overall Decision: NoGoForRealActivation</p>
+      <p>Productization Status: NotReady</p>
+      <p>Durable Persistence: NoGo</p>
+      <p>Real Database: NoGo</p>
+      <p>EF Runtime: NoGo</p>
+      <p>Portal Auth Runtime: NoGo</p>
+      <p>Productive API Routes: NoGo</p>
+      <p>Productive CRM UI: NoGo</p>
+      <p>Foundation Capabilities: GoFoundationOnly</p>
+      <p>Sprint 4 Planning: Go</p>
+      <p>Productization Review Warning: Sprint 3 productization review only; no real activation</p>
+      <p>Next Gate: Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening</p>
       <p>Non-Production</p>
     </section>
   `

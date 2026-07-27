@@ -180,3 +180,9 @@ Returns `PortalAuthRuntimeContractValidation`, `portalRuntimeConnected=false`, `
 `GET /api/crm/foundation/sprint-3/productive-api-route-draft`
 
 Returns `ProductiveApiRouteDraft`, `productiveApiRouteDraftExists=true`, `productiveRoutesRegistered=false`, `productiveCrudEnabled=false`, `productiveAuthorizationEnabled=false`, `authRuntimeEnabled=false`, `portalRuntimeConnected=false`, `durablePersistenceEnabled=false`, `realDatabaseConfigured=false`, `efRuntimeEnabled=false`, `deleteEndpointsEnabled=false`, `foundationCrudStillSeparate=true` and `nextGate=Sprint3P6Sprint3ProductizationReview`.
+
+# Sprint 3 P6 productization review
+
+`GET /api/crm/foundation/sprint-3/productization-review`
+
+Returns `Sprint3ProductizationReview`, `overallDecision=NoGoForRealActivation`, `productizationStatus=NotReady`, `durablePersistenceDecision=NoGo`, `realDatabaseDecision=NoGo`, `efRuntimeDecision=NoGo`, `portalAuthRuntimeDecision=NoGo`, `productiveApiRoutesDecision=NoGo`, `productiveCrmUiDecision=NoGo`, `foundationCapabilitiesDecision=GoFoundationOnly`, `sprint4PlanningDecision=Go`, `nextGate=Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening` and `Sprint 3 productization review only; no real activation`.

@@ -145,6 +145,20 @@ const expectedLabels = [
   'Foundation CRUD Still Separate: true',
   'Productive API Draft Warning: Productive API route draft only; routes are not active',
   'Next Gate: Sprint3P6Sprint3ProductizationReview',
+  'Sprint 3: Closed',
+  'Productization Review: Completed',
+  'Overall Decision: NoGoForRealActivation',
+  'Productization Status: NotReady',
+  'Durable Persistence: NoGo',
+  'Real Database: NoGo',
+  'EF Runtime: NoGo',
+  'Portal Auth Runtime: NoGo',
+  'Productive API Routes: NoGo',
+  'Productive CRM UI: NoGo',
+  'Foundation Capabilities: GoFoundationOnly',
+  'Sprint 4 Planning: Go',
+  'Productization Review Warning: Sprint 3 productization review only; no real activation',
+  'Next Gate: Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening',
   'Non-Production'
 ];
 
