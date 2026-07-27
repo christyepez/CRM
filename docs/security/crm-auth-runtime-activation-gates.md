@@ -20,3 +20,6 @@ Before productive Auth activation:
 Next Gate: `Sprint3P5ProductiveApiRouteDraftBehindDisabledFlag`.
 
 Sprint 3 P5 keeps Auth Runtime Enabled: `false` and Productive Authorization Enabled: `false` while drafting productive API route contracts.
+
+## Sprint 5 P4
+Portal Auth probe optional activation is contract-only. Token propagation and secret provider runtime are required before any future non-production activation.

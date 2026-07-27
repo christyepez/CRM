@@ -114,3 +114,9 @@ powershell.exe -ExecutionPolicy Bypass -File tools\preflight-crm-local.ps1
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 ```
+
+## Sprint 5 P4 Portal Auth Probe Optional Activation
+- Confirm P4 docs exist.
+- Confirm endpoint/service/placeholder exist.
+- Confirm disabled flags and warning.
+- Confirm no Portal HTTP, token/header reads, Auth middleware, login/logout, Identity or token storage.

@@ -166,3 +166,6 @@
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-4/runtime-readiness` | Reports local tooling and runtime readiness without activating DB, Auth, Portal runtime or productive routes. |
+
+## Sprint 5 P4
+- `GET /api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` - contract-only, no Portal HTTP, no token/header reads.

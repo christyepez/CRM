@@ -704,3 +704,29 @@ if ($failures.Count -gt 0) {
 
 Write-Output "CRM foundation verification passed."
 exit 0
+
+# Sprint 5 P4 Portal Auth Probe Optional Activation checks
+$P4RequiredFiles = @(
+    "docs/integration/crm-sprint-5-p4-portal-auth-probe-optional-activation.md",
+    "docs/integration/crm-portal-auth-probe-optional-activation-policy.md",
+    "docs/integration/crm-portal-auth-probe-activation-gates.md",
+    "docs/integration/crm-portal-auth-probe-rollback-plan.md",
+    "docs/operations/crm-portal-auth-probe-optional-activation-runbook.md",
+    "docs/security/crm-portal-auth-probe-token-boundary.md",
+    "src/CRM.Application/Foundation/CrmPortalAuthProbeOptionalActivationContracts.cs",
+    "src/CRM.Application/Foundation/CrmPortalAuthProbeOptionalActivationStatusService.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthProbeOptionalActivationPlaceholder.cs"
+)
+foreach ($P4RequiredFile in $P4RequiredFiles) {
+    if (-not (Test-Path $P4RequiredFile)) { Fail "Missing Sprint 5 P4 required file: $P4RequiredFile" } else { Pass "Required P4 file exists: $P4RequiredFile" }
+}
+$P4Program = Get-Content "src/CRM.Api/Program.cs" -Raw
+if ($P4Program -notmatch "portal-auth-probe-optional-activation") { Fail "Missing Sprint 5 P4 foundation endpoint" } else { Pass "Sprint 5 P4 Portal Auth optional activation endpoint registered." }
+if ($P4Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation") { Fail "Sprint 5 P4 endpoint must remain GET-only." }
+$P4Text = ""
+foreach ($P4File in @("src/CRM.Application/Foundation/CrmPortalAuthProbeOptionalActivationContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthProbeOptionalActivationStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthProbeOptionalActivationPlaceholder.cs")) {
+    if (Test-Path $P4File) { $P4Text += "`n" + (Get-Content -Raw $P4File) }
+}
+foreach ($P4Marker in @("PortalAuthProbeOptionalActivation", "PortalAuthProbeEnabled", "PortalHttpAttempted", "TokenReadAttempted", "HeaderReadAttempted", "SecretProviderRuntimeRequired", "SecretReadsEnabled", "LoginImplementedByCrm", "IdentityImplementedByCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "Portal Auth probe optional activation only; no tokens are read and no Portal HTTP calls are attempted")) {
+    if ($P4Text -notmatch [regex]::Escape($P4Marker)) { Fail "Missing Sprint 5 P4 marker: $P4Marker" }
+}

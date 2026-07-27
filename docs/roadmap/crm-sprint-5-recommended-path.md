@@ -21,3 +21,6 @@ Recommended next package: `Sprint5P1ControlledRuntimeProbeActivationPlan`.
 Sprint 5 should first design how runtime probes may be activated in non-production without introducing secrets, real customer data, productive routes, DELETE, Portal Auth production dependency or CRM-owned SQL Server.
 
 Recommended sequence: P1 plan, P2 secret provider contract, P3 optional DB probe, P4 optional Portal Auth probe, P5 locked stub trial, P6 gate decision.
+
+## P4 Portal Auth Probe Optional Activation
+P4 adds a disabled-by-default Portal Auth probe optional activation contract. Next gate: Sprint5P5LockedProductiveRouteStubTrialInNonProduction.

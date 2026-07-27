@@ -240,3 +240,7 @@ Returns `Sprint3ProductizationReview`, `overallDecision=NoGoForRealActivation`, 
 `GET /api/crm/foundation/sprint-4/runtime-readiness`
 
 Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort=8093`, `sqlServerOwnedByCrm=false`, `nodePathRequiredForFrontendVerifier=false`, `productiveRoutesActive=false`, `deleteEndpointsEnabled=false`, `realDatabaseConfigured=false`, `authRuntimeEnabled=false`, `portalRuntimeConnected=false`, `productizationStatus=NotReady`, `nextGate=Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag` and `Runtime readiness only; no real activation`.
+
+## Sprint 5 P4 Portal Auth Probe Optional Activation
+- `GET /api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` returns the disabled contract-only Portal Auth optional activation status.
+- It does not call Portal, read tokens, read headers or enable productive authorization.

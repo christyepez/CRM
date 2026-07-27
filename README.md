@@ -464,3 +464,6 @@ CRM Sprint 3 P2 defines the common DB connection contract and secret strategy as
 - Warning: Common DB connection contract only; no real database or secrets configured
 
 No real DB, real secrets, connection string values, EF runtime, migrations, SQL Server container, Portal runtime or productive API activation occurs in P2.
+
+## CRM Sprint 5 P4
+Portal Auth probe optional activation is documented and exposed through a foundation endpoint. It is disabled by default and does not call Portal or read tokens/headers.
