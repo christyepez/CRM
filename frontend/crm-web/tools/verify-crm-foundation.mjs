@@ -159,6 +159,14 @@ const expectedLabels = [
   'Sprint 4 Planning: Go',
   'Productization Review Warning: Sprint 3 productization review only; no real activation',
   'Next Gate: Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening',
+  'Sprint 4 P1 Runtime Readiness: Active',
+  'Docker Compose Expected: true',
+  'CRM API Port: 8093',
+  'SQL Server Owned By CRM: false',
+  'Node PATH Required For Frontend Verifier: false',
+  'Productive Routes Active: false',
+  'Runtime Readiness Warning: Runtime readiness only; no real activation',
+  'Next Gate: Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag',
   'Non-Production'
 ];
 

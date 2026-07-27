@@ -112,3 +112,9 @@
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
 | GET | `/api/crm/foundation/sprint-3/productization-review` | Closes Sprint 3 as NoGoForRealActivation and recommends Sprint 4 runtime gate preparation. |
+
+## Sprint 4 P1 runtime readiness
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/runtime-readiness` | Reports local tooling and runtime readiness without activating DB, Auth, Portal runtime or productive routes. |

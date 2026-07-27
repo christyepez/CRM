@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 4 P1 - Runtime Environment Readiness and Local Tooling Hardening
+
+- [x] Validate GitHub main contains Sprint 3 P6 commit.
+- [x] Add local runtime readiness documentation and Windows runbooks.
+- [x] Add preflight, guardrail and health scripts.
+- [x] Add `CrmRuntimeEnvironmentReadinessStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/runtime-readiness`.
+- [x] Keep `crmApiPort=8093`, `sqlServerOwnedByCrm=false`, `productiveRoutesActive=false`, `deleteEndpointsEnabled=false`, `realDatabaseConfigured=false`, `authRuntimeEnabled=false`, `portalRuntimeConnected=false`.
+- [x] Next Gate: `Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag`.
+- [x] Do not activate DB, EF runtime, migrations, Auth runtime, Portal runtime, productive routes, DELETE or productive UI.
+
 ## CRM Sprint 3 P6 - Productization Review Before Any Real Activation
 
 - [x] Validate GitHub main contains Sprint 3 P5 commit.

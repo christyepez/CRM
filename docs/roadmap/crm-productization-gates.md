@@ -43,3 +43,7 @@ Productization remains `NoGo`. Productive API routes are draft-only and not regi
 # Sprint 3 P6 closure
 
 Sprint 3 closes with `OverallDecision=NoGoForRealActivation`. Foundation capabilities remain `GoFoundationOnly`, Sprint 4 planning is `Go`, and the next gate is `Sprint4P1RuntimeEnvironmentReadinessAndLocalToolingHardening`.
+
+## Sprint 4 P1 runtime readiness
+
+Sprint 4 P1 starts runtime environment readiness and local tooling hardening. Productization remains `NotReady`; next gate is `Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag`.

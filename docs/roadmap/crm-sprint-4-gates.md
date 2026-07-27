@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P1 runtime readiness
+
+Decision: local tooling hardening only. `Runtime readiness only; no real activation`.
+
+Next: `Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag`.
+
 Gate decisions:
 
 - P1: tooling and local runtime evidence.
