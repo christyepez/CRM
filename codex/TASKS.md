@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 4 P2 - Controlled Common DB Runtime Probe Behind Disabled Flag
+
+- [x] Validate GitHub main contains Sprint 4 P1 commit.
+- [x] Add controlled common DB runtime probe documentation.
+- [x] Add `CrmCommonDbRuntimeProbeStatusService`.
+- [x] Add disabled Infrastructure placeholder without DB, secret, file or network access.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/common-db-runtime-probe`.
+- [x] Keep `commonDbRuntimeProbeEnabled=false`, `realDatabaseConfigured=false`, `connectionStringsConfigured=false`, `secretProviderRuntimeConnected=false`, `dbConnectionAttemptedByRuntime=false`, `sqlServerOwnedByCrm=false`, `efRuntimeEnabled=false`, `dbContextRuntimeActive=false`, `migrationsCreated=false`, `durablePersistenceEnabled=false`, `productiveCrudEnabled=false` and `apiRequiresDatabase=false`.
+- [x] Next Gate: `Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag`.
+- [x] Do not activate DB, EF runtime, migrations, secrets, Auth runtime, Portal runtime, productive routes, DELETE or productive UI.
+
 ## CRM Sprint 4 P1 - Runtime Environment Readiness and Local Tooling Hardening
 
 - [x] Validate GitHub main contains Sprint 3 P6 commit.

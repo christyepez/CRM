@@ -119,3 +119,7 @@ Sprint 3 is closed as foundation-only. Productive activation remains `NoGoForRea
 ## Sprint 4 P1 guardrail note
 
 Sprint 4 P1 adds runtime readiness tooling only. No DB, Auth, Portal runtime, productive route, DELETE or productive UI activation is allowed.
+
+## Sprint 4 P2 guardrail note
+
+Sprint 4 P2 adds a controlled common DB runtime probe contract only. The probe is disabled, does not attempt database connections, does not introduce connection values, does not add migrations and does not define a CRM-owned SQL Server.

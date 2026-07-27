@@ -36,6 +36,17 @@ if (Get-Command node -ErrorAction SilentlyContinue) {
 
 if (Test-Path ".env") { Fail ".env exists and must not be used." } else { Pass ".env not present." }
 
+$programText = if (Test-Path "src/CRM.Api/Program.cs") { Get-Content -Raw "src/CRM.Api/Program.cs" } else { "" }
+if ($programText -like "*/api/crm/foundation/sprint-4/common-db-runtime-probe*") { Pass "Sprint 4 P2 common DB runtime probe endpoint registered." } else { Fail "Sprint 4 P2 common DB runtime probe endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/common-db-runtime-probe") { Fail "Sprint 4 P2 common DB runtime probe must remain GET-only." }
+
+$probeText = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmCommonDbRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRuntimeProbePlaceholder.cs")) {
+    if (Test-Path $file) { $probeText += "`n" + (Get-Content -Raw $file) }
+}
+if ($probeText -like "*Common DB runtime probe exists but is disabled; no database connection is attempted*") { Pass "Sprint 4 P2 disabled probe warning present." } else { Fail "Sprint 4 P2 disabled probe warning missing." }
+if ($probeText -like "*Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag*") { Pass "Sprint 4 P2 next gate points to P3 Portal Auth runtime probe." } else { Fail "Sprint 4 P2 next gate marker missing." }
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

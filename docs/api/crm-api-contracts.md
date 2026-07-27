@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 4 P2 common DB runtime probe
+
+`GET /api/crm/foundation/sprint-4/common-db-runtime-probe`
+
+Returns `CommonDbRuntimeProbe`, `commonDbRuntimeProbeExists=true`, `commonDbRuntimeProbeEnabled=false`, `realDatabaseConfigured=false`, `connectionStringsConfigured=false`, `secretProviderRuntimeConnected=false`, `dbConnectionAttemptedByRuntime=false`, `sqlServerOwnedByCrm=false`, `efRuntimeEnabled=false`, `dbContextRuntimeActive=false`, `migrationsCreated=false`, `durablePersistenceEnabled=false`, `productiveCrudEnabled=false`, `apiRequiresDatabase=false`, `nextGate=Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag` and `Common DB runtime probe exists but is disabled; no database connection is attempted`.
+
 All Sprint 1 P2 endpoints are non-mutating draft contract endpoints.
 
 ## GET /api/crm/readiness

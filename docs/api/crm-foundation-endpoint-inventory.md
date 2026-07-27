@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 4 P2 common DB runtime probe
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/common-db-runtime-probe` | Reports disabled common DB runtime probe status without opening a DB connection or requiring a connection value. |
+
 | Method | Path | Purpose | Status | Persistence | Runtime integration | Production readiness | Security notes |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | GET | `/health` | Health | Active | None | None | Foundation | No auth runtime |

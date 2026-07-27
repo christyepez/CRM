@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P2 common DB runtime probe
+
+Decision: disabled probe only. `Common DB runtime probe exists but is disabled; no database connection is attempted`.
+
+Next: `Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag`.
+
 ## P1 runtime readiness
 
 Decision: local tooling hardening only. `Runtime readiness only; no real activation`.
