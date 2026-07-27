@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 5 P1 controlled runtime probe activation plan
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-5/runtime-probe-activation-plan` | Reports controlled runtime probe activation plan status without approving or activating any runtime probe. |
+
 ## Sprint 4 P6 gate decision
 
 | Method | Endpoint | Purpose |

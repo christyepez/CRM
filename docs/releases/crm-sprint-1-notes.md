@@ -1,5 +1,9 @@
 # CRM Sprint 1 P1 Release Notes
 
+## Sprint 5 P1 reference
+
+Sprint 5 P1 adds a controlled runtime probe activation plan only. No probe, DB, Portal Auth, productive route, DELETE or real activation is approved.
+
 ## Sprint 4 P6 reference
 
 Sprint 4 gate decision closes the foundation pilot path with `OverallDecision=GoForNonProductionFoundationPilot` and `RealActivationDecision=NoGo`; next gate is `Sprint5P1ControlledRuntimeProbeActivationPlan`.

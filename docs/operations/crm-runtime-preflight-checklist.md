@@ -1,5 +1,18 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 5 P1 controlled runtime probe activation plan checks
+
+- [ ] `/api/crm/foundation/sprint-5/runtime-probe-activation-plan` is registered as GET-only.
+- [ ] `Runtime probe activation plan only; no runtime activation approved` is present.
+- [ ] `runtimeProbeActivationPlanExists=true`.
+- [ ] `runtimeProbeActivationApproved=false`.
+- [ ] `commonDbProbeActivationApproved=false`.
+- [ ] `portalAuthProbeActivationApproved=false`.
+- [ ] `productiveRoutesActivationApproved=false`.
+- [ ] `realActivationApproved=false`.
+- [ ] `deleteStillNoGo=true`.
+- [ ] `Sprint5P2SecretProviderRuntimeContractValidation` is the next gate.
+
 ## Sprint 4 P6 gate decision checks
 
 - [ ] `/api/crm/foundation/sprint-4/gate-decision` is registered as GET-only.

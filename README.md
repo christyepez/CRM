@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 5 P1 - Controlled Runtime Probe Activation Plan
+
+Sprint 5 P1 creates a controlled activation plan only. Status: `ControlledRuntimeProbeActivationPlan`; Runtime Probe Activation Plan Exists: `true`; Runtime Probe Activation Approved: `false`; Common DB Probe Activation Approved: `false`; Portal Auth Probe Activation Approved: `false`; Productive Routes Activation Approved: `false`; Real Activation Approved: `false`; Non-Production Only: `true`; Synthetic Data Required: `true`; Rollback Plan Required: `true`; Observability Required: `true`; Secret Provider Required: `true`; DELETE Still NoGo: `true`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-5/runtime-probe-activation-plan`
+
+Warning: `Runtime probe activation plan only; no runtime activation approved`. Next Gate: `Sprint5P2SecretProviderRuntimeContractValidation`.
+
 ## Sprint 4 P6 - Sprint 4 Gate Decision
 
 Sprint 4 is closed with `OverallDecision=GoForNonProductionFoundationPilot`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady`, `NonProductionE2EPilotDecision=GoFoundationOnly` and `Sprint5PlanningDecision=Go`.

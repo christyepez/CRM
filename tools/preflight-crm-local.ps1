@@ -85,6 +85,19 @@ foreach ($doc in @("docs/releases/crm-sprint-4-closure.md", "docs/architecture/c
     if (Test-Path $doc) { Pass "Required P6 doc exists: $doc" } else { Fail "Required P6 doc missing: $doc" }
 }
 
+if ($programText -like "*/api/crm/foundation/sprint-5/runtime-probe-activation-plan*") { Pass "Sprint 5 P1 controlled runtime probe activation plan endpoint registered." } else { Fail "Sprint 5 P1 controlled runtime probe activation plan endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/runtime-probe-activation-plan") { Fail "Sprint 5 P1 controlled runtime probe activation plan endpoint must remain GET-only." }
+
+$runtimeProbeActivationPlanText = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmControlledRuntimeProbeActivationPlanStatusService.cs", "src/CRM.Application/Foundation/CrmControlledRuntimeProbeActivationPlanContracts.cs")) {
+    if (Test-Path $file) { $runtimeProbeActivationPlanText += "`n" + (Get-Content -Raw $file) }
+}
+if ($runtimeProbeActivationPlanText -like "*Runtime probe activation plan only; no runtime activation approved*") { Pass "Sprint 5 P1 controlled activation warning present." } else { Fail "Sprint 5 P1 controlled activation warning missing." }
+if ($runtimeProbeActivationPlanText -like "*ControlledRuntimeProbeActivationPlan*" -and $runtimeProbeActivationPlanText -like "*Sprint5P2SecretProviderRuntimeContractValidation*") { Pass "Sprint 5 P1 status and P2 next gate present." } else { Fail "Sprint 5 P1 status or P2 next gate marker missing." }
+foreach ($doc in @("docs/operations/crm-sprint-5-p1-controlled-runtime-probe-activation-plan.md", "docs/operations/crm-runtime-probe-activation-approval-matrix.md", "docs/security/crm-runtime-probe-secret-handling-policy.md")) {
+    if (Test-Path $doc) { Pass "Required P1 doc exists: $doc" } else { Fail "Required P1 doc missing: $doc" }
+}
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

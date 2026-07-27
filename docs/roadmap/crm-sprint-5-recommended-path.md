@@ -1,5 +1,9 @@
 # CRM Sprint 5 Recommended Path
 
+## Sprint 5 P1 result
+
+P1 creates `ControlledRuntimeProbeActivationPlan` only. No runtime probe activation is approved. Secret provider validation is the next gate: `Sprint5P2SecretProviderRuntimeContractValidation`.
+
 Recommended next package: `Sprint5P1ControlledRuntimeProbeActivationPlan`.
 
 Sprint 5 should first design how runtime probes may be activated in non-production without introducing secrets, real customer data, productive routes, DELETE, Portal Auth production dependency or CRM-owned SQL Server.

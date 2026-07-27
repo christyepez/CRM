@@ -222,6 +222,20 @@ const expectedLabels = [
   'Sprint 5 Planning: Go',
   'Sprint 4 Gate Decision Warning: Sprint 4 gate decision only; no real activation',
   'Next Gate: Sprint5P1ControlledRuntimeProbeActivationPlan',
+  'Sprint 5 P1 Controlled Runtime Probe Activation Plan: Exists',
+  'Runtime Probe Activation Approved: false',
+  'Common DB Probe Activation Approved: false',
+  'Portal Auth Probe Activation Approved: false',
+  'Productive Routes Activation Approved: false',
+  'Real Activation Approved: false',
+  'Non-Production Only: true',
+  'Synthetic Data Required: true',
+  'Rollback Plan Required: true',
+  'Observability Required: true',
+  'Secret Provider Required: true',
+  'DELETE Still NoGo: true',
+  'Runtime Probe Activation Plan Warning: Runtime probe activation plan only; no runtime activation approved',
+  'Next Gate: Sprint5P2SecretProviderRuntimeContractValidation',
   'Non-Production'
 ];
 

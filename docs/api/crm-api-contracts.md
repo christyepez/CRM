@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 5 P1 controlled runtime probe activation plan
+
+`GET /api/crm/foundation/sprint-5/runtime-probe-activation-plan`
+
+Returns `ControlledRuntimeProbeActivationPlan`, `runtimeProbeActivationPlanExists=true`, `runtimeProbeActivationApproved=false`, `commonDbProbeActivationApproved=false`, `portalAuthProbeActivationApproved=false`, `productiveRoutesActivationApproved=false`, `realActivationApproved=false`, `nonProductionOnly=true`, `syntheticDataRequired=true`, `rollbackPlanRequired=true`, `observabilityRequired=true`, `secretProviderRequired=true`, `deleteStillNoGo=true`, `nextGate=Sprint5P2SecretProviderRuntimeContractValidation` and `Runtime probe activation plan only; no runtime activation approved`.
+
 ## Sprint 4 P6 gate decision
 
 `GET /api/crm/foundation/sprint-4/gate-decision`

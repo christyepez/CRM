@@ -1,5 +1,9 @@
 # CRM Sprint 5 Gates
 
+## P1 Controlled Runtime Probe Activation Plan
+
+Decision: plan exists, activation not approved. Next: `Sprint5P2SecretProviderRuntimeContractValidation`.
+
 | Gate | Purpose |
 | --- | --- |
 | `Sprint5P1ControlledRuntimeProbeActivationPlan` | Define controlled non-production runtime activation plan. |
