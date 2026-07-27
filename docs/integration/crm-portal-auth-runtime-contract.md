@@ -1,5 +1,9 @@
 # CRM Portal Auth Runtime Contract
 
+## Sprint 4 P3 disabled probe addendum
+
+Sprint 4 P3 adds a disabled Portal Auth runtime probe only. CRM still does not implement login, Identity, token storage, Portal runtime calls, persisted permissions or productive authorization. The next gate is `Sprint4P4ProductiveRoutesLockedStubValidation`.
+
 CRM expects PortalCorporativo to provide the future runtime boundary for:
 
 - User identity.

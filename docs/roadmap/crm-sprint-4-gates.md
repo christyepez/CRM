@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P3 Portal Auth runtime probe
+
+Decision: disabled probe only. `Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted`.
+
+Next: `Sprint4P4ProductiveRoutesLockedStubValidation`.
+
 ## P2 common DB runtime probe
 
 Decision: disabled probe only. `Common DB runtime probe exists but is disabled; no database connection is attempted`.

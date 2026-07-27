@@ -1,5 +1,9 @@
 # CRM Auth Runtime Activation Gates
 
+## Sprint 4 P3 probe result
+
+Decision: `NoGo` for real Auth activation. `PortalAuthRuntimeProbe` exists, but `portalAuthRuntimeProbeEnabled=false`, `tokenReadAttemptedByRuntime=false`, `portalHttpAttemptedByRuntime=false` and `foundationSimulationActive=true`.
+
 Current status: `PortalAuthRuntimeContractValidation`.
 
 Before productive Auth activation:

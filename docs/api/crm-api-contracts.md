@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 4 P3 Portal Auth runtime probe
+
+`GET /api/crm/foundation/sprint-4/portal-auth-runtime-probe`
+
+Returns `PortalAuthRuntimeProbe`, `portalAuthRuntimeProbeExists=true`, `portalAuthRuntimeProbeEnabled=false`, `portalRuntimeConnected=false`, `authRuntimeEnabled=false`, `productiveAuthorizationEnabled=false`, `tokenReadAttemptedByRuntime=false`, `portalHttpAttemptedByRuntime=false`, `loginImplementedByCrm=false`, `identityImplementedByCrm=false`, `permissionsPersistedInCrm=false`, `foundationSimulationActive=true`, `nextGate=Sprint4P4ProductiveRoutesLockedStubValidation` and `Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted`.
+
 ## Sprint 4 P2 common DB runtime probe
 
 `GET /api/crm/foundation/sprint-4/common-db-runtime-probe`

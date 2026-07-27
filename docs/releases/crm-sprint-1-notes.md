@@ -123,3 +123,7 @@ Sprint 4 P1 adds runtime readiness tooling only. No DB, Auth, Portal runtime, pr
 ## Sprint 4 P2 guardrail note
 
 Sprint 4 P2 adds a controlled common DB runtime probe contract only. The probe is disabled, does not attempt database connections, does not introduce connection values, does not add migrations and does not define a CRM-owned SQL Server.
+
+## Sprint 4 P3 guardrail note
+
+Sprint 4 P3 adds a controlled Portal Auth runtime probe contract only. The probe is disabled, does not read credentials, does not call Portal runtime, does not add login/Identity and does not activate productive authorization.

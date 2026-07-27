@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 4 P3 Portal Auth runtime probe
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/portal-auth-runtime-probe` | Reports disabled Portal Auth runtime probe status without reading credentials or calling Portal runtime. |
+
 ## Sprint 4 P2 common DB runtime probe
 
 | Method | Endpoint | Purpose |

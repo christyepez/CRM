@@ -153,6 +153,19 @@ class CrmReadinessService {
       commonDbApiRequiresDatabase: false,
       commonDbRuntimeProbeWarning: 'Common DB runtime probe exists but is disabled; no database connection is attempted',
       commonDbRuntimeProbeNextGate: 'Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag',
+      sprint4P3PortalAuthRuntimeProbe: 'Exists',
+      portalAuthRuntimeProbeEnabled: false,
+      portalAuthProbePortalRuntimeConnected: false,
+      portalAuthProbeAuthRuntimeEnabled: false,
+      portalAuthProbeProductiveAuthorizationEnabled: false,
+      tokenReadAttemptedByRuntime: false,
+      portalHttpAttemptedByRuntime: false,
+      portalAuthProbeLoginImplementedByCrm: false,
+      portalAuthProbeIdentityImplementedByCrm: false,
+      portalAuthProbePermissionsPersistedInCrm: false,
+      portalAuthProbeFoundationSimulationActive: true,
+      portalAuthRuntimeProbeWarning: 'Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted',
+      portalAuthRuntimeProbeNextGate: 'Sprint4P4ProductiveRoutesLockedStubValidation',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -327,6 +340,19 @@ class CrmReadinessService {
       <p>API Requires Database: false</p>
       <p>Common DB Runtime Probe Warning: Common DB runtime probe exists but is disabled; no database connection is attempted</p>
       <p>Next Gate: Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag</p>
+      <p>Sprint 4 P3 Portal Auth Runtime Probe: Exists</p>
+      <p>Portal Auth Runtime Probe Enabled: false</p>
+      <p>Portal Runtime Connected: false</p>
+      <p>Auth Runtime Enabled: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>Token Read Attempted By Runtime: false</p>
+      <p>Portal HTTP Attempted By Runtime: false</p>
+      <p>Login Implemented By CRM: false</p>
+      <p>Identity Implemented By CRM: false</p>
+      <p>Permissions Persisted In CRM: false</p>
+      <p>Foundation Simulation Active: true</p>
+      <p>Portal Auth Runtime Probe Warning: Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted</p>
+      <p>Next Gate: Sprint4P4ProductiveRoutesLockedStubValidation</p>
       <p>Non-Production</p>
     </section>
   `
