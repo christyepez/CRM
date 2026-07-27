@@ -235,6 +235,26 @@ class CrmReadinessService {
       p2PortalAuthProbeActivationApproved: false,
       secretProviderRuntimeContractWarning: 'Secret Provider contract validation only; no secrets are read',
       secretProviderRuntimeContractNextGate: 'Sprint5P3CommonDbProbeOptionalActivationInNonProduction',
+      sprint5P3CommonDbProbeOptionalActivation: 'Exists',
+      commonDbProbeOptionalActivationExists: true,
+      p3CommonDbProbeActivationApproved: false,
+      p3CommonDbProbeEnabled: false,
+      p3CommonDbConnectionAttempted: false,
+      p3SecretProviderRuntimeRequired: true,
+      p3SecretProviderRuntimeConnected: false,
+      secretReadsRequiredBeforeActivation: true,
+      p3SecretReadsEnabled: false,
+      p3RealDatabaseConfigured: false,
+      p3ConnectionStringsConfigured: false,
+      p3EfRuntimeEnabled: false,
+      p3MigrationsCreated: false,
+      p3DurablePersistenceEnabled: false,
+      p3ApiRequiresDatabase: false,
+      p3NonProductionOnly: true,
+      p3SyntheticDataRequired: true,
+      p3RollbackRequired: true,
+      commonDbProbeOptionalActivationWarning: 'Common DB probe optional activation only; no database connection is attempted',
+      commonDbProbeOptionalActivationNextGate: 'Sprint5P4PortalAuthProbeOptionalActivationInNonProduction',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -491,6 +511,25 @@ class CrmReadinessService {
       <p>Portal Auth Probe Activation Approved: false</p>
       <p>Secret Provider Runtime Contract Warning: Secret Provider contract validation only; no secrets are read</p>
       <p>Next Gate: Sprint5P3CommonDbProbeOptionalActivationInNonProduction</p>
+      <p>Sprint 5 P3 Common DB Probe Optional Activation: Exists</p>
+      <p>Common DB Probe Optional Activation Exists: true</p>
+      <p>Common DB Probe Activation Approved: false</p>
+      <p>Common DB Probe Enabled: false</p>
+      <p>Common DB Connection Attempted: false</p>
+      <p>Secret Provider Runtime Required: true</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>Secret Reads Required Before Activation: true</p>
+      <p>Secret Reads Enabled: false</p>
+      <p>Real Database Configured: false</p>
+      <p>Connection Strings Configured: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>API Requires Database: false</p>
+      <p>Non-Production Only: true</p>
+      <p>Synthetic Data Required: true</p>
+      <p>Rollback Required: true</p>
+      <p>Common DB Probe Optional Activation Warning: Common DB probe optional activation only; no database connection is attempted</p>
+      <p>Next Gate: Sprint5P4PortalAuthProbeOptionalActivationInNonProduction</p>
       <p>Non-Production</p>
     </section>
   `

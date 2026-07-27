@@ -1,5 +1,9 @@
 # CRM Sprint 1 P1 Release Notes
 
+## Sprint 5 P3 reference
+
+Sprint 5 P3 adds Common DB probe optional activation only. No database connection, EF runtime, migrations, SQL Server compose, connection strings, secret reads, productive routes, DELETE or real activation are approved.
+
 ## Sprint 5 P2 reference
 
 Sprint 5 P2 adds Secret Provider runtime contract validation only. No secrets, `.env`, Key Vault runtime client, connection strings, DB runtime, Portal Auth runtime, productive routes, DELETE or real activation are approved.

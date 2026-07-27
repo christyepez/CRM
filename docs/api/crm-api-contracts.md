@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 5 P3 common DB probe optional activation
+
+`GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`
+
+Returns `CommonDbProbeOptionalActivation`, `commonDbProbeOptionalActivationExists=true`, `commonDbProbeActivationApproved=false`, `commonDbProbeEnabled=false`, `commonDbConnectionAttempted=false`, `secretProviderRuntimeRequired=true`, `secretProviderRuntimeConnected=false`, `secretReadsRequiredBeforeActivation=true`, `secretReadsEnabled=false`, `realDatabaseConfigured=false`, `connectionStringsConfigured=false`, `efRuntimeEnabled=false`, `migrationsCreated=false`, `durablePersistenceEnabled=false`, `apiRequiresDatabase=false`, `nonProductionOnly=true`, `syntheticDataRequired=true`, `rollbackRequired=true`, `nextGate=Sprint5P4PortalAuthProbeOptionalActivationInNonProduction` and `Common DB probe optional activation only; no database connection is attempted`.
+
 ## Sprint 5 P2 secret provider runtime contract
 
 `GET /api/crm/foundation/sprint-5/secret-provider-runtime-contract`

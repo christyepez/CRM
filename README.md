@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 5 P3 - Common DB Probe Optional Activation
+
+Sprint 5 P3 prepares Common DB probe optional activation for non-production only. Status: `CommonDbProbeOptionalActivation`; Common DB Probe Optional Activation Exists: `true`; Common DB Probe Activation Approved: `false`; Common DB Probe Enabled: `false`; Common DB Connection Attempted: `false`; Secret Provider Runtime Required: `true`; Secret Provider Runtime Connected: `false`; Secret Reads Required Before Activation: `true`; Secret Reads Enabled: `false`; Real Database Configured: `false`; Connection Strings Configured: `false`; EF Runtime Enabled: `false`; Migrations Created: `false`; API Requires Database: `false`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`
+
+Warning: `Common DB probe optional activation only; no database connection is attempted`. Next Gate: `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction`.
+
 ## Sprint 5 P2 - Secret Provider Runtime Contract Validation
 
 Sprint 5 P2 validates the Secret Provider runtime contract only. Status: `SecretProviderRuntimeContractValidation`; Secret Provider Contract Exists: `true`; Secret Provider Runtime Connected: `false`; Secret Provider Reads Enabled: `false`; Secret Read Attempted By Runtime: `false`; Real Secrets Configured: `false`; Env File Required: `false`; Connection Strings Configured: `false`; Key Vault Client Configured: `false`; Secret Values Exposed: `false`.

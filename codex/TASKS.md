@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 5 P3 - Common DB Probe Optional Activation
+
+- [x] Create Common DB probe optional activation documentation.
+- [x] Add `CrmCommonDbProbeOptionalActivationStatusService`.
+- [x] Add `CommonDbProbeOptionalActivationPlaceholder`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-5/common-db-probe-optional-activation`.
+- [x] Keep `commonDbProbeActivationApproved=false`.
+- [x] Keep `commonDbProbeEnabled=false`.
+- [x] Keep `commonDbConnectionAttempted=false`.
+- [x] Keep DB runtime, EF runtime, migrations, connection strings, SQL Server compose and secret reads disabled.
+- [x] Next Gate: `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction`.
+
 ## CRM Sprint 5 P2 - Secret Provider Runtime Contract Validation
 
 - [x] Create Secret Provider runtime contract documentation.

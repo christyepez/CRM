@@ -1,5 +1,11 @@
 # CRM Sprint 5 Recommended Path
 
+## Sprint 5 P3 result
+
+P3 creates `CommonDbProbeOptionalActivation` only. The Common DB probe exists, but activation is not approved, the probe is disabled, no database connection is attempted and no EF/runtime/migration path is active. Portal Auth probe optional activation is the next gate: `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction`.
+
+Recommended next package: `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction`.
+
 ## Sprint 5 P2 result
 
 P2 creates `SecretProviderRuntimeContractValidation` only. No secrets are read, no `.env` is required, no Key Vault runtime client is configured and DB/Auth/Portal runtime activation remains blocked. Common DB probe optional activation is the next gate: `Sprint5P3CommonDbProbeOptionalActivationInNonProduction`.

@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 5 P3 common DB probe optional activation
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-5/common-db-probe-optional-activation` | Reports Common DB probe optional activation status without connecting to a database. |
+
 ## Sprint 5 P2 secret provider runtime contract
 
 | Method | Route | Purpose |
