@@ -166,6 +166,18 @@ class CrmReadinessService {
       portalAuthProbeFoundationSimulationActive: true,
       portalAuthRuntimeProbeWarning: 'Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted',
       portalAuthRuntimeProbeNextGate: 'Sprint4P4ProductiveRoutesLockedStubValidation',
+      sprint4P4ProductiveRoutesLockedStubValidation: 'Active',
+      lockedStubsStrategy: 'DocumentOnlyPreferred',
+      p4ProductiveRoutesRegistered: false,
+      lockedStubsRegistered: false,
+      p4ProductiveCrudEnabled: false,
+      p4ProductiveAuthorizationEnabled: false,
+      p4DeleteEndpointsEnabled: false,
+      dbRequired: false,
+      authRuntimeRequired: false,
+      p4FoundationCrudStillSeparate: true,
+      productiveRoutesLockedStubWarning: 'Productive routes locked stub validation only; no productive routes are active',
+      productiveRoutesLockedStubNextGate: 'Sprint4P5NonProductionE2EPilotReadiness',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -353,6 +365,18 @@ class CrmReadinessService {
       <p>Foundation Simulation Active: true</p>
       <p>Portal Auth Runtime Probe Warning: Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted</p>
       <p>Next Gate: Sprint4P4ProductiveRoutesLockedStubValidation</p>
+      <p>Sprint 4 P4 Productive Routes Locked Stub Validation: Active</p>
+      <p>Locked Stubs Strategy: DocumentOnlyPreferred</p>
+      <p>Productive Routes Registered: false</p>
+      <p>Locked Stubs Registered: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>DELETE Endpoints Enabled: false</p>
+      <p>DB Required: false</p>
+      <p>Auth Runtime Required: false</p>
+      <p>Foundation CRUD Still Separate: true</p>
+      <p>Productive Routes Locked Stub Warning: Productive routes locked stub validation only; no productive routes are active</p>
+      <p>Next Gate: Sprint4P5NonProductionE2EPilotReadiness</p>
       <p>Non-Production</p>
     </section>
   `

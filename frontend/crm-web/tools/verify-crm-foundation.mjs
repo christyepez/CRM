@@ -184,6 +184,16 @@ const expectedLabels = [
   'Foundation Simulation Active: true',
   'Portal Auth Runtime Probe Warning: Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted',
   'Next Gate: Sprint4P4ProductiveRoutesLockedStubValidation',
+  'Sprint 4 P4 Productive Routes Locked Stub Validation: Active',
+  'Locked Stubs Strategy: DocumentOnlyPreferred',
+  'Productive Routes Registered: false',
+  'Locked Stubs Registered: false',
+  'DELETE Endpoints Enabled: false',
+  'DB Required: false',
+  'Auth Runtime Required: false',
+  'Foundation CRUD Still Separate: true',
+  'Productive Routes Locked Stub Warning: Productive routes locked stub validation only; no productive routes are active',
+  'Next Gate: Sprint4P5NonProductionE2EPilotReadiness',
   'Non-Production'
 ];
 

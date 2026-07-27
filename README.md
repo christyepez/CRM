@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P4 - Productive Routes Locked Stub Validation
+
+P4 validates the future productive route strategy without registering productive routes or locked stubs. Status: `ProductiveRoutesLockedStubValidation`; Locked Stubs Strategy: `DocumentOnlyPreferred`; Productive Routes Registered: `false`; Locked Stubs Registered: `false`; Productive CRUD Enabled: `false`; Productive Authorization Enabled: `false`; DELETE Endpoints Enabled: `false`; DB Required: `false`; Auth Runtime Required: `false`; Foundation CRUD Still Separate: `true`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`
+
+Warning: `Productive routes locked stub validation only; no productive routes are active`. Next Gate: `Sprint4P5NonProductionE2EPilotReadiness`.
+
 ## Sprint 4 P3 - Portal Auth Runtime Probe Behind Disabled Flag
 
 P3 adds a controlled Portal Auth runtime probe contract while keeping Auth runtime disabled. Status: `PortalAuthRuntimeProbe`; Portal Auth Runtime Probe Exists: `true`; Portal Auth Runtime Probe Enabled: `false`; Portal Runtime Connected: `false`; Auth Runtime Enabled: `false`; Productive Authorization Enabled: `false`; Token Read Attempted By Runtime: `false`; Portal HTTP Attempted By Runtime: `false`; Login Implemented By CRM: `false`; Identity Implemented By CRM: `false`; Permissions Persisted In CRM: `false`; Foundation Simulation Active: `true`.

@@ -55,3 +55,7 @@ Sprint 4 P2 keeps productization blocked: common DB runtime probe is present but
 ## Sprint 4 P3 Portal Auth runtime probe
 
 Sprint 4 P3 keeps productization blocked: Portal Auth runtime probe is present but disabled, no token is read, no Portal runtime call is attempted and CRM still does not own login, Identity, roles or permissions.
+
+## Sprint 4 P4 productive routes locked stub validation
+
+Sprint 4 P4 keeps productization blocked: productive route stubs remain document-only, no productive routes are registered, no DELETE endpoint exists and foundation CRUD stays separate.

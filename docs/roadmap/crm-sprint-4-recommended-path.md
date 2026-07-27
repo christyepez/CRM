@@ -1,5 +1,9 @@
 # CRM Sprint 4 Recommended Path
 
+## Sprint 4 P4 result
+
+P4 establishes `ProductiveRoutesLockedStubValidation` with `DocumentOnlyPreferred`. Productive routes and locked stubs are not registered. The next gate is `Sprint4P5NonProductionE2EPilotReadiness`.
+
 ## Sprint 4 P3 result
 
 P3 establishes `PortalAuthRuntimeProbe` behind a disabled flag. CRM exposes only status metadata, reads no credentials, performs no Portal runtime call and keeps foundation simulation active. The next gate is `Sprint4P4ProductiveRoutesLockedStubValidation`.

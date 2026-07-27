@@ -32,6 +32,7 @@ builder.Services.AddSingleton<CrmSprint3ProductizationReviewStatusService>();
 builder.Services.AddSingleton<CrmRuntimeEnvironmentReadinessStatusService>();
 builder.Services.AddSingleton<CrmCommonDbRuntimeProbeStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthRuntimeProbeStatusService>();
+builder.Services.AddSingleton<CrmProductiveRoutesLockedStubStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -116,6 +117,9 @@ app.MapGet("/api/crm/foundation/sprint-4/common-db-runtime-probe", (CrmCommonDbR
 
 app.MapGet("/api/crm/foundation/sprint-4/portal-auth-runtime-probe", (CrmPortalAuthRuntimeProbeStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint4PortalAuthRuntimeProbe");
+
+app.MapGet("/api/crm/foundation/sprint-4/productive-routes-locked-stub", (CrmProductiveRoutesLockedStubStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint4ProductiveRoutesLockedStub");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

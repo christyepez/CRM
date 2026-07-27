@@ -23,6 +23,8 @@ if ($program -notlike "*/api/crm/foundation/sprint-4/common-db-runtime-probe*") 
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/common-db-runtime-probe") { Fail "Sprint 4 P2 common DB runtime probe must remain GET-only." }
 if ($program -notlike "*/api/crm/foundation/sprint-4/portal-auth-runtime-probe*") { Fail "Sprint 4 P3 Portal Auth runtime probe route missing." }
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/portal-auth-runtime-probe") { Fail "Sprint 4 P3 Portal Auth runtime probe must remain GET-only." }
+if ($program -notlike "*/api/crm/foundation/sprint-4/productive-routes-locked-stub*") { Fail "Sprint 4 P4 productive routes locked stub route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/productive-routes-locked-stub") { Fail "Sprint 4 P4 productive routes locked stub endpoint must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
@@ -42,6 +44,18 @@ foreach ($marker in @("Portal Auth runtime probe exists but is disabled; no toke
 
 foreach ($marker in @("portalAuthRuntimeProbeEnabled: false", "tokenReadAttemptedByRuntime: false", "portalHttpAttemptedByRuntime: false", "portalAuthProbeLoginImplementedByCrm: false", "portalAuthProbeIdentityImplementedByCrm: false", "portalAuthProbePermissionsPersistedInCrm: false", "portalAuthProbeFoundationSimulationActive: true")) {
     if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P3 frontend disabled marker: $marker" }
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"', 'MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts')) {
+    if ($program -like "*$productiveRoute*") { Fail "Productive CRM route active in Program.cs: $productiveRoute" }
+}
+
+foreach ($marker in @("Productive routes locked stub validation only; no productive routes are active", "ProductiveRoutesLockedStubValidation", "CrmProductiveRoutesLockedStubStatusService", "DocumentOnlyPreferred", "Sprint4P5NonProductionE2EPilotReadiness")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P4 productive route locked stub marker: $marker" }
+}
+
+foreach ($marker in @("lockedStubsStrategy: 'DocumentOnlyPreferred'", "p4ProductiveRoutesRegistered: false", "lockedStubsRegistered: false", "p4ProductiveCrudEnabled: false", "p4DeleteEndpointsEnabled: false", "dbRequired: false", "authRuntimeRequired: false", "p4FoundationCrudStillSeparate: true")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P4 frontend disabled marker: $marker" }
 }
 
 $compose = ""

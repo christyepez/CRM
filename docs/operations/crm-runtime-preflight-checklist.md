@@ -1,5 +1,16 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 4 P4 productive routes locked stub checks
+
+- [ ] `/api/crm/foundation/sprint-4/productive-routes-locked-stub` is registered as GET-only.
+- [ ] `Productive routes locked stub validation only; no productive routes are active` is present.
+- [ ] `lockedStubsStrategy=DocumentOnlyPreferred`.
+- [ ] `productiveRoutesRegistered=false`.
+- [ ] `lockedStubsRegistered=false`.
+- [ ] No active `/api/crm/leads`, `/api/crm/accounts` or `/api/crm/contacts` routes exist.
+- [ ] No DELETE endpoint exists.
+- [ ] Foundation CRUD remains under `/api/crm/foundation/...`.
+
 ## Sprint 4 P3 Portal Auth runtime probe checks
 
 - [ ] `/api/crm/foundation/sprint-4/portal-auth-runtime-probe` is registered as GET-only.

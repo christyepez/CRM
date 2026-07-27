@@ -127,3 +127,7 @@ Sprint 4 P2 adds a controlled common DB runtime probe contract only. The probe i
 ## Sprint 4 P3 guardrail note
 
 Sprint 4 P3 adds a controlled Portal Auth runtime probe contract only. The probe is disabled, does not read credentials, does not call Portal runtime, does not add login/Identity and does not activate productive authorization.
+
+## Sprint 4 P4 guardrail note
+
+Sprint 4 P4 validates productive route locked stubs as document-only. It does not register productive routes, locked stubs, DELETE, DB runtime, Auth runtime or Portal runtime.

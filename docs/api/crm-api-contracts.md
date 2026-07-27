@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 4 P4 productive routes locked stub validation
+
+`GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`
+
+Returns `ProductiveRoutesLockedStubValidation`, `lockedStubsStrategy=DocumentOnlyPreferred`, `productiveRoutesRegistered=false`, `lockedStubsRegistered=false`, `productiveCrudEnabled=false`, `productiveAuthorizationEnabled=false`, `deleteEndpointsEnabled=false`, `dbRequired=false`, `authRuntimeRequired=false`, `foundationCrudStillSeparate=true`, `nextGate=Sprint4P5NonProductionE2EPilotReadiness` and `Productive routes locked stub validation only; no productive routes are active`.
+
 ## Sprint 4 P3 Portal Auth runtime probe
 
 `GET /api/crm/foundation/sprint-4/portal-auth-runtime-probe`
