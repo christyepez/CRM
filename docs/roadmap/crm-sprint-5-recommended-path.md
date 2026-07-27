@@ -24,3 +24,6 @@ Recommended sequence: P1 plan, P2 secret provider contract, P3 optional DB probe
 
 ## P4 Portal Auth Probe Optional Activation
 P4 adds a disabled-by-default Portal Auth probe optional activation contract. Next gate: Sprint5P5LockedProductiveRouteStubTrialInNonProduction.
+## P5 Locked Productive Route Stub Trial
+
+P5 adds a document-only preferred locked productive route stub trial. No productive routes are registered by default. Next gate: `Sprint5P6Sprint5GateDecision`.

@@ -15,3 +15,6 @@ Policy:
 - Do not enable DB, EF runtime, migrations or connection strings.
 
 If future disabled stubs are introduced, they must be behind `CRM_PRODUCTIVE_API_ROUTE_STUBS_ENABLED=false` and return 404 or 423 without business logic.
+## Sprint 5 P5
+
+Productive routes remain disabled and unregistered by default. Negative route checks for leads, accounts and contacts must continue returning 404.

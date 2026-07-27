@@ -22,3 +22,6 @@ Future productive routes, not registered in P5:
 | PUT | `/api/crm/contacts/{id}` | Contact | DraftOnly |
 
 DELETE remains NO-GO.
+## Sprint 5 P5 Locked Stub Trial
+
+The productive API contract remains draft-only. P5 does not register productive routes. Future explicit non-production stubs, if approved, must return 423 Locked and must not execute domain logic.

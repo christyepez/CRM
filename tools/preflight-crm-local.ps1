@@ -154,5 +154,31 @@ foreach ($P4Marker in @("PortalAuthProbeOptionalActivation", "PortalAuthProbeEna
     if ($P4Text -notmatch [regex]::Escape($P4Marker)) { Fail "Missing Sprint 5 P4 marker: $P4Marker" }
 }
 
+# Sprint 5 P5 Locked Productive Route Stub Trial checks
+$P5RequiredFiles = @(
+    "docs/api/crm-sprint-5-p5-locked-productive-route-stub-trial.md",
+    "docs/api/crm-locked-productive-route-stub-trial-policy.md",
+    "docs/api/crm-locked-productive-route-stub-trial-contract.md",
+    "docs/security/crm-locked-productive-route-stub-trial-safety-gates.md",
+    "docs/operations/crm-locked-productive-route-stub-trial-runbook.md",
+    "src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialContracts.cs",
+    "src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialStatusService.cs"
+)
+foreach ($P5RequiredFile in $P5RequiredFiles) {
+    if (-not (Test-Path $P5RequiredFile)) { Fail "Missing Sprint 5 P5 required file: $P5RequiredFile" } else { Pass "Required P5 file exists: $P5RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-5/locked-productive-route-stub-trial*") { Pass "Sprint 5 P5 locked productive route stub trial endpoint registered." } else { Fail "Sprint 5 P5 endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/locked-productive-route-stub-trial") { Fail "Sprint 5 P5 endpoint must remain GET-only." }
+$P5Text = ""
+foreach ($P5File in @("src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialContracts.cs", "src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P5File) { $P5Text += "`n" + (Get-Content -Raw $P5File) }
+}
+foreach ($P5Marker in @("LockedProductiveRouteStubTrial", "DocumentOnlyPreferredWithNoRuntimeRegistration", "LockedProductiveRouteStubsRegistered", "ProductiveRoutesRegistered", "DeleteEndpointsEnabled", "RuntimeFlagDefaultEnabled", "Sprint5P6Sprint5GateDecision", "Locked productive route stub trial only; no productive routes are registered by default")) {
+    if ($P5Text -notmatch [regex]::Escape($P5Marker)) { Fail "Missing Sprint 5 P5 marker: $P5Marker" }
+}
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($programText -like "*$productiveRoute*") { Fail "Productive CRM route is registered by default: $productiveRoute" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

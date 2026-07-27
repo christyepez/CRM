@@ -169,3 +169,6 @@
 
 ## Sprint 5 P4
 - `GET /api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` - contract-only, no Portal HTTP, no token/header reads.
+## Sprint 5 P5
+
+- `GET /api/crm/foundation/sprint-5/locked-productive-route-stub-trial` - contract-only, no productive routes registered by default.

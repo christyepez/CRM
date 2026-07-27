@@ -244,3 +244,7 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 ## Sprint 5 P4 Portal Auth Probe Optional Activation
 - `GET /api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` returns the disabled contract-only Portal Auth optional activation status.
 - It does not call Portal, read tokens, read headers or enable productive authorization.
+## Sprint 5 P5 Locked Productive Route Stub Trial
+
+- `GET /api/crm/foundation/sprint-5/locked-productive-route-stub-trial` returns the disabled locked productive route stub trial status.
+- Productive routes are not registered by default and `/api/crm/leads`, `/api/crm/accounts`, `/api/crm/contacts` must continue returning 404.

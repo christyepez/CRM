@@ -120,3 +120,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm endpoint/service/placeholder exist.
 - Confirm disabled flags and warning.
 - Confirm no Portal HTTP, token/header reads, Auth middleware, login/logout, Identity or token storage.
+## Sprint 5 P5 Locked Productive Route Stub Trial
+
+- Confirm P5 docs exist.
+- Confirm the foundation endpoint exists.
+- Confirm productive routes are not registered by default.
+- Confirm negative route checks return 404.
+- Confirm no DELETE, DB, Auth, Portal runtime or productive UI was added.

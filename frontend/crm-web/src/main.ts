@@ -255,6 +255,23 @@ class CrmReadinessService {
       p3RollbackRequired: true,
       commonDbProbeOptionalActivationWarning: 'Common DB probe optional activation only; no database connection is attempted',
       commonDbProbeOptionalActivationNextGate: 'Sprint5P4PortalAuthProbeOptionalActivationInNonProduction',
+      sprint5P5LockedProductiveRouteStubTrial: 'Exists',
+      lockedProductiveRouteStubTrialExists: true,
+      lockedProductiveRouteStubRegistrationApproved: false,
+      lockedProductiveRouteStubsRegistered: false,
+      p5ProductiveRoutesRegistered: false,
+      p5ProductiveCrudEnabled: false,
+      p5ProductiveAuthorizationEnabled: false,
+      p5DeleteEndpointsEnabled: false,
+      runtimeFlagDefaultEnabled: false,
+      lockedResponseIfEnabled: 423,
+      defaultNegativeRouteStatus: 404,
+      p5FoundationCrudStillSeparate: true,
+      p5DbRequired: false,
+      p5AuthRuntimeRequired: false,
+      p5PortalRuntimeRequired: false,
+      lockedProductiveRouteStubTrialWarning: 'Locked productive route stub trial only; no productive routes are registered by default',
+      lockedProductiveRouteStubTrialNextGate: 'Sprint5P6Sprint5GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -530,6 +547,23 @@ class CrmReadinessService {
       <p>Rollback Required: true</p>
       <p>Common DB Probe Optional Activation Warning: Common DB probe optional activation only; no database connection is attempted</p>
       <p>Next Gate: Sprint5P4PortalAuthProbeOptionalActivationInNonProduction</p>
+      <p>Sprint 5 P5 Locked Productive Route Stub Trial: Exists</p>
+      <p>Locked Productive Route Stub Trial Exists: true</p>
+      <p>Locked Productive Route Stub Registration Approved: false</p>
+      <p>Locked Productive Route Stubs Registered: false</p>
+      <p>Productive Routes Registered: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>DELETE Endpoints Enabled: false</p>
+      <p>Runtime Flag Default Enabled: false</p>
+      <p>Locked Response If Enabled: 423</p>
+      <p>Default Negative Route Status: 404</p>
+      <p>Foundation CRUD Still Separate: true</p>
+      <p>DB Required: false</p>
+      <p>Auth Runtime Required: false</p>
+      <p>Portal Runtime Required: false</p>
+      <p>Locked Productive Route Stub Trial Warning: Locked productive route stub trial only; no productive routes are registered by default</p>
+      <p>Next Gate: Sprint5P6Sprint5GateDecision</p>
       <p>Non-Production</p>
     </section>
   `
