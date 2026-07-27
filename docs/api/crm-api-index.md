@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 4 P6
+
+- `GET /api/crm/foundation/sprint-4/gate-decision`: Sprint 4 foundation-only gate decision; no real activation and Sprint 5 P1 next gate.
+
 ## Sprint 4 P5
 
 - `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`: foundation-only E2E pilot readiness; no real activation and negative route validation required.

@@ -27,6 +27,8 @@ if ($program -notlike "*/api/crm/foundation/sprint-4/productive-routes-locked-st
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/productive-routes-locked-stub") { Fail "Sprint 4 P4 productive routes locked stub endpoint must remain GET-only." }
 if ($program -notlike "*/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness*") { Fail "Sprint 4 P5 non-production E2E pilot readiness route missing." }
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness") { Fail "Sprint 4 P5 non-production E2E pilot readiness endpoint must remain GET-only." }
+if ($program -notlike "*/api/crm/foundation/sprint-4/gate-decision*") { Fail "Sprint 4 P6 gate decision route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/gate-decision") { Fail "Sprint 4 P6 gate decision endpoint must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
@@ -66,6 +68,14 @@ foreach ($marker in @("Non-production E2E pilot readiness only; no real activati
 
 foreach ($marker in @("sprint4P5NonProductionE2EPilotReadiness: 'Prepared'", "e2ePilotCanRun: true", "e2ePilotScope: 'FoundationOnly'", "productiveRoutesUsed: false", "realDatabaseUsed: false", "portalAuthRuntimeUsed: false", "durablePersistenceUsed: false", "deleteOperationsUsed: false", "syntheticDataOnly: true", "foundationEndpointsOnly: true", "negativeRouteValidationRequired: true")) {
     if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P5 frontend foundation-only marker: $marker" }
+}
+
+foreach ($marker in @("Sprint 4 gate decision only; no real activation", "Sprint4GateDecision", "CrmSprint4GateDecisionStatusService", "GoForNonProductionFoundationPilot", "Sprint5P1ControlledRuntimeProbeActivationPlan")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P6 gate marker: $marker" }
+}
+
+foreach ($marker in @("sprint4: 'Closed'", "sprint4GateDecision: 'Completed'", "sprint4OverallDecision: 'GoForNonProductionFoundationPilot'", "realActivationDecision: 'NoGo'", "commonDbRuntimeDecision: 'NoGoForRuntimeActivation'", "sprint4PortalAuthRuntimeDecision: 'NoGoForRuntimeActivation'", "productiveRoutesDecision: 'NoGo'", "deleteDecision: 'NoGo'", "productiveUiDecision: 'NoGo'", "nonProductionE2EPilotDecision: 'GoFoundationOnly'", "sprint5PlanningDecision: 'Go'")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P6 frontend gate marker: $marker" }
 }
 
 $compose = ""

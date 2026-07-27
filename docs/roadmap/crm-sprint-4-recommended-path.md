@@ -1,5 +1,9 @@
 # CRM Sprint 4 Recommended Path
 
+## Sprint 4 P6 result
+
+P6 closes Sprint 4 with `GoForNonProductionFoundationPilot`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady` and `Sprint5PlanningDecision=Go`. The recommended next gate is `Sprint5P1ControlledRuntimeProbeActivationPlan`.
+
 ## Sprint 4 P5 result
 
 P5 establishes `NonProductionE2EPilotReadiness` for foundation-only E2E checks. Productive routes, DB, Auth runtime, Portal runtime and DELETE remain inactive. The next gate is `Sprint4P6Sprint4GateDecision`.

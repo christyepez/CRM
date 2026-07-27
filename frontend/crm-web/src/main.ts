@@ -191,6 +191,21 @@ class CrmReadinessService {
       negativeRouteValidationRequired: true,
       e2ePilotReadinessWarning: 'Non-production E2E pilot readiness only; no real activation',
       e2ePilotReadinessNextGate: 'Sprint4P6Sprint4GateDecision',
+      sprint4: 'Closed',
+      sprint4GateDecision: 'Completed',
+      sprint4OverallDecision: 'GoForNonProductionFoundationPilot',
+      realActivationDecision: 'NoGo',
+      sprint4ProductizationStatus: 'NotReady',
+      commonDbRuntimeDecision: 'NoGoForRuntimeActivation',
+      sprint4PortalAuthRuntimeDecision: 'NoGoForRuntimeActivation',
+      productiveRoutesDecision: 'NoGo',
+      productiveCrudDecision: 'NoGo',
+      deleteDecision: 'NoGo',
+      productiveUiDecision: 'NoGo',
+      nonProductionE2EPilotDecision: 'GoFoundationOnly',
+      sprint5PlanningDecision: 'Go',
+      sprint4GateDecisionWarning: 'Sprint 4 gate decision only; no real activation',
+      sprint4GateDecisionNextGate: 'Sprint5P1ControlledRuntimeProbeActivationPlan',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -403,6 +418,21 @@ class CrmReadinessService {
       <p>Negative Route Validation Required: true</p>
       <p>E2E Pilot Readiness Warning: Non-production E2E pilot readiness only; no real activation</p>
       <p>Next Gate: Sprint4P6Sprint4GateDecision</p>
+      <p>Sprint 4: Closed</p>
+      <p>Sprint 4 Gate Decision: Completed</p>
+      <p>Overall Decision: GoForNonProductionFoundationPilot</p>
+      <p>Real Activation Decision: NoGo</p>
+      <p>Productization Status: NotReady</p>
+      <p>Common DB Runtime: NoGoForRuntimeActivation</p>
+      <p>Portal Auth Runtime: NoGoForRuntimeActivation</p>
+      <p>Productive Routes: NoGo</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>Productive UI: NoGo</p>
+      <p>Non-Production E2E Pilot: GoFoundationOnly</p>
+      <p>Sprint 5 Planning: Go</p>
+      <p>Sprint 4 Gate Decision Warning: Sprint 4 gate decision only; no real activation</p>
+      <p>Next Gate: Sprint5P1ControlledRuntimeProbeActivationPlan</p>
       <p>Non-Production</p>
     </section>
   `

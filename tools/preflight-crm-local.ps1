@@ -75,6 +75,16 @@ if ($e2ePilotText -like "*Non-production E2E pilot readiness only; no real activ
 if ($e2ePilotText -like "*NonProductionE2EPilotReadiness*" -and $e2ePilotText -like "*Sprint4P6Sprint4GateDecision*") { Pass "Sprint 4 P5 status and P6 next gate present." } else { Fail "Sprint 4 P5 status or P6 next gate marker missing." }
 if (Test-Path "tools/check-crm-e2e-foundation.ps1") { Pass "Sprint 4 P5 E2E foundation script exists." } else { Fail "Sprint 4 P5 E2E foundation script missing." }
 
+if ($programText -like "*/api/crm/foundation/sprint-4/gate-decision*") { Pass "Sprint 4 P6 gate decision endpoint registered." } else { Fail "Sprint 4 P6 gate decision endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/gate-decision") { Fail "Sprint 4 P6 gate decision endpoint must remain GET-only." }
+
+$gateDecisionText = if (Test-Path "src/CRM.Application/Foundation/CrmSprint4GateDecisionStatusService.cs") { Get-Content -Raw "src/CRM.Application/Foundation/CrmSprint4GateDecisionStatusService.cs" } else { "" }
+if ($gateDecisionText -like "*Sprint 4 gate decision only; no real activation*") { Pass "Sprint 4 P6 gate decision warning present." } else { Fail "Sprint 4 P6 gate decision warning missing." }
+if ($gateDecisionText -like "*GoForNonProductionFoundationPilot*" -and $gateDecisionText -like "*Sprint5P1ControlledRuntimeProbeActivationPlan*") { Pass "Sprint 4 P6 decision and Sprint 5 P1 next gate present." } else { Fail "Sprint 4 P6 decision or Sprint 5 P1 next gate marker missing." }
+foreach ($doc in @("docs/releases/crm-sprint-4-closure.md", "docs/architecture/crm-sprint-4-gate-matrix.md", "docs/roadmap/crm-sprint-5-recommended-path.md")) {
+    if (Test-Path $doc) { Pass "Required P6 doc exists: $doc" } else { Fail "Required P6 doc missing: $doc" }
+}
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 4 P6 gate decision
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/gate-decision` | Reports Sprint 4 gate decision and Sprint 5 recommended next gate without real activation. |
+
 ## Sprint 4 P5 non-production E2E pilot readiness
 
 | Method | Endpoint | Purpose |

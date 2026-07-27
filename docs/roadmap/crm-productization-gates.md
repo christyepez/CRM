@@ -1,5 +1,9 @@
 # CRM Productization Gates
 
+## Sprint 4 closure
+
+Sprint 4 closes as foundation-only. Productization remains `NotReady`; real activation, durable persistence, common DB runtime, Portal Auth runtime, productive routes, DELETE and productive UI remain `NoGo`.
+
 Productization remains `NotReady` until:
 
 - Persistence design is approved.
