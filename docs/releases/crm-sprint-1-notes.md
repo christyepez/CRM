@@ -1,5 +1,9 @@
 # CRM Sprint 1 P1 Release Notes
 
+## Sprint 4 P6 reference
+
+Sprint 4 gate decision closes the foundation pilot path with `OverallDecision=GoForNonProductionFoundationPilot` and `RealActivationDecision=NoGo`; next gate is `Sprint5P1ControlledRuntimeProbeActivationPlan`.
+
 Date: 2026-07-20
 Phase: Repository Foundation and Architecture Baseline
 

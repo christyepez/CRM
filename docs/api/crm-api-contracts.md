@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 4 P6 gate decision
+
+`GET /api/crm/foundation/sprint-4/gate-decision`
+
+Returns `Sprint4GateDecision`, `overallDecision=GoForNonProductionFoundationPilot`, `realActivationDecision=NoGo`, `productizationStatus=NotReady`, `commonDbRuntimeDecision=NoGoForRuntimeActivation`, `portalAuthRuntimeDecision=NoGoForRuntimeActivation`, `productiveRoutesDecision=NoGo`, `deleteDecision=NoGo`, `nonProductionE2EPilotDecision=GoFoundationOnly`, `sprint5PlanningDecision=Go`, `nextGate=Sprint5P1ControlledRuntimeProbeActivationPlan` and `Sprint 4 gate decision only; no real activation`.
+
 ## Sprint 4 P5 non-production E2E pilot readiness
 
 `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`

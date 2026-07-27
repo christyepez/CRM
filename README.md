@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P6 - Sprint 4 Gate Decision
+
+Sprint 4 is closed with `OverallDecision=GoForNonProductionFoundationPilot`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady`, `NonProductionE2EPilotDecision=GoFoundationOnly` and `Sprint5PlanningDecision=Go`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/gate-decision`
+
+Warning: `Sprint 4 gate decision only; no real activation`. Next Gate: `Sprint5P1ControlledRuntimeProbeActivationPlan`.
+
 ## Sprint 4 P5 - Non-Production E2E Pilot Readiness
 
 P5 prepares a foundation-only E2E pilot without real activation. Status: `NonProductionE2EPilotReadiness`; E2E Pilot Can Run: `true`; E2E Pilot Scope: `FoundationOnly`; Productive Routes Used: `false`; Real Database Used: `false`; Portal Auth Runtime Used: `false`; Durable Persistence Used: `false`; DELETE Operations Used: `false`; Synthetic Data Only: `true`; Foundation Endpoints Only: `true`; Negative Route Validation Required: `true`.

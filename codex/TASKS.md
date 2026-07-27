@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 4 P6 - Sprint 4 Gate Decision
+
+- [x] Validate GitHub main contains Sprint 4 P5 commit.
+- [x] Create Sprint 4 closure and gate decision documentation.
+- [x] Create Sprint 4 gate matrix and security/data/API/E2E reviews.
+- [x] Create Sprint 5 options, recommended path and gates.
+- [x] Add `CrmSprint4GateDecisionStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/gate-decision`.
+- [x] Keep `OverallDecision=GoForNonProductionFoundationPilot`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady`, `NonProductionE2EPilotDecision=GoFoundationOnly` and `Sprint5PlanningDecision=Go`.
+- [x] Next Gate: `Sprint5P1ControlledRuntimeProbeActivationPlan`.
+- [x] Do not activate DB/Auth/Portal runtime, productive routes, locked stubs, DELETE, secrets or productive UI.
+
 ## CRM Sprint 4 P5 - Non-Production E2E Pilot Readiness
 
 - [x] Validate GitHub main contains Sprint 4 P4 commit.

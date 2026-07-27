@@ -1,5 +1,17 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 4 P6 gate decision checks
+
+- [ ] `/api/crm/foundation/sprint-4/gate-decision` is registered as GET-only.
+- [ ] `Sprint 4 gate decision only; no real activation` is present.
+- [ ] `OverallDecision=GoForNonProductionFoundationPilot`.
+- [ ] `RealActivationDecision=NoGo`.
+- [ ] `CommonDbRuntimeDecision=NoGoForRuntimeActivation`.
+- [ ] `PortalAuthRuntimeDecision=NoGoForRuntimeActivation`.
+- [ ] `NonProductionE2EPilotDecision=GoFoundationOnly`.
+- [ ] `Sprint5P1ControlledRuntimeProbeActivationPlan` is the next gate.
+- [ ] Productive routes and DELETE remain inactive.
+
 ## Sprint 4 P5 non-production E2E pilot checks
 
 - [ ] `/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness` is registered as GET-only.

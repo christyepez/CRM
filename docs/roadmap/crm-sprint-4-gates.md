@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P6 Sprint 4 Gate Decision
+
+Decision: `GoForNonProductionFoundationPilot`. Real activation: `NoGo`. Sprint 5 planning: `Go`.
+
+Next: `Sprint5P1ControlledRuntimeProbeActivationPlan`.
+
 ## P5 non-production E2E pilot readiness
 
 Decision: prepared for foundation-only E2E pilot. `Non-production E2E pilot readiness only; no real activation`.

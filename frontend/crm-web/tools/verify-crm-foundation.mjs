@@ -207,6 +207,21 @@ const expectedLabels = [
   'Negative Route Validation Required: true',
   'E2E Pilot Readiness Warning: Non-production E2E pilot readiness only; no real activation',
   'Next Gate: Sprint4P6Sprint4GateDecision',
+  'Sprint 4: Closed',
+  'Sprint 4 Gate Decision: Completed',
+  'Overall Decision: GoForNonProductionFoundationPilot',
+  'Real Activation Decision: NoGo',
+  'Productization Status: NotReady',
+  'Common DB Runtime: NoGoForRuntimeActivation',
+  'Portal Auth Runtime: NoGoForRuntimeActivation',
+  'Productive Routes: NoGo',
+  'Productive CRUD: NoGo',
+  'DELETE: NoGo',
+  'Productive UI: NoGo',
+  'Non-Production E2E Pilot: GoFoundationOnly',
+  'Sprint 5 Planning: Go',
+  'Sprint 4 Gate Decision Warning: Sprint 4 gate decision only; no real activation',
+  'Next Gate: Sprint5P1ControlledRuntimeProbeActivationPlan',
   'Non-Production'
 ];
 
