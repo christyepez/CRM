@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 5 P1
+
+- `GET /api/crm/foundation/sprint-5/runtime-probe-activation-plan`: controlled runtime probe activation plan; no runtime activation approved.
+
 ## Sprint 4 P6
 
 - `GET /api/crm/foundation/sprint-4/gate-decision`: Sprint 4 foundation-only gate decision; no real activation and Sprint 5 P1 next gate.

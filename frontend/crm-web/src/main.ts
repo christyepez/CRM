@@ -206,6 +206,20 @@ class CrmReadinessService {
       sprint5PlanningDecision: 'Go',
       sprint4GateDecisionWarning: 'Sprint 4 gate decision only; no real activation',
       sprint4GateDecisionNextGate: 'Sprint5P1ControlledRuntimeProbeActivationPlan',
+      sprint5P1ControlledRuntimeProbeActivationPlan: 'Exists',
+      runtimeProbeActivationApproved: false,
+      commonDbProbeActivationApproved: false,
+      portalAuthProbeActivationApproved: false,
+      productiveRoutesActivationApproved: false,
+      realActivationApproved: false,
+      nonProductionOnly: true,
+      syntheticDataRequired: true,
+      rollbackPlanRequired: true,
+      observabilityRequired: true,
+      secretProviderRequired: true,
+      deleteStillNoGo: true,
+      runtimeProbeActivationPlanWarning: 'Runtime probe activation plan only; no runtime activation approved',
+      runtimeProbeActivationPlanNextGate: 'Sprint5P2SecretProviderRuntimeContractValidation',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -433,6 +447,20 @@ class CrmReadinessService {
       <p>Sprint 5 Planning: Go</p>
       <p>Sprint 4 Gate Decision Warning: Sprint 4 gate decision only; no real activation</p>
       <p>Next Gate: Sprint5P1ControlledRuntimeProbeActivationPlan</p>
+      <p>Sprint 5 P1 Controlled Runtime Probe Activation Plan: Exists</p>
+      <p>Runtime Probe Activation Approved: false</p>
+      <p>Common DB Probe Activation Approved: false</p>
+      <p>Portal Auth Probe Activation Approved: false</p>
+      <p>Productive Routes Activation Approved: false</p>
+      <p>Real Activation Approved: false</p>
+      <p>Non-Production Only: true</p>
+      <p>Synthetic Data Required: true</p>
+      <p>Rollback Plan Required: true</p>
+      <p>Observability Required: true</p>
+      <p>Secret Provider Required: true</p>
+      <p>DELETE Still NoGo: true</p>
+      <p>Runtime Probe Activation Plan Warning: Runtime probe activation plan only; no runtime activation approved</p>
+      <p>Next Gate: Sprint5P2SecretProviderRuntimeContractValidation</p>
       <p>Non-Production</p>
     </section>
   `

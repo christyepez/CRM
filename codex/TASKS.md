@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 5 P1 - Controlled Runtime Probe Activation Plan
+
+- [x] Validate GitHub main contains Sprint 4 P6 commit.
+- [x] Create controlled runtime probe activation plan documentation.
+- [x] Create approval matrix, checklist, rollback plan, observability plan and security policies.
+- [x] Add `CrmControlledRuntimeProbeActivationPlanStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-5/runtime-probe-activation-plan`.
+- [x] Keep all activation flags false: runtime probe, common DB, Portal Auth, productive routes and real activation.
+- [x] Require non-production only, synthetic data, rollback, observability and secret provider validation.
+- [x] Next Gate: `Sprint5P2SecretProviderRuntimeContractValidation`.
+- [x] Do not activate DB/Auth/Portal runtime, productive routes, locked stubs, DELETE, secrets or productive UI.
+
 ## CRM Sprint 4 P6 - Sprint 4 Gate Decision
 
 - [x] Validate GitHub main contains Sprint 4 P5 commit.

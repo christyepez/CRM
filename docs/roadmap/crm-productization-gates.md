@@ -1,5 +1,9 @@
 # CRM Productization Gates
 
+## Sprint 5 P1 runtime probe plan
+
+Sprint 5 P1 does not change productization readiness. Runtime probe activation, common DB probe activation, Portal Auth probe activation, productive route activation and real activation remain not approved.
+
 ## Sprint 4 closure
 
 Sprint 4 closes as foundation-only. Productization remains `NotReady`; real activation, durable persistence, common DB runtime, Portal Auth runtime, productive routes, DELETE and productive UI remain `NoGo`.
