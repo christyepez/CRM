@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 5 P2 secret provider runtime contract
+
+`GET /api/crm/foundation/sprint-5/secret-provider-runtime-contract`
+
+Returns `SecretProviderRuntimeContractValidation`, `secretProviderContractExists=true`, `secretProviderRuntimeConnected=false`, `secretProviderReadsEnabled=false`, `secretReadAttemptedByRuntime=false`, `realSecretsConfigured=false`, `envFileRequired=false`, `connectionStringsConfigured=false`, `keyVaultClientConfigured=false`, `secretValuesExposed=false`, `commonDbProbeActivationApproved=false`, `portalAuthProbeActivationApproved=false`, `runtimeProbeActivationApproved=false`, `nextGate=Sprint5P3CommonDbProbeOptionalActivationInNonProduction` and `Secret Provider contract validation only; no secrets are read`.
+
 ## Sprint 5 P1 controlled runtime probe activation plan
 
 `GET /api/crm/foundation/sprint-5/runtime-probe-activation-plan`

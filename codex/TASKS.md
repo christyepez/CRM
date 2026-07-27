@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 5 P2 - Secret Provider Runtime Contract Validation
+
+- [x] Create Secret Provider runtime contract documentation.
+- [x] Add `CrmSecretProviderRuntimeContractStatusService`.
+- [x] Add `SecretProviderRuntimeContractPlaceholder`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-5/secret-provider-runtime-contract`.
+- [x] Keep `secretProviderRuntimeConnected=false`.
+- [x] Keep `secretProviderReadsEnabled=false`.
+- [x] Keep `secretReadAttemptedByRuntime=false`.
+- [x] Keep `.env`, real secrets, Key Vault client, DB runtime and Portal Auth runtime disabled.
+- [x] Next Gate: `Sprint5P3CommonDbProbeOptionalActivationInNonProduction`.
+
 ## CRM Sprint 5 P1 - Controlled Runtime Probe Activation Plan
 
 - [x] Validate GitHub main contains Sprint 4 P6 commit.

@@ -220,6 +220,21 @@ class CrmReadinessService {
       deleteStillNoGo: true,
       runtimeProbeActivationPlanWarning: 'Runtime probe activation plan only; no runtime activation approved',
       runtimeProbeActivationPlanNextGate: 'Sprint5P2SecretProviderRuntimeContractValidation',
+      sprint5P2SecretProviderRuntimeContract: 'Exists',
+      secretProviderContractExists: true,
+      p2SecretProviderRuntimeConnected: false,
+      secretProviderReadsEnabled: false,
+      secretReadAttemptedByRuntime: false,
+      realSecretsConfigured: false,
+      envFileRequired: false,
+      p2ConnectionStringsConfigured: false,
+      keyVaultClientConfigured: false,
+      secretValuesExposed: false,
+      p2RuntimeProbeActivationApproved: false,
+      p2CommonDbProbeActivationApproved: false,
+      p2PortalAuthProbeActivationApproved: false,
+      secretProviderRuntimeContractWarning: 'Secret Provider contract validation only; no secrets are read',
+      secretProviderRuntimeContractNextGate: 'Sprint5P3CommonDbProbeOptionalActivationInNonProduction',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -461,6 +476,21 @@ class CrmReadinessService {
       <p>DELETE Still NoGo: true</p>
       <p>Runtime Probe Activation Plan Warning: Runtime probe activation plan only; no runtime activation approved</p>
       <p>Next Gate: Sprint5P2SecretProviderRuntimeContractValidation</p>
+      <p>Sprint 5 P2 Secret Provider Runtime Contract: Exists</p>
+      <p>Secret Provider Contract Exists: true</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>Secret Provider Reads Enabled: false</p>
+      <p>Secret Read Attempted By Runtime: false</p>
+      <p>Real Secrets Configured: false</p>
+      <p>Env File Required: false</p>
+      <p>Connection Strings Configured: false</p>
+      <p>Key Vault Client Configured: false</p>
+      <p>Secret Values Exposed: false</p>
+      <p>Runtime Probe Activation Approved: false</p>
+      <p>Common DB Probe Activation Approved: false</p>
+      <p>Portal Auth Probe Activation Approved: false</p>
+      <p>Secret Provider Runtime Contract Warning: Secret Provider contract validation only; no secrets are read</p>
+      <p>Next Gate: Sprint5P3CommonDbProbeOptionalActivationInNonProduction</p>
       <p>Non-Production</p>
     </section>
   `

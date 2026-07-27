@@ -1,5 +1,18 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 5 P2 secret provider runtime contract checks
+
+- [ ] `/api/crm/foundation/sprint-5/secret-provider-runtime-contract` is registered as GET-only.
+- [ ] `CrmSecretProviderRuntimeContractStatusService` exists.
+- [ ] `SecretProviderRuntimeContractPlaceholder` exists.
+- [ ] `Secret Provider contract validation only; no secrets are read` is present.
+- [ ] `secretProviderRuntimeConnected=false`.
+- [ ] `secretProviderReadsEnabled=false`.
+- [ ] `secretReadAttemptedByRuntime=false`.
+- [ ] `.env` is absent.
+- [ ] No real secrets, Key Vault runtime client, connection strings, DB runtime, Portal Auth runtime, productive routes or DELETE endpoints are active.
+- [ ] `Sprint5P3CommonDbProbeOptionalActivationInNonProduction` is the next gate.
+
 ## Sprint 5 P1 controlled runtime probe activation plan checks
 
 - [ ] `/api/crm/foundation/sprint-5/runtime-probe-activation-plan` is registered as GET-only.

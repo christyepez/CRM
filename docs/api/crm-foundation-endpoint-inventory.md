@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 5 P2 secret provider runtime contract
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-5/secret-provider-runtime-contract` | Reports Secret Provider runtime contract status without reading secrets or connecting to a provider. |
+
 ## Sprint 5 P1 controlled runtime probe activation plan
 
 | Method | Endpoint | Purpose |

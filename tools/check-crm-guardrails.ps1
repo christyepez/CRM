@@ -31,6 +31,8 @@ if ($program -notlike "*/api/crm/foundation/sprint-4/gate-decision*") { Fail "Sp
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/gate-decision") { Fail "Sprint 4 P6 gate decision endpoint must remain GET-only." }
 if ($program -notlike "*/api/crm/foundation/sprint-5/runtime-probe-activation-plan*") { Fail "Sprint 5 P1 controlled runtime probe activation plan route missing." }
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/runtime-probe-activation-plan") { Fail "Sprint 5 P1 controlled runtime probe activation plan endpoint must remain GET-only." }
+if ($program -notlike "*/api/crm/foundation/sprint-5/secret-provider-runtime-contract*") { Fail "Sprint 5 P2 secret provider runtime contract route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/secret-provider-runtime-contract") { Fail "Sprint 5 P2 secret provider runtime contract endpoint must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
@@ -86,6 +88,14 @@ foreach ($marker in @("Runtime probe activation plan only; no runtime activation
 
 foreach ($marker in @("sprint5P1ControlledRuntimeProbeActivationPlan: 'Exists'", "runtimeProbeActivationApproved: false", "commonDbProbeActivationApproved: false", "portalAuthProbeActivationApproved: false", "productiveRoutesActivationApproved: false", "realActivationApproved: false", "nonProductionOnly: true", "syntheticDataRequired: true", "rollbackPlanRequired: true", "observabilityRequired: true", "secretProviderRequired: true", "deleteStillNoGo: true")) {
     if ($source -notlike "*$marker*") { Fail "Missing Sprint 5 P1 frontend activation-plan marker: $marker" }
+}
+
+foreach ($marker in @("Secret Provider contract validation only; no secrets are read", "SecretProviderRuntimeContractValidation", "CrmSecretProviderRuntimeContractStatusService", "SecretProviderRuntimeContractPlaceholder", "Sprint5P3CommonDbProbeOptionalActivationInNonProduction")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 5 P2 secret provider contract marker: $marker" }
+}
+
+foreach ($marker in @("sprint5P2SecretProviderRuntimeContract: 'Exists'", "secretProviderContractExists: true", "p2SecretProviderRuntimeConnected: false", "secretProviderReadsEnabled: false", "secretReadAttemptedByRuntime: false", "realSecretsConfigured: false", "envFileRequired: false", "p2ConnectionStringsConfigured: false", "keyVaultClientConfigured: false", "secretValuesExposed: false", "p2RuntimeProbeActivationApproved: false", "p2CommonDbProbeActivationApproved: false", "p2PortalAuthProbeActivationApproved: false")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 5 P2 frontend secret-provider marker: $marker" }
 }
 
 $compose = ""

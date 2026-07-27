@@ -98,6 +98,19 @@ foreach ($doc in @("docs/operations/crm-sprint-5-p1-controlled-runtime-probe-act
     if (Test-Path $doc) { Pass "Required P1 doc exists: $doc" } else { Fail "Required P1 doc missing: $doc" }
 }
 
+if ($programText -like "*/api/crm/foundation/sprint-5/secret-provider-runtime-contract*") { Pass "Sprint 5 P2 secret provider runtime contract endpoint registered." } else { Fail "Sprint 5 P2 secret provider runtime contract endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/secret-provider-runtime-contract") { Fail "Sprint 5 P2 secret provider runtime contract endpoint must remain GET-only." }
+
+$secretProviderContractText = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSecretProviderRuntimeContractStatusService.cs", "src/CRM.Application/Foundation/CrmSecretProviderRuntimeContractContracts.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeContractPlaceholder.cs")) {
+    if (Test-Path $file) { $secretProviderContractText += "`n" + (Get-Content -Raw $file) }
+}
+if ($secretProviderContractText -like "*Secret Provider contract validation only; no secrets are read*") { Pass "Sprint 5 P2 secret provider no-read warning present." } else { Fail "Sprint 5 P2 secret provider no-read warning missing." }
+if ($secretProviderContractText -like "*SecretProviderRuntimeContractValidation*" -and $secretProviderContractText -like "*Sprint5P3CommonDbProbeOptionalActivationInNonProduction*") { Pass "Sprint 5 P2 status and P3 next gate present." } else { Fail "Sprint 5 P2 status or P3 next gate marker missing." }
+foreach ($doc in @("docs/security/crm-sprint-5-p2-secret-provider-runtime-contract-validation.md", "docs/security/crm-secret-provider-runtime-contract.md", "docs/security/crm-secret-provider-no-secret-read-policy.md", "docs/security/crm-secret-provider-approval-gates.md", "docs/operations/crm-secret-provider-runtime-runbook.md")) {
+    if (Test-Path $doc) { Pass "Required P2 doc exists: $doc" } else { Fail "Required P2 doc missing: $doc" }
+}
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

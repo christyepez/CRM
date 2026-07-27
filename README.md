@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 5 P2 - Secret Provider Runtime Contract Validation
+
+Sprint 5 P2 validates the Secret Provider runtime contract only. Status: `SecretProviderRuntimeContractValidation`; Secret Provider Contract Exists: `true`; Secret Provider Runtime Connected: `false`; Secret Provider Reads Enabled: `false`; Secret Read Attempted By Runtime: `false`; Real Secrets Configured: `false`; Env File Required: `false`; Connection Strings Configured: `false`; Key Vault Client Configured: `false`; Secret Values Exposed: `false`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-5/secret-provider-runtime-contract`
+
+Warning: `Secret Provider contract validation only; no secrets are read`. Next Gate: `Sprint5P3CommonDbProbeOptionalActivationInNonProduction`.
+
 ## Sprint 5 P1 - Controlled Runtime Probe Activation Plan
 
 Sprint 5 P1 creates a controlled activation plan only. Status: `ControlledRuntimeProbeActivationPlan`; Runtime Probe Activation Plan Exists: `true`; Runtime Probe Activation Approved: `false`; Common DB Probe Activation Approved: `false`; Portal Auth Probe Activation Approved: `false`; Productive Routes Activation Approved: `false`; Real Activation Approved: `false`; Non-Production Only: `true`; Synthetic Data Required: `true`; Rollback Plan Required: `true`; Observability Required: `true`; Secret Provider Required: `true`; DELETE Still NoGo: `true`.
