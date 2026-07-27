@@ -501,3 +501,6 @@ Status: implemented for PR review.
 
 ## Sprint 5 P4 - Portal Auth Probe Optional Activation
 Status: implemented as contract-only, disabled by default. Next gate: Sprint5P5LockedProductiveRouteStubTrialInNonProduction.
+## Sprint 5 P5 - Locked Productive Route Stub Trial
+
+Status: implemented as document-only preferred, disabled by default. Next gate: Sprint5P6Sprint5GateDecision.

@@ -82,3 +82,6 @@ Sprint 4 P5 keeps productization blocked: E2E pilot is foundation-only, syntheti
 
 ## Sprint 5 P4 Productization Gate
 Productive authorization remains disabled. CRM still has no login, Identity, token storage or persisted permissions.
+## Sprint 5 P5 Productization Gate
+
+Productive route registration remains blocked. CRM still has no productive CRUD, DELETE, DB runtime, Auth runtime or Portal runtime.

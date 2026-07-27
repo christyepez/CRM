@@ -168,3 +168,6 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 
 ## Sprint 5 P4 Foundation Endpoint
 - `/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` documents Portal Auth probe optional activation as disabled by default.
+## Sprint 5 P5 Foundation Endpoint
+
+- `/api/crm/foundation/sprint-5/locked-productive-route-stub-trial` documents locked productive route stubs without runtime registration.

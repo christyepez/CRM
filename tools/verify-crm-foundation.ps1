@@ -680,6 +680,31 @@ foreach ($marker in @("Common DB probe optional activation only; no database con
     }
 }
 
+foreach ($path in @("docs/api/crm-sprint-5-p5-locked-productive-route-stub-trial.md", "docs/api/crm-locked-productive-route-stub-trial-policy.md", "docs/api/crm-locked-productive-route-stub-trial-contract.md", "docs/security/crm-locked-productive-route-stub-trial-safety-gates.md", "docs/operations/crm-locked-productive-route-stub-trial-runbook.md", "src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialContracts.cs", "src/CRM.Application/Foundation/CrmLockedProductiveRouteStubTrialStatusService.cs")) {
+    Require-Path $path
+}
+
+$p5Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($p5Program -notlike "*/api/crm/foundation/sprint-5/locked-productive-route-stub-trial*") {
+    $failures += "Sprint 5 P5 locked productive route stub trial endpoint missing."
+}
+
+if ($p5Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/locked-productive-route-stub-trial") {
+    $failures += "Sprint 5 P5 locked productive route stub trial endpoint must remain GET-only."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($p5Program -like "*$productiveRoute*") {
+        $failures += "Productive CRM route is registered by default: $productiveRoute"
+    }
+}
+
+foreach ($marker in @("Locked productive route stub trial only; no productive routes are registered by default", "LockedProductiveRouteStubTrial", "CrmLockedProductiveRouteStubTrialStatusService", "DocumentOnlyPreferredWithNoRuntimeRegistration", "Sprint5P6Sprint5GateDecision", "Sprint 5 P5 Locked Productive Route Stub Trial: Exists", "Locked Productive Route Stub Registration Approved: false", "Locked Productive Route Stubs Registered: false", "Productive Routes Registered: false", "DELETE Endpoints Enabled: false", "Runtime Flag Default Enabled: false", "Locked Response If Enabled: 423", "Default Negative Route Status: 404", "Foundation CRUD Still Separate: true")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/api/crm-sprint-5-p5-locked-productive-route-stub-trial.md") + "`n" + (Get-Content -Raw "docs/api/crm-locked-productive-route-stub-trial-policy.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 5 P5 locked productive route stub trial marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

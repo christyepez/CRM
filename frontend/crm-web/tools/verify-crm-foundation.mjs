@@ -267,6 +267,23 @@ const expectedLabels = [
   'Rollback Required: true',
   'Common DB Probe Optional Activation Warning: Common DB probe optional activation only; no database connection is attempted',
   'Next Gate: Sprint5P4PortalAuthProbeOptionalActivationInNonProduction',
+  'Sprint 5 P5 Locked Productive Route Stub Trial: Exists',
+  'Locked Productive Route Stub Trial Exists: true',
+  'Locked Productive Route Stub Registration Approved: false',
+  'Locked Productive Route Stubs Registered: false',
+  'Productive Routes Registered: false',
+  'Productive CRUD Enabled: false',
+  'Productive Authorization Enabled: false',
+  'DELETE Endpoints Enabled: false',
+  'Runtime Flag Default Enabled: false',
+  'Locked Response If Enabled: 423',
+  'Default Negative Route Status: 404',
+  'Foundation CRUD Still Separate: true',
+  'DB Required: false',
+  'Auth Runtime Required: false',
+  'Portal Runtime Required: false',
+  'Locked Productive Route Stub Trial Warning: Locked productive route stub trial only; no productive routes are registered by default',
+  'Next Gate: Sprint5P6Sprint5GateDecision',
   'Non-Production'
 ];
 

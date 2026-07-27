@@ -154,3 +154,6 @@ Sprint 4 P5 prepares a non-production E2E pilot only. It uses foundation endpoin
 
 ## Sprint 5 P4 Note
 Portal Auth probe optional activation added as disabled foundation contract; no product runtime was enabled.
+## Sprint 5 P5 Note
+
+Locked productive route stub trial added as a foundation contract. No productive routes were registered.
