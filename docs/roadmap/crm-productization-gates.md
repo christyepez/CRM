@@ -51,3 +51,7 @@ Sprint 4 P1 starts runtime environment readiness and local tooling hardening. Pr
 ## Sprint 4 P2 common DB runtime probe
 
 Sprint 4 P2 keeps productization blocked: common DB runtime probe is present but disabled, no connection is attempted, no connection values are configured and CRM still owns no SQL Server container.
+
+## Sprint 4 P3 Portal Auth runtime probe
+
+Sprint 4 P3 keeps productization blocked: Portal Auth runtime probe is present but disabled, no token is read, no Portal runtime call is attempted and CRM still does not own login, Identity, roles or permissions.

@@ -21,6 +21,8 @@ foreach ($route in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/conta
 if ($program -match "MapDelete") { Fail "DELETE endpoint found." }
 if ($program -notlike "*/api/crm/foundation/sprint-4/common-db-runtime-probe*") { Fail "Sprint 4 P2 common DB runtime probe route missing." }
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/common-db-runtime-probe") { Fail "Sprint 4 P2 common DB runtime probe must remain GET-only." }
+if ($program -notlike "*/api/crm/foundation/sprint-4/portal-auth-runtime-probe*") { Fail "Sprint 4 P3 Portal Auth runtime probe route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/portal-auth-runtime-probe") { Fail "Sprint 4 P3 Portal Auth runtime probe must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
@@ -32,6 +34,14 @@ foreach ($marker in @("Common DB runtime probe exists but is disabled; no databa
 
 foreach ($marker in @("commonDbRuntimeProbeEnabled: false", "dbConnectionAttemptedByRuntime: false", "commonDbSqlServerOwnedByCrm: false", "commonDbEfRuntimeEnabled: false", "commonDbContextRuntimeActive: false", "commonDbDurablePersistenceEnabled: false", "commonDbApiRequiresDatabase: false")) {
     if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P2 frontend disabled marker: $marker" }
+}
+
+foreach ($marker in @("Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted", "PortalAuthRuntimeProbe", "CrmPortalAuthRuntimeProbeStatusService", "PortalAuthRuntimeProbePlaceholder", "Sprint4P4ProductiveRoutesLockedStubValidation")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P3 Portal Auth runtime probe marker: $marker" }
+}
+
+foreach ($marker in @("portalAuthRuntimeProbeEnabled: false", "tokenReadAttemptedByRuntime: false", "portalHttpAttemptedByRuntime: false", "portalAuthProbeLoginImplementedByCrm: false", "portalAuthProbeIdentityImplementedByCrm: false", "portalAuthProbePermissionsPersistedInCrm: false", "portalAuthProbeFoundationSimulationActive: true")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P3 frontend disabled marker: $marker" }
 }
 
 $compose = ""

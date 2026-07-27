@@ -47,6 +47,16 @@ foreach ($file in @("src/CRM.Application/Foundation/CrmCommonDbRuntimeProbeStatu
 if ($probeText -like "*Common DB runtime probe exists but is disabled; no database connection is attempted*") { Pass "Sprint 4 P2 disabled probe warning present." } else { Fail "Sprint 4 P2 disabled probe warning missing." }
 if ($probeText -like "*Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag*") { Pass "Sprint 4 P2 next gate points to P3 Portal Auth runtime probe." } else { Fail "Sprint 4 P2 next gate marker missing." }
 
+if ($programText -like "*/api/crm/foundation/sprint-4/portal-auth-runtime-probe*") { Pass "Sprint 4 P3 Portal Auth runtime probe endpoint registered." } else { Fail "Sprint 4 P3 Portal Auth runtime probe endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/portal-auth-runtime-probe") { Fail "Sprint 4 P3 Portal Auth runtime probe must remain GET-only." }
+
+$portalAuthProbeText = ""
+foreach ($file in @("src/CRM.Application/Portal/CrmPortalAuthRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRuntimeProbePlaceholder.cs")) {
+    if (Test-Path $file) { $portalAuthProbeText += "`n" + (Get-Content -Raw $file) }
+}
+if ($portalAuthProbeText -like "*Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted*") { Pass "Sprint 4 P3 disabled Portal Auth probe warning present." } else { Fail "Sprint 4 P3 disabled Portal Auth probe warning missing." }
+if ($portalAuthProbeText -like "*Sprint4P4ProductiveRoutesLockedStubValidation*") { Pass "Sprint 4 P3 next gate points to P4 productive route locked validation." } else { Fail "Sprint 4 P3 next gate marker missing." }
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

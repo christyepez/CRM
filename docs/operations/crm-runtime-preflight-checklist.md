@@ -1,5 +1,16 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 4 P3 Portal Auth runtime probe checks
+
+- [ ] `/api/crm/foundation/sprint-4/portal-auth-runtime-probe` is registered as GET-only.
+- [ ] `Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted` is present in Application and Infrastructure placeholders.
+- [ ] `portalAuthRuntimeProbeEnabled=false`.
+- [ ] `tokenReadAttemptedByRuntime=false`.
+- [ ] `portalHttpAttemptedByRuntime=false`.
+- [ ] No login/logout endpoint exists.
+- [ ] No Auth middleware or productive authorization is registered.
+- [ ] No Portal runtime call or Portal URL exists.
+
 ## Sprint 4 P2 common DB runtime probe checks
 
 - [ ] `/api/crm/foundation/sprint-4/common-db-runtime-probe` is registered as GET-only.

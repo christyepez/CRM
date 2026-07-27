@@ -93,6 +93,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-3/productization-review", program);
         Assert.Contains("/api/crm/foundation/sprint-4/runtime-readiness", program);
         Assert.Contains("/api/crm/foundation/sprint-4/common-db-runtime-probe", program);
+        Assert.Contains("/api/crm/foundation/sprint-4/portal-auth-runtime-probe", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -155,6 +156,48 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("MapGet(\"/api/crm/foundation/sprint-3/portal-auth-runtime-contract\"", program);
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-3/portal-auth-runtime-contract", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-3/portal-auth-runtime-contract", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("/login", program, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("/logout", program, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void PortalAuthRuntimeProbe_IsDisabledAndDoesNotReadTokensOrCallPortal()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+
+        Assert.Contains("CrmPortalAuthRuntimeProbeStatusService", source);
+        Assert.Contains("PortalAuthRuntimeProbePlaceholder", source);
+        Assert.Contains("Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted", source);
+        Assert.Contains("PortalAuthRuntimeProbe", source);
+        Assert.Contains("Sprint4P4ProductiveRoutesLockedStubValidation", source);
+        Assert.Contains("tokenReadAttemptedByRuntime: false", source);
+        Assert.Contains("portalHttpAttemptedByRuntime: false", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-4/portal-auth-runtime-probe\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-4/portal-auth-runtime-probe", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-4/portal-auth-runtime-probe", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);

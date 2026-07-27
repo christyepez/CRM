@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P3 - Portal Auth Runtime Probe Behind Disabled Flag
+
+P3 adds a controlled Portal Auth runtime probe contract while keeping Auth runtime disabled. Status: `PortalAuthRuntimeProbe`; Portal Auth Runtime Probe Exists: `true`; Portal Auth Runtime Probe Enabled: `false`; Portal Runtime Connected: `false`; Auth Runtime Enabled: `false`; Productive Authorization Enabled: `false`; Token Read Attempted By Runtime: `false`; Portal HTTP Attempted By Runtime: `false`; Login Implemented By CRM: `false`; Identity Implemented By CRM: `false`; Permissions Persisted In CRM: `false`; Foundation Simulation Active: `true`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/portal-auth-runtime-probe`
+
+Warning: `Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted`. Next Gate: `Sprint4P4ProductiveRoutesLockedStubValidation`.
+
 ## Sprint 4 P2 - Controlled Common DB Runtime Probe Behind Disabled Flag
 
 P2 adds a controlled common DB runtime probe contract while keeping runtime persistence disabled. Status: `CommonDbRuntimeProbe`; Common DB Runtime Probe Exists: `true`; Common DB Runtime Probe Enabled: `false`; Real Database Configured: `false`; Connection Strings Configured: `false`; Secret Provider Runtime Connected: `false`; DB Connection Attempted By Runtime: `false`; SQL Server Owned By CRM: `false`; EF Runtime Enabled: `false`; DbContext Runtime Active: `false`; Migrations Created: `false`; Durable Persistence Enabled: `false`; Productive CRUD Enabled: `false`; API Requires Database: `false`.

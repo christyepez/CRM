@@ -1,5 +1,9 @@
 # CRM Sprint 4 Recommended Path
 
+## Sprint 4 P3 result
+
+P3 establishes `PortalAuthRuntimeProbe` behind a disabled flag. CRM exposes only status metadata, reads no credentials, performs no Portal runtime call and keeps foundation simulation active. The next gate is `Sprint4P4ProductiveRoutesLockedStubValidation`.
+
 ## Sprint 4 P2 result
 
 P2 establishes `CommonDbRuntimeProbe` behind a disabled flag. The API exposes only status metadata, does not attempt a database connection and keeps CRM without SQL Server ownership. The next gate is `Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag`.

@@ -174,6 +174,16 @@ const expectedLabels = [
   'API Requires Database: false',
   'Common DB Runtime Probe Warning: Common DB runtime probe exists but is disabled; no database connection is attempted',
   'Next Gate: Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag',
+  'Sprint 4 P3 Portal Auth Runtime Probe: Exists',
+  'Portal Auth Runtime Probe Enabled: false',
+  'Token Read Attempted By Runtime: false',
+  'Portal HTTP Attempted By Runtime: false',
+  'Login Implemented By CRM: false',
+  'Identity Implemented By CRM: false',
+  'Permissions Persisted In CRM: false',
+  'Foundation Simulation Active: true',
+  'Portal Auth Runtime Probe Warning: Portal Auth runtime probe exists but is disabled; no tokens are read and no Portal HTTP calls are attempted',
+  'Next Gate: Sprint4P4ProductiveRoutesLockedStubValidation',
   'Non-Production'
 ];
 

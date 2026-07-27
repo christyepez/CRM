@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 4 P3 - Portal Auth Runtime Probe Behind Disabled Flag
+
+- [x] Validate GitHub main contains Sprint 4 P2 commit.
+- [x] Add controlled Portal Auth runtime probe documentation.
+- [x] Add `CrmPortalAuthRuntimeProbeStatusService`.
+- [x] Add disabled Infrastructure placeholder without Portal HTTP, token reads, DB, file or network access.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/portal-auth-runtime-probe`.
+- [x] Keep `portalAuthRuntimeProbeEnabled=false`, `portalRuntimeConnected=false`, `authRuntimeEnabled=false`, `productiveAuthorizationEnabled=false`, `tokenReadAttemptedByRuntime=false`, `portalHttpAttemptedByRuntime=false`, `loginImplementedByCrm=false`, `identityImplementedByCrm=false`, `permissionsPersistedInCrm=false` and `foundationSimulationActive=true`.
+- [x] Next Gate: `Sprint4P4ProductiveRoutesLockedStubValidation`.
+- [x] Do not activate login, Identity, JWT/cookie Auth, token storage, Portal runtime calls, Auth middleware, productive authorization, DB, EF runtime, migrations, productive routes or DELETE.
+
 ## CRM Sprint 4 P2 - Controlled Common DB Runtime Probe Behind Disabled Flag
 
 - [x] Validate GitHub main contains Sprint 4 P1 commit.
