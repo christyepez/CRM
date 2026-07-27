@@ -7,7 +7,7 @@ function Fail($Message) { $script:failures += $Message; Write-Output "FAIL $Mess
 
 $program = Get-Content -Raw "src/CRM.Api/Program.cs"
 $source = ""
-foreach ($root in @("src", "frontend/src")) {
+foreach ($root in @("src", "frontend/crm-web/src")) {
     if (Test-Path $root) {
         Get-ChildItem -Path $root -Recurse -File -ErrorAction SilentlyContinue |
             Where-Object { $_.FullName -notmatch "\\(bin|obj|node_modules|dist|\.angular)\\" } |
@@ -19,10 +19,20 @@ foreach ($route in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/conta
     if ($program -like "*$route*") { Fail "Productive route active: $route" }
 }
 if ($program -match "MapDelete") { Fail "DELETE endpoint found." }
+if ($program -notlike "*/api/crm/foundation/sprint-4/common-db-runtime-probe*") { Fail "Sprint 4 P2 common DB runtime probe route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/common-db-runtime-probe") { Fail "Sprint 4 P2 common DB runtime probe must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
 if ($allowed -match "DbSet<|MigrationBuilder|UseSqlServer\(|UseNpgsql|AddDbContext|ConnectionString=") { Fail "DB runtime, migration or real configuration marker found." }
+
+foreach ($marker in @("Common DB runtime probe exists but is disabled; no database connection is attempted", "CommonDbRuntimeProbe", "CrmCommonDbRuntimeProbeStatusService", "CommonDbRuntimeProbePlaceholder", "Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P2 common DB runtime probe marker: $marker" }
+}
+
+foreach ($marker in @("commonDbRuntimeProbeEnabled: false", "dbConnectionAttemptedByRuntime: false", "commonDbSqlServerOwnedByCrm: false", "commonDbEfRuntimeEnabled: false", "commonDbContextRuntimeActive: false", "commonDbDurablePersistenceEnabled: false", "commonDbApiRequiresDatabase: false")) {
+    if ($source -notlike "*$marker*") { Fail "Missing Sprint 4 P2 frontend disabled marker: $marker" }
+}
 
 $compose = ""
 foreach ($file in @("docker-compose.yml", "docker-compose.crm.yml")) { if (Test-Path $file) { $compose += "`n" + (Get-Content -Raw $file) } }

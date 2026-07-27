@@ -1,5 +1,9 @@
 # CRM Docker Compose Readiness
 
+## Sprint 4 P2 common DB runtime probe
+
+P2 does not add a SQL Server service, volume, database bootstrap script or connection string. The probe is present only as a disabled contract and must keep using the common environment model when a future approved sprint enables runtime persistence.
+
 Required checks:
 
 ```powershell

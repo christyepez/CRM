@@ -139,6 +139,20 @@ class CrmReadinessService {
       productiveRoutesActive: false,
       sprint4RuntimeReadinessWarning: 'Runtime readiness only; no real activation',
       sprint4P1NextGate: 'Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag',
+      sprint4P2CommonDbRuntimeProbe: 'Exists',
+      commonDbRuntimeProbeEnabled: false,
+      commonDbRealDatabaseConfigured: false,
+      commonDbConnectionStringsConfigured: false,
+      commonDbSecretProviderRuntimeConnected: false,
+      dbConnectionAttemptedByRuntime: false,
+      commonDbSqlServerOwnedByCrm: false,
+      commonDbEfRuntimeEnabled: false,
+      commonDbContextRuntimeActive: false,
+      commonDbMigrationsCreated: false,
+      commonDbDurablePersistenceEnabled: false,
+      commonDbApiRequiresDatabase: false,
+      commonDbRuntimeProbeWarning: 'Common DB runtime probe exists but is disabled; no database connection is attempted',
+      commonDbRuntimeProbeNextGate: 'Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -299,6 +313,20 @@ class CrmReadinessService {
       <p>Productization Status: NotReady</p>
       <p>Runtime Readiness Warning: Runtime readiness only; no real activation</p>
       <p>Next Gate: Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag</p>
+      <p>Sprint 4 P2 Common DB Runtime Probe: Exists</p>
+      <p>Common DB Runtime Probe Enabled: false</p>
+      <p>Real Database Configured: false</p>
+      <p>Connection Strings Configured: false</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>DB Connection Attempted By Runtime: false</p>
+      <p>SQL Server Owned By CRM: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>DbContext Runtime Active: false</p>
+      <p>Migrations Created: false</p>
+      <p>Durable Persistence Enabled: false</p>
+      <p>API Requires Database: false</p>
+      <p>Common DB Runtime Probe Warning: Common DB runtime probe exists but is disabled; no database connection is attempted</p>
+      <p>Next Gate: Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag</p>
       <p>Non-Production</p>
     </section>
   `

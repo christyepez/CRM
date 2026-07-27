@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P2 - Controlled Common DB Runtime Probe Behind Disabled Flag
+
+P2 adds a controlled common DB runtime probe contract while keeping runtime persistence disabled. Status: `CommonDbRuntimeProbe`; Common DB Runtime Probe Exists: `true`; Common DB Runtime Probe Enabled: `false`; Real Database Configured: `false`; Connection Strings Configured: `false`; Secret Provider Runtime Connected: `false`; DB Connection Attempted By Runtime: `false`; SQL Server Owned By CRM: `false`; EF Runtime Enabled: `false`; DbContext Runtime Active: `false`; Migrations Created: `false`; Durable Persistence Enabled: `false`; Productive CRUD Enabled: `false`; API Requires Database: `false`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/common-db-runtime-probe`
+
+Warning: `Common DB runtime probe exists but is disabled; no database connection is attempted`. Next Gate: `Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag`.
+
 ## Sprint 4 P1 - Runtime Environment Readiness and Local Tooling Hardening
 
 P1 hardens local tooling before controlled runtime probes. Status: `RuntimeEnvironmentReadiness`; Docker Compose Expected: `true`; CRM API Port: `8093`; SQL Server Owned By CRM: `false`; Node PATH Required For Frontend Verifier: `false`; Productive Routes Active: `false`; DELETE Endpoints Enabled: `false`; Real Database Configured: `false`; Auth Runtime Enabled: `false`; Portal Runtime Connected: `false`; Productization Status: `NotReady`.

@@ -30,6 +30,7 @@ builder.Services.AddSingleton<CrmEfPrototypeStatusService>();
 builder.Services.AddSingleton<CrmProductiveApiRouteDraftStatusService>();
 builder.Services.AddSingleton<CrmSprint3ProductizationReviewStatusService>();
 builder.Services.AddSingleton<CrmRuntimeEnvironmentReadinessStatusService>();
+builder.Services.AddSingleton<CrmCommonDbRuntimeProbeStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -108,6 +109,9 @@ app.MapGet("/api/crm/foundation/sprint-3/productization-review", (CrmSprint3Prod
 
 app.MapGet("/api/crm/foundation/sprint-4/runtime-readiness", (CrmRuntimeEnvironmentReadinessStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint4RuntimeReadiness");
+
+app.MapGet("/api/crm/foundation/sprint-4/common-db-runtime-probe", (CrmCommonDbRuntimeProbeStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint4CommonDbRuntimeProbe");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

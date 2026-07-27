@@ -167,6 +167,13 @@ const expectedLabels = [
   'Productive Routes Active: false',
   'Runtime Readiness Warning: Runtime readiness only; no real activation',
   'Next Gate: Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag',
+  'Sprint 4 P2 Common DB Runtime Probe: Exists',
+  'Common DB Runtime Probe Enabled: false',
+  'DB Connection Attempted By Runtime: false',
+  'Durable Persistence Enabled: false',
+  'API Requires Database: false',
+  'Common DB Runtime Probe Warning: Common DB runtime probe exists but is disabled; no database connection is attempted',
+  'Next Gate: Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag',
   'Non-Production'
 ];
 

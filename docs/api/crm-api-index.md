@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 4 P2
+
+- `GET /api/crm/foundation/sprint-4/common-db-runtime-probe`: controlled common DB runtime probe status; disabled by default, no connection attempt, no CRM-owned SQL Server.
+
 ## Draft endpoints
 
 - `GET /health`
@@ -117,3 +121,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 4 P1
 
 - `GET /api/crm/foundation/sprint-4/runtime-readiness`: Local runtime readiness and tooling status, no real activation.
+
+# Sprint 4 P2
+
+- `GET /api/crm/foundation/sprint-4/common-db-runtime-probe`: Common DB runtime probe contract, disabled by default.

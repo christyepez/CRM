@@ -47,3 +47,7 @@ Sprint 3 closes with `OverallDecision=NoGoForRealActivation`. Foundation capabil
 ## Sprint 4 P1 runtime readiness
 
 Sprint 4 P1 starts runtime environment readiness and local tooling hardening. Productization remains `NotReady`; next gate is `Sprint4P2ControlledCommonDbRuntimeProbeBehindDisabledFlag`.
+
+## Sprint 4 P2 common DB runtime probe
+
+Sprint 4 P2 keeps productization blocked: common DB runtime probe is present but disabled, no connection is attempted, no connection values are configured and CRM still owns no SQL Server container.
