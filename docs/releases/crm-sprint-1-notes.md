@@ -131,3 +131,7 @@ Sprint 4 P3 adds a controlled Portal Auth runtime probe contract only. The probe
 ## Sprint 4 P4 guardrail note
 
 Sprint 4 P4 validates productive route locked stubs as document-only. It does not register productive routes, locked stubs, DELETE, DB runtime, Auth runtime or Portal runtime.
+
+## Sprint 4 P5 guardrail note
+
+Sprint 4 P5 prepares a non-production E2E pilot only. It uses foundation endpoints, synthetic data and negative route validation; it does not activate productive routes, DB, Auth or Portal runtime.

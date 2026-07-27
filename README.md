@@ -1,5 +1,15 @@
 # CRM Corporativo
 
+## Sprint 4 P5 - Non-Production E2E Pilot Readiness
+
+P5 prepares a foundation-only E2E pilot without real activation. Status: `NonProductionE2EPilotReadiness`; E2E Pilot Can Run: `true`; E2E Pilot Scope: `FoundationOnly`; Productive Routes Used: `false`; Real Database Used: `false`; Portal Auth Runtime Used: `false`; Durable Persistence Used: `false`; DELETE Operations Used: `false`; Synthetic Data Only: `true`; Foundation Endpoints Only: `true`; Negative Route Validation Required: `true`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`
+
+Warning: `Non-production E2E pilot readiness only; no real activation`. Next Gate: `Sprint4P6Sprint4GateDecision`.
+
 ## Sprint 4 P4 - Productive Routes Locked Stub Validation
 
 P4 validates the future productive route strategy without registering productive routes or locked stubs. Status: `ProductiveRoutesLockedStubValidation`; Locked Stubs Strategy: `DocumentOnlyPreferred`; Productive Routes Registered: `false`; Locked Stubs Registered: `false`; Productive CRUD Enabled: `false`; Productive Authorization Enabled: `false`; DELETE Endpoints Enabled: `false`; DB Required: `false`; Auth Runtime Required: `false`; Foundation CRUD Still Separate: `true`.

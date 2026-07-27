@@ -1,5 +1,16 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 4 P5 non-production E2E pilot checks
+
+- [ ] `/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness` is registered as GET-only.
+- [ ] `Non-production E2E pilot readiness only; no real activation` is present.
+- [ ] `e2ePilotScope=FoundationOnly`.
+- [ ] `productiveRoutesUsed=false`.
+- [ ] `realDatabaseUsed=false`.
+- [ ] `portalAuthRuntimeUsed=false`.
+- [ ] Negative route validation is required.
+- [ ] `tools/check-crm-e2e-foundation.ps1` passes when API is running.
+
 ## Sprint 4 P4 productive routes locked stub checks
 
 - [ ] `/api/crm/foundation/sprint-4/productive-routes-locked-stub` is registered as GET-only.

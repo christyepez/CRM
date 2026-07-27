@@ -194,6 +194,19 @@ const expectedLabels = [
   'Foundation CRUD Still Separate: true',
   'Productive Routes Locked Stub Warning: Productive routes locked stub validation only; no productive routes are active',
   'Next Gate: Sprint4P5NonProductionE2EPilotReadiness',
+  'Sprint 4 P5 Non-Production E2E Pilot Readiness: Prepared',
+  'E2E Pilot Can Run: true',
+  'E2E Pilot Scope: FoundationOnly',
+  'Productive Routes Used: false',
+  'Real Database Used: false',
+  'Portal Auth Runtime Used: false',
+  'Durable Persistence Used: false',
+  'DELETE Operations Used: false',
+  'Synthetic Data Only: true',
+  'Foundation Endpoints Only: true',
+  'Negative Route Validation Required: true',
+  'E2E Pilot Readiness Warning: Non-production E2E pilot readiness only; no real activation',
+  'Next Gate: Sprint4P6Sprint4GateDecision',
   'Non-Production'
 ];
 

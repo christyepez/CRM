@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Sprint 4 P5 - Non-Production E2E Pilot Readiness
+
+- [x] Validate GitHub main contains Sprint 4 P4 commit.
+- [x] Add non-production E2E pilot readiness documentation and scenario matrix.
+- [x] Add `CrmNonProductionE2EPilotReadinessStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`.
+- [x] Add foundation-only E2E check script.
+- [x] Keep `e2ePilotCanRun=true`, `e2ePilotScope=FoundationOnly`, `productiveRoutesUsed=false`, `realDatabaseUsed=false`, `portalAuthRuntimeUsed=false`, `durablePersistenceUsed=false`, `deleteOperationsUsed=false`, `syntheticDataOnly=true`, `foundationEndpointsOnly=true` and `negativeRouteValidationRequired=true`.
+- [x] Next Gate: `Sprint4P6Sprint4GateDecision`.
+- [x] Do not activate productive routes, DELETE, DB runtime, Auth runtime, Portal runtime, token reads, login/Identity, secrets or productive UI.
+
 ## CRM Sprint 4 P4 - Productive Routes Locked Stub Validation
 
 - [x] Validate GitHub main contains Sprint 4 P3 commit.

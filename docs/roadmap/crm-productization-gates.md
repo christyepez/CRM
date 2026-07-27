@@ -59,3 +59,7 @@ Sprint 4 P3 keeps productization blocked: Portal Auth runtime probe is present b
 ## Sprint 4 P4 productive routes locked stub validation
 
 Sprint 4 P4 keeps productization blocked: productive route stubs remain document-only, no productive routes are registered, no DELETE endpoint exists and foundation CRUD stays separate.
+
+## Sprint 4 P5 non-production E2E pilot readiness
+
+Sprint 4 P5 keeps productization blocked: E2E pilot is foundation-only, synthetic-data-only and requires negative route validation before P6.

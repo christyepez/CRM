@@ -95,6 +95,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-4/common-db-runtime-probe", program);
         Assert.Contains("/api/crm/foundation/sprint-4/portal-auth-runtime-probe", program);
         Assert.Contains("/api/crm/foundation/sprint-4/productive-routes-locked-stub", program);
+        Assert.Contains("/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -241,6 +242,58 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("MapGet(\"/api/crm/foundation/sprint-4/productive-routes-locked-stub\"", program);
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-4/productive-routes-locked-stub", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-4/productive-routes-locked-stub", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void NonProductionE2EPilotReadiness_IsFoundationOnlyAndDoesNotActivateRuntime()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+
+        Assert.Contains("CrmNonProductionE2EPilotReadinessStatusService", source);
+        Assert.Contains("NonProductionE2EPilotReadiness", source);
+        Assert.Contains("Non-production E2E pilot readiness only; no real activation", source);
+        Assert.Contains("Sprint4P6Sprint4GateDecision", source);
+        Assert.Contains("e2ePilotCanRun: true", source);
+        Assert.Contains("e2ePilotScope: 'FoundationOnly'", source);
+        Assert.Contains("productiveRoutesUsed: false", source);
+        Assert.Contains("realDatabaseUsed: false", source);
+        Assert.Contains("portalAuthRuntimeUsed: false", source);
+        Assert.Contains("durablePersistenceUsed: false", source);
+        Assert.Contains("deleteOperationsUsed: false", source);
+        Assert.Contains("syntheticDataOnly: true", source);
+        Assert.Contains("foundationEndpointsOnly: true", source);
+        Assert.Contains("negativeRouteValidationRequired: true", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
