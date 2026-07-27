@@ -151,3 +151,6 @@ Sprint 4 P4 validates productive route locked stubs as document-only. It does no
 ## Sprint 4 P5 guardrail note
 
 Sprint 4 P5 prepares a non-production E2E pilot only. It uses foundation endpoints, synthetic data and negative route validation; it does not activate productive routes, DB, Auth or Portal runtime.
+
+## Sprint 5 P4 Note
+Portal Auth probe optional activation added as disabled foundation contract; no product runtime was enabled.

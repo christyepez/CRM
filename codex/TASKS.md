@@ -498,3 +498,6 @@ Status: implemented for PR review.
 - ConnectionStringPolicy: NoRealValuesInRepository.
 - NextGate: Sprint3P3EfDbContextPrototypeBehindDisabledFlag.
 - Guardrail: Common DB connection contract only; no real database or secrets configured.
+
+## Sprint 5 P4 - Portal Auth Probe Optional Activation
+Status: implemented as contract-only, disabled by default. Next gate: Sprint5P5LockedProductiveRouteStubTrialInNonProduction.

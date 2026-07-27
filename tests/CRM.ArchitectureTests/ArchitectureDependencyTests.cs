@@ -100,6 +100,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-5/runtime-probe-activation-plan", program);
         Assert.Contains("/api/crm/foundation/sprint-5/secret-provider-runtime-contract", program);
         Assert.Contains("/api/crm/foundation/sprint-5/common-db-probe-optional-activation", program);
+        Assert.Contains("/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -1098,7 +1099,9 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("p3ApiRequiresDatabase: false", source);
         Assert.Contains("MapGet(\"/api/crm/foundation/sprint-5/common-db-probe-optional-activation\"", program);
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-5/common-db-probe-optional-activation", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-5/common-db-probe-optional-activation", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
@@ -1124,6 +1127,27 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+
+    [Fact]
+    public void PortalAuthProbeOptionalActivation_IsDisabledAndDoesNotReadTokens()
+    {
+        var repositoryRoot = FindRepositoryRoot();
+        var serviceSource = File.ReadAllText(Path.Combine(repositoryRoot, "src", "CRM.Application", "Foundation", "CrmPortalAuthProbeOptionalActivationStatusService.cs"));
+        var contractSource = File.ReadAllText(Path.Combine(repositoryRoot, "src", "CRM.Application", "Foundation", "CrmPortalAuthProbeOptionalActivationContracts.cs"));
+        var applicationSource = serviceSource + Environment.NewLine + contractSource;
+        var placeholderSource = File.ReadAllText(Path.Combine(repositoryRoot, "src", "CRM.Infrastructure", "Portal", "RuntimeProbe", "PortalAuthProbeOptionalActivationPlaceholder.cs"));
+
+        Assert.Contains("PortalAuthProbeOptionalActivation", applicationSource);
+        Assert.Contains("PortalAuthProbeEnabled", applicationSource);
+        Assert.Contains("PortalHttpAttempted", applicationSource);
+        Assert.Contains("TokenReadAttempted", applicationSource);
+        Assert.Contains("HeaderReadAttempted", applicationSource);
+        Assert.Contains("Portal Auth probe optional activation only; no tokens are read and no Portal HTTP calls are attempted", applicationSource);
+        Assert.Contains("ContractOnly", placeholderSource);
+        Assert.DoesNotContain("HttpClient", placeholderSource);
+        Assert.DoesNotContain("GetEnvironmentVariable", placeholderSource);
     }
 
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>

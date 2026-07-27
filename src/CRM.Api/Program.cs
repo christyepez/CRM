@@ -38,6 +38,7 @@ builder.Services.AddSingleton<CrmSprint4GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmControlledRuntimeProbeActivationPlanStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderRuntimeContractStatusService>();
 builder.Services.AddSingleton<CrmCommonDbProbeOptionalActivationStatusService>();
+builder.Services.AddSingleton<CrmPortalAuthProbeOptionalActivationStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -140,6 +141,9 @@ app.MapGet("/api/crm/foundation/sprint-5/secret-provider-runtime-contract", (Crm
 
 app.MapGet("/api/crm/foundation/sprint-5/common-db-probe-optional-activation", (CrmCommonDbProbeOptionalActivationStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint5CommonDbProbeOptionalActivation");
+
+app.MapGet("/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation", (CrmPortalAuthProbeOptionalActivationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint5PortalAuthProbeOptionalActivation");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

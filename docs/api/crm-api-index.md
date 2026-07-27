@@ -165,3 +165,6 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 4 P5
 
 - `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`: Non-production foundation-only E2E pilot readiness.
+
+## Sprint 5 P4 Foundation Endpoint
+- `/api/crm/foundation/sprint-5/portal-auth-probe-optional-activation` documents Portal Auth probe optional activation as disabled by default.

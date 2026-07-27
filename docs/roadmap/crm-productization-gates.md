@@ -79,3 +79,6 @@ Sprint 4 P4 keeps productization blocked: productive route stubs remain document
 ## Sprint 4 P5 non-production E2E pilot readiness
 
 Sprint 4 P5 keeps productization blocked: E2E pilot is foundation-only, synthetic-data-only and requires negative route validation before P6.
+
+## Sprint 5 P4 Productization Gate
+Productive authorization remains disabled. CRM still has no login, Identity, token storage or persisted permissions.

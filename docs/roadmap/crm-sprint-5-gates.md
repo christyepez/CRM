@@ -20,3 +20,6 @@ Decision: plan exists, activation not approved. Next: `Sprint5P2SecretProviderRu
 | `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction` | Optionally activate Portal Auth probe in non-production only. |
 | `Sprint5P5LockedProductiveRouteStubTrial` | Trial locked route stubs without business execution. |
 | `Sprint5P6GateDecision` | Decide whether Sprint 5 can close. |
+
+## P4 Gate
+Portal Auth probe optional activation exists, approval is false, runtime connected is false, Portal HTTP attempted is false, token/header reads are false.

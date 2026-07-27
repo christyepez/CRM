@@ -30,3 +30,6 @@ Future productive capabilities:
 - `crm.contacts.write`.
 
 P4 is contract-only. Runtime activation moves to later gates.
+
+## Sprint 5 P4 Optional Activation
+The runtime contract remains disabled. P4 adds only a foundation endpoint and placeholder; no Portal HTTP, tokens or headers are read.
