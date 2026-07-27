@@ -236,6 +236,18 @@ const expectedLabels = [
   'DELETE Still NoGo: true',
   'Runtime Probe Activation Plan Warning: Runtime probe activation plan only; no runtime activation approved',
   'Next Gate: Sprint5P2SecretProviderRuntimeContractValidation',
+  'Sprint 5 P2 Secret Provider Runtime Contract: Exists',
+  'Secret Provider Contract Exists: true',
+  'Secret Provider Runtime Connected: false',
+  'Secret Provider Reads Enabled: false',
+  'Secret Read Attempted By Runtime: false',
+  'Real Secrets Configured: false',
+  'Env File Required: false',
+  'Connection Strings Configured: false',
+  'Key Vault Client Configured: false',
+  'Secret Values Exposed: false',
+  'Secret Provider Runtime Contract Warning: Secret Provider contract validation only; no secrets are read',
+  'Next Gate: Sprint5P3CommonDbProbeOptionalActivationInNonProduction',
   'Non-Production'
 ];
 

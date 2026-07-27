@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 5 P2
+
+- `GET /api/crm/foundation/sprint-5/secret-provider-runtime-contract`: Secret Provider runtime contract validation; no secrets are read.
+
 ## Sprint 5 P1
 
 - `GET /api/crm/foundation/sprint-5/runtime-probe-activation-plan`: controlled runtime probe activation plan; no runtime activation approved.

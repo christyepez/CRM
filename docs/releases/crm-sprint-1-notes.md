@@ -1,5 +1,9 @@
 # CRM Sprint 1 P1 Release Notes
 
+## Sprint 5 P2 reference
+
+Sprint 5 P2 adds Secret Provider runtime contract validation only. No secrets, `.env`, Key Vault runtime client, connection strings, DB runtime, Portal Auth runtime, productive routes, DELETE or real activation are approved.
+
 ## Sprint 5 P1 reference
 
 Sprint 5 P1 adds a controlled runtime probe activation plan only. No probe, DB, Portal Auth, productive route, DELETE or real activation is approved.

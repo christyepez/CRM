@@ -1,5 +1,11 @@
 # CRM Sprint 5 Recommended Path
 
+## Sprint 5 P2 result
+
+P2 creates `SecretProviderRuntimeContractValidation` only. No secrets are read, no `.env` is required, no Key Vault runtime client is configured and DB/Auth/Portal runtime activation remains blocked. Common DB probe optional activation is the next gate: `Sprint5P3CommonDbProbeOptionalActivationInNonProduction`.
+
+Recommended next package: `Sprint5P3CommonDbProbeOptionalActivationInNonProduction`.
+
 ## Sprint 5 P1 result
 
 P1 creates `ControlledRuntimeProbeActivationPlan` only. No runtime probe activation is approved. Secret provider validation is the next gate: `Sprint5P2SecretProviderRuntimeContractValidation`.
