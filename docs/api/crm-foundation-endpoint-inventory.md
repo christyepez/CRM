@@ -172,3 +172,6 @@
 ## Sprint 5 P5
 
 - `GET /api/crm/foundation/sprint-5/locked-productive-route-stub-trial` - contract-only, no productive routes registered by default.
+## Sprint 5 P6
+
+- `GET /api/crm/foundation/sprint-5/gate-decision` - Sprint 5 gate decision only; no real activation.

@@ -470,3 +470,6 @@ Portal Auth probe optional activation is documented and exposed through a founda
 ## CRM Sprint 5 P5
 
 Locked productive route stub trial is documented and exposed through a foundation endpoint. Productive CRM routes remain unregistered by default and negative route checks stay 404.
+## CRM Sprint 5 P6
+
+Sprint 5 gate decision is complete: `GoForControlledNonProductionPreparation`. Real activation remains `NoGo`; Sprint 6 planning is `Go`.

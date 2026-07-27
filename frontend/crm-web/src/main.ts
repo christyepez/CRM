@@ -272,6 +272,22 @@ class CrmReadinessService {
       p5PortalRuntimeRequired: false,
       lockedProductiveRouteStubTrialWarning: 'Locked productive route stub trial only; no productive routes are registered by default',
       lockedProductiveRouteStubTrialNextGate: 'Sprint5P6Sprint5GateDecision',
+      sprint5: 'Closed',
+      sprint5GateDecision: 'Completed',
+      sprint5OverallDecision: 'GoForControlledNonProductionPreparation',
+      sprint5RealActivationDecision: 'NoGo',
+      sprint5ProductizationStatus: 'NotReady',
+      sprint5SecretProviderRuntimeDecision: 'NoGoForRuntimeRead',
+      sprint5CommonDbRuntimeDecision: 'NoGoForConnectionAttempt',
+      sprint5PortalAuthRuntimeDecision: 'NoGoForPortalHttpOrTokenRead',
+      sprint5ProductiveRoutesDecision: 'NoGo',
+      sprint5LockedStubRuntimeDecision: 'NoGoForRuntimeRegistration',
+      sprint5ProductiveCrudDecision: 'NoGo',
+      sprint5DeleteDecision: 'NoGo',
+      sprint5ProductiveUiDecision: 'NoGo',
+      sprint6PlanningDecision: 'Go',
+      sprint5GateDecisionWarning: 'Sprint 5 gate decision only; no real activation',
+      sprint5GateDecisionNextGate: 'Sprint6P1NonProductionRuntimeApprovalPackage',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -564,6 +580,22 @@ class CrmReadinessService {
       <p>Portal Runtime Required: false</p>
       <p>Locked Productive Route Stub Trial Warning: Locked productive route stub trial only; no productive routes are registered by default</p>
       <p>Next Gate: Sprint5P6Sprint5GateDecision</p>
+      <p>Sprint 5: Closed</p>
+      <p>Sprint 5 Gate Decision: Completed</p>
+      <p>Overall Decision: GoForControlledNonProductionPreparation</p>
+      <p>Real Activation Decision: NoGo</p>
+      <p>Productization Status: NotReady</p>
+      <p>Secret Provider Runtime: NoGoForRuntimeRead</p>
+      <p>Common DB Runtime: NoGoForConnectionAttempt</p>
+      <p>Portal Auth Runtime: NoGoForPortalHttpOrTokenRead</p>
+      <p>Productive Routes: NoGo</p>
+      <p>Locked Stub Runtime: NoGoForRuntimeRegistration</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>Productive UI: NoGo</p>
+      <p>Sprint 6 Planning: Go</p>
+      <p>Sprint 5 Gate Decision Warning: Sprint 5 gate decision only; no real activation</p>
+      <p>Next Gate: Sprint6P1NonProductionRuntimeApprovalPackage</p>
       <p>Non-Production</p>
     </section>
   `

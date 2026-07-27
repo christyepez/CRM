@@ -248,3 +248,7 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 
 - `GET /api/crm/foundation/sprint-5/locked-productive-route-stub-trial` returns the disabled locked productive route stub trial status.
 - Productive routes are not registered by default and `/api/crm/leads`, `/api/crm/accounts`, `/api/crm/contacts` must continue returning 404.
+## Sprint 5 P6 Gate Decision
+
+- `GET /api/crm/foundation/sprint-5/gate-decision` returns the Sprint 5 closure decision.
+- Overall decision is `GoForControlledNonProductionPreparation`; real activation remains `NoGo`.

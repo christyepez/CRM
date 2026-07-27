@@ -157,3 +157,6 @@ Portal Auth probe optional activation added as disabled foundation contract; no 
 ## Sprint 5 P5 Note
 
 Locked productive route stub trial added as a foundation contract. No productive routes were registered.
+## Sprint 5 P6 Note
+
+Sprint 5 closed with controlled non-production preparation approved and real activation denied.
