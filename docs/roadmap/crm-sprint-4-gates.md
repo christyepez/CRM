@@ -1,5 +1,11 @@
 # CRM Sprint 4 Gates
 
+## P5 non-production E2E pilot readiness
+
+Decision: prepared for foundation-only E2E pilot. `Non-production E2E pilot readiness only; no real activation`.
+
+Next: `Sprint4P6Sprint4GateDecision`.
+
 ## P4 productive routes locked stub validation
 
 Decision: document-only preferred. `Productive routes locked stub validation only; no productive routes are active`.

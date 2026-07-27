@@ -178,6 +178,19 @@ class CrmReadinessService {
       p4FoundationCrudStillSeparate: true,
       productiveRoutesLockedStubWarning: 'Productive routes locked stub validation only; no productive routes are active',
       productiveRoutesLockedStubNextGate: 'Sprint4P5NonProductionE2EPilotReadiness',
+      sprint4P5NonProductionE2EPilotReadiness: 'Prepared',
+      e2ePilotCanRun: true,
+      e2ePilotScope: 'FoundationOnly',
+      productiveRoutesUsed: false,
+      realDatabaseUsed: false,
+      portalAuthRuntimeUsed: false,
+      durablePersistenceUsed: false,
+      deleteOperationsUsed: false,
+      syntheticDataOnly: true,
+      foundationEndpointsOnly: true,
+      negativeRouteValidationRequired: true,
+      e2ePilotReadinessWarning: 'Non-production E2E pilot readiness only; no real activation',
+      e2ePilotReadinessNextGate: 'Sprint4P6Sprint4GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -377,6 +390,19 @@ class CrmReadinessService {
       <p>Foundation CRUD Still Separate: true</p>
       <p>Productive Routes Locked Stub Warning: Productive routes locked stub validation only; no productive routes are active</p>
       <p>Next Gate: Sprint4P5NonProductionE2EPilotReadiness</p>
+      <p>Sprint 4 P5 Non-Production E2E Pilot Readiness: Prepared</p>
+      <p>E2E Pilot Can Run: true</p>
+      <p>E2E Pilot Scope: FoundationOnly</p>
+      <p>Productive Routes Used: false</p>
+      <p>Real Database Used: false</p>
+      <p>Portal Auth Runtime Used: false</p>
+      <p>Durable Persistence Used: false</p>
+      <p>DELETE Operations Used: false</p>
+      <p>Synthetic Data Only: true</p>
+      <p>Foundation Endpoints Only: true</p>
+      <p>Negative Route Validation Required: true</p>
+      <p>E2E Pilot Readiness Warning: Non-production E2E pilot readiness only; no real activation</p>
+      <p>Next Gate: Sprint4P6Sprint4GateDecision</p>
       <p>Non-Production</p>
     </section>
   `

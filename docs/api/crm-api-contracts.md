@@ -1,5 +1,11 @@
 # CRM API Contracts
 
+## Sprint 4 P5 non-production E2E pilot readiness
+
+`GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`
+
+Returns `NonProductionE2EPilotReadiness`, `e2ePilotCanRun=true`, `e2ePilotScope=FoundationOnly`, `productiveRoutesUsed=false`, `realDatabaseUsed=false`, `portalAuthRuntimeUsed=false`, `durablePersistenceUsed=false`, `deleteOperationsUsed=false`, `syntheticDataOnly=true`, `foundationEndpointsOnly=true`, `negativeRouteValidationRequired=true`, `nextGate=Sprint4P6Sprint4GateDecision` and `Non-production E2E pilot readiness only; no real activation`.
+
 ## Sprint 4 P4 productive routes locked stub validation
 
 `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`

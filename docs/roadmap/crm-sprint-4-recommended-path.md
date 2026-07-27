@@ -1,5 +1,9 @@
 # CRM Sprint 4 Recommended Path
 
+## Sprint 4 P5 result
+
+P5 establishes `NonProductionE2EPilotReadiness` for foundation-only E2E checks. Productive routes, DB, Auth runtime, Portal runtime and DELETE remain inactive. The next gate is `Sprint4P6Sprint4GateDecision`.
+
 ## Sprint 4 P4 result
 
 P4 establishes `ProductiveRoutesLockedStubValidation` with `DocumentOnlyPreferred`. Productive routes and locked stubs are not registered. The next gate is `Sprint4P5NonProductionE2EPilotReadiness`.

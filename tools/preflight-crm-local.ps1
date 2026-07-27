@@ -67,6 +67,14 @@ $productiveRouteStubText = if (Test-Path "src/CRM.Application/Foundation/CrmProd
 if ($productiveRouteStubText -like "*Productive routes locked stub validation only; no productive routes are active*") { Pass "Sprint 4 P4 locked stub warning present." } else { Fail "Sprint 4 P4 locked stub warning missing." }
 if ($productiveRouteStubText -like "*DocumentOnlyPreferred*" -and $productiveRouteStubText -like "*Sprint4P5NonProductionE2EPilotReadiness*") { Pass "Sprint 4 P4 document-only decision and P5 next gate present." } else { Fail "Sprint 4 P4 decision or next gate marker missing." }
 
+if ($programText -like "*/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness*") { Pass "Sprint 4 P5 non-production E2E pilot readiness endpoint registered." } else { Fail "Sprint 4 P5 non-production E2E pilot readiness endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness") { Fail "Sprint 4 P5 non-production E2E pilot readiness endpoint must remain GET-only." }
+
+$e2ePilotText = if (Test-Path "src/CRM.Application/Foundation/CrmNonProductionE2EPilotReadinessStatusService.cs") { Get-Content -Raw "src/CRM.Application/Foundation/CrmNonProductionE2EPilotReadinessStatusService.cs" } else { "" }
+if ($e2ePilotText -like "*Non-production E2E pilot readiness only; no real activation*") { Pass "Sprint 4 P5 non-production E2E warning present." } else { Fail "Sprint 4 P5 non-production E2E warning missing." }
+if ($e2ePilotText -like "*NonProductionE2EPilotReadiness*" -and $e2ePilotText -like "*Sprint4P6Sprint4GateDecision*") { Pass "Sprint 4 P5 status and P6 next gate present." } else { Fail "Sprint 4 P5 status or P6 next gate marker missing." }
+if (Test-Path "tools/check-crm-e2e-foundation.ps1") { Pass "Sprint 4 P5 E2E foundation script exists." } else { Fail "Sprint 4 P5 E2E foundation script missing." }
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

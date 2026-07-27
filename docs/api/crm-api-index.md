@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 4 P5
+
+- `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`: foundation-only E2E pilot readiness; no real activation and negative route validation required.
+
 ## Sprint 4 P4
 
 - `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`: productive route locked stub validation; document-only preferred, no productive routes registered.
@@ -141,3 +145,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 # Sprint 4 P4
 
 - `GET /api/crm/foundation/sprint-4/productive-routes-locked-stub`: Productive route locked stub validation, document-only by default.
+
+# Sprint 4 P5
+
+- `GET /api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness`: Non-production foundation-only E2E pilot readiness.

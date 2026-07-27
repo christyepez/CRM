@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 4 P5 non-production E2E pilot readiness
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness` | Reports foundation-only E2E pilot readiness without running real integrations or productive routes. |
+
 ## Sprint 4 P4 productive routes locked stub validation
 
 | Method | Endpoint | Purpose |
