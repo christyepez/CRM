@@ -111,6 +111,19 @@ foreach ($doc in @("docs/security/crm-sprint-5-p2-secret-provider-runtime-contra
     if (Test-Path $doc) { Pass "Required P2 doc exists: $doc" } else { Fail "Required P2 doc missing: $doc" }
 }
 
+if ($programText -like "*/api/crm/foundation/sprint-5/common-db-probe-optional-activation*") { Pass "Sprint 5 P3 common DB probe optional activation endpoint registered." } else { Fail "Sprint 5 P3 common DB probe optional activation endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/common-db-probe-optional-activation") { Fail "Sprint 5 P3 common DB probe optional activation endpoint must remain GET-only." }
+
+$commonDbOptionalText = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmCommonDbProbeOptionalActivationStatusService.cs", "src/CRM.Application/Foundation/CrmCommonDbProbeOptionalActivationContracts.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbProbeOptionalActivationPlaceholder.cs")) {
+    if (Test-Path $file) { $commonDbOptionalText += "`n" + (Get-Content -Raw $file) }
+}
+if ($commonDbOptionalText -like "*Common DB probe optional activation only; no database connection is attempted*") { Pass "Sprint 5 P3 common DB optional activation warning present." } else { Fail "Sprint 5 P3 common DB optional activation warning missing." }
+if ($commonDbOptionalText -like "*CommonDbProbeOptionalActivation*" -and $commonDbOptionalText -like "*Sprint5P4PortalAuthProbeOptionalActivationInNonProduction*") { Pass "Sprint 5 P3 status and P4 next gate present." } else { Fail "Sprint 5 P3 status or P4 next gate marker missing." }
+foreach ($doc in @("docs/data/crm-sprint-5-p3-common-db-probe-optional-activation.md", "docs/data/crm-common-db-probe-optional-activation-policy.md", "docs/data/crm-common-db-probe-activation-gates.md", "docs/data/crm-common-db-probe-rollback-plan.md", "docs/operations/crm-common-db-probe-optional-activation-runbook.md", "docs/security/crm-common-db-probe-secret-dependency.md")) {
+    if (Test-Path $doc) { Pass "Required P3 doc exists: $doc" } else { Fail "Required P3 doc missing: $doc" }
+}
+
 powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-guardrails.ps1
 if ($LASTEXITCODE -ne 0) { Fail "Guardrail check failed." } else { Pass "Guardrail check passed." }
 

@@ -1,5 +1,9 @@
 # CRM Productization Gates
 
+## Sprint 5 P3 common DB probe optional activation
+
+Sprint 5 P3 does not change productization readiness. Common DB optional activation exists, but activation, database connection, EF runtime, migrations, durable persistence and API database dependency remain not approved.
+
 ## Sprint 5 P2 secret provider contract
 
 Sprint 5 P2 does not change productization readiness. Secret Provider contract exists, but runtime connection, secret reads, common DB probe activation, Portal Auth probe activation and runtime probe activation remain not approved.

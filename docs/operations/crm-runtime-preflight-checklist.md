@@ -1,5 +1,16 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 5 P3 common DB probe optional activation checks
+
+- [ ] `/api/crm/foundation/sprint-5/common-db-probe-optional-activation` is registered as GET-only.
+- [ ] `CrmCommonDbProbeOptionalActivationStatusService` exists.
+- [ ] `CommonDbProbeOptionalActivationPlaceholder` exists.
+- [ ] `Common DB probe optional activation only; no database connection is attempted` is present.
+- [ ] `commonDbProbeEnabled=false`.
+- [ ] `commonDbConnectionAttempted=false`.
+- [ ] No database connection, `UseSqlServer`, migrations, connection strings, secret reads, SQL Server compose, productive routes or DELETE endpoints are active.
+- [ ] `Sprint5P4PortalAuthProbeOptionalActivationInNonProduction` is the next gate.
+
 ## Sprint 5 P2 secret provider runtime contract checks
 
 - [ ] `/api/crm/foundation/sprint-5/secret-provider-runtime-contract` is registered as GET-only.

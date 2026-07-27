@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 5 P3
+
+- `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`: Common DB probe optional activation plan; no database connection is attempted.
+
 ## Sprint 5 P2
 
 - `GET /api/crm/foundation/sprint-5/secret-provider-runtime-contract`: Secret Provider runtime contract validation; no secrets are read.

@@ -203,6 +203,12 @@ function Require-Path($Path) {
     "docs/security/crm-secret-provider-no-secret-read-policy.md",
     "docs/security/crm-secret-provider-approval-gates.md",
     "docs/operations/crm-secret-provider-runtime-runbook.md",
+    "docs/data/crm-sprint-5-p3-common-db-probe-optional-activation.md",
+    "docs/data/crm-common-db-probe-optional-activation-policy.md",
+    "docs/data/crm-common-db-probe-activation-gates.md",
+    "docs/data/crm-common-db-probe-rollback-plan.md",
+    "docs/operations/crm-common-db-probe-optional-activation-runbook.md",
+    "docs/security/crm-common-db-probe-secret-dependency.md",
     "tools/preflight-crm-local.ps1",
     "tools/check-crm-guardrails.ps1",
     "tools/check-crm-health.ps1",
@@ -255,6 +261,10 @@ function Require-Path($Path) {
     "src/CRM.Application/Foundation/CrmControlledRuntimeProbeActivationPlanStatusService.cs",
     "src/CRM.Application/Foundation/CrmSecretProviderRuntimeContractContracts.cs",
     "src/CRM.Application/Foundation/CrmSecretProviderRuntimeContractStatusService.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbProbeOptionalActivationContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbProbeOptionalActivationStatusService.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbProbeOptionalActivationOptions.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbProbeOptionalActivationPlaceholder.cs",
     "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeContractOptions.cs",
     "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeContractPlaceholder.cs",
     "src/CRM.Application/Portal/CrmPortalAuthRuntimeProbeContracts.cs",
@@ -357,7 +367,7 @@ foreach ($root in $scanRoots) {
 }
 
 $apiProgram = Get-Content -Raw "src/CRM.Api/Program.cs"
-foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness', '/api/crm/foundation/sprint-2/productization-gate', '/api/crm/foundation/sprint-3/durable-persistence-setup', '/api/crm/foundation/sprint-3/common-db-connection-strategy', '/api/crm/foundation/sprint-3/ef-prototype-status', '/api/crm/foundation/sprint-3/portal-auth-runtime-contract', '/api/crm/foundation/sprint-3/productive-api-route-draft', '/api/crm/foundation/sprint-3/productization-review', '/api/crm/foundation/sprint-4/runtime-readiness', '/api/crm/foundation/sprint-4/common-db-runtime-probe', '/api/crm/foundation/sprint-4/portal-auth-runtime-probe', '/api/crm/foundation/sprint-4/productive-routes-locked-stub', '/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness', '/api/crm/foundation/sprint-4/gate-decision', '/api/crm/foundation/sprint-5/runtime-probe-activation-plan', '/api/crm/foundation/sprint-5/secret-provider-runtime-contract')) {
+foreach ($route in @('/health', '/health/live', '/health/ready', '/api/crm/readiness', '/api/crm/domain-catalog', '/api/crm/contracts', '/api/crm/integration-boundaries', '/api/crm/foundation/leads/preview', '/api/crm/foundation/accounts/preview', '/api/crm/foundation/contacts/preview', '/api/crm/foundation/crud/status', '/api/crm/foundation/leads', '/api/crm/foundation/leads/{id}', '/api/crm/foundation/accounts', '/api/crm/foundation/accounts/{id}', '/api/crm/foundation/contacts', '/api/crm/foundation/contacts/{id}', '/api/crm/foundation/leads/read-model-preview', '/api/crm/foundation/accounts/read-model-preview', '/api/crm/foundation/contacts/read-model-preview', '/api/crm/foundation/read-model-status', '/api/crm/foundation/portal-integration/status', '/api/crm/foundation/portal-integration/contracts', '/api/crm/foundation/portal-integration/required-capabilities', '/api/crm/foundation/portal-authorization/simulation-status', '/api/crm/foundation/portal-authorization/scenarios', '/api/crm/foundation/portal-authorization/permissions', '/api/crm/foundation/portal-authorization/sample-user-context', '/api/crm/foundation/portal-authorization/check-permission', '/api/crm/foundation/financial-integration/status', '/api/crm/foundation/financial-integration/contracts', '/api/crm/foundation/financial-integration/required-capabilities', '/api/crm/foundation/financial-integration/events', '/api/crm/foundation/reporting/status', '/api/crm/foundation/reporting/kpis', '/api/crm/foundation/reporting/dashboards', '/api/crm/foundation/reporting/analytics-read-models', '/api/crm/foundation/sprint-1/closure-status', '/api/crm/foundation/persistence/readiness', '/api/crm/foundation/persistence/seam-status', '/api/crm/foundation/persistence/feature-flags', '/api/crm/foundation/persistence/stores/status', '/api/crm/foundation/persistence/stores/clear-preview', '/api/crm/foundation/sprint-2/integration-readiness', '/api/crm/foundation/sprint-2/productization-gate', '/api/crm/foundation/sprint-3/durable-persistence-setup', '/api/crm/foundation/sprint-3/common-db-connection-strategy', '/api/crm/foundation/sprint-3/ef-prototype-status', '/api/crm/foundation/sprint-3/portal-auth-runtime-contract', '/api/crm/foundation/sprint-3/productive-api-route-draft', '/api/crm/foundation/sprint-3/productization-review', '/api/crm/foundation/sprint-4/runtime-readiness', '/api/crm/foundation/sprint-4/common-db-runtime-probe', '/api/crm/foundation/sprint-4/portal-auth-runtime-probe', '/api/crm/foundation/sprint-4/productive-routes-locked-stub', '/api/crm/foundation/sprint-4/nonproduction-e2e-pilot-readiness', '/api/crm/foundation/sprint-4/gate-decision', '/api/crm/foundation/sprint-5/runtime-probe-activation-plan', '/api/crm/foundation/sprint-5/secret-provider-runtime-contract', '/api/crm/foundation/sprint-5/common-db-probe-optional-activation')) {
     if ($apiProgram -notlike "*$route*") {
         $failures += "Missing documented route $route"
     }
@@ -458,6 +468,10 @@ if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint
 
 if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/secret-provider-runtime-contract") {
     $failures += "Sprint 5 secret provider runtime contract endpoint must remain GET-only foundation endpoint."
+}
+
+if ($apiProgram -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/common-db-probe-optional-activation") {
+    $failures += "Sprint 5 common DB probe optional activation endpoint must remain GET-only foundation endpoint."
 }
 
 if ($apiProgram -match "/login|/logout") {
@@ -657,6 +671,12 @@ foreach ($marker in @("Runtime probe activation plan only; no runtime activation
 foreach ($marker in @("Secret Provider contract validation only; no secrets are read", "SecretProviderRuntimeContractValidation", "CrmSecretProviderRuntimeContractStatusService", "SecretProviderRuntimeContractPlaceholder", "Sprint5P3CommonDbProbeOptionalActivationInNonProduction", "Sprint 5 P2 Secret Provider Runtime Contract: Exists", "Secret Provider Contract Exists: true", "Secret Provider Runtime Connected: false", "Secret Provider Reads Enabled: false", "Secret Read Attempted By Runtime: false", "Real Secrets Configured: false", "Env File Required: false", "Connection Strings Configured: false", "Key Vault Client Configured: false", "Secret Values Exposed: false")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/security/crm-sprint-5-p2-secret-provider-runtime-contract-validation.md") + "`n" + (Get-Content -Raw "docs/security/crm-secret-provider-runtime-contract.md") + "`n" + (Get-Content -Raw "docs/security/crm-secret-provider-no-secret-read-policy.md") + "`n" + (Get-Content -Raw "docs/operations/crm-secret-provider-runtime-runbook.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
         $failures += "Missing Sprint 5 P2 secret provider runtime contract marker: $marker"
+    }
+}
+
+foreach ($marker in @("Common DB probe optional activation only; no database connection is attempted", "CommonDbProbeOptionalActivation", "CrmCommonDbProbeOptionalActivationStatusService", "CommonDbProbeOptionalActivationPlaceholder", "Sprint5P4PortalAuthProbeOptionalActivationInNonProduction", "Sprint 5 P3 Common DB Probe Optional Activation: Exists", "Common DB Probe Optional Activation Exists: true", "Common DB Probe Activation Approved: false", "Common DB Probe Enabled: false", "Common DB Connection Attempted: false", "Secret Reads Required Before Activation: true", "Secret Reads Enabled: false", "Real Database Configured: false", "Connection Strings Configured: false", "EF Runtime Enabled: false", "Migrations Created: false", "API Requires Database: false")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-sprint-5-p3-common-db-probe-optional-activation.md") + "`n" + (Get-Content -Raw "docs/data/crm-common-db-probe-optional-activation-policy.md") + "`n" + (Get-Content -Raw "docs/operations/crm-common-db-probe-optional-activation-runbook.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 5 P3 common DB probe optional activation marker: $marker"
     }
 }
 
