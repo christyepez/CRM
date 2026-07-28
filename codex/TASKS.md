@@ -1,5 +1,18 @@
 # TASKS.md
 
+## CRM Sprint 6 P6 - Sprint 6 Gate Decision
+
+- [x] Validate GitHub main contains Sprint 6 P5 commit.
+- [x] Create Sprint 6 closure and gate decision documentation.
+- [x] Create Sprint 6 gate matrix and security/data/API/E2E reviews.
+- [x] Create Sprint 7 options, recommended path and gates.
+- [x] Add `CrmSprint6GateDecisionStatusService`.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-6/gate-decision`.
+- [x] Keep `OverallDecision=GoForSprint7ControlledNonProductionActivationPlanning`.
+- [x] Keep `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady`, productive routes, productive CRUD, DELETE and productive UI as NoGo.
+- [x] Next Gate: `Sprint7P1SecretProviderRealNonProductionApproval`.
+- [x] Do not activate real secrets, DB, Portal Auth runtime, token/header reads, productive routes, locked stubs runtime, DELETE, login, Identity or productive UI.
+
 ## CRM Sprint 6 P3 - Common DB Connectivity Dry-Run Contract
 
 - [x] Validate GitHub main contains Sprint 6 P2 commit.

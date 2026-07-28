@@ -190,3 +190,9 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm lockedStubRuntimeRegistrationEnabled=false and lockedStubsRegisteredAtRuntime=false.
 - Confirm productiveRoutesRegistered=false and default negative routes return 404.
 - Confirm no DELETE, DB, Auth, Portal, token/header reads, domain services or store usage from stubs.
+# Sprint 6 P6 gate decision preflight addendum
+
+- Validate `GET /api/crm/foundation/sprint-6/gate-decision`.
+- Confirm `Sprint6GateDecision`, `GoForSprint7ControlledNonProductionActivationPlanning`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady` and `Sprint7PlanningDecision=Go`.
+- Confirm productive `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` remain 404.
+- Confirm no `.env`, real secret provider, DB runtime, Portal Auth runtime, DELETE endpoint or productive UI activation exists.

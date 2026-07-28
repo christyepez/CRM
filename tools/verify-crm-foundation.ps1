@@ -849,6 +849,31 @@ if (Test-Path "src/CRM.Api/ProductiveRoutes/LockedStubRuntimeRegistrationTrial.c
     $failures += "P5 selected DocumentOnlyPreferredWithNoRuntimeRegistration; runtime registrar file must not exist."
 }
 
+foreach ($path in @("docs/releases/crm-sprint-6-closure.md", "docs/releases/crm-sprint-6-integrated-evidence.md", "docs/releases/crm-sprint-6-gate-decision.md", "docs/releases/crm-sprint-6-go-no-go.md", "docs/releases/crm-sprint-6-open-risks.md", "docs/releases/crm-sprint-6-decision-record.md", "docs/architecture/crm-sprint-6-gate-matrix.md", "docs/security/crm-sprint-6-security-gate-review.md", "docs/data/crm-sprint-6-persistence-gate-review.md", "docs/api/crm-sprint-6-api-gate-review.md", "docs/testing/crm-sprint-6-e2e-gate-review.md", "docs/roadmap/crm-sprint-7-options.md", "docs/roadmap/crm-sprint-7-recommended-path.md", "docs/roadmap/crm-sprint-7-gates.md", "src/CRM.Application/Foundation/CrmSprint6GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint6GateDecisionStatusService.cs")) {
+    Require-Path $path
+}
+
+$sprint6P6Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint6P6Program -notlike "*/api/crm/foundation/sprint-6/gate-decision*") {
+    $failures += "Sprint 6 P6 gate decision endpoint missing."
+}
+
+if ($sprint6P6Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/gate-decision") {
+    $failures += "Sprint 6 P6 gate decision endpoint must remain GET-only."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"', 'MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts')) {
+    if ($sprint6P6Program -like "*$productiveRoute*") {
+        $failures += "Productive CRM route is registered by default: $productiveRoute"
+    }
+}
+
+foreach ($marker in @("Sprint 6 gate decision only; no real activation", "Sprint6GateDecision", "CrmSprint6GateDecisionStatusService", "GoForSprint7ControlledNonProductionActivationPlanning", "NoGo", "NotReady", "Sprint7P1SecretProviderRealNonProductionApproval", "Sprint 6: Closed", "Sprint 6 Gate Decision: Completed", "Sprint 7 Planning: Go")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/releases/crm-sprint-6-closure.md") + "`n" + (Get-Content -Raw "docs/releases/crm-sprint-6-gate-decision.md") + "`n" + (Get-Content -Raw "docs/roadmap/crm-sprint-7-recommended-path.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 6 P6 gate decision marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

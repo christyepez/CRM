@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 6 P6 - Gate Decision
+
+Sprint 6 is closed as a gate decision only. Overall decision: `GoForSprint7ControlledNonProductionActivationPlanning`; Real Activation Decision: `NoGo`; Productization Status: `NotReady`; Sprint 7 Planning: `Go`.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-6/gate-decision`
+
+Warning: `Sprint 6 gate decision only; no real activation`. Next Gate: `Sprint7P1SecretProviderRealNonProductionApproval`.
+
+No real secret provider, real database connection, Portal Auth runtime, locked stub runtime registration, productive route, productive CRUD, DELETE endpoint or productive UI is activated.
+
 ## Sprint 6 P3 - Common DB Connectivity Dry-Run Contract
 
 Sprint 6 P3 creates a Common DB dry-run contract only. It uses safe mock metadata and the synthetic reference `mock://crm/common-db`, but does not resolve a real connection string and does not connect to a database.

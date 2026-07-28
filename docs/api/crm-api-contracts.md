@@ -285,3 +285,18 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 - `defaultNegativeRouteStatus=404`
 - `futureLockedResponseStatusIfExplicitlyEnabled=423`
 - No DELETE, domain services, stores, DB, Portal Auth, token/header reads or productive UI.
+# CRM Sprint 6 P6 API Contract Addendum
+
+`GET /api/crm/foundation/sprint-6/gate-decision` returns Sprint 6 closure metadata only.
+
+Required response markers:
+
+- `status=Sprint6GateDecision`
+- `foundationMode=true`
+- `overallDecision=GoForSprint7ControlledNonProductionActivationPlanning`
+- `realActivationDecision=NoGo`
+- `productizationStatus=NotReady`
+- `sprint7PlanningDecision=Go`
+- `nextGate=Sprint7P1SecretProviderRealNonProductionApproval`
+
+The endpoint must remain GET-only and must not register productive CRM routes, DELETE, Auth runtime, Portal HTTP, DB runtime or real secret provider access.
