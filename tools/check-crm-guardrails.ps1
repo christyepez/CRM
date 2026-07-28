@@ -37,7 +37,7 @@ if ($program -notlike "*/api/crm/foundation/sprint-5/common-db-probe-optional-ac
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/common-db-probe-optional-activation") { Fail "Sprint 5 P3 common DB probe optional activation endpoint must remain GET-only." }
 if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
-$allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "")
+$allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("AddDbContextRuntimeEnabled", "").Replace("addDbContextRuntimeEnabled", "").Replace("AddDbContext Runtime Enabled", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "").Replace("UseSqlServerEnabled", "").Replace("useSqlServerEnabled", "").Replace("UseSqlServer Enabled", "")
 if ($allowed -match "DbSet<|MigrationBuilder|UseSqlServer\(|UseNpgsql|AddDbContext|ConnectionString=") { Fail "DB runtime, migration or real configuration marker found." }
 
 foreach ($marker in @("Common DB runtime probe exists but is disabled; no database connection is attempted", "CommonDbRuntimeProbe", "CrmCommonDbRuntimeProbeStatusService", "CommonDbRuntimeProbePlaceholder", "Sprint4P3PortalAuthRuntimeProbeBehindDisabledFlag")) {
@@ -409,6 +409,33 @@ foreach ($Sprint7P2File in @("src/CRM.Application/Foundation/CrmSecretProviderRe
 }
 foreach ($Sprint7P2Marker in @("SecretProviderRealNonProductionRuntimeProbe", "SecretProviderRealNonProductionRuntimeProbeExists", "SecretProviderRealNonProductionApprovalGranted", "SecretProviderRealRuntimeProbeEnabled", "SecretProviderRealRuntimeProbeAttempted", "SecretProviderRealRuntimeConnected", "RealSecretValueMaterialized", "RealSecretValueLogged", "SecretValueReturnedToApi", "KeyVaultRuntimeClientCreated", "KeyVaultRuntimeCallAttempted", "AzureSecretSdkRuntimeEnabled", "EnvSecretReadAttempted", "EnvFileRequired", "LogicalSecretNamesValidated", "SecretValuesValidated", "ProbeSkippedBecauseApprovalNotGranted", "Sprint7P3CommonDbRealConnectivityNonProductionProbe", "Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted")) {
     if ($Sprint7P2Text -notmatch [regex]::Escape($Sprint7P2Marker)) { Fail "Missing Sprint 7 P2 marker: $Sprint7P2Marker" }
+}
+
+# Sprint 7 P3 Common DB Real Connectivity NonProduction Probe checks
+$Sprint7P3RequiredFiles = @(
+    "docs/data/crm-sprint-7-p3-common-db-real-connectivity-nonproduction-probe.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-policy.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-contract.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-safety-boundary.md",
+    "docs/operations/crm-common-db-real-connectivity-nonproduction-probe-runbook.md",
+    "docs/operations/crm-common-db-real-connectivity-nonproduction-probe-rollback.md",
+    "docs/architecture/crm-common-db-real-connectivity-nonproduction-probe-architecture.md",
+    "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeStatusService.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbe.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbeOptions.cs"
+)
+foreach ($Sprint7P3RequiredFile in $Sprint7P3RequiredFiles) {
+    if (-not (Test-Path $Sprint7P3RequiredFile)) { Fail "Missing Sprint 7 P3 required file: $Sprint7P3RequiredFile" } else { Pass "Required Sprint 7 P3 file exists: $Sprint7P3RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe*") { Fail "Sprint 7 P3 Common DB route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe") { Fail "Sprint 7 P3 endpoint must remain GET-only." }
+$Sprint7P3Text = ""
+foreach ($Sprint7P3File in @("src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint7P3File) { $Sprint7P3Text += "`n" + (Get-Content -Raw $Sprint7P3File) }
+}
+foreach ($Sprint7P3Marker in @("CommonDbRealConnectivityNonProductionProbe", "CommonDbRealConnectivityNonProductionProbeExists", "CommonDbRealConnectivityApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "ConnectionStringResolved", "ConnectionStringValueMaterialized", "ConnectionStringLogged", "ConnectionStringReturnedToApi", "CommonDbProbeEnabled", "CommonDbProbeAttempted", "CommonDbConnected", "SqlConnectionCreated", "DbConnectionCreated", "UseSqlServerEnabled", "EfRuntimeEnabled", "AddDbContextRuntimeEnabled", "MigrationsCreated", "DatabaseSchemaChanged", "ProductivePersistenceEnabled", "ApiRequiresDatabase", "UsesSecretProviderRuntime", "UsesSyntheticFallback", "mock://crm/common-db", "ConnectionProbeSkippedBecauseSecretProviderApprovalNotGranted", "Sprint7P4PortalAuthRealRuntimeProbe", "Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted")) {
+    if ($Sprint7P3Text -notmatch [regex]::Escape($Sprint7P3Marker)) { Fail "Missing Sprint 7 P3 marker: $Sprint7P3Marker" }
 }
 
 if ($failures.Count -gt 0) { exit 1 }

@@ -596,3 +596,11 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - Defaults: approval=false, probeEnabled=false, probeAttempted=false, runtimeConnected=false, probeSkippedBecauseApprovalNotGranted=true.
 - Safety: no real secret reads, no value materialization, no value logs, no API value return, no Key Vault runtime call, no Azure secret SDK runtime call, no `.env`.
 - Next Gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.
+
+## CRM Sprint 7 P3 - Common DB Real Connectivity NonProduction Probe
+
+- Status: Implemented for PR review.
+- Endpoint: `GET /api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe`.
+- Defaults: approval=false, connectionStringResolved=false, commonDbProbeEnabled=false, commonDbProbeAttempted=false, commonDbConnected=false, connectionProbeSkippedBecauseSecretProviderApprovalNotGranted=true.
+- Safety: no real connection strings, no DB connection, no EF runtime, no migrations, no SQL Server compose, no productive routes.
+- Next Gate: `Sprint7P4PortalAuthRealRuntimeProbe`.

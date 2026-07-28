@@ -41,7 +41,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("Add" + "DbContext", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseNpgsql", source, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -110,6 +110,8 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial", program);
         Assert.Contains("/api/crm/foundation/sprint-6/gate-decision", program);
         Assert.Contains("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval", program);
+        Assert.Contains("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe", program);
+        Assert.Contains("/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -151,7 +153,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("UseNpgsql", source, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("Add" + "DbContext", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -1817,6 +1819,107 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void CommonDbRealConnectivityNonProductionProbe_IsSkippedAndDoesNotConnect()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source)
+            .Replace("AddDbContextRuntimeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("addDbContextRuntimeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("AddDbContext Runtime Enabled", string.Empty, StringComparison.Ordinal);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source)
+            .Replace("CommonDbRealConnectivityNonProductionProbe", string.Empty, StringComparison.Ordinal)
+            .Replace("SyntheticConnectionReference", string.Empty, StringComparison.Ordinal)
+            .Replace("syntheticConnectionReference", string.Empty, StringComparison.Ordinal)
+            .Replace("Synthetic Connection Reference", string.Empty, StringComparison.Ordinal);
+        var commonDbConnectionScanSource = StripAllowedCommonDbConnectionContractMarkers(source)
+            .Replace("CommonDbRealConnectivityNonProductionProbe", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbProbeAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("commonDbProbeAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Probe Attempted", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbConnected", string.Empty, StringComparison.Ordinal)
+            .Replace("commonDbConnected", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Connected", string.Empty, StringComparison.Ordinal);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmCommonDbRealConnectivityNonProductionProbeStatusService", source);
+        Assert.Contains("CommonDbRealConnectivityNonProductionProbe", source);
+        Assert.Contains("CommonDbRealConnectivityNonProductionProbeExists", source);
+        Assert.Contains("CommonDbRealConnectivityApprovalGranted", source);
+        Assert.Contains("SecretProviderRealNonProductionApprovalGranted", source);
+        Assert.Contains("ConnectionStringResolved", source);
+        Assert.Contains("ConnectionStringValueMaterialized", source);
+        Assert.Contains("ConnectionStringLogged", source);
+        Assert.Contains("ConnectionStringReturnedToApi", source);
+        Assert.Contains("CommonDbProbeEnabled", source);
+        Assert.Contains("CommonDbProbeAttempted", source);
+        Assert.Contains("CommonDbConnected", source);
+        Assert.Contains("SqlConnectionCreated", source);
+        Assert.Contains("DbConnectionCreated", source);
+        Assert.Contains("UseSqlServerEnabled", source);
+        Assert.Contains("EfRuntimeEnabled", source);
+        Assert.Contains("AddDbContextRuntimeEnabled", source);
+        Assert.Contains("MigrationsCreated", source);
+        Assert.Contains("DatabaseSchemaChanged", source);
+        Assert.Contains("ProductivePersistenceEnabled", source);
+        Assert.Contains("ApiRequiresDatabase", source);
+        Assert.Contains("UsesSecretProviderRuntime", source);
+        Assert.Contains("UsesSyntheticFallback", source);
+        Assert.Contains("mock://crm/common-db", source);
+        Assert.Contains("ConnectionProbeSkippedBecauseSecretProviderApprovalNotGranted", source);
+        Assert.Contains("Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted", source);
+        Assert.Contains("Sprint7P4PortalAuthRealRuntimeProbe", source);
+        Assert.Contains("commonDbRealConnectivityNonProductionProbeExists: true", source);
+        Assert.Contains("connectionProbeSkippedBecauseSecretProviderApprovalNotGranted: true", source);
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SqlConnection", commonDbConnectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbConnection", commonDbConnectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SecretClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DefaultAzureCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ManagedIdentityCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("EnvironmentCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpContext.Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Headers[", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>
         assembly.GetReferencedAssemblies().Select(reference => reference.Name ?? "").ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -1860,6 +1963,9 @@ public sealed class ArchitectureDependencyTests
             .Replace("DbContextRuntimeActive", string.Empty, StringComparison.Ordinal)
             .Replace("dbContextRuntimeActive", string.Empty, StringComparison.Ordinal)
             .Replace("DbContext Runtime Active", string.Empty, StringComparison.Ordinal)
+            .Replace("AddDbContextRuntimeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("addDbContextRuntimeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("AddDbContext Runtime Enabled", string.Empty, StringComparison.Ordinal)
             .Replace("CrmDbContextPrototypeContract", string.Empty, StringComparison.Ordinal)
             .Replace("CrmDbContextPrototype", string.Empty, StringComparison.Ordinal)
             .Replace("InheritsRealDbContext", string.Empty, StringComparison.Ordinal)
@@ -1880,12 +1986,24 @@ public sealed class ArchitectureDependencyTests
             .Replace("Real Connection String Used", string.Empty, StringComparison.Ordinal)
             .Replace("ConnectionStringResolved", string.Empty, StringComparison.Ordinal)
             .Replace("connectionStringResolved", string.Empty, StringComparison.Ordinal)
-            .Replace("Connection String Resolved", string.Empty, StringComparison.Ordinal);
+            .Replace("Connection String Resolved", string.Empty, StringComparison.Ordinal)
+            .Replace("ConnectionStringValueMaterialized", string.Empty, StringComparison.Ordinal)
+            .Replace("connectionStringValueMaterialized", string.Empty, StringComparison.Ordinal)
+            .Replace("Connection String Value Materialized", string.Empty, StringComparison.Ordinal)
+            .Replace("ConnectionStringLogged", string.Empty, StringComparison.Ordinal)
+            .Replace("connectionStringLogged", string.Empty, StringComparison.Ordinal)
+            .Replace("Connection String Logged", string.Empty, StringComparison.Ordinal)
+            .Replace("ConnectionStringReturnedToApi", string.Empty, StringComparison.Ordinal)
+            .Replace("connectionStringReturnedToApi", string.Empty, StringComparison.Ordinal)
+            .Replace("Connection String Returned To API", string.Empty, StringComparison.Ordinal);
 
     private static string StripAllowedProviderMarkers(string source) =>
         source.Replace("UseSqlServerConfigured", string.Empty, StringComparison.Ordinal)
             .Replace("useSqlServerConfigured", string.Empty, StringComparison.Ordinal)
-            .Replace("UseSqlServer Configured", string.Empty, StringComparison.Ordinal);
+            .Replace("UseSqlServer Configured", string.Empty, StringComparison.Ordinal)
+            .Replace("UseSqlServerEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("useSqlServerEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("UseSqlServer Enabled", string.Empty, StringComparison.Ordinal);
 
     private static string StripAllowedSecretProviderContractMarkers(string source) =>
         source.Replace("KeyVaultClientConfigured", string.Empty, StringComparison.Ordinal)
@@ -1904,6 +2022,8 @@ public sealed class ArchitectureDependencyTests
     private static string StripAllowedCommonDbConnectionContractMarkers(string source) =>
         source.Replace("CommonDbConnectionStrategy", string.Empty, StringComparison.Ordinal)
             .Replace("CommonDbConnectivityDryRun", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbRealConnectivityNonProductionProbe", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Real Connectivity NonProduction Probe", string.Empty, StringComparison.Ordinal)
             .Replace("CommonDbConnectionAttempted", string.Empty, StringComparison.Ordinal)
             .Replace("commonDbConnectionAttempted", string.Empty, StringComparison.Ordinal)
             .Replace("Common DB Connection Attempted", string.Empty, StringComparison.Ordinal)
@@ -1916,6 +2036,15 @@ public sealed class ArchitectureDependencyTests
             .Replace("DbConnectionCreated", string.Empty, StringComparison.Ordinal)
             .Replace("dbConnectionCreated", string.Empty, StringComparison.Ordinal)
             .Replace("DbConnection Created", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbProbeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("commonDbProbeEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Probe Enabled", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbProbeAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("commonDbProbeAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Probe Attempted", string.Empty, StringComparison.Ordinal)
+            .Replace("CommonDbConnected", string.Empty, StringComparison.Ordinal)
+            .Replace("commonDbConnected", string.Empty, StringComparison.Ordinal)
+            .Replace("Common DB Connected", string.Empty, StringComparison.Ordinal)
             .Replace("CommonDbConnectionContract", string.Empty, StringComparison.Ordinal)
             .Replace("Sprint3P2CommonDbConnectionContractAndSecretStrategy", string.Empty, StringComparison.Ordinal)
             .Replace("commonDbConnectionStringsConfigured", string.Empty, StringComparison.Ordinal)

@@ -547,3 +547,7 @@ Runtime registration is not approved. Productive routes are not registered by de
 ## CRM Sprint 7 P2 - Secret Provider Real NonProduction Runtime Probe
 
 Sprint 7 P2 adds a controlled runtime probe contract for Secret Provider real NonProduction usage. The probe exists but is skipped by default because approval is not granted. It validates logical secret names only, does not read real values, does not call Key Vault, does not use Azure secret SDK runtime calls, does not require `.env`, and keeps real activation as NoGo. Next gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.
+
+## CRM Sprint 7 P3 - Common DB Real Connectivity NonProduction Probe
+
+Sprint 7 P3 adds a Common DB real connectivity NonProduction probe contract. The probe exists but is skipped because Secret Provider real approval is not granted. CRM does not resolve, materialize, log or return connection strings; does not open DB connections; does not enable EF runtime; does not create migrations; does not add SQL Server compose services; and keeps productive routes as NoGo. Next gate: `Sprint7P4PortalAuthRealRuntimeProbe`.
