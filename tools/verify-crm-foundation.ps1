@@ -893,6 +893,25 @@ foreach ($marker in @("Secret Provider real NonProduction approval package only;
     }
 }
 
+foreach ($path in @("docs/security/crm-sprint-7-p2-secret-provider-real-nonproduction-runtime-probe.md", "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-policy.md", "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-contract.md", "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-redaction.md", "docs/operations/crm-secret-provider-real-nonproduction-runtime-probe-runbook.md", "docs/operations/crm-secret-provider-real-nonproduction-runtime-probe-rollback.md", "docs/architecture/crm-secret-provider-real-nonproduction-runtime-probe-architecture.md", "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionRuntimeProbe.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionRuntimeProbeOptions.cs")) {
+    Require-Path $path
+}
+
+$sprint7P2Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint7P2Program -notlike "*/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe*") {
+    $failures += "Sprint 7 P2 secret provider runtime probe endpoint missing."
+}
+
+if ($sprint7P2Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe") {
+    $failures += "Sprint 7 P2 secret provider runtime probe endpoint must remain GET-only."
+}
+
+foreach ($marker in @("Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted", "SecretProviderRealNonProductionRuntimeProbe", "CrmSecretProviderRealNonProductionRuntimeProbeStatusService", "SecretProviderRealNonProductionRuntimeProbeExists", "SecretProviderRealRuntimeProbeEnabled", "SecretProviderRealRuntimeProbeAttempted", "SecretProviderRealRuntimeConnected", "RealSecretValueMaterialized", "RealSecretValueLogged", "SecretValueReturnedToApi", "KeyVaultRuntimeClientCreated", "KeyVaultRuntimeCallAttempted", "EnvSecretReadAttempted", "LogicalSecretNamesValidated", "SecretValuesValidated", "ProbeSkippedBecauseApprovalNotGranted", "Sprint7P3CommonDbRealConnectivityNonProductionProbe", "Sprint 7 P2 Secret Provider Real NonProduction Runtime Probe: Exists")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/security/crm-sprint-7-p2-secret-provider-real-nonproduction-runtime-probe.md") + "`n" + (Get-Content -Raw "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-contract.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 7 P2 secret provider runtime probe marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

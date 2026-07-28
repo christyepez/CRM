@@ -543,3 +543,7 @@ CRM does not read real tokens, does not read headers, does not inspect Authoriza
 Sprint 6 P5 adds a foundation-only locked stub runtime registration trial at `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial`.
 
 Runtime registration is not approved. Productive routes are not registered by default, so `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` must continue returning 404. Future explicit NonProduction enablement, if approved later, must return 423 Locked with no domain services, stores, DB, Portal Auth, token/header reads or DELETE. Next gate: `Sprint6P6Sprint6GateDecision`.
+
+## CRM Sprint 7 P2 - Secret Provider Real NonProduction Runtime Probe
+
+Sprint 7 P2 adds a controlled runtime probe contract for Secret Provider real NonProduction usage. The probe exists but is skipped by default because approval is not granted. It validates logical secret names only, does not read real values, does not call Key Vault, does not use Azure secret SDK runtime calls, does not require `.env`, and keeps real activation as NoGo. Next gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.

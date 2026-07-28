@@ -181,3 +181,7 @@ Locked stub runtime registration trial added as foundation-only evidence. Runtim
 # Sprint 7 P1 note
 
 Secret Provider real NonProduction approval package added. No real secret reads, `.env`, DB runtime, Portal Auth runtime, productive routes, DELETE or productive UI are active.
+
+# Sprint 7 P2 note
+
+Secret Provider real NonProduction runtime probe added as skipped-by-default and approval-gated. No real secret values, `.env`, Key Vault runtime call, Azure secret SDK runtime call, DB runtime, Portal Auth runtime, productive routes, DELETE or productive UI are active.

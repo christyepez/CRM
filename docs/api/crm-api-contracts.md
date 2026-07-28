@@ -324,3 +324,32 @@ Required response markers:
 - `nextGate=Sprint7P1SecretProviderRealNonProductionApproval`
 
 The endpoint must remain GET-only and must not register productive CRM routes, DELETE, Auth runtime, Portal HTTP, DB runtime or real secret provider access.
+
+# CRM Sprint 7 P2 API Contract Addendum
+
+`GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe` returns runtime probe metadata only.
+
+Required response markers:
+
+- `status=SecretProviderRealNonProductionRuntimeProbe`
+- `foundationMode=true`
+- `secretProviderRealNonProductionRuntimeProbeExists=true`
+- `secretProviderRealNonProductionApprovalGranted=false`
+- `secretProviderRealRuntimeProbeEnabled=false`
+- `secretProviderRealRuntimeProbeAttempted=false`
+- `secretProviderRealRuntimeConnected=false`
+- `realSecretReadAttempted=false`
+- `realSecretValueMaterialized=false`
+- `realSecretValueLogged=false`
+- `secretValueReturnedToApi=false`
+- `keyVaultRuntimeClientCreated=false`
+- `keyVaultRuntimeCallAttempted=false`
+- `azureSecretSdkRuntimeEnabled=false`
+- `envSecretReadAttempted=false`
+- `envFileRequired=false`
+- `logicalSecretNamesValidated=true`
+- `secretValuesValidated=false`
+- `probeSkippedBecauseApprovalNotGranted=true`
+- `nextGate=Sprint7P3CommonDbRealConnectivityNonProductionProbe`
+
+The endpoint must remain GET-only and must not read secrets, files, environment values, DB connections, Portal Auth tokens or headers.

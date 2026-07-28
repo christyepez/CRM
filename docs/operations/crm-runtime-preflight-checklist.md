@@ -203,3 +203,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `Sprint6GateDecision`, `GoForSprint7ControlledNonProductionActivationPlanning`, `RealActivationDecision=NoGo`, `ProductizationStatus=NotReady` and `Sprint7PlanningDecision=Go`.
 - Confirm productive `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` remain 404.
 - Confirm no `.env`, real secret provider, DB runtime, Portal Auth runtime, DELETE endpoint or productive UI activation exists.
+
+# Sprint 7 P2 secret provider runtime probe preflight addendum
+
+- Validate `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe`.
+- Confirm runtime probe exists but approvalGranted=false.
+- Confirm probeEnabled=false, probeAttempted=false, runtimeConnected=false and probeSkippedBecauseApprovalNotGranted=true.
+- Confirm no real secret read, no value materialization, no value logs, no API value return, no Key Vault runtime call, no Azure secret SDK runtime call, no `.env`, no DB runtime, no Portal Auth runtime, no productive route, no locked stub runtime or DELETE endpoint exists.

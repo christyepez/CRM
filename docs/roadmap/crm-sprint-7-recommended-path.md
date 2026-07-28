@@ -18,3 +18,7 @@ Recommended path:
 - Sprint 7 P6: Sprint 7 Gate Decision.
 
 Do not implement Sprint 7 runtime activation until each prior approval gate passes.
+
+## Sprint 7 P2 update
+
+P2 prepares `SecretProviderRealNonProductionRuntimeProbe` as a skipped runtime probe. Approval remains false, no real secret values are read, and the next gate is `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.

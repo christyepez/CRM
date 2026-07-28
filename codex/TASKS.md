@@ -588,3 +588,11 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - Negative routes remain 404 for `/api/crm/leads`, `/api/crm/accounts`, `/api/crm/contacts`.
 - Future explicit locked response: 423 Locked, NonProduction only, no DELETE.
 - Next Gate: `Sprint6P6Sprint6GateDecision`.
+
+## CRM Sprint 7 P2 - Secret Provider Real NonProduction Runtime Probe
+
+- Status: Implemented for PR review.
+- Endpoint: `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe`.
+- Defaults: approval=false, probeEnabled=false, probeAttempted=false, runtimeConnected=false, probeSkippedBecauseApprovalNotGranted=true.
+- Safety: no real secret reads, no value materialization, no value logs, no API value return, no Key Vault runtime call, no Azure secret SDK runtime call, no `.env`.
+- Next Gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.

@@ -208,3 +208,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 7 P1 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` - Secret Provider real NonProduction approval package; runtime remains disabled and disconnected.
+
+## Sprint 7 P2 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe` - Secret Provider real NonProduction runtime probe contract; skipped because approval is not granted.

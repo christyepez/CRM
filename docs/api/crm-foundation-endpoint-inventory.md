@@ -221,3 +221,9 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` | GET | Approval package only; no real secret read; runtime disabled |
+
+## Sprint 7 P2
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe` | GET | Runtime probe contract only; skipped because approval is not granted |

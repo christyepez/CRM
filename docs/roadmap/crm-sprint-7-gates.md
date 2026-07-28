@@ -20,3 +20,11 @@ Sprint 7 gate sequence:
 | P6 | Decide Sprint 7 gate | No production merge without approval |
 
 Production remains out of scope.
+
+## Sprint 7 P2 gate
+
+Decision: Runtime probe exists; approval is not granted, so probe is skipped.
+
+NoGo remains for real secret reads, DB runtime, Portal Auth runtime, productive routes, DELETE and productive UI.
+
+Next gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.
