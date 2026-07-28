@@ -384,6 +384,33 @@ foreach ($Sprint7P1Marker in @("SecretProviderRealNonProductionApproval", "Secre
     if ($Sprint7P1Text -notmatch [regex]::Escape($Sprint7P1Marker)) { Fail "Missing Sprint 7 P1 marker: $Sprint7P1Marker" }
 }
 
+# Sprint 7 P2 Secret Provider Real NonProduction Runtime Probe checks
+$Sprint7P2RequiredFiles = @(
+    "docs/security/crm-sprint-7-p2-secret-provider-real-nonproduction-runtime-probe.md",
+    "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-policy.md",
+    "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-contract.md",
+    "docs/security/crm-secret-provider-real-nonproduction-runtime-probe-redaction.md",
+    "docs/operations/crm-secret-provider-real-nonproduction-runtime-probe-runbook.md",
+    "docs/operations/crm-secret-provider-real-nonproduction-runtime-probe-rollback.md",
+    "docs/architecture/crm-secret-provider-real-nonproduction-runtime-probe-architecture.md",
+    "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeContracts.cs",
+    "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeStatusService.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionRuntimeProbe.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionRuntimeProbeOptions.cs"
+)
+foreach ($Sprint7P2RequiredFile in $Sprint7P2RequiredFiles) {
+    if (-not (Test-Path $Sprint7P2RequiredFile)) { Fail "Missing Sprint 7 P2 required file: $Sprint7P2RequiredFile" } else { Pass "Required Sprint 7 P2 file exists: $Sprint7P2RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe*") { Fail "Sprint 7 P2 secret provider runtime probe route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe") { Fail "Sprint 7 P2 endpoint must remain GET-only." }
+$Sprint7P2Text = ""
+foreach ($Sprint7P2File in @("src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionRuntimeProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint7P2File) { $Sprint7P2Text += "`n" + (Get-Content -Raw $Sprint7P2File) }
+}
+foreach ($Sprint7P2Marker in @("SecretProviderRealNonProductionRuntimeProbe", "SecretProviderRealNonProductionRuntimeProbeExists", "SecretProviderRealNonProductionApprovalGranted", "SecretProviderRealRuntimeProbeEnabled", "SecretProviderRealRuntimeProbeAttempted", "SecretProviderRealRuntimeConnected", "RealSecretValueMaterialized", "RealSecretValueLogged", "SecretValueReturnedToApi", "KeyVaultRuntimeClientCreated", "KeyVaultRuntimeCallAttempted", "AzureSecretSdkRuntimeEnabled", "EnvSecretReadAttempted", "EnvFileRequired", "LogicalSecretNamesValidated", "SecretValuesValidated", "ProbeSkippedBecauseApprovalNotGranted", "Sprint7P3CommonDbRealConnectivityNonProductionProbe", "Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted")) {
+    if ($Sprint7P2Text -notmatch [regex]::Escape($Sprint7P2Marker)) { Fail "Missing Sprint 7 P2 marker: $Sprint7P2Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

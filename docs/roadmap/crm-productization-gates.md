@@ -125,3 +125,9 @@ Blocked until explicit gate approval:
 - Portal Auth runtime.
 - Locked productive route runtime registration.
 - Productive routes, productive CRUD, DELETE and productive UI.
+
+# Sprint 7 P2 productization gate
+
+Productization remains `NotReady`.
+
+Secret Provider real NonProduction runtime probe exists but is skipped because approval is not granted. Real activation remains blocked.

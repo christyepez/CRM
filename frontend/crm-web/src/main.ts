@@ -413,6 +413,21 @@ class CrmReadinessService {
       sprint7ObservabilityRequired: true,
       sprint7P1Warning: 'Secret Provider real NonProduction approval package only; no real secrets are read',
       sprint7P1NextGate: 'Sprint7P2SecretProviderRealNonProductionRuntimeProbe',
+      sprint7P2SecretProviderRealNonProductionRuntimeProbe: 'Exists',
+      secretProviderRealNonProductionRuntimeProbeExists: true,
+      secretProviderRealRuntimeProbeEnabled: false,
+      secretProviderRealRuntimeProbeAttempted: false,
+      secretProviderRealValueMaterialized: false,
+      secretProviderRealValueLogged: false,
+      secretValueReturnedToApi: false,
+      keyVaultRuntimeClientCreated: false,
+      keyVaultRuntimeCallAttempted: false,
+      envSecretReadAttempted: false,
+      logicalSecretNamesValidated: true,
+      p2SecretValuesValidated: false,
+      probeSkippedBecauseApprovalNotGranted: true,
+      sprint7P2Warning: 'Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted',
+      sprint7P2NextGate: 'Sprint7P3CommonDbRealConnectivityNonProductionProbe',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -845,6 +860,25 @@ class CrmReadinessService {
       <p>Observability Required: true</p>
       <p>Secret Provider Real NonProduction Approval Warning: Secret Provider real NonProduction approval package only; no real secrets are read</p>
       <p>Next Gate: Sprint7P2SecretProviderRealNonProductionRuntimeProbe</p>
+      <p>Sprint 7 P2 Secret Provider Real NonProduction Runtime Probe: Exists</p>
+      <p>Secret Provider Real NonProduction Approval Granted: false</p>
+      <p>Secret Provider Real Runtime Probe Enabled: false</p>
+      <p>Secret Provider Real Runtime Probe Attempted: false</p>
+      <p>Secret Provider Real Runtime Connected: false</p>
+      <p>Real Secret Read Attempted: false</p>
+      <p>Real Secret Value Materialized: false</p>
+      <p>Real Secret Value Logged: false</p>
+      <p>Secret Value Returned To API: false</p>
+      <p>Key Vault Runtime Client Created: false</p>
+      <p>Key Vault Runtime Call Attempted: false</p>
+      <p>Azure Secret SDK Runtime Enabled: false</p>
+      <p>Env Secret Read Attempted: false</p>
+      <p>Env File Required: false</p>
+      <p>Logical Secret Names Validated: true</p>
+      <p>Secret Values Validated: false</p>
+      <p>Probe Skipped Because Approval Not Granted: true</p>
+      <p>Secret Provider Real NonProduction Runtime Probe Warning: Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted</p>
+      <p>Next Gate: Sprint7P3CommonDbRealConnectivityNonProductionProbe</p>
       <p>Non-Production</p>
     </section>
   `

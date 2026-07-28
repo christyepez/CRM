@@ -424,6 +424,21 @@ const expectedLabels = [
   'Observability Required: true',
   'Secret Provider Real NonProduction Approval Warning: Secret Provider real NonProduction approval package only; no real secrets are read',
   'Next Gate: Sprint7P2SecretProviderRealNonProductionRuntimeProbe',
+  'Sprint 7 P2 Secret Provider Real NonProduction Runtime Probe: Exists',
+  'Secret Provider Real Runtime Probe Enabled: false',
+  'Secret Provider Real Runtime Probe Attempted: false',
+  'Secret Provider Real Runtime Connected: false',
+  'Real Secret Value Materialized: false',
+  'Real Secret Value Logged: false',
+  'Secret Value Returned To API: false',
+  'Key Vault Runtime Client Created: false',
+  'Key Vault Runtime Call Attempted: false',
+  'Env Secret Read Attempted: false',
+  'Logical Secret Names Validated: true',
+  'Secret Values Validated: false',
+  'Probe Skipped Because Approval Not Granted: true',
+  'Secret Provider Real NonProduction Runtime Probe Warning: Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted',
+  'Next Gate: Sprint7P3CommonDbRealConnectivityNonProductionProbe',
   'Non-Production'
 ];
 
