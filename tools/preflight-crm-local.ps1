@@ -287,5 +287,32 @@ foreach ($P3Marker in @("CommonDbConnectivityDryRunContract", "CommonDbConnectiv
     if ($P3Text -notmatch [regex]::Escape($P3Marker)) { Fail "Missing Sprint 6 P3 marker: $P3Marker" }
 }
 
+# Sprint 6 P4 Portal Auth Token Propagation Dry-Run Contract checks
+$P4RequiredFiles = @(
+    "docs/integration/crm-sprint-6-p4-portal-auth-token-propagation-dry-run-contract.md",
+    "docs/integration/crm-portal-auth-token-propagation-dry-run-policy.md",
+    "docs/integration/crm-portal-auth-token-propagation-dry-run-contract.md",
+    "docs/integration/crm-portal-auth-token-propagation-dry-run-observability.md",
+    "docs/operations/crm-portal-auth-token-propagation-dry-run-runbook.md",
+    "docs/security/crm-portal-auth-token-propagation-dry-run-boundary.md",
+    "src/CRM.Application/Foundation/CrmPortalAuthTokenPropagationDryRunContracts.cs",
+    "src/CRM.Application/Foundation/CrmPortalAuthTokenPropagationDryRunStatusService.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthTokenPropagationDryRun.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthTokenPropagationDryRunOptions.cs"
+)
+foreach ($P4RequiredFile in $P4RequiredFiles) {
+    if (-not (Test-Path $P4RequiredFile)) { Fail "Missing Sprint 6 P4 required file: $P4RequiredFile" } else { Pass "Required Sprint 6 P4 file exists: $P4RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run*") { Pass "Sprint 6 P4 Portal Auth token propagation dry-run endpoint registered." } else { Fail "Sprint 6 P4 Portal Auth token propagation dry-run endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run") { Fail "Sprint 6 P4 Portal Auth token propagation dry-run endpoint must remain GET-only." }
+$P4Text = ""
+foreach ($P4File in @("src/CRM.Application/Foundation/CrmPortalAuthTokenPropagationDryRunContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthTokenPropagationDryRunStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthTokenPropagationDryRun.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P4File) { $P4Text += "`n" + (Get-Content -Raw $P4File) }
+}
+foreach ($P4Marker in @("PortalAuthTokenPropagationDryRunContract", "PortalAuthTokenPropagationDryRunContractExists", "PortalAuthDryRunApprovalGranted", "PortalAuthDryRunEnabled", "PortalAuthRuntimeConnected", "TokenReadAttempted", "HeaderReadAttempted", "PortalHttpAttempted", "UsesSyntheticTokenMetadata", "mock://crm/portal-auth-token", "mock://crm/portal-user", "RealTokenUsed", "RealHeadersRead", "LoginImplementedByCrm", "IdentityImplementedByCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "Sprint6P5LockedStubRuntimeRegistrationTrial", "Portal Auth token propagation dry-run contract only; no real tokens or headers are read")) {
+    if ($P4Text -notmatch [regex]::Escape($P4Marker)) { Fail "Missing Sprint 6 P4 marker: $P4Marker" }
+}
+if ($P4Text -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|HttpClient|PortalBaseUrl|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 6 P4 must not read headers/tokens, call Portal, store tokens or activate Auth runtime." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

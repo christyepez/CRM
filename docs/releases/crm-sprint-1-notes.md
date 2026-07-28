@@ -172,3 +172,6 @@ Sprint 6 P2 enables a deterministic Secret Provider safe mock for synthetic valu
 ## Sprint 6 P3 Note
 
 Sprint 6 P3 adds a Common DB connectivity dry-run contract using `mock://crm/common-db`. It does not resolve real connection strings, open DB connections, activate EF, create migrations or add SQL Server compose services.
+## Sprint 6 P4 Note
+
+Portal Auth token propagation dry-run contract added as foundation-only evidence. No real token/header read, no Portal HTTP and no Auth runtime activation.

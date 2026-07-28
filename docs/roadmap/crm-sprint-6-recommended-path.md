@@ -10,3 +10,6 @@ Recommended sequence:
 6. Sprint 6 P6: Sprint 6 Gate Decision.
 
 Do not implement Sprint 6 runtime activation before explicit approvals. After P3, the only recommended next gate is `Sprint6P4PortalAuthTokenPropagationDryRunContract`, still without token/header reads or Portal HTTP.
+## Sprint 6 P4 - Portal Auth Token Propagation Dry-Run Contract
+
+P4 validates the Portal Auth token propagation contract with synthetic metadata only. It does not activate Auth runtime, does not read real tokens or headers, and does not call PortalCorporativo. Next gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.
