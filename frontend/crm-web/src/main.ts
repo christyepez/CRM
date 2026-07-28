@@ -322,6 +322,23 @@ class CrmReadinessService {
       sprint6P2RealActivationApprovalGranted: false,
       sprint6P2Warning: 'Secret Provider safe mock only; no real secrets are read',
       sprint6P2NextGate: 'Sprint6P3CommonDbConnectivityDryRunContract',
+      sprint6P3CommonDbConnectivityDryRunContract: 'Exists',
+      commonDbConnectivityDryRunContractExists: true,
+      sprint6P3CommonDbDryRunApprovalGranted: false,
+      sprint6P3CommonDbDryRunEnabled: false,
+      sprint6P3CommonDbConnectionAttempted: false,
+      usesSecretProviderSafeMockMetadata: true,
+      usesSyntheticConnectionReference: true,
+      syntheticConnectionReference: 'mock://crm/common-db',
+      realConnectionStringUsed: false,
+      connectionStringResolved: false,
+      sqlConnectionCreated: false,
+      dbConnectionCreated: false,
+      sprint6P3EfRuntimeEnabled: false,
+      sprint6P3MigrationsCreated: false,
+      sprint6P3ApiRequiresDatabase: false,
+      sprint6P3Warning: 'Common DB connectivity dry-run contract only; no database connection is attempted',
+      sprint6P3NextGate: 'Sprint6P4PortalAuthTokenPropagationDryRunContract',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -664,6 +681,23 @@ class CrmReadinessService {
       <p>Real Activation Approval Granted: false</p>
       <p>Secret Provider Safe Mock Warning: Secret Provider safe mock only; no real secrets are read</p>
       <p>Next Gate: Sprint6P3CommonDbConnectivityDryRunContract</p>
+      <p>Sprint 6 P3 Common DB Connectivity Dry-Run Contract: Exists</p>
+      <p>Common DB Connectivity Dry-Run Contract Exists: true</p>
+      <p>Common DB Dry-Run Approval Granted: false</p>
+      <p>Common DB Dry-Run Enabled: false</p>
+      <p>Common DB Connection Attempted: false</p>
+      <p>Uses Secret Provider Safe Mock Metadata: true</p>
+      <p>Uses Synthetic Connection Reference: true</p>
+      <p>Synthetic Connection Reference: mock://crm/common-db</p>
+      <p>Real Connection String Used: false</p>
+      <p>Connection String Resolved: false</p>
+      <p>SqlConnection Created: false</p>
+      <p>DbConnection Created: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>API Requires Database: false</p>
+      <p>Common DB Connectivity Dry-Run Warning: Common DB connectivity dry-run contract only; no database connection is attempted</p>
+      <p>Next Gate: Sprint6P4PortalAuthTokenPropagationDryRunContract</p>
       <p>Non-Production</p>
     </section>
   `

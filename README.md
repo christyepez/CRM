@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 6 P3 - Common DB Connectivity Dry-Run Contract
+
+Sprint 6 P3 creates a Common DB dry-run contract only. It uses safe mock metadata and the synthetic reference `mock://crm/common-db`, but does not resolve a real connection string and does not connect to a database.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-6/common-db-connectivity-dry-run`
+
+Current decision: `CommonDbConnectivityDryRunContractExists=true`, `CommonDbDryRunApprovalGranted=false`, `CommonDbDryRunEnabled=false`, `CommonDbConnectionAttempted=false`, `UsesSecretProviderSafeMockMetadata=true`, `UsesSyntheticConnectionReference=true`, `RealConnectionStringUsed=false`, `ConnectionStringResolved=false`, `SqlConnectionCreated=false`, `DbConnectionCreated=false`, `EfRuntimeEnabled=false`, `MigrationsCreated=false`, `ApiRequiresDatabase=false`.
+
+Warning: `Common DB connectivity dry-run contract only; no database connection is attempted`. Next Gate: `Sprint6P4PortalAuthTokenPropagationDryRunContract`.
+
 ## Sprint 6 P2 - Secret Provider Safe Mock Activation
 
 Sprint 6 P2 enables only a safe deterministic Secret Provider mock for non-production contract validation.

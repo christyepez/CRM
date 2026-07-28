@@ -160,3 +160,17 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `.env`, file reads, environment reads, Key Vault clients and Azure secret SDKs are absent.
 - Confirm DB/Auth/Portal runtime, productive routes, locked stubs runtime and DELETE remain disabled.
 - Confirm next gate is `Sprint6P3CommonDbConnectivityDryRunContract`.
+
+## Sprint 6 P3 Common DB Connectivity Dry-Run Contract
+
+- Confirm dry-run docs exist.
+- Confirm `/api/crm/foundation/sprint-6/common-db-connectivity-dry-run` is registered as GET-only.
+- Confirm `CrmCommonDbConnectivityDryRunStatusService` exists.
+- Confirm `CommonDbConnectivityDryRun` placeholder exists.
+- Confirm `commonDbDryRunEnabled=false`.
+- Confirm `commonDbConnectionAttempted=false`.
+- Confirm `syntheticConnectionReference=mock://crm/common-db`.
+- Confirm `realConnectionStringUsed=false`.
+- Confirm `connectionStringResolved=false`.
+- Confirm no real DB connection, EF runtime, migrations, SQL Server compose, secrets/env reads, Portal Auth runtime, productive routes or DELETE are enabled.
+- Confirm next gate is `Sprint6P4PortalAuthTokenPropagationDryRunContract`.

@@ -4,9 +4,9 @@ Recommended sequence:
 
 1. Sprint 6 P1: NonProduction Runtime Approval Package - created, approvals not granted.
 2. Sprint 6 P2: Secret Provider Safe Mock Activation - enabled for synthetic values only.
-3. Sprint 6 P3: Common DB Connectivity Dry-Run Contract.
+3. Sprint 6 P3: Common DB Connectivity Dry-Run Contract - contract exists, connection attempt disabled.
 4. Sprint 6 P4: Portal Auth Token Propagation Dry-Run Contract.
 5. Sprint 6 P5: Locked Stub Runtime Registration Trial.
 6. Sprint 6 P6: Sprint 6 Gate Decision.
 
-Do not implement Sprint 6 runtime activation before explicit approvals. After P2, the only recommended next gate is `Sprint6P3CommonDbConnectivityDryRunContract`, still without real connection strings or DB connection attempts.
+Do not implement Sprint 6 runtime activation before explicit approvals. After P3, the only recommended next gate is `Sprint6P4PortalAuthTokenPropagationDryRunContract`, still without token/header reads or Portal HTTP.

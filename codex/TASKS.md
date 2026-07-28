@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 6 P3 - Common DB Connectivity Dry-Run Contract
+
+- [x] Validate GitHub main contains Sprint 6 P2 commit.
+- [x] Create Common DB dry-run documentation, policy, contract, observability, runbook and secret boundary.
+- [x] Add `CrmCommonDbConnectivityDryRunStatusService`.
+- [x] Add contract-only `CommonDbConnectivityDryRun` placeholder.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-6/common-db-connectivity-dry-run`.
+- [x] Use only `mock://crm/common-db` synthetic metadata.
+- [x] Keep `commonDbDryRunApprovalGranted=false`, `commonDbDryRunEnabled=false`, `commonDbConnectionAttempted=false`.
+- [x] Keep real connection string resolution, DB connection, EF runtime, migrations, SQL Server compose, secrets/env reads, Portal Auth runtime, productive routes and DELETE disabled.
+- [x] Next Gate: `Sprint6P4PortalAuthTokenPropagationDryRunContract`.
+
 ## CRM Sprint 6 P2 - Secret Provider Safe Mock Activation
 
 - [x] Validate GitHub main contains Sprint 6 P1 commit.
