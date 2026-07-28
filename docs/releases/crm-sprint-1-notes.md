@@ -189,3 +189,7 @@ Secret Provider real NonProduction runtime probe added as skipped-by-default and
 # Sprint 7 P3 note
 
 Common DB real connectivity NonProduction probe added as skipped-by-default and Secret Provider-gated. No real connection strings, DB connections, EF runtime, migrations, SQL Server compose, productive routes, DELETE or productive UI are active.
+
+# Sprint 7 P4 note
+
+Portal Auth real runtime NonProduction probe added as skipped-by-default and Portal Auth approval-gated. No Portal URL resolution, Portal HTTP call, token/header read, Auth middleware, `[Authorize]`, login/logout, CRM Identity, roles/permissions persistence, DB runtime, productive routes, DELETE or productive UI are active.

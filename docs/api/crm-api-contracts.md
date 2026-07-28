@@ -309,6 +309,14 @@ Required response markers:
 
 The endpoint must remain GET-only and must not read secrets, files, environment values, DB connections, Portal Auth tokens or headers.
 
+# CRM Sprint 7 P4 API Contract Addendum
+
+`GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe` returns Portal Auth real runtime probe metadata only.
+
+Required response markers include `status=PortalAuthRealRuntimeProbe`, `foundationMode=true`, `portalAuthRealRuntimeProbeExists=true`, `portalAuthRealRuntimeApprovalGranted=false`, `secretProviderRealNonProductionApprovalGranted=false`, `portalAuthRealRuntimeProbeEnabled=false`, `portalAuthRealRuntimeProbeAttempted=false`, `portalAuthRuntimeConnected=false`, `portalAuthBaseUrlResolved=false`, `portalAuthBaseUrlMaterialized=false`, `portalAuthBaseUrlLogged=false`, `portalAuthBaseUrlReturnedToApi=false`, `portalHttpClientCreated=false`, `portalHttpCallAttempted=false`, `portalAuthTokenValidationAttempted=false`, `tokenReadAttempted=false`, `headerReadAttempted=false`, `authorizationHeaderReadAttempted=false`, `realTokenMaterialized=false`, `realTokenLogged=false`, `tokenReturnedToApi=false`, `loginImplementedByCrm=false`, `logoutImplementedByCrm=false`, `identityImplementedByCrm=false`, `rolesPersistedInCrm=false`, `permissionsPersistedInCrm=false`, `productiveAuthorizationEnabled=false`, `apiRequiresPortalAuth=false`, `usesSyntheticFallback=true`, `syntheticPortalAuthReference=mock://crm/portal-auth`, `syntheticUserReference=mock://crm/portal-user`, `probeSkippedBecausePortalAuthApprovalNotGranted=true` and `nextGate=Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
+
+The endpoint must remain GET-only and must not resolve Portal URLs, call Portal, create runtime HTTP clients, read tokens or headers, activate Auth middleware, implement Identity/login/logout, persist roles/permissions, connect to DB or activate productive routes.
+
 # CRM Sprint 7 P3 API Contract Addendum
 
 `GET /api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe` returns Common DB real connectivity probe metadata only.

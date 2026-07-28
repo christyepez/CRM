@@ -36,3 +36,11 @@ Decision: Common DB real connectivity probe exists; Secret Provider approval is 
 NoGo remains for real connection strings, DB runtime, EF runtime, migrations, Portal Auth runtime, productive routes, DELETE and productive UI.
 
 Next gate: `Sprint7P4PortalAuthRealRuntimeProbe`.
+
+## Sprint 7 P4 gate
+
+Decision: Portal Auth real runtime probe exists; Portal Auth approval is not granted, so the Portal probe is skipped.
+
+NoGo remains for Portal HTTP, Portal Auth base URL resolution, token/header reads, Auth middleware, login/logout, CRM Identity, roles/permissions persistence, productive routes, DELETE and productive UI.
+
+Next gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.

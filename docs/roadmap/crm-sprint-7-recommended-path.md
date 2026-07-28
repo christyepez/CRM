@@ -26,3 +26,7 @@ P2 prepares `SecretProviderRealNonProductionRuntimeProbe` as a skipped runtime p
 ## Sprint 7 P3 update
 
 P3 prepares `CommonDbRealConnectivityNonProductionProbe` as a skipped Common DB probe. Secret Provider approval remains false, no connection value is resolved, and the next gate is `Sprint7P4PortalAuthRealRuntimeProbe`.
+
+## Sprint 7 P4 update
+
+P4 prepares `PortalAuthRealRuntimeProbe` as a skipped Portal Auth probe. Portal Auth approval remains false, no Portal base URL is resolved, no Portal HTTP call is attempted, no token/header read occurs, and the next gate is `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.

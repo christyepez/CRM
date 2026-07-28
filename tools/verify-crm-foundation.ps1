@@ -558,7 +558,27 @@ foreach ($marker in @("Non-production persistence seam only; no database configu
     }
 }
 
-if ($sourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
+$portalAuthSafeSourceText = $sourceText.
+    Replace("PortalHttpClientCreated", "").
+    Replace("portalHttpClientCreated", "").
+    Replace("Portal HTTP Client Created", "").
+    Replace("PortalAuthBaseUrlResolved", "").
+    Replace("portalAuthBaseUrlResolved", "").
+    Replace("Portal Auth Base URL Resolved", "").
+    Replace("PortalAuthBaseUrlMaterialized", "").
+    Replace("portalAuthBaseUrlMaterialized", "").
+    Replace("Portal Auth Base URL Materialized", "").
+    Replace("PortalAuthBaseUrlLogged", "").
+    Replace("portalAuthBaseUrlLogged", "").
+    Replace("Portal Auth Base URL Logged", "").
+    Replace("PortalAuthBaseUrlReturnedToApi", "").
+    Replace("portalAuthBaseUrlReturnedToApi", "").
+    Replace("Portal Auth Base URL Returned To API", "").
+    Replace("AuthorizationHeaderReadAttempted", "").
+    Replace("authorizationHeaderReadAttempted", "").
+    Replace("Authorization Header Read Attempted", "")
+
+if ($portalAuthSafeSourceText -match "HttpClient|PortalCorporativoUrl|PortalBaseUrl|portalBaseUrl") {
     $failures += "Runtime Portal adapter, URL or HTTP client found before integration approval."
 }
 
@@ -823,7 +843,7 @@ foreach ($marker in @("Portal Auth token propagation dry-run contract only; no r
     }
 }
 
-if ($sourceText -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") {
+if ($portalAuthSafeSourceText -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") {
     $failures += "Sprint 6 P4 must not read tokens/headers, store tokens or call Portal."
 }
 
@@ -928,6 +948,25 @@ if ($sprint7P3Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/
 foreach ($marker in @("Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted", "CommonDbRealConnectivityNonProductionProbe", "CrmCommonDbRealConnectivityNonProductionProbeStatusService", "CommonDbRealConnectivityNonProductionProbeExists", "CommonDbRealConnectivityApprovalGranted", "ConnectionStringResolved", "ConnectionStringValueMaterialized", "ConnectionStringLogged", "ConnectionStringReturnedToApi", "CommonDbProbeEnabled", "CommonDbProbeAttempted", "CommonDbConnected", "SqlConnectionCreated", "DbConnectionCreated", "UseSqlServerEnabled", "EfRuntimeEnabled", "AddDbContextRuntimeEnabled", "MigrationsCreated", "DatabaseSchemaChanged", "ProductivePersistenceEnabled", "ApiRequiresDatabase", "UsesSecretProviderRuntime", "UsesSyntheticFallback", "mock://crm/common-db", "ConnectionProbeSkippedBecauseSecretProviderApprovalNotGranted", "Sprint7P4PortalAuthRealRuntimeProbe", "Sprint 7 P3 Common DB Real Connectivity NonProduction Probe: Exists")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-sprint-7-p3-common-db-real-connectivity-nonproduction-probe.md") + "`n" + (Get-Content -Raw "docs/data/crm-common-db-real-connectivity-nonproduction-probe-contract.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
         $failures += "Missing Sprint 7 P3 Common DB probe marker: $marker"
+    }
+}
+
+foreach ($path in @("docs/integration/crm-sprint-7-p4-portal-auth-real-runtime-probe.md", "docs/integration/crm-portal-auth-real-runtime-probe-policy.md", "docs/integration/crm-portal-auth-real-runtime-probe-contract.md", "docs/integration/crm-portal-auth-real-runtime-probe-safety-boundary.md", "docs/operations/crm-portal-auth-real-runtime-probe-runbook.md", "docs/operations/crm-portal-auth-real-runtime-probe-rollback.md", "docs/architecture/crm-portal-auth-real-runtime-probe-architecture.md", "docs/security/crm-portal-auth-real-runtime-probe-token-boundary.md", "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbeOptions.cs")) {
+    Require-Path $path
+}
+
+$sprint7P4Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint7P4Program -notlike "*/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe*") {
+    $failures += "Sprint 7 P4 Portal Auth real runtime endpoint missing."
+}
+
+if ($sprint7P4Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe") {
+    $failures += "Sprint 7 P4 Portal Auth endpoint must remain GET-only."
+}
+
+foreach ($marker in @("Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted", "PortalAuthRealRuntimeProbe", "CrmPortalAuthRealRuntimeProbeStatusService", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthorizationHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Sprint 7 P4 Portal Auth Real Runtime Probe: Exists")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/integration/crm-sprint-7-p4-portal-auth-real-runtime-probe.md") + "`n" + (Get-Content -Raw "docs/integration/crm-portal-auth-real-runtime-probe-contract.md") + "`n" + (Get-Content -Raw "docs/security/crm-portal-auth-real-runtime-probe-token-boundary.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 7 P4 Portal Auth probe marker: $marker"
     }
 }
 

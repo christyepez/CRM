@@ -451,6 +451,39 @@ class CrmReadinessService {
       connectionProbeSkippedBecauseSecretProviderApprovalNotGranted: true,
       sprint7P3Warning: 'Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted',
       sprint7P3NextGate: 'Sprint7P4PortalAuthRealRuntimeProbe',
+      sprint7P4PortalAuthRealRuntimeProbe: 'Exists',
+      portalAuthRealRuntimeProbeExists: true,
+      portalAuthRealRuntimeApprovalGranted: false,
+      p4SecretProviderRealNonProductionApprovalGranted: false,
+      portalAuthRealRuntimeProbeEnabled: false,
+      portalAuthRealRuntimeProbeAttempted: false,
+      portalAuthRealRuntimeConnected: false,
+      portalAuthBaseUrlResolved: false,
+      portalAuthBaseUrlMaterialized: false,
+      portalAuthBaseUrlLogged: false,
+      portalAuthBaseUrlReturnedToApi: false,
+      portalHttpClientCreated: false,
+      portalHttpCallAttempted: false,
+      portalAuthTokenValidationAttempted: false,
+      p4TokenReadAttempted: false,
+      p4HeaderReadAttempted: false,
+      authorizationHeaderReadAttempted: false,
+      realTokenMaterialized: false,
+      realTokenLogged: false,
+      tokenReturnedToApi: false,
+      p4LoginImplementedByCrm: false,
+      p4LogoutImplementedByCrm: false,
+      p4IdentityImplementedByCrm: false,
+      rolesPersistedInCrm: false,
+      p4PermissionsPersistedInCrm: false,
+      sprint7P4ProductiveAuthorizationEnabled: false,
+      apiRequiresPortalAuth: false,
+      p4UsesSyntheticFallback: true,
+      syntheticPortalAuthReference: 'mock://crm/portal-auth',
+      p4SyntheticUserReference: 'mock://crm/portal-user',
+      probeSkippedBecausePortalAuthApprovalNotGranted: true,
+      sprint7P4Warning: 'Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted',
+      sprint7P4NextGate: 'Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -928,6 +961,38 @@ class CrmReadinessService {
       <p>Connection Probe Skipped Because Secret Provider Approval Not Granted: true</p>
       <p>Common DB Real Connectivity NonProduction Probe Warning: Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted</p>
       <p>Next Gate: Sprint7P4PortalAuthRealRuntimeProbe</p>
+      <p>Sprint 7 P4 Portal Auth Real Runtime Probe: Exists</p>
+      <p>Portal Auth Real Runtime Approval Granted: false</p>
+      <p>Secret Provider Real NonProduction Approval Granted: false</p>
+      <p>Portal Auth Real Runtime Probe Enabled: false</p>
+      <p>Portal Auth Real Runtime Probe Attempted: false</p>
+      <p>Portal Auth Runtime Connected: false</p>
+      <p>Portal Auth Base URL Resolved: false</p>
+      <p>Portal Auth Base URL Materialized: false</p>
+      <p>Portal Auth Base URL Logged: false</p>
+      <p>Portal Auth Base URL Returned To API: false</p>
+      <p>Portal HTTP Client Created: false</p>
+      <p>Portal HTTP Call Attempted: false</p>
+      <p>Portal Auth Token Validation Attempted: false</p>
+      <p>Token Read Attempted: false</p>
+      <p>Header Read Attempted: false</p>
+      <p>Authorization Header Read Attempted: false</p>
+      <p>Real Token Materialized: false</p>
+      <p>Real Token Logged: false</p>
+      <p>Token Returned To API: false</p>
+      <p>Login Implemented By CRM: false</p>
+      <p>Logout Implemented By CRM: false</p>
+      <p>Identity Implemented By CRM: false</p>
+      <p>Roles Persisted In CRM: false</p>
+      <p>Permissions Persisted In CRM: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>API Requires Portal Auth: false</p>
+      <p>Uses Synthetic Fallback: true</p>
+      <p>Synthetic Portal Auth Reference: mock://crm/portal-auth</p>
+      <p>Synthetic User Reference: mock://crm/portal-user</p>
+      <p>Probe Skipped Because Portal Auth Approval Not Granted: true</p>
+      <p>Portal Auth Real Runtime Probe Warning: Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted</p>
+      <p>Next Gate: Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423</p>
       <p>Non-Production</p>
     </section>
   `
