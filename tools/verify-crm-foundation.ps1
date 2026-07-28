@@ -755,6 +755,31 @@ foreach ($marker in @("NonProduction runtime approval package only; no runtime a
     }
 }
 
+foreach ($path in @("docs/security/crm-sprint-6-p2-secret-provider-safe-mock-activation.md", "docs/security/crm-secret-provider-safe-mock-policy.md", "docs/security/crm-secret-provider-safe-mock-contract.md", "docs/security/crm-secret-provider-safe-mock-synthetic-values.md", "docs/operations/crm-secret-provider-safe-mock-runbook.md", "src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderSafeMock.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderSafeMockOptions.cs")) {
+    Require-Path $path
+}
+
+$p2Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($p2Program -notlike "*/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation*") {
+    $failures += "Sprint 6 P2 secret provider safe mock endpoint missing."
+}
+
+if ($p2Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation") {
+    $failures += "Sprint 6 P2 secret provider safe mock endpoint must remain GET-only."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($p2Program -like "*$productiveRoute*") {
+        $failures += "Productive CRM route is registered by default: $productiveRoute"
+    }
+}
+
+foreach ($marker in @("Secret Provider safe mock only; no real secrets are read", "SecretProviderSafeMockActivation", "CrmSecretProviderSafeMockActivationStatusService", "SecretProviderSafeMock", "SecretProviderSafeMockExists", "SecretProviderSafeMockEnabled", "SecretProviderRuntimeConnected", "SecretProviderReadsRealSecrets", "SecretProviderReadsSyntheticValues", "SecretProviderReadsEnabledForMockOnly", "RealSecretsConfigured", "EnvFileRequired", "KeyVaultClientConfigured", "AzureSdkForSecretsConfigured", "SecretValuesExposedInLogs", "Sprint6P3CommonDbConnectivityDryRunContract", "Sprint 6 P2 Secret Provider Safe Mock Activation: Enabled", "Reads Real Secrets: false", "Reads Synthetic Values: true", "mock://crm/common-db", "mock://crm/portal-auth-base-url", "mock-client-id", "mock-client-secret-not-real", "mock://crm/observability")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/security/crm-sprint-6-p2-secret-provider-safe-mock-activation.md") + "`n" + (Get-Content -Raw "docs/security/crm-secret-provider-safe-mock-contract.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 6 P2 safe mock marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

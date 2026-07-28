@@ -317,6 +317,23 @@ const expectedLabels = [
   'Architecture Review Required: true',
   'NonProduction Runtime Approval Warning: NonProduction runtime approval package only; no runtime approval is granted',
   'Next Gate: Sprint6P2SecretProviderSafeMockActivation',
+  'Sprint 6 P2 Secret Provider Safe Mock Activation: Enabled',
+  'Secret Provider Safe Mock Exists: true',
+  'Secret Provider Safe Mock Enabled: true',
+  'Secret Provider Runtime Connected: false',
+  'Reads Real Secrets: false',
+  'Reads Synthetic Values: true',
+  'Reads Enabled For Mock Only: true',
+  'Real Secrets Configured: false',
+  'Env File Required: false',
+  'Key Vault Client Configured: false',
+  'Azure SDK For Secrets Configured: false',
+  'Secret Values Exposed In Logs: false',
+  'Common DB Dry-Run Approval Granted: false',
+  'Portal Auth Dry-Run Approval Granted: false',
+  'Real Activation Approval Granted: false',
+  'Secret Provider Safe Mock Warning: Secret Provider safe mock only; no real secrets are read',
+  'Next Gate: Sprint6P3CommonDbConnectivityDryRunContract',
   'Non-Production'
 ];
 

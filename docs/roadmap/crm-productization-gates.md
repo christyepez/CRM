@@ -92,3 +92,7 @@ Productization remains `NotReady`. Real activation, productive CRUD, DELETE, DB 
 ## Sprint 6 P1 Productization Gate
 
 The non-production runtime approval package exists, but all approvals remain false. Productization remains `NotReady`; real activation, productive routes, DELETE, secret reads, DB runtime, Portal Auth runtime and locked stub runtime registration remain blocked.
+
+## Sprint 6 P2 Productization Gate
+
+Secret Provider safe mock exists and is enabled only for synthetic values. Productization remains `NotReady`; real secrets, DB runtime, Portal Auth runtime, productive routes, DELETE and real activation remain blocked.

@@ -164,3 +164,7 @@ Sprint 5 closed with controlled non-production preparation approved and real act
 ## Sprint 6 P1 Note
 
 Sprint 6 P1 adds the non-production runtime approval package. The package exists, but non-production runtime approval, secret provider mock approval, common DB dry-run approval, Portal Auth dry-run approval, locked stub runtime trial approval, real activation, productive routes and DELETE remain denied.
+
+## Sprint 6 P2 Note
+
+Sprint 6 P2 enables a deterministic Secret Provider safe mock for synthetic values only. No real secrets, `.env`, Key Vault, Azure secret SDK, DB runtime, Portal Auth runtime, productive routes or DELETE are enabled.

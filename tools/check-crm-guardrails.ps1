@@ -223,6 +223,31 @@ foreach ($P1Marker in @("NonProductionRuntimeApprovalPackage", "NonProductionRun
     if ($P1Text -notmatch [regex]::Escape($P1Marker)) { Fail "Missing Sprint 6 P1 marker: $P1Marker" }
 }
 
+# Sprint 6 P2 Secret Provider Safe Mock Activation checks
+$P2RequiredFiles = @(
+    "docs/security/crm-sprint-6-p2-secret-provider-safe-mock-activation.md",
+    "docs/security/crm-secret-provider-safe-mock-policy.md",
+    "docs/security/crm-secret-provider-safe-mock-contract.md",
+    "docs/security/crm-secret-provider-safe-mock-synthetic-values.md",
+    "docs/operations/crm-secret-provider-safe-mock-runbook.md",
+    "src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationContracts.cs",
+    "src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationStatusService.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderSafeMock.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderSafeMockOptions.cs"
+)
+foreach ($P2RequiredFile in $P2RequiredFiles) {
+    if (-not (Test-Path $P2RequiredFile)) { Fail "Missing Sprint 6 P2 required file: $P2RequiredFile" } else { Pass "Required Sprint 6 P2 file exists: $P2RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation*") { Fail "Sprint 6 P2 safe mock route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation") { Fail "Sprint 6 P2 safe mock endpoint must remain GET-only." }
+$P2Text = ""
+foreach ($P2File in @("src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderSafeMockActivationStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderSafeMock.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P2File) { $P2Text += "`n" + (Get-Content -Raw $P2File) }
+}
+foreach ($P2Marker in @("SecretProviderSafeMockActivation", "SecretProviderSafeMockExists", "SecretProviderSafeMockEnabled", "SecretProviderRuntimeConnected", "SecretProviderReadsRealSecrets", "SecretProviderReadsSyntheticValues", "SecretProviderReadsEnabledForMockOnly", "RealSecretsConfigured", "EnvFileRequired", "KeyVaultClientConfigured", "AzureSdkForSecretsConfigured", "SecretValuesExposedInLogs", "Sprint6P3CommonDbConnectivityDryRunContract", "Secret Provider safe mock only; no real secrets are read", "mock://crm/common-db", "mock-client-secret-not-real")) {
+    if ($P2Text -notmatch [regex]::Escape($P2Marker)) { Fail "Missing Sprint 6 P2 marker: $P2Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

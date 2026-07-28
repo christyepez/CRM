@@ -104,6 +104,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-5/locked-productive-route-stub-trial", program);
         Assert.Contains("/api/crm/foundation/sprint-5/gate-decision", program);
         Assert.Contains("/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", program);
+        Assert.Contains("/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -1281,6 +1282,73 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void SecretProviderSafeMockActivation_UsesSyntheticValuesOnlyAndDoesNotReadRealSecrets()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmSecretProviderSafeMockActivationStatusService", source);
+        Assert.Contains("SecretProviderSafeMock", source);
+        Assert.Contains("SecretProviderSafeMockActivation", source);
+        Assert.Contains("SecretProviderSafeMockExists", source);
+        Assert.Contains("SecretProviderSafeMockEnabled", source);
+        Assert.Contains("SecretProviderReadsRealSecrets", source);
+        Assert.Contains("SecretProviderReadsSyntheticValues", source);
+        Assert.Contains("SecretProviderReadsEnabledForMockOnly", source);
+        Assert.Contains("RealSecretsConfigured", source);
+        Assert.Contains("EnvFileRequired", source);
+        Assert.Contains("KeyVaultClientConfigured", source);
+        Assert.Contains("AzureSdkForSecretsConfigured", source);
+        Assert.Contains("SecretValuesExposedInLogs", source);
+        Assert.Contains("Sprint6P3CommonDbConnectivityDryRunContract", source);
+        Assert.Contains("Secret Provider safe mock only; no real secrets are read", source);
+        Assert.Contains("mock://crm/common-db", source);
+        Assert.Contains("mock://crm/portal-auth-base-url", source);
+        Assert.Contains("mock-client-id", source);
+        Assert.Contains("mock-client-secret-not-real", source);
+        Assert.Contains("mock://crm/observability", source);
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);

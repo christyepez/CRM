@@ -42,6 +42,7 @@ builder.Services.AddSingleton<CrmPortalAuthProbeOptionalActivationStatusService>
 builder.Services.AddSingleton<CrmLockedProductiveRouteStubTrialStatusService>();
 builder.Services.AddSingleton<CrmSprint5GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmNonProductionRuntimeApprovalPackageStatusService>();
+builder.Services.AddSingleton<CrmSecretProviderSafeMockActivationStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -156,6 +157,9 @@ app.MapGet("/api/crm/foundation/sprint-5/gate-decision", (CrmSprint5GateDecision
 
 app.MapGet("/api/crm/foundation/sprint-6/nonproduction-runtime-approval-package", (CrmNonProductionRuntimeApprovalPackageStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint6NonProductionRuntimeApprovalPackage");
+
+app.MapGet("/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation", (CrmSecretProviderSafeMockActivationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint6SecretProviderSafeMockActivation");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
