@@ -874,6 +874,25 @@ foreach ($marker in @("Sprint 6 gate decision only; no real activation", "Sprint
     }
 }
 
+foreach ($path in @("docs/security/crm-sprint-7-p1-secret-provider-real-nonproduction-approval.md", "docs/security/crm-secret-provider-real-nonproduction-approval-policy.md", "docs/security/crm-secret-provider-real-nonproduction-secret-boundary.md", "docs/security/crm-secret-provider-real-nonproduction-approved-secret-names.md", "docs/operations/crm-secret-provider-real-nonproduction-approval-runbook.md", "docs/operations/crm-secret-provider-real-nonproduction-rollback-plan.md", "docs/architecture/crm-secret-provider-real-nonproduction-architecture-review.md", "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionApprovalContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRealNonProductionApprovalStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionApprovalPlaceholder.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRealNonProductionApprovalOptions.cs")) {
+    Require-Path $path
+}
+
+$sprint7P1Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint7P1Program -notlike "*/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval*") {
+    $failures += "Sprint 7 P1 secret provider approval endpoint missing."
+}
+
+if ($sprint7P1Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval") {
+    $failures += "Sprint 7 P1 secret provider approval endpoint must remain GET-only."
+}
+
+foreach ($marker in @("Secret Provider real NonProduction approval package only; no real secrets are read", "SecretProviderRealNonProductionApproval", "CrmSecretProviderRealNonProductionApprovalStatusService", "SecretProviderRealNonProductionApprovalPlaceholder", "SecretProviderRealNonProductionApprovalPackageExists", "SecretProviderRealNonProductionApprovalGranted", "SecretProviderRealRuntimeEnabled", "SecretProviderRealRuntimeConnected", "RealSecretReadAttempted", "KeyVaultRuntimeClientEnabled", "AzureSecretSdkRuntimeEnabled", "EnvFileRequired", "EnvSecretReadAllowed", "SecretsLogged", "SecretNamesApproved", "SecretValuesApproved", "Sprint7P2SecretProviderRealNonProductionRuntimeProbe", "Sprint 7 P1 Secret Provider Real NonProduction Approval: Exists", "Real Secret Read Attempted: false")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/security/crm-sprint-7-p1-secret-provider-real-nonproduction-approval.md") + "`n" + (Get-Content -Raw "docs/security/crm-secret-provider-real-nonproduction-approved-secret-names.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 7 P1 secret provider approval marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }

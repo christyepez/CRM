@@ -190,6 +190,13 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm lockedStubRuntimeRegistrationEnabled=false and lockedStubsRegisteredAtRuntime=false.
 - Confirm productiveRoutesRegistered=false and default negative routes return 404.
 - Confirm no DELETE, DB, Auth, Portal, token/header reads, domain services or store usage from stubs.
+# Sprint 7 P1 secret provider approval preflight addendum
+
+- Validate `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`.
+- Confirm approval package exists but approvalGranted=false.
+- Confirm runtimeEnabled=false, runtimeConnected=false and realSecretReadAttempted=false.
+- Confirm no `.env`, secret value, environment secret read, DB runtime, Portal Auth runtime, productive route, locked stub runtime or DELETE endpoint exists.
+
 # Sprint 6 P6 gate decision preflight addendum
 
 - Validate `GET /api/crm/foundation/sprint-6/gate-decision`.

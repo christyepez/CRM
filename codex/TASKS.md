@@ -1,5 +1,19 @@
 # TASKS.md
 
+## CRM Sprint 7 P1 - Secret Provider Real NonProduction Approval
+
+- [x] Validate GitHub main contains Sprint 6 P6 commit.
+- [x] Create Secret Provider real NonProduction approval docs, policy, boundary, approved logical names, runbook, rollback and architecture review.
+- [x] Add `CrmSecretProviderRealNonProductionApprovalStatusService`.
+- [x] Add contract-only Infrastructure placeholder.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`.
+- [x] Keep approval granted false.
+- [x] Keep runtime enabled/connected false.
+- [x] Keep real secret read attempted false.
+- [x] Keep secret store runtime client, secret SDK runtime, `.env`, environment secret reads and secret logging disabled.
+- [x] Keep DB/Auth/Portal runtime, productive routes, locked stubs runtime, DELETE, login, Identity and productive UI disabled.
+- [x] Next Gate: `Sprint7P2SecretProviderRealNonProductionRuntimeProbe`.
+
 ## CRM Sprint 6 P6 - Sprint 6 Gate Decision
 
 - [x] Validate GitHub main contains Sprint 6 P5 commit.

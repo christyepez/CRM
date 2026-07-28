@@ -106,6 +106,12 @@ Portal Auth token propagation is No-Go for productive activation. CRM remains fo
 ## Sprint 6 P5 Productization Gate
 
 Locked stub runtime registration remains No-Go for productive activation. CRM keeps productive routes unregistered by default; future 423 Locked behavior requires explicit NonProduction approval.
+# Sprint 7 P1 productization gate
+
+Productization remains `NotReady`.
+
+Secret Provider real NonProduction approval package exists, but real secret access is not approved. Productive activation remains blocked.
+
 # Sprint 6 P6 productization gate
 
 Sprint 6 closes with Productization Status `NotReady`.
