@@ -186,3 +186,6 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 6 P3 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-6/common-db-connectivity-dry-run`: reports the Common DB dry-run contract; no connection string is resolved and no database connection is attempted.
+## Sprint 6 P4 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` - Portal Auth token propagation dry-run contract. Contract-only, synthetic metadata, no token/header read and no Portal HTTP.

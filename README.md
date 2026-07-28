@@ -509,3 +509,8 @@ Locked productive route stub trial is documented and exposed through a foundatio
 ## CRM Sprint 5 P6
 
 Sprint 5 gate decision is complete: `GoForControlledNonProductionPreparation`. Real activation remains `NoGo`; Sprint 6 planning is `Go`.
+## CRM Sprint 6 P4 - Portal Auth Token Propagation Dry-Run Contract
+
+Sprint 6 P4 adds a foundation-only Portal Auth token propagation dry-run contract. CRM exposes `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` with synthetic metadata only: `mock://crm/portal-auth-token` and `mock://crm/portal-user`.
+
+CRM does not read real tokens, does not read headers, does not inspect Authorization values, does not call PortalCorporativo over HTTP, does not implement login/logout or Identity, and does not persist roles or permissions. Real activation remains No-Go. Next gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.

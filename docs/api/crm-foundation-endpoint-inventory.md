@@ -187,3 +187,8 @@
 ## Sprint 6 P3
 
 - `GET /api/crm/foundation/sprint-6/common-db-connectivity-dry-run` - Common DB dry-run contract exists, disabled, using only `mock://crm/common-db`.
+## Sprint 6 P4
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` | GET | Foundation-only contract; no token/header read; no Portal HTTP |

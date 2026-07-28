@@ -174,3 +174,11 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `connectionStringResolved=false`.
 - Confirm no real DB connection, EF runtime, migrations, SQL Server compose, secrets/env reads, Portal Auth runtime, productive routes or DELETE are enabled.
 - Confirm next gate is `Sprint6P4PortalAuthTokenPropagationDryRunContract`.
+## Sprint 6 P4 Portal Auth token propagation dry-run
+
+- Confirm P4 documentation exists.
+- Confirm `CrmPortalAuthTokenPropagationDryRunStatusService` exists.
+- Confirm `PortalAuthTokenPropagationDryRun` placeholder exists.
+- Confirm endpoint `/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` returns 200.
+- Confirm tokenReadAttempted=false, headerReadAttempted=false and portalHttpAttempted=false.
+- Confirm no Auth middleware, no token/header reads, no Portal HTTP and no productive routes.

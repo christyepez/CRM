@@ -100,3 +100,6 @@ Secret Provider safe mock exists and is enabled only for synthetic values. Produ
 ## Sprint 6 P3 Productization Gate
 
 Common DB connectivity dry-run contract exists, but approval, connection attempts, real connection strings, EF runtime and migrations remain disabled. Productization remains `NotReady`.
+## Sprint 6 P4 Productization Gate
+
+Portal Auth token propagation is No-Go for productive activation. CRM remains foundation-only and must not read tokens/headers, call Portal, enable Auth middleware, implement Identity or persist permissions.

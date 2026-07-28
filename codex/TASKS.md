@@ -544,3 +544,11 @@ Status: implemented as document-only preferred, disabled by default. Next gate: 
 ## Sprint 5 P6 - Sprint 5 Gate Decision
 
 Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProductionRuntimeApprovalPackage.
+## CRM Sprint 6 P4 - Portal Auth Token Propagation Dry-Run Contract
+
+- Status: Implemented as contract-only dry-run.
+- Endpoint: `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run`.
+- Synthetic metadata: `mock://crm/portal-auth-token`, `mock://crm/portal-user`.
+- Safety: tokenReadAttempted=false, headerReadAttempted=false, portalHttpAttempted=false, realTokenUsed=false, realHeadersRead=false.
+- Boundaries: no Auth middleware, no `[Authorize]`, no login/logout, no CRM Identity, no Portal HTTP, no DB runtime, no productive routes.
+- Next Gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.

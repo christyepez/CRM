@@ -267,3 +267,10 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 
 - `GET /api/crm/foundation/sprint-6/common-db-connectivity-dry-run` returns `status=CommonDbConnectivityDryRunContract`, `commonDbConnectivityDryRunContractExists=true`, `commonDbDryRunApprovalGranted=false`, `commonDbDryRunEnabled=false`, `commonDbConnectionAttempted=false`, `usesSecretProviderSafeMockMetadata=true`, `usesSyntheticConnectionReference=true`, `syntheticConnectionReference=mock://crm/common-db`, `realConnectionStringUsed=false`, `connectionStringResolved=false`, `sqlConnectionCreated=false`, `dbConnectionCreated=false`, `efRuntimeEnabled=false`, `migrationsCreated=false`, `apiRequiresDatabase=false`, `nonProductionOnly=true`, `rollbackRequired=true`, `observabilityRequired=true`, `nextGate=Sprint6P4PortalAuthTokenPropagationDryRunContract` and `Common DB connectivity dry-run contract only; no database connection is attempted`.
 - This endpoint is GET-only and does not resolve connection strings, open DB connections, activate EF, create migrations or modify state.
+## Sprint 6 P4 Portal Auth Token Propagation Dry-Run
+
+- `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run`
+- Status: `PortalAuthTokenPropagationDryRunContract`
+- Contract exists with synthetic token/user metadata only.
+- `tokenReadAttempted=false`, `headerReadAttempted=false`, `portalHttpAttempted=false`.
+- No Authorization header read, no Portal HTTP, no Auth middleware, no Identity, no role/permission persistence.

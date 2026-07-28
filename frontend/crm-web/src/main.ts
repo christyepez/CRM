@@ -339,6 +339,25 @@ class CrmReadinessService {
       sprint6P3ApiRequiresDatabase: false,
       sprint6P3Warning: 'Common DB connectivity dry-run contract only; no database connection is attempted',
       sprint6P3NextGate: 'Sprint6P4PortalAuthTokenPropagationDryRunContract',
+      sprint6P4PortalAuthTokenPropagationDryRunContract: 'Exists',
+      portalAuthTokenPropagationDryRunContractExists: true,
+      sprint6P4PortalAuthDryRunApprovalGranted: false,
+      sprint6P4PortalAuthDryRunEnabled: false,
+      sprint6P4PortalAuthRuntimeConnected: false,
+      tokenReadAttempted: false,
+      headerReadAttempted: false,
+      portalHttpAttempted: false,
+      usesSyntheticTokenMetadata: true,
+      syntheticTokenReference: 'mock://crm/portal-auth-token',
+      syntheticUserReference: 'mock://crm/portal-user',
+      realTokenUsed: false,
+      realHeadersRead: false,
+      sprint6P4LoginImplementedByCrm: false,
+      sprint6P4IdentityImplementedByCrm: false,
+      sprint6P4PermissionsPersistedInCrm: false,
+      sprint6P4ProductiveAuthorizationEnabled: false,
+      sprint6P4Warning: 'Portal Auth token propagation dry-run contract only; no real tokens or headers are read',
+      sprint6P4NextGate: 'Sprint6P5LockedStubRuntimeRegistrationTrial',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -698,6 +717,25 @@ class CrmReadinessService {
       <p>API Requires Database: false</p>
       <p>Common DB Connectivity Dry-Run Warning: Common DB connectivity dry-run contract only; no database connection is attempted</p>
       <p>Next Gate: Sprint6P4PortalAuthTokenPropagationDryRunContract</p>
+      <p>Sprint 6 P4 Portal Auth Token Propagation Dry-Run Contract: Exists</p>
+      <p>Portal Auth Token Propagation Dry-Run Contract Exists: true</p>
+      <p>Portal Auth Dry-Run Approval Granted: false</p>
+      <p>Portal Auth Dry-Run Enabled: false</p>
+      <p>Portal Auth Runtime Connected: false</p>
+      <p>Token Read Attempted: false</p>
+      <p>Header Read Attempted: false</p>
+      <p>Portal HTTP Attempted: false</p>
+      <p>Uses Synthetic Token Metadata: true</p>
+      <p>Synthetic Token Reference: mock://crm/portal-auth-token</p>
+      <p>Synthetic User Reference: mock://crm/portal-user</p>
+      <p>Real Token Used: false</p>
+      <p>Real Headers Read: false</p>
+      <p>Login Implemented By CRM: false</p>
+      <p>Identity Implemented By CRM: false</p>
+      <p>Permissions Persisted In CRM: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>Portal Auth Token Propagation Dry-Run Warning: Portal Auth token propagation dry-run contract only; no real tokens or headers are read</p>
+      <p>Next Gate: Sprint6P5LockedStubRuntimeRegistrationTrial</p>
       <p>Non-Production</p>
     </section>
   `
