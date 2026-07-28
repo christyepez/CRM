@@ -96,3 +96,7 @@ The non-production runtime approval package exists, but all approvals remain fal
 ## Sprint 6 P2 Productization Gate
 
 Secret Provider safe mock exists and is enabled only for synthetic values. Productization remains `NotReady`; real secrets, DB runtime, Portal Auth runtime, productive routes, DELETE and real activation remain blocked.
+
+## Sprint 6 P3 Productization Gate
+
+Common DB connectivity dry-run contract exists, but approval, connection attempts, real connection strings, EF runtime and migrations remain disabled. Productization remains `NotReady`.

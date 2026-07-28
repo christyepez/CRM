@@ -261,5 +261,31 @@ foreach ($P2Marker in @("SecretProviderSafeMockActivation", "SecretProviderSafeM
     if ($P2Text -notmatch [regex]::Escape($P2Marker)) { Fail "Missing Sprint 6 P2 marker: $P2Marker" }
 }
 
+# Sprint 6 P3 Common DB Connectivity Dry-Run Contract checks
+$P3RequiredFiles = @(
+    "docs/data/crm-sprint-6-p3-common-db-connectivity-dry-run-contract.md",
+    "docs/data/crm-common-db-connectivity-dry-run-policy.md",
+    "docs/data/crm-common-db-connectivity-dry-run-contract.md",
+    "docs/data/crm-common-db-connectivity-dry-run-observability.md",
+    "docs/operations/crm-common-db-connectivity-dry-run-runbook.md",
+    "docs/security/crm-common-db-connectivity-dry-run-secret-boundary.md",
+    "src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunStatusService.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityDryRun.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityDryRunOptions.cs"
+)
+foreach ($P3RequiredFile in $P3RequiredFiles) {
+    if (-not (Test-Path $P3RequiredFile)) { Fail "Missing Sprint 6 P3 required file: $P3RequiredFile" } else { Pass "Required Sprint 6 P3 file exists: $P3RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-6/common-db-connectivity-dry-run*") { Pass "Sprint 6 P3 common DB dry-run endpoint registered." } else { Fail "Sprint 6 P3 common DB dry-run endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/common-db-connectivity-dry-run") { Fail "Sprint 6 P3 common DB dry-run endpoint must remain GET-only." }
+$P3Text = ""
+foreach ($P3File in @("src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityDryRun.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P3File) { $P3Text += "`n" + (Get-Content -Raw $P3File) }
+}
+foreach ($P3Marker in @("CommonDbConnectivityDryRunContract", "CommonDbConnectivityDryRunContractExists", "CommonDbDryRunApprovalGranted", "CommonDbDryRunEnabled", "CommonDbConnectionAttempted", "UsesSecretProviderSafeMockMetadata", "UsesSyntheticConnectionReference", "mock://crm/common-db", "RealConnectionStringUsed", "ConnectionStringResolved", "SqlConnectionCreated", "DbConnectionCreated", "EfRuntimeEnabled", "MigrationsCreated", "ApiRequiresDatabase", "Sprint6P4PortalAuthTokenPropagationDryRunContract", "Common DB connectivity dry-run contract only; no database connection is attempted")) {
+    if ($P3Text -notmatch [regex]::Escape($P3Marker)) { Fail "Missing Sprint 6 P3 marker: $P3Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

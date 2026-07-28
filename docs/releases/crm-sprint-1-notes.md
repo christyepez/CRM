@@ -168,3 +168,7 @@ Sprint 6 P1 adds the non-production runtime approval package. The package exists
 ## Sprint 6 P2 Note
 
 Sprint 6 P2 enables a deterministic Secret Provider safe mock for synthetic values only. No real secrets, `.env`, Key Vault, Azure secret SDK, DB runtime, Portal Auth runtime, productive routes or DELETE are enabled.
+
+## Sprint 6 P3 Note
+
+Sprint 6 P3 adds a Common DB connectivity dry-run contract using `mock://crm/common-db`. It does not resolve real connection strings, open DB connections, activate EF, create migrations or add SQL Server compose services.

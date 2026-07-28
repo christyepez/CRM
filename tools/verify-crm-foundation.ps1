@@ -780,11 +780,36 @@ foreach ($marker in @("Secret Provider safe mock only; no real secrets are read"
     }
 }
 
+foreach ($path in @("docs/data/crm-sprint-6-p3-common-db-connectivity-dry-run-contract.md", "docs/data/crm-common-db-connectivity-dry-run-policy.md", "docs/data/crm-common-db-connectivity-dry-run-contract.md", "docs/data/crm-common-db-connectivity-dry-run-observability.md", "docs/operations/crm-common-db-connectivity-dry-run-runbook.md", "docs/security/crm-common-db-connectivity-dry-run-secret-boundary.md", "src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbConnectivityDryRunStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityDryRun.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityDryRunOptions.cs")) {
+    Require-Path $path
+}
+
+$p3Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($p3Program -notlike "*/api/crm/foundation/sprint-6/common-db-connectivity-dry-run*") {
+    $failures += "Sprint 6 P3 common DB connectivity dry-run endpoint missing."
+}
+
+if ($p3Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/common-db-connectivity-dry-run") {
+    $failures += "Sprint 6 P3 common DB connectivity dry-run endpoint must remain GET-only."
+}
+
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
+    if ($p3Program -like "*$productiveRoute*") {
+        $failures += "Productive CRM route is registered by default: $productiveRoute"
+    }
+}
+
+foreach ($marker in @("Common DB connectivity dry-run contract only; no database connection is attempted", "CommonDbConnectivityDryRunContract", "CrmCommonDbConnectivityDryRunStatusService", "CommonDbConnectivityDryRun", "CommonDbConnectivityDryRunContractExists", "CommonDbDryRunApprovalGranted", "CommonDbDryRunEnabled", "CommonDbConnectionAttempted", "UsesSecretProviderSafeMockMetadata", "UsesSyntheticConnectionReference", "mock://crm/common-db", "RealConnectionStringUsed", "ConnectionStringResolved", "SqlConnectionCreated", "DbConnectionCreated", "EfRuntimeEnabled", "MigrationsCreated", "ApiRequiresDatabase", "Sprint6P4PortalAuthTokenPropagationDryRunContract", "Sprint 6 P3 Common DB Connectivity Dry-Run Contract: Exists", "Common DB Connection Attempted: false")) {
+    if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/data/crm-sprint-6-p3-common-db-connectivity-dry-run-contract.md") + "`n" + (Get-Content -Raw "docs/data/crm-common-db-connectivity-dry-run-contract.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
+        $failures += "Missing Sprint 6 P3 common DB dry-run marker: $marker"
+    }
+}
+
 if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|MapDelete") {
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }
 
-$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "")
+$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "").Replace("RealConnectionStringUsed", "").Replace("realConnectionStringUsed", "").Replace("Real Connection String Used", "").Replace("ConnectionStringResolved", "").Replace("connectionStringResolved", "").Replace("Connection String Resolved", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "")
 if ($connectionScanText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
     $failures += "Runtime Financial adapter, connection string, shared DB or URL found before integration approval."
 }

@@ -334,6 +334,23 @@ const expectedLabels = [
   'Real Activation Approval Granted: false',
   'Secret Provider Safe Mock Warning: Secret Provider safe mock only; no real secrets are read',
   'Next Gate: Sprint6P3CommonDbConnectivityDryRunContract',
+  'Sprint 6 P3 Common DB Connectivity Dry-Run Contract: Exists',
+  'Common DB Connectivity Dry-Run Contract Exists: true',
+  'Common DB Dry-Run Approval Granted: false',
+  'Common DB Dry-Run Enabled: false',
+  'Common DB Connection Attempted: false',
+  'Uses Secret Provider Safe Mock Metadata: true',
+  'Uses Synthetic Connection Reference: true',
+  'Synthetic Connection Reference: mock://crm/common-db',
+  'Real Connection String Used: false',
+  'Connection String Resolved: false',
+  'SqlConnection Created: false',
+  'DbConnection Created: false',
+  'EF Runtime Enabled: false',
+  'Migrations Created: false',
+  'API Requires Database: false',
+  'Common DB Connectivity Dry-Run Warning: Common DB connectivity dry-run contract only; no database connection is attempted',
+  'Next Gate: Sprint6P4PortalAuthTokenPropagationDryRunContract',
   'Non-Production'
 ];
 

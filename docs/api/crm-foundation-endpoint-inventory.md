@@ -183,3 +183,7 @@
 ## Sprint 6 P2
 
 - `GET /api/crm/foundation/sprint-6/secret-provider-safe-mock-activation` - safe mock exists and is enabled for synthetic values only; no real secrets are read.
+
+## Sprint 6 P3
+
+- `GET /api/crm/foundation/sprint-6/common-db-connectivity-dry-run` - Common DB dry-run contract exists, disabled, using only `mock://crm/common-db`.
