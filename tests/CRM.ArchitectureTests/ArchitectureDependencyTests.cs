@@ -1534,6 +1534,83 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("LockedProductiveRouteStubRuntime", source, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void LockedStubRuntimeRegistrationTrial_IsDocumentOnlyAndDoesNotRegisterProductiveRoutes()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmLockedStubRuntimeRegistrationTrialStatusService", source);
+        Assert.Contains("LockedStubRuntimeRegistrationTrial", source);
+        Assert.Contains("LockedStubRuntimeRegistrationTrialExists", source);
+        Assert.Contains("LockedStubRuntimeRegistrationApprovalGranted", source);
+        Assert.Contains("LockedStubRuntimeRegistrationEnabled", source);
+        Assert.Contains("LockedStubsRegisteredAtRuntime", source);
+        Assert.Contains("ProductiveRoutesRegistered", source);
+        Assert.Contains("ProductiveCrudEnabled", source);
+        Assert.Contains("DeleteEndpointsEnabled", source);
+        Assert.Contains("DefaultNegativeRouteStatus", source);
+        Assert.Contains("FutureLockedResponseStatusIfExplicitlyEnabled", source);
+        Assert.Contains("RuntimeFlagDefaultEnabled", source);
+        Assert.Contains("UsesDomainServices", source);
+        Assert.Contains("UsesFoundationStores", source);
+        Assert.Contains("UsesDatabase", source);
+        Assert.Contains("UsesPortalAuth", source);
+        Assert.Contains("UsesTokenOrHeaderReads", source);
+        Assert.Contains("DocumentOnlyPreferredWithNoRuntimeRegistration", source);
+        Assert.Contains("Sprint6P6Sprint6GateDecision", source);
+        Assert.Contains("Locked stub runtime registration trial only; no productive routes are registered by default", source);
+        Assert.Contains("Sprint 6 P5 Locked Stub Runtime Registration Trial: Exists", source);
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("LockedStubRuntimeRegistrationTrial.cs", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("LockedProductiveRouteStubRuntime", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpContext.Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Headers[", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizationHeader", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("authorizationHeader", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>
         assembly.GetReferencedAssemblies().Select(reference => reference.Name ?? "").ToHashSet(StringComparer.OrdinalIgnoreCase);
 

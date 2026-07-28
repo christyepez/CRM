@@ -314,5 +314,29 @@ foreach ($P4Marker in @("PortalAuthTokenPropagationDryRunContract", "PortalAuthT
 }
 if ($P4Text -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|HttpClient|PortalBaseUrl|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 6 P4 must not read headers/tokens, call Portal, store tokens or activate Auth runtime." }
 
+# Sprint 6 P5 Locked Stub Runtime Registration Trial checks
+$P5RequiredFiles = @(
+    "docs/api/crm-sprint-6-p5-locked-stub-runtime-registration-trial.md",
+    "docs/api/crm-locked-stub-runtime-registration-trial-policy.md",
+    "docs/api/crm-locked-stub-runtime-registration-trial-contract.md",
+    "docs/security/crm-locked-stub-runtime-registration-trial-safety-boundary.md",
+    "docs/operations/crm-locked-stub-runtime-registration-trial-runbook.md",
+    "src/CRM.Application/Foundation/CrmLockedStubRuntimeRegistrationTrialContracts.cs",
+    "src/CRM.Application/Foundation/CrmLockedStubRuntimeRegistrationTrialStatusService.cs"
+)
+foreach ($P5RequiredFile in $P5RequiredFiles) {
+    if (-not (Test-Path $P5RequiredFile)) { Fail "Missing Sprint 6 P5 required file: $P5RequiredFile" } else { Pass "Required Sprint 6 P5 file exists: $P5RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial*") { Pass "Sprint 6 P5 locked stub runtime registration trial endpoint registered." } else { Fail "Sprint 6 P5 locked stub runtime registration trial endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial") { Fail "Sprint 6 P5 endpoint must remain GET-only." }
+$P5Text = ""
+foreach ($P5File in @("src/CRM.Application/Foundation/CrmLockedStubRuntimeRegistrationTrialContracts.cs", "src/CRM.Application/Foundation/CrmLockedStubRuntimeRegistrationTrialStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $P5File) { $P5Text += "`n" + (Get-Content -Raw $P5File) }
+}
+foreach ($P5Marker in @("LockedStubRuntimeRegistrationTrial", "LockedStubRuntimeRegistrationTrialExists", "LockedStubRuntimeRegistrationApprovalGranted", "LockedStubRuntimeRegistrationEnabled", "LockedStubsRegisteredAtRuntime", "ProductiveRoutesRegistered", "ProductiveCrudEnabled", "DeleteEndpointsEnabled", "DefaultNegativeRouteStatus", "FutureLockedResponseStatusIfExplicitlyEnabled", "RuntimeFlagDefaultEnabled", "UsesDomainServices", "UsesFoundationStores", "UsesDatabase", "UsesPortalAuth", "UsesTokenOrHeaderReads", "DocumentOnlyPreferredWithNoRuntimeRegistration", "Sprint6P6Sprint6GateDecision", "Locked stub runtime registration trial only; no productive routes are registered by default")) {
+    if ($P5Text -notmatch [regex]::Escape($P5Marker)) { Fail "Missing Sprint 6 P5 marker: $P5Marker" }
+}
+if (Test-Path "src/CRM.Api/ProductiveRoutes/LockedStubRuntimeRegistrationTrial.cs") { Fail "P5 selected DocumentOnlyPreferredWithNoRuntimeRegistration; runtime registrar file must not exist." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

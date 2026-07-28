@@ -13,3 +13,9 @@
 - Decision: Contract exists, activation not granted.
 - Required false flags: tokenReadAttempted, headerReadAttempted, portalHttpAttempted, realTokenUsed, realHeadersRead, productiveAuthorizationEnabled.
 - Next gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.
+## P5 Gate - Locked Stub Runtime Registration Trial
+
+- Decision: trial exists, runtime registration not approved.
+- Required false flags: lockedStubRuntimeRegistrationEnabled, lockedStubsRegisteredAtRuntime, productiveRoutesRegistered, productiveCrudEnabled, deleteEndpointsEnabled.
+- Required negative evidence: productive routes return 404.
+- Next gate: `Sprint6P6Sprint6GateDecision`.

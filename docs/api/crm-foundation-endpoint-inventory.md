@@ -192,3 +192,8 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` | GET | Foundation-only contract; no token/header read; no Portal HTTP |
+## Sprint 6 P5
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial` | GET | Foundation-only trial; no runtime route registration; productive routes remain 404 |

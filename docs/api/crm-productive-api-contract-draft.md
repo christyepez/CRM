@@ -25,3 +25,6 @@ DELETE remains NO-GO.
 ## Sprint 5 P5 Locked Stub Trial
 
 The productive API contract remains draft-only. P5 does not register productive routes. Future explicit non-production stubs, if approved, must return 423 Locked and must not execute domain logic.
+## Sprint 6 P5 Locked Stub Runtime Registration Trial
+
+Productive API route registration remains No-Go by default. The P5 decision is `DocumentOnlyPreferredWithNoRuntimeRegistration`; `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` are not registered as productive routes and must return 404. A future explicit NonProduction flag may return 423 Locked, but only after approval and without DELETE, domain execution, stores, DB, Auth or Portal runtime.

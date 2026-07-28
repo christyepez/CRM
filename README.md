@@ -514,3 +514,8 @@ Sprint 5 gate decision is complete: `GoForControlledNonProductionPreparation`. R
 Sprint 6 P4 adds a foundation-only Portal Auth token propagation dry-run contract. CRM exposes `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` with synthetic metadata only: `mock://crm/portal-auth-token` and `mock://crm/portal-user`.
 
 CRM does not read real tokens, does not read headers, does not inspect Authorization values, does not call PortalCorporativo over HTTP, does not implement login/logout or Identity, and does not persist roles or permissions. Real activation remains No-Go. Next gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.
+## CRM Sprint 6 P5 - Locked Stub Runtime Registration Trial
+
+Sprint 6 P5 adds a foundation-only locked stub runtime registration trial at `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial`.
+
+Runtime registration is not approved. Productive routes are not registered by default, so `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` must continue returning 404. Future explicit NonProduction enablement, if approved later, must return 423 Locked with no domain services, stores, DB, Portal Auth, token/header reads or DELETE. Next gate: `Sprint6P6Sprint6GateDecision`.
