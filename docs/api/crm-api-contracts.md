@@ -309,6 +309,38 @@ Required response markers:
 
 The endpoint must remain GET-only and must not read secrets, files, environment values, DB connections, Portal Auth tokens or headers.
 
+# CRM Sprint 7 P3 API Contract Addendum
+
+`GET /api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe` returns Common DB real connectivity probe metadata only.
+
+Required response markers:
+
+- `status=CommonDbRealConnectivityNonProductionProbe`
+- `foundationMode=true`
+- `commonDbRealConnectivityNonProductionProbeExists=true`
+- `commonDbRealConnectivityApprovalGranted=false`
+- `secretProviderRealNonProductionApprovalGranted=false`
+- `connectionStringResolved=false`
+- `connectionStringValueMaterialized=false`
+- `connectionStringLogged=false`
+- `connectionStringReturnedToApi=false`
+- `commonDbProbeEnabled=false`
+- `commonDbProbeAttempted=false`
+- `commonDbConnected=false`
+- `sqlConnectionCreated=false`
+- `dbConnectionCreated=false`
+- `useSqlServerEnabled=false`
+- `efRuntimeEnabled=false`
+- `addDbContextRuntimeEnabled=false`
+- `migrationsCreated=false`
+- `databaseSchemaChanged=false`
+- `usesSyntheticFallback=true`
+- `syntheticConnectionReference=mock://crm/common-db`
+- `connectionProbeSkippedBecauseSecretProviderApprovalNotGranted=true`
+- `nextGate=Sprint7P4PortalAuthRealRuntimeProbe`
+
+The endpoint must remain GET-only and must not resolve connection values, connect to DB, enable EF runtime, create migrations, call Portal, read tokens or activate productive routes.
+
 # CRM Sprint 6 P6 API Contract Addendum
 
 `GET /api/crm/foundation/sprint-6/gate-decision` returns Sprint 6 closure metadata only.

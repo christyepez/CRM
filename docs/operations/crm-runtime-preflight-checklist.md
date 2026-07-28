@@ -210,3 +210,11 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm runtime probe exists but approvalGranted=false.
 - Confirm probeEnabled=false, probeAttempted=false, runtimeConnected=false and probeSkippedBecauseApprovalNotGranted=true.
 - Confirm no real secret read, no value materialization, no value logs, no API value return, no Key Vault runtime call, no Azure secret SDK runtime call, no `.env`, no DB runtime, no Portal Auth runtime, no productive route, no locked stub runtime or DELETE endpoint exists.
+
+# Sprint 7 P3 common DB real connectivity preflight addendum
+
+- Validate `GET /api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe`.
+- Confirm commonDbRealConnectivityApprovalGranted=false and secretProviderRealNonProductionApprovalGranted=false.
+- Confirm connectionStringResolved=false, commonDbProbeEnabled=false, commonDbProbeAttempted=false, commonDbConnected=false.
+- Confirm `mock://crm/common-db` is the only connection reference.
+- Confirm no real connection strings, DB connection, EF runtime, migrations, SQL Server compose, Auth runtime, Portal runtime, productive routes, locked stub runtime or DELETE endpoint exists.

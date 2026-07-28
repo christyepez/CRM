@@ -424,5 +424,32 @@ foreach ($Sprint7P2Marker in @("SecretProviderRealNonProductionRuntimeProbe", "S
     if ($Sprint7P2Text -notmatch [regex]::Escape($Sprint7P2Marker)) { Fail "Missing Sprint 7 P2 marker: $Sprint7P2Marker" }
 }
 
+# Sprint 7 P3 Common DB Real Connectivity NonProduction Probe checks
+$Sprint7P3RequiredFiles = @(
+    "docs/data/crm-sprint-7-p3-common-db-real-connectivity-nonproduction-probe.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-policy.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-contract.md",
+    "docs/data/crm-common-db-real-connectivity-nonproduction-probe-safety-boundary.md",
+    "docs/operations/crm-common-db-real-connectivity-nonproduction-probe-runbook.md",
+    "docs/operations/crm-common-db-real-connectivity-nonproduction-probe-rollback.md",
+    "docs/architecture/crm-common-db-real-connectivity-nonproduction-probe-architecture.md",
+    "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeStatusService.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbe.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbeOptions.cs"
+)
+foreach ($Sprint7P3RequiredFile in $Sprint7P3RequiredFiles) {
+    if (-not (Test-Path $Sprint7P3RequiredFile)) { Fail "Missing Sprint 7 P3 required file: $Sprint7P3RequiredFile" } else { Pass "Required Sprint 7 P3 file exists: $Sprint7P3RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe*") { Pass "Sprint 7 P3 Common DB real connectivity endpoint registered." } else { Fail "Sprint 7 P3 endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe") { Fail "Sprint 7 P3 endpoint must remain GET-only." }
+$Sprint7P3Text = ""
+foreach ($Sprint7P3File in @("src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbRealConnectivityNonProductionProbeStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbRealConnectivityNonProductionProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint7P3File) { $Sprint7P3Text += "`n" + (Get-Content -Raw $Sprint7P3File) }
+}
+foreach ($Sprint7P3Marker in @("CommonDbRealConnectivityNonProductionProbe", "CommonDbRealConnectivityNonProductionProbeExists", "CommonDbRealConnectivityApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "ConnectionStringResolved", "ConnectionStringValueMaterialized", "ConnectionStringLogged", "ConnectionStringReturnedToApi", "CommonDbProbeEnabled", "CommonDbProbeAttempted", "CommonDbConnected", "SqlConnectionCreated", "DbConnectionCreated", "UseSqlServerEnabled", "EfRuntimeEnabled", "AddDbContextRuntimeEnabled", "MigrationsCreated", "DatabaseSchemaChanged", "ProductivePersistenceEnabled", "ApiRequiresDatabase", "UsesSecretProviderRuntime", "UsesSyntheticFallback", "mock://crm/common-db", "ConnectionProbeSkippedBecauseSecretProviderApprovalNotGranted", "Sprint7P4PortalAuthRealRuntimeProbe", "Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted")) {
+    if ($Sprint7P3Text -notmatch [regex]::Escape($Sprint7P3Marker)) { Fail "Missing Sprint 7 P3 marker: $Sprint7P3Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

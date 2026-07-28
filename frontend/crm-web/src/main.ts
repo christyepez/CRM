@@ -428,6 +428,29 @@ class CrmReadinessService {
       probeSkippedBecauseApprovalNotGranted: true,
       sprint7P2Warning: 'Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted',
       sprint7P2NextGate: 'Sprint7P3CommonDbRealConnectivityNonProductionProbe',
+      sprint7P3CommonDbRealConnectivityNonProductionProbe: 'Exists',
+      commonDbRealConnectivityNonProductionProbeExists: true,
+      commonDbRealConnectivityApprovalGranted: false,
+      p3ConnectionStringResolved: false,
+      p3ConnectionStringValueMaterialized: false,
+      p3ConnectionStringLogged: false,
+      p3ConnectionStringReturnedToApi: false,
+      commonDbProbeEnabled: false,
+      commonDbProbeAttempted: false,
+      commonDbConnected: false,
+      p3SqlConnectionCreated: false,
+      p3DbConnectionCreated: false,
+      useSqlServerEnabled: false,
+      addDbContextRuntimeEnabled: false,
+      databaseSchemaChanged: false,
+      productivePersistenceEnabled: false,
+      apiRequiresDatabase: false,
+      usesSecretProviderRuntime: false,
+      usesSyntheticFallback: true,
+      p3SyntheticConnectionReference: 'mock://crm/common-db',
+      connectionProbeSkippedBecauseSecretProviderApprovalNotGranted: true,
+      sprint7P3Warning: 'Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted',
+      sprint7P3NextGate: 'Sprint7P4PortalAuthRealRuntimeProbe',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -879,6 +902,32 @@ class CrmReadinessService {
       <p>Probe Skipped Because Approval Not Granted: true</p>
       <p>Secret Provider Real NonProduction Runtime Probe Warning: Secret Provider real NonProduction runtime probe is prepared but skipped because approval is not granted</p>
       <p>Next Gate: Sprint7P3CommonDbRealConnectivityNonProductionProbe</p>
+      <p>Sprint 7 P3 Common DB Real Connectivity NonProduction Probe: Exists</p>
+      <p>Common DB Real Connectivity Approval Granted: false</p>
+      <p>Secret Provider Real NonProduction Approval Granted: false</p>
+      <p>Secret Provider Real Runtime Probe Enabled: false</p>
+      <p>Connection String Resolved: false</p>
+      <p>Connection String Value Materialized: false</p>
+      <p>Connection String Logged: false</p>
+      <p>Connection String Returned To API: false</p>
+      <p>Common DB Probe Enabled: false</p>
+      <p>Common DB Probe Attempted: false</p>
+      <p>Common DB Connected: false</p>
+      <p>SqlConnection Created: false</p>
+      <p>DbConnection Created: false</p>
+      <p>UseSqlServer Enabled: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>AddDbContext Runtime Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>Database Schema Changed: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>API Requires Database: false</p>
+      <p>Uses Secret Provider Runtime: false</p>
+      <p>Uses Synthetic Fallback: true</p>
+      <p>Synthetic Connection Reference: mock://crm/common-db</p>
+      <p>Connection Probe Skipped Because Secret Provider Approval Not Granted: true</p>
+      <p>Common DB Real Connectivity NonProduction Probe Warning: Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted</p>
+      <p>Next Gate: Sprint7P4PortalAuthRealRuntimeProbe</p>
       <p>Non-Production</p>
     </section>
   `

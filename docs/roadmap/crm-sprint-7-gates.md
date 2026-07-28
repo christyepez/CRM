@@ -28,3 +28,11 @@ Decision: Runtime probe exists; approval is not granted, so probe is skipped.
 NoGo remains for real secret reads, DB runtime, Portal Auth runtime, productive routes, DELETE and productive UI.
 
 Next gate: `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.
+
+## Sprint 7 P3 gate
+
+Decision: Common DB real connectivity probe exists; Secret Provider approval is not granted, so the connection probe is skipped.
+
+NoGo remains for real connection strings, DB runtime, EF runtime, migrations, Portal Auth runtime, productive routes, DELETE and productive UI.
+
+Next gate: `Sprint7P4PortalAuthRealRuntimeProbe`.

@@ -131,3 +131,9 @@ Blocked until explicit gate approval:
 Productization remains `NotReady`.
 
 Secret Provider real NonProduction runtime probe exists but is skipped because approval is not granted. Real activation remains blocked.
+
+# Sprint 7 P3 productization gate
+
+Productization remains `NotReady`.
+
+Common DB real connectivity probe exists but is skipped because Secret Provider approval is not granted. DB runtime, EF runtime, migrations and productive persistence remain blocked.

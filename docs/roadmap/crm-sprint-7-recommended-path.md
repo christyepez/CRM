@@ -22,3 +22,7 @@ Do not implement Sprint 7 runtime activation until each prior approval gate pass
 ## Sprint 7 P2 update
 
 P2 prepares `SecretProviderRealNonProductionRuntimeProbe` as a skipped runtime probe. Approval remains false, no real secret values are read, and the next gate is `Sprint7P3CommonDbRealConnectivityNonProductionProbe`.
+
+## Sprint 7 P3 update
+
+P3 prepares `CommonDbRealConnectivityNonProductionProbe` as a skipped Common DB probe. Secret Provider approval remains false, no connection value is resolved, and the next gate is `Sprint7P4PortalAuthRealRuntimeProbe`.
