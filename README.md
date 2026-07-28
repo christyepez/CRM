@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 7 P1 - Secret Provider Real NonProduction Approval
+
+Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`
+
+Current decision: `SecretProviderRealNonProductionApprovalPackageExists=true`, `SecretProviderRealNonProductionApprovalGranted=false`, `SecretProviderRealRuntimeEnabled=false`, `SecretProviderRealRuntimeConnected=false`, `RealSecretReadAttempted=false`, `KeyVaultRuntimeClientEnabled=false`, `AzureSecretSdkRuntimeEnabled=false`, `EnvFileRequired=false`, `EnvSecretReadAllowed=false`, `SecretsLogged=false`, `SecretNamesApproved=false`, `SecretValuesApproved=false`.
+
+Warning: `Secret Provider real NonProduction approval package only; no real secrets are read`. Next Gate: `Sprint7P2SecretProviderRealNonProductionRuntimeProbe`.
+
 ## Sprint 6 P6 - Gate Decision
 
 Sprint 6 is closed as a gate decision only. Overall decision: `GoForSprint7ControlledNonProductionActivationPlanning`; Real Activation Decision: `NoGo`; Productization Status: `NotReady`; Sprint 7 Planning: `Go`.

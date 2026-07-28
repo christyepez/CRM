@@ -109,6 +109,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run", program);
         Assert.Contains("/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial", program);
         Assert.Contains("/api/crm/foundation/sprint-6/gate-decision", program);
+        Assert.Contains("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -1677,6 +1678,69 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void SecretProviderRealNonProductionApproval_IsApprovalOnlyAndDoesNotReadSecrets()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmSecretProviderRealNonProductionApprovalStatusService", source);
+        Assert.Contains("SecretProviderRealNonProductionApprovalPlaceholder", source);
+        Assert.Contains("SecretProviderRealNonProductionApproval", source);
+        Assert.Contains("Secret Provider real NonProduction approval package only; no real secrets are read", source);
+        Assert.Contains("Sprint7P2SecretProviderRealNonProductionRuntimeProbe", source);
+        Assert.Contains("secretProviderRealNonProductionApprovalGranted: false", source);
+        Assert.Contains("realSecretReadAttempted: false", source);
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("LockedProductiveRouteStubRuntime", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpContext.Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Headers[", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizationHeader", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("authorizationHeader", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SecretClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>
         assembly.GetReferencedAssemblies().Select(reference => reference.Name ?? "").ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -1750,7 +1814,10 @@ public sealed class ArchitectureDependencyTests
     private static string StripAllowedSecretProviderContractMarkers(string source) =>
         source.Replace("KeyVaultClientConfigured", string.Empty, StringComparison.Ordinal)
             .Replace("keyVaultClientConfigured", string.Empty, StringComparison.Ordinal)
-            .Replace("Key Vault Client Configured", string.Empty, StringComparison.Ordinal);
+            .Replace("Key Vault Client Configured", string.Empty, StringComparison.Ordinal)
+            .Replace("KeyVaultRuntimeClientEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("keyVaultRuntimeClientEnabled", string.Empty, StringComparison.Ordinal)
+            .Replace("Key Vault Runtime Client Enabled", string.Empty, StringComparison.Ordinal);
 
     private static string StripAllowedCommonDbConnectionContractMarkers(string source) =>
         source.Replace("CommonDbConnectionStrategy", string.Empty, StringComparison.Ordinal)

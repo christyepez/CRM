@@ -285,6 +285,30 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 - `defaultNegativeRouteStatus=404`
 - `futureLockedResponseStatusIfExplicitlyEnabled=423`
 - No DELETE, domain services, stores, DB, Portal Auth, token/header reads or productive UI.
+# CRM Sprint 7 P1 API Contract Addendum
+
+`GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` returns approval package metadata only.
+
+Required response markers:
+
+- `status=SecretProviderRealNonProductionApproval`
+- `foundationMode=true`
+- `secretProviderRealNonProductionApprovalPackageExists=true`
+- `secretProviderRealNonProductionApprovalGranted=false`
+- `secretProviderRealRuntimeEnabled=false`
+- `secretProviderRealRuntimeConnected=false`
+- `realSecretReadAttempted=false`
+- `keyVaultRuntimeClientEnabled=false`
+- `azureSecretSdkRuntimeEnabled=false`
+- `envFileRequired=false`
+- `envSecretReadAllowed=false`
+- `secretsLogged=false`
+- `secretNamesApproved=false`
+- `secretValuesApproved=false`
+- `nextGate=Sprint7P2SecretProviderRealNonProductionRuntimeProbe`
+
+The endpoint must remain GET-only and must not read secrets, files, environment values, DB connections, Portal Auth tokens or headers.
+
 # CRM Sprint 6 P6 API Contract Addendum
 
 `GET /api/crm/foundation/sprint-6/gate-decision` returns Sprint 6 closure metadata only.

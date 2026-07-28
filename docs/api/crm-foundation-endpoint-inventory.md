@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 7 P1 secret provider real NonProduction approval
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` | Reports approval-package-only state for future real Secret Provider NonProduction probe. |
+
 ## Sprint 6 P6 gate decision
 
 | Method | Route | Purpose |
@@ -209,3 +215,9 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-6/gate-decision` | GET | Gate-decision only; no real activation; Sprint 7 planning allowed |
+
+## Sprint 7 P1
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` | GET | Approval package only; no real secret read; runtime disabled |

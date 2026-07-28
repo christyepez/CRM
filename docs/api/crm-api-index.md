@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 7 P1
+
+- `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`: Secret Provider real NonProduction approval package; no approval granted and no real secrets are read.
+
 ## Sprint 6 P6
 
 - `GET /api/crm/foundation/sprint-6/gate-decision`: Sprint 6 gate decision only; closes Sprint 6 and recommends Sprint 7 controlled NonProduction activation planning without real activation.
@@ -200,3 +204,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 6 P6 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-6/gate-decision` - Sprint 6 closure and gate decision. Real activation remains NoGo; Sprint 7 planning is Go.
+
+## Sprint 7 P1 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval` - Secret Provider real NonProduction approval package; runtime remains disabled and disconnected.

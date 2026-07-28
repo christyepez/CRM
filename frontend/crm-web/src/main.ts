@@ -393,6 +393,26 @@ class CrmReadinessService {
       sprint7PlanningDecision: 'Go',
       sprint6GateDecisionWarning: 'Sprint 6 gate decision only; no real activation',
       sprint6GateDecisionNextGate: 'Sprint7P1SecretProviderRealNonProductionApproval',
+      sprint7P1SecretProviderRealNonProductionApproval: 'Exists',
+      secretProviderRealNonProductionApprovalPackageExists: true,
+      secretProviderRealNonProductionApprovalGranted: false,
+      secretProviderRealRuntimeEnabled: false,
+      secretProviderRealRuntimeConnected: false,
+      realSecretReadAttempted: false,
+      keyVaultRuntimeClientEnabled: false,
+      azureSecretSdkRuntimeEnabled: false,
+      sprint7EnvFileRequired: false,
+      envSecretReadAllowed: false,
+      secretsLogged: false,
+      secretNamesApproved: false,
+      secretValuesApproved: false,
+      sprint7SecurityReviewRequired: true,
+      sprint7ArchitectureReviewRequired: true,
+      devOpsReviewRequired: true,
+      sprint7RollbackRequired: true,
+      sprint7ObservabilityRequired: true,
+      sprint7P1Warning: 'Secret Provider real NonProduction approval package only; no real secrets are read',
+      sprint7P1NextGate: 'Sprint7P2SecretProviderRealNonProductionRuntimeProbe',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -806,6 +826,25 @@ class CrmReadinessService {
       <p>Sprint 7 Planning: Go</p>
       <p>Sprint 6 Gate Decision Warning: Sprint 6 gate decision only; no real activation</p>
       <p>Next Gate: Sprint7P1SecretProviderRealNonProductionApproval</p>
+      <p>Sprint 7 P1 Secret Provider Real NonProduction Approval: Exists</p>
+      <p>Secret Provider Real NonProduction Approval Granted: false</p>
+      <p>Secret Provider Real Runtime Enabled: false</p>
+      <p>Secret Provider Real Runtime Connected: false</p>
+      <p>Real Secret Read Attempted: false</p>
+      <p>Key Vault Runtime Client Enabled: false</p>
+      <p>Azure Secret SDK Runtime Enabled: false</p>
+      <p>Env File Required: false</p>
+      <p>Env Secret Read Allowed: false</p>
+      <p>Secrets Logged: false</p>
+      <p>Secret Names Approved: false</p>
+      <p>Secret Values Approved: false</p>
+      <p>Security Review Required: true</p>
+      <p>Architecture Review Required: true</p>
+      <p>DevOps Review Required: true</p>
+      <p>Rollback Required: true</p>
+      <p>Observability Required: true</p>
+      <p>Secret Provider Real NonProduction Approval Warning: Secret Provider real NonProduction approval package only; no real secrets are read</p>
+      <p>Next Gate: Sprint7P2SecretProviderRealNonProductionRuntimeProbe</p>
       <p>Non-Production</p>
     </section>
   `

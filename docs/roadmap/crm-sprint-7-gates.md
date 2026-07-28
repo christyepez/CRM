@@ -1,3 +1,11 @@
+# Sprint 7 P1 gate
+
+Decision: Approval package exists; approval not granted.
+
+NoGo remains for real secret reads, runtime provider connection, DB runtime, Portal Auth runtime, productive routes, DELETE and productive UI.
+
+Next gate: `Sprint7P2SecretProviderRealNonProductionRuntimeProbe`.
+
 # CRM Sprint 7 Gates
 
 Sprint 7 gate sequence:

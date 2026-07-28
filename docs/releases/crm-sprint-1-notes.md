@@ -178,3 +178,6 @@ Portal Auth token propagation dry-run contract added as foundation-only evidence
 ## Sprint 6 P5 Note
 
 Locked stub runtime registration trial added as foundation-only evidence. Runtime route registration is not approved; productive routes remain 404 by default.
+# Sprint 7 P1 note
+
+Secret Provider real NonProduction approval package added. No real secret reads, `.env`, DB runtime, Portal Auth runtime, productive routes, DELETE or productive UI are active.

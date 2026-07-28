@@ -1,3 +1,11 @@
+# Sprint 7 P1 update
+
+Sprint 7 starts with `SecretProviderRealNonProductionApproval`.
+
+P1 creates the approval package only. The recommended path is to keep approval false until security, architecture, DevOps, rollback and observability evidence are complete.
+
+Next gate: `Sprint7P2SecretProviderRealNonProductionRuntimeProbe`.
+
 # CRM Sprint 7 Recommended Path
 
 Recommended path:
