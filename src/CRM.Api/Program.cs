@@ -45,6 +45,7 @@ builder.Services.AddSingleton<CrmNonProductionRuntimeApprovalPackageStatusServic
 builder.Services.AddSingleton<CrmSecretProviderSafeMockActivationStatusService>();
 builder.Services.AddSingleton<CrmCommonDbConnectivityDryRunStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthTokenPropagationDryRunStatusService>();
+builder.Services.AddSingleton<CrmLockedStubRuntimeRegistrationTrialStatusService>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -168,6 +169,9 @@ app.MapGet("/api/crm/foundation/sprint-6/common-db-connectivity-dry-run", (CrmCo
 
 app.MapGet("/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run", (CrmPortalAuthTokenPropagationDryRunStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint6PortalAuthTokenPropagationDryRun");
+
+app.MapGet("/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial", (CrmLockedStubRuntimeRegistrationTrialStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint6LockedStubRuntimeRegistrationTrial");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

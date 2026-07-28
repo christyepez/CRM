@@ -175,3 +175,6 @@ Sprint 6 P3 adds a Common DB connectivity dry-run contract using `mock://crm/com
 ## Sprint 6 P4 Note
 
 Portal Auth token propagation dry-run contract added as foundation-only evidence. No real token/header read, no Portal HTTP and no Auth runtime activation.
+## Sprint 6 P5 Note
+
+Locked stub runtime registration trial added as foundation-only evidence. Runtime route registration is not approved; productive routes remain 404 by default.

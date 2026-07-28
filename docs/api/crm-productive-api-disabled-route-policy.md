@@ -18,3 +18,6 @@ If future disabled stubs are introduced, they must be behind `CRM_PRODUCTIVE_API
 ## Sprint 5 P5
 
 Productive routes remain disabled and unregistered by default. Negative route checks for leads, accounts and contacts must continue returning 404.
+## Sprint 6 P5 Runtime Registration Policy
+
+Locked stub runtime registration is not enabled in P5. Productive CRM routes remain disabled and unregistered. Default negative route status remains 404. Future 423 Locked behavior is documented only and requires a later explicit approval gate.

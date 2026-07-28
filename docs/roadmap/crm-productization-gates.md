@@ -103,3 +103,6 @@ Common DB connectivity dry-run contract exists, but approval, connection attempt
 ## Sprint 6 P4 Productization Gate
 
 Portal Auth token propagation is No-Go for productive activation. CRM remains foundation-only and must not read tokens/headers, call Portal, enable Auth middleware, implement Identity or persist permissions.
+## Sprint 6 P5 Productization Gate
+
+Locked stub runtime registration remains No-Go for productive activation. CRM keeps productive routes unregistered by default; future 423 Locked behavior requires explicit NonProduction approval.

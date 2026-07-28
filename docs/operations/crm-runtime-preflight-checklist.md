@@ -182,3 +182,11 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm endpoint `/api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` returns 200.
 - Confirm tokenReadAttempted=false, headerReadAttempted=false and portalHttpAttempted=false.
 - Confirm no Auth middleware, no token/header reads, no Portal HTTP and no productive routes.
+## Sprint 6 P5 locked stub runtime registration trial
+
+- Confirm P5 documentation exists.
+- Confirm `CrmLockedStubRuntimeRegistrationTrialStatusService` exists.
+- Confirm endpoint `/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial` returns 200.
+- Confirm lockedStubRuntimeRegistrationEnabled=false and lockedStubsRegisteredAtRuntime=false.
+- Confirm productiveRoutesRegistered=false and default negative routes return 404.
+- Confirm no DELETE, DB, Auth, Portal, token/header reads, domain services or store usage from stubs.

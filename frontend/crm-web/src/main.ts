@@ -358,6 +358,25 @@ class CrmReadinessService {
       sprint6P4ProductiveAuthorizationEnabled: false,
       sprint6P4Warning: 'Portal Auth token propagation dry-run contract only; no real tokens or headers are read',
       sprint6P4NextGate: 'Sprint6P5LockedStubRuntimeRegistrationTrial',
+      sprint6P5LockedStubRuntimeRegistrationTrial: 'Exists',
+      lockedStubRuntimeRegistrationTrialExists: true,
+      lockedStubRuntimeRegistrationApprovalGranted: false,
+      lockedStubRuntimeRegistrationEnabled: false,
+      lockedStubsRegisteredAtRuntime: false,
+      sprint6P5ProductiveRoutesRegistered: false,
+      sprint6P5ProductiveCrudEnabled: false,
+      sprint6P5DeleteEndpointsEnabled: false,
+      sprint6P5DefaultNegativeRouteStatus: 404,
+      sprint6P5FutureLockedResponseStatusIfExplicitlyEnabled: 423,
+      sprint6P5RuntimeFlagDefaultEnabled: false,
+      usesDomainServices: false,
+      usesFoundationStores: false,
+      usesDatabase: false,
+      usesPortalAuth: false,
+      usesTokenOrHeaderReads: false,
+      runtimeRegistrationDecision: 'DocumentOnlyPreferredWithNoRuntimeRegistration',
+      sprint6P5Warning: 'Locked stub runtime registration trial only; no productive routes are registered by default',
+      sprint6P5NextGate: 'Sprint6P6Sprint6GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -736,6 +755,25 @@ class CrmReadinessService {
       <p>Productive Authorization Enabled: false</p>
       <p>Portal Auth Token Propagation Dry-Run Warning: Portal Auth token propagation dry-run contract only; no real tokens or headers are read</p>
       <p>Next Gate: Sprint6P5LockedStubRuntimeRegistrationTrial</p>
+      <p>Sprint 6 P5 Locked Stub Runtime Registration Trial: Exists</p>
+      <p>Locked Stub Runtime Registration Trial Exists: true</p>
+      <p>Locked Stub Runtime Registration Approval Granted: false</p>
+      <p>Locked Stub Runtime Registration Enabled: false</p>
+      <p>Locked Stubs Registered At Runtime: false</p>
+      <p>Productive Routes Registered: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>DELETE Endpoints Enabled: false</p>
+      <p>Default Negative Route Status: 404</p>
+      <p>Future Locked Response Status If Explicitly Enabled: 423</p>
+      <p>Runtime Flag Default Enabled: false</p>
+      <p>Uses Domain Services: false</p>
+      <p>Uses Foundation Stores: false</p>
+      <p>Uses Database: false</p>
+      <p>Uses Portal Auth: false</p>
+      <p>Uses Token Or Header Reads: false</p>
+      <p>Runtime Registration Decision: DocumentOnlyPreferredWithNoRuntimeRegistration</p>
+      <p>Locked Stub Runtime Registration Trial Warning: Locked stub runtime registration trial only; no productive routes are registered by default</p>
+      <p>Next Gate: Sprint6P6Sprint6GateDecision</p>
       <p>Non-Production</p>
     </section>
   `

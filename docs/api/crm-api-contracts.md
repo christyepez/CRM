@@ -274,3 +274,14 @@ Returns `RuntimeEnvironmentReadiness`, `dockerComposeExpected=true`, `crmApiPort
 - Contract exists with synthetic token/user metadata only.
 - `tokenReadAttempted=false`, `headerReadAttempted=false`, `portalHttpAttempted=false`.
 - No Authorization header read, no Portal HTTP, no Auth middleware, no Identity, no role/permission persistence.
+## Sprint 6 P5 Locked Stub Runtime Registration Trial
+
+- `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial`
+- Status: `LockedStubRuntimeRegistrationTrial`
+- Runtime registration decision: `DocumentOnlyPreferredWithNoRuntimeRegistration`
+- `lockedStubRuntimeRegistrationEnabled=false`
+- `lockedStubsRegisteredAtRuntime=false`
+- `productiveRoutesRegistered=false`
+- `defaultNegativeRouteStatus=404`
+- `futureLockedResponseStatusIfExplicitlyEnabled=423`
+- No DELETE, domain services, stores, DB, Portal Auth, token/header reads or productive UI.

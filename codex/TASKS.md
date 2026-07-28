@@ -552,3 +552,12 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - Safety: tokenReadAttempted=false, headerReadAttempted=false, portalHttpAttempted=false, realTokenUsed=false, realHeadersRead=false.
 - Boundaries: no Auth middleware, no `[Authorize]`, no login/logout, no CRM Identity, no Portal HTTP, no DB runtime, no productive routes.
 - Next Gate: `Sprint6P5LockedStubRuntimeRegistrationTrial`.
+## CRM Sprint 6 P5 - Locked Stub Runtime Registration Trial
+
+- Status: Implemented as foundation-only trial contract.
+- Endpoint: `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial`.
+- Runtime registration decision: `DocumentOnlyPreferredWithNoRuntimeRegistration`.
+- Defaults: lockedStubRuntimeRegistrationEnabled=false, lockedStubsRegisteredAtRuntime=false, productiveRoutesRegistered=false.
+- Negative routes remain 404 for `/api/crm/leads`, `/api/crm/accounts`, `/api/crm/contacts`.
+- Future explicit locked response: 423 Locked, NonProduction only, no DELETE.
+- Next Gate: `Sprint6P6Sprint6GateDecision`.

@@ -189,3 +189,6 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 6 P4 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-6/portal-auth-token-propagation-dry-run` - Portal Auth token propagation dry-run contract. Contract-only, synthetic metadata, no token/header read and no Portal HTTP.
+## Sprint 6 P5 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial` - Locked stub runtime registration trial. Runtime registration not approved; productive routes remain unregistered and return 404 by default.
