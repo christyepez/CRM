@@ -1,5 +1,9 @@
 # CRM API Index
 
+## Sprint 6 P6
+
+- `GET /api/crm/foundation/sprint-6/gate-decision`: Sprint 6 gate decision only; closes Sprint 6 and recommends Sprint 7 controlled NonProduction activation planning without real activation.
+
 ## Sprint 5 P3
 
 - `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`: Common DB probe optional activation plan; no database connection is attempted.
@@ -192,3 +196,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 6 P5 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial` - Locked stub runtime registration trial. Runtime registration not approved; productive routes remain unregistered and return 404 by default.
+
+## Sprint 6 P6 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-6/gate-decision` - Sprint 6 closure and gate decision. Real activation remains NoGo; Sprint 7 planning is Go.

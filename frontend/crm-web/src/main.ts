@@ -377,6 +377,22 @@ class CrmReadinessService {
       runtimeRegistrationDecision: 'DocumentOnlyPreferredWithNoRuntimeRegistration',
       sprint6P5Warning: 'Locked stub runtime registration trial only; no productive routes are registered by default',
       sprint6P5NextGate: 'Sprint6P6Sprint6GateDecision',
+      sprint6: 'Closed',
+      sprint6GateDecision: 'Completed',
+      sprint6OverallDecision: 'GoForSprint7ControlledNonProductionActivationPlanning',
+      sprint6RealActivationDecision: 'NoGo',
+      secretProviderRealRuntimeDecision: 'NoGo',
+      commonDbRealConnectionDecision: 'NoGo',
+      sprint6PortalAuthRealRuntimeDecision: 'NoGo',
+      lockedStubRuntimeRegistrationDecision: 'NoGo',
+      sprint6ProductiveRoutesDecision: 'NoGo',
+      sprint6ProductiveCrudDecision: 'NoGo',
+      sprint6DeleteDecision: 'NoGo',
+      sprint6ProductiveUiDecision: 'NoGo',
+      sprint6ProductizationStatus: 'NotReady',
+      sprint7PlanningDecision: 'Go',
+      sprint6GateDecisionWarning: 'Sprint 6 gate decision only; no real activation',
+      sprint6GateDecisionNextGate: 'Sprint7P1SecretProviderRealNonProductionApproval',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -774,6 +790,22 @@ class CrmReadinessService {
       <p>Runtime Registration Decision: DocumentOnlyPreferredWithNoRuntimeRegistration</p>
       <p>Locked Stub Runtime Registration Trial Warning: Locked stub runtime registration trial only; no productive routes are registered by default</p>
       <p>Next Gate: Sprint6P6Sprint6GateDecision</p>
+      <p>Sprint 6: Closed</p>
+      <p>Sprint 6 Gate Decision: Completed</p>
+      <p>Overall Decision: GoForSprint7ControlledNonProductionActivationPlanning</p>
+      <p>Real Activation Decision: NoGo</p>
+      <p>Secret Provider Real Runtime: NoGo</p>
+      <p>Common DB Real Connection: NoGo</p>
+      <p>Portal Auth Real Runtime: NoGo</p>
+      <p>Locked Stub Runtime Registration: NoGo</p>
+      <p>Productive Routes: NoGo</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>Productive UI: NoGo</p>
+      <p>Productization Status: NotReady</p>
+      <p>Sprint 7 Planning: Go</p>
+      <p>Sprint 6 Gate Decision Warning: Sprint 6 gate decision only; no real activation</p>
+      <p>Next Gate: Sprint7P1SecretProviderRealNonProductionApproval</p>
       <p>Non-Production</p>
     </section>
   `

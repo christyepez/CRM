@@ -325,6 +325,38 @@ foreach ($P5Marker in @("LockedStubRuntimeRegistrationTrial", "LockedStubRuntime
 }
 if (Test-Path "src/CRM.Api/ProductiveRoutes/LockedStubRuntimeRegistrationTrial.cs") { Fail "P5 selected DocumentOnlyPreferredWithNoRuntimeRegistration; runtime registrar file must not exist." }
 
+# Sprint 6 P6 Gate Decision checks
+$Sprint6P6RequiredFiles = @(
+    "docs/releases/crm-sprint-6-closure.md",
+    "docs/releases/crm-sprint-6-integrated-evidence.md",
+    "docs/releases/crm-sprint-6-gate-decision.md",
+    "docs/releases/crm-sprint-6-go-no-go.md",
+    "docs/releases/crm-sprint-6-open-risks.md",
+    "docs/releases/crm-sprint-6-decision-record.md",
+    "docs/architecture/crm-sprint-6-gate-matrix.md",
+    "docs/security/crm-sprint-6-security-gate-review.md",
+    "docs/data/crm-sprint-6-persistence-gate-review.md",
+    "docs/api/crm-sprint-6-api-gate-review.md",
+    "docs/testing/crm-sprint-6-e2e-gate-review.md",
+    "docs/roadmap/crm-sprint-7-options.md",
+    "docs/roadmap/crm-sprint-7-recommended-path.md",
+    "docs/roadmap/crm-sprint-7-gates.md",
+    "src/CRM.Application/Foundation/CrmSprint6GateDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint6GateDecisionStatusService.cs"
+)
+foreach ($Sprint6P6RequiredFile in $Sprint6P6RequiredFiles) {
+    if (-not (Test-Path $Sprint6P6RequiredFile)) { Fail "Missing Sprint 6 P6 required file: $Sprint6P6RequiredFile" } else { Pass "Required Sprint 6 P6 file exists: $Sprint6P6RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-6/gate-decision*") { Fail "Sprint 6 P6 gate decision route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-6/gate-decision") { Fail "Sprint 6 P6 gate decision endpoint must remain GET-only." }
+$Sprint6P6Text = ""
+foreach ($Sprint6P6File in @("src/CRM.Application/Foundation/CrmSprint6GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint6GateDecisionStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint6P6File) { $Sprint6P6Text += "`n" + (Get-Content -Raw $Sprint6P6File) }
+}
+foreach ($Sprint6P6Marker in @("Sprint6GateDecision", "GoForSprint7ControlledNonProductionActivationPlanning", "Sprint7P1SecretProviderRealNonProductionApproval", "Sprint 6 gate decision only; no real activation", "Sprint 6: Closed", "Sprint 6 Gate Decision: Completed", "Sprint 7 Planning: Go")) {
+    if ($Sprint6P6Text -notmatch [regex]::Escape($Sprint6P6Marker)) { Fail "Missing Sprint 6 P6 marker: $Sprint6P6Marker" }
+}
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

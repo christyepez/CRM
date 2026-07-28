@@ -19,3 +19,8 @@
 - Required false flags: lockedStubRuntimeRegistrationEnabled, lockedStubsRegisteredAtRuntime, productiveRoutesRegistered, productiveCrudEnabled, deleteEndpointsEnabled.
 - Required negative evidence: productive routes return 404.
 - Next gate: `Sprint6P6Sprint6GateDecision`.
+# Sprint 6 P6 final gate
+
+Decision: `GoForSprint7ControlledNonProductionActivationPlanning`.
+
+NoGo remains for real activation, productive routes, productive CRUD, DELETE, productive UI, real DB, real Portal Auth runtime and real secret provider access.

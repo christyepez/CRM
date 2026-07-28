@@ -1,5 +1,11 @@
 # CRM Foundation Endpoint Inventory
 
+## Sprint 6 P6 gate decision
+
+| Method | Route | Purpose |
+| --- | --- | --- |
+| GET | `/api/crm/foundation/sprint-6/gate-decision` | Reports Sprint 6 closure, Go for Sprint 7 planning and NoGo for real activation/productization. |
+
 ## Sprint 5 P3 common DB probe optional activation
 
 | Method | Route | Purpose |
@@ -197,3 +203,9 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-6/locked-stub-runtime-registration-trial` | GET | Foundation-only trial; no runtime route registration; productive routes remain 404 |
+
+## Sprint 6 P6
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-6/gate-decision` | GET | Gate-decision only; no real activation; Sprint 7 planning allowed |

@@ -389,6 +389,22 @@ const expectedLabels = [
   'Runtime Registration Decision: DocumentOnlyPreferredWithNoRuntimeRegistration',
   'Locked Stub Runtime Registration Trial Warning: Locked stub runtime registration trial only; no productive routes are registered by default',
   'Next Gate: Sprint6P6Sprint6GateDecision',
+  'Sprint 6: Closed',
+  'Sprint 6 Gate Decision: Completed',
+  'Overall Decision: GoForSprint7ControlledNonProductionActivationPlanning',
+  'Real Activation Decision: NoGo',
+  'Secret Provider Real Runtime: NoGo',
+  'Common DB Real Connection: NoGo',
+  'Portal Auth Real Runtime: NoGo',
+  'Locked Stub Runtime Registration: NoGo',
+  'Productive Routes: NoGo',
+  'Productive CRUD: NoGo',
+  'DELETE: NoGo',
+  'Productive UI: NoGo',
+  'Productization Status: NotReady',
+  'Sprint 7 Planning: Go',
+  'Sprint 6 Gate Decision Warning: Sprint 6 gate decision only; no real activation',
+  'Next Gate: Sprint7P1SecretProviderRealNonProductionApproval',
   'Non-Production'
 ];
 

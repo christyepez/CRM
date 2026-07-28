@@ -16,3 +16,8 @@ P4 validates the Portal Auth token propagation contract with synthetic metadata 
 ## Sprint 6 P5 - Locked Stub Runtime Registration Trial
 
 P5 validates the locked stub runtime registration contract without registering productive routes. The default remains 404 for `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts`. Future 423 Locked behavior is documented only. Next gate: `Sprint6P6Sprint6GateDecision`.
+# Sprint 6 P6 closure update
+
+Sprint 6 recommended path is complete. The final decision is `GoForSprint7ControlledNonProductionActivationPlanning`.
+
+Real activation remains `NoGo`; Sprint 7 must start with `Sprint7P1SecretProviderRealNonProductionApproval`.
