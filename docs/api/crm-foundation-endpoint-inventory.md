@@ -179,3 +179,7 @@
 ## Sprint 6 P1
 
 - `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package` - approval package exists, but no non-production runtime approval is granted.
+
+## Sprint 6 P2
+
+- `GET /api/crm/foundation/sprint-6/secret-provider-safe-mock-activation` - safe mock exists and is enabled for synthetic values only; no real secrets are read.

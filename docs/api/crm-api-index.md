@@ -178,3 +178,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 6 P1 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-6/nonproduction-runtime-approval-package`: documents the non-production runtime approval package; all runtime approvals remain false and the next gate is `Sprint6P2SecretProviderSafeMockActivation`.
+
+## Sprint 6 P2 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-6/secret-provider-safe-mock-activation`: reports the safe synthetic Secret Provider mock status; no real secrets are read and the next gate is `Sprint6P3CommonDbConnectivityDryRunContract`.

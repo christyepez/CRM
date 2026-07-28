@@ -1,5 +1,17 @@
 # CRM Corporativo
 
+## Sprint 6 P2 - Secret Provider Safe Mock Activation
+
+Sprint 6 P2 enables only a safe deterministic Secret Provider mock for non-production contract validation.
+
+Endpoint:
+
+- `GET /api/crm/foundation/sprint-6/secret-provider-safe-mock-activation`
+
+Current decision: `SecretProviderSafeMockExists=true`, `SecretProviderSafeMockEnabled=true`, `SecretProviderRuntimeConnected=false`, `SecretProviderReadsRealSecrets=false`, `SecretProviderReadsSyntheticValues=true`, `SecretProviderReadsEnabledForMockOnly=true`, `RealSecretsConfigured=false`, `EnvFileRequired=false`, `KeyVaultClientConfigured=false`, `AzureSdkForSecretsConfigured=false`, `SecretValuesExposedInLogs=false`.
+
+Allowed synthetic values: `mock://crm/common-db`, `mock://crm/portal-auth-base-url`, `mock-client-id`, `mock-client-secret-not-real`, `mock://crm/observability`. Warning: `Secret Provider safe mock only; no real secrets are read`. Next Gate: `Sprint6P3CommonDbConnectivityDryRunContract`.
+
 ## Sprint 6 P1 - NonProduction Runtime Approval Package
 
 Sprint 6 P1 creates the approval package for future non-production runtime trials. The package exists, but no runtime approval is granted.

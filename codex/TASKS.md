@@ -1,5 +1,17 @@
 # TASKS.md
 
+## CRM Sprint 6 P2 - Secret Provider Safe Mock Activation
+
+- [x] Validate GitHub main contains Sprint 6 P1 commit.
+- [x] Create safe mock documentation, policy, contract, synthetic values and runbook.
+- [x] Add `CrmSecretProviderSafeMockActivationStatusService`.
+- [x] Add deterministic `SecretProviderSafeMock` in Infrastructure.
+- [x] Add foundation-only GET endpoint `/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation`.
+- [x] Keep safe mock enabled only for synthetic values.
+- [x] Keep `secretProviderRuntimeConnected=false`, `secretProviderReadsRealSecrets=false`, `realSecretsConfigured=false`, `envFileRequired=false`, `keyVaultClientConfigured=false`, `azureSdkForSecretsConfigured=false`.
+- [x] Keep DB/Auth/Portal runtime, productive routes, locked stubs runtime, DELETE, login, Identity and productive UI disabled.
+- [x] Next Gate: `Sprint6P3CommonDbConnectivityDryRunContract`.
+
 ## CRM Sprint 6 P1 - NonProduction Runtime Approval Package
 
 - [x] Validate GitHub main contains Sprint 5 P6 commit.

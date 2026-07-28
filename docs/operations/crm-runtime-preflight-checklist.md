@@ -146,3 +146,17 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm the warning is `NonProduction runtime approval package only; no runtime approval is granted`.
 - Confirm next gate is `Sprint6P2SecretProviderSafeMockActivation`.
 - Confirm no secrets, DB connection, Portal HTTP, token/header reads, locked stubs runtime, productive routes, DELETE or productive UI were enabled.
+
+## Sprint 6 P2 Secret Provider Safe Mock Activation
+
+- Confirm safe mock docs exist.
+- Confirm `/api/crm/foundation/sprint-6/secret-provider-safe-mock-activation` is registered as GET-only.
+- Confirm `CrmSecretProviderSafeMockActivationStatusService` exists.
+- Confirm `SecretProviderSafeMock` exists and uses deterministic synthetic values only.
+- Confirm `secretProviderSafeMockEnabled=true`.
+- Confirm `secretProviderReadsRealSecrets=false`.
+- Confirm `secretProviderReadsSyntheticValues=true`.
+- Confirm `secretProviderReadsEnabledForMockOnly=true`.
+- Confirm `.env`, file reads, environment reads, Key Vault clients and Azure secret SDKs are absent.
+- Confirm DB/Auth/Portal runtime, productive routes, locked stubs runtime and DELETE remain disabled.
+- Confirm next gate is `Sprint6P3CommonDbConnectivityDryRunContract`.

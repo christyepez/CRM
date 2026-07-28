@@ -305,6 +305,23 @@ class CrmReadinessService {
       sprint6ArchitectureReviewRequired: true,
       sprint6P1Warning: 'NonProduction runtime approval package only; no runtime approval is granted',
       sprint6P1NextGate: 'Sprint6P2SecretProviderSafeMockActivation',
+      sprint6P2SecretProviderSafeMockActivation: 'Enabled',
+      secretProviderSafeMockExists: true,
+      secretProviderSafeMockEnabled: true,
+      sprint6SecretProviderRuntimeConnected: false,
+      readsRealSecrets: false,
+      readsSyntheticValues: true,
+      readsEnabledForMockOnly: true,
+      sprint6RealSecretsConfigured: false,
+      sprint6EnvFileRequired: false,
+      sprint6KeyVaultClientConfigured: false,
+      azureSdkForSecretsConfigured: false,
+      secretValuesExposedInLogs: false,
+      sprint6CommonDbDryRunApprovalGranted: false,
+      sprint6PortalAuthDryRunApprovalGranted: false,
+      sprint6P2RealActivationApprovalGranted: false,
+      sprint6P2Warning: 'Secret Provider safe mock only; no real secrets are read',
+      sprint6P2NextGate: 'Sprint6P3CommonDbConnectivityDryRunContract',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -630,6 +647,23 @@ class CrmReadinessService {
       <p>Architecture Review Required: true</p>
       <p>NonProduction Runtime Approval Warning: NonProduction runtime approval package only; no runtime approval is granted</p>
       <p>Next Gate: Sprint6P2SecretProviderSafeMockActivation</p>
+      <p>Sprint 6 P2 Secret Provider Safe Mock Activation: Enabled</p>
+      <p>Secret Provider Safe Mock Exists: true</p>
+      <p>Secret Provider Safe Mock Enabled: true</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>Reads Real Secrets: false</p>
+      <p>Reads Synthetic Values: true</p>
+      <p>Reads Enabled For Mock Only: true</p>
+      <p>Real Secrets Configured: false</p>
+      <p>Env File Required: false</p>
+      <p>Key Vault Client Configured: false</p>
+      <p>Azure SDK For Secrets Configured: false</p>
+      <p>Secret Values Exposed In Logs: false</p>
+      <p>Common DB Dry-Run Approval Granted: false</p>
+      <p>Portal Auth Dry-Run Approval Granted: false</p>
+      <p>Real Activation Approval Granted: false</p>
+      <p>Secret Provider Safe Mock Warning: Secret Provider safe mock only; no real secrets are read</p>
+      <p>Next Gate: Sprint6P3CommonDbConnectivityDryRunContract</p>
       <p>Non-Production</p>
     </section>
   `
