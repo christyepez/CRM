@@ -675,5 +675,34 @@ foreach ($Sprint8P4Marker in @("PortalAuthControlledRealRuntimeValidation", "Por
 }
 if ($Sprint8P4Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder") { Fail "Sprint 8 P4 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF or migrations." }
 
+# Sprint 8 P5 Locked Route Authorization Policy Integration checks
+$Sprint8P5RequiredFiles = @(
+    "docs/api/crm-sprint-8-p5-locked-route-authorization-policy-integration.md",
+    "docs/api/crm-locked-route-authorization-policy-contract.md",
+    "docs/api/crm-locked-route-authorization-policy-boundary.md",
+    "docs/security/crm-locked-route-authorization-policy-security-review.md",
+    "docs/security/crm-locked-route-authorization-policy-token-boundary.md",
+    "docs/operations/crm-locked-route-authorization-policy-runbook.md",
+    "docs/operations/crm-locked-route-authorization-policy-rollback.md",
+    "docs/architecture/crm-locked-route-authorization-policy-architecture.md",
+    "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationContracts.cs",
+    "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationStatusService.cs",
+    "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluator.cs",
+    "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluationRequest.cs",
+    "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluationResult.cs"
+)
+foreach ($Sprint8P5RequiredFile in $Sprint8P5RequiredFiles) {
+    if (-not (Test-Path $Sprint8P5RequiredFile)) { Fail "Missing Sprint 8 P5 required file: $Sprint8P5RequiredFile" } else { Pass "Required Sprint 8 P5 file exists: $Sprint8P5RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration*") { Pass "Sprint 8 P5 locked route authorization policy endpoint registered." } else { Fail "Sprint 8 P5 endpoint missing." }
+$Sprint8P5Text = ""
+foreach ($Sprint8P5File in @("src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationStatusService.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluator.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistration.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P5File) { $Sprint8P5Text += "`n" + (Get-Content -Raw $Sprint8P5File) }
+}
+foreach ($Sprint8P5Marker in @("LockedRouteAuthorizationPolicyIntegration", "LockedRouteAuthorizationPolicyIntegrationEnabled: false", "AuthorizationPolicyEvaluated: false", "NotEvaluatedBecauseDisabled", "BlockedBecauseRouteLocked", "PortalAuthMetadataUsed: true", "PortalAuthRuntimeRequired: false", "TokenReadAttempted: false", "HeaderReadAttempted: false", "PortalHttpCallAttempted: false", "ProductiveRoutesRegisteredByDefault: false", "DefaultNegativeRouteStatus: 404", "LockedRoutesEnabledOnlyWithExplicitNonProductionFlag: true", "LockedRouteStatus: 423", "ProductiveCrudEnabled: false", "ProductiveDomainExecutionEnabled: false", "ProductivePersistenceEnabled: false", "DeleteEndpointsEnabled: false", "DbRuntimeEnabled: false", "EfRuntimeEnabled: false", "Sprint8P6Sprint8GateDecision", "Locked route authorization policy is disabled by default and never activates productive CRM routes")) {
+    if ($Sprint8P5Text -notmatch [regex]::Escape($Sprint8P5Marker)) { Fail "Missing Sprint 8 P5 marker: $Sprint8P5Marker" }
+}
+if ($Sprint8P5Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 8 P5 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

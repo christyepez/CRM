@@ -256,3 +256,11 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - `POST /api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation/probe`: locked foundation probe returning sanitized metadata only.
 - No Portal URL, secret, token, request header read, CRM-owned auth, Identity, role/permission persistence, productive CRUD, DELETE or product UI is active.
 - Next gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.
+
+## Sprint 8 P5
+
+- `GET /api/crm/foundation/sprint-8/locked-route-authorization-policy-integration`: locked route authorization policy status, disabled and fail-closed by default.
+- `/api/crm/leads`, `/api/crm/accounts`, `/api/crm/contacts` remain 404 by default.
+- Explicit NonProduction locked GET/POST/PUT/PATCH routes return 423 with sanitized policy metadata only when the policy flag is enabled.
+- DELETE, CRUD, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware and product UI remain inactive.
+- Next gate: `Sprint8P6Sprint8GateDecision`.

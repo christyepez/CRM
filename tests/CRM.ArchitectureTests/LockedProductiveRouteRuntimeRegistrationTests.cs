@@ -28,7 +28,10 @@ public sealed class LockedProductiveRouteRuntimeRegistrationTests
         Assert.DoesNotContain("AddDbContext", registrar);
         Assert.DoesNotContain("HttpClient", registrar);
         Assert.DoesNotContain("Request.Headers", registrar);
-        Assert.DoesNotContain("Authorization", registrar);
+        Assert.DoesNotContain("UseAuthorization", registrar);
+        Assert.DoesNotContain("AddAuthentication", registrar);
+        Assert.DoesNotContain("AuthorizeAttribute", registrar);
+        Assert.DoesNotContain("JwtBearer", registrar);
         Assert.DoesNotContain("password", registrar, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("secret", registrar, StringComparison.OrdinalIgnoreCase);
     }

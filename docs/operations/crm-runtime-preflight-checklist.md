@@ -276,5 +276,16 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm no Portal URLs, secrets, tokens or request headers are returned, logged, persisted or cached.
 - Confirm no login/logout, Identity, auth middleware, `[Authorize]`, roles/permissions persistence, productive CRUD or DELETE is enabled.
 - Confirm `ICommonDbConnectivityProbe`, `DisabledCommonDbConnectivityProbe` and `ControlledNonProductionCommonDbConnectivityProbe` exist.
+
+## Sprint 8 P5 Locked route authorization policy integration
+
+- Confirm Sprint 8 P5 docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` exists.
+- Confirm `CrmLockedRouteAuthorizationPolicyIntegrationStatusService` exists.
+- Confirm `CrmLockedRouteAuthorizationPolicyEvaluator` exists and is pure application logic.
+- Confirm productive routes return 404 by default.
+- Confirm explicit NonProduction locked routes return 423.
+- Confirm policy metadata is returned only with explicit policy flag.
+- Confirm DELETE, CRUD, DB runtime, EF runtime, migrations, Portal HTTP, token/header reads, auth middleware, `[Authorize]`, product UI and secrets remain disabled.
 - Confirm enabled=false, attempted=false, connected=false and no connection string returned/logged/persisted/cached.
 - Confirm no `.env`, no real connection strings, no SQL Server compose, no EF runtime, no migrations, no schema changes, no DB/Auth/Portal runtime, no DELETE and no productive UI.

@@ -214,3 +214,7 @@ CRM added a fail-closed Common DB controlled real connectivity foundation. The p
 ## Sprint 8 P4 note
 
 CRM added a fail-closed Portal Auth controlled real runtime validation foundation. The probe abstraction is present, the default probe is disabled, the probe is locked by default, and no Portal URLs, secrets, tokens or request headers are returned, logged, persisted, cached or read.
+
+## Sprint 8 P5 note
+
+CRM added a fail-closed locked route authorization policy foundation. The status endpoint and pure evaluator are present, productive routes remain 404 by default, explicit NonProduction locked routes remain 423 with sanitized metadata, and no CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware or product UI is active.
