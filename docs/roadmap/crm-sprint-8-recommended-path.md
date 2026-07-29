@@ -15,3 +15,9 @@ Do not implement Sprint 8 runtime behavior until each explicit approval gate is 
 Sprint 8 starts with a planning-only approval decision. P1 approves moving to P2 controlled NonProduction read planning, but performs no real secret read and exposes no values.
 
 Next gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.
+
+## P2 - Secret Provider Controlled Real NonProduction Read
+
+P2 introduces a fail-closed Secret Provider runtime abstraction and metadata-only foundation probe. Default state remains disabled: no read attempted, no secret values exposed, no DB/Auth/Portal runtime and productization remains `NotReady`.
+
+Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.

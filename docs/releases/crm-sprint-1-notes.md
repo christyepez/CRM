@@ -202,3 +202,7 @@ CRM closed Sprint 7 with `Sprint7GateDecision`: real activation `NoGo`, producti
 ## Sprint 8 P1 note
 
 CRM started Sprint 8 with `SecretProviderApprovalDecision`: approved to plan P2 controlled NonProduction read, while real read is disabled now and no secret values are exposed.
+
+## Sprint 8 P2 note
+
+CRM added a fail-closed Secret Provider controlled real NonProduction read foundation. The runtime abstraction is present, the default provider is disabled, the probe is locked by default, and no secret values are returned, logged, persisted or cached.

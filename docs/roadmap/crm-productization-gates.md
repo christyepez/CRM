@@ -152,3 +152,7 @@ Sprint 7 is closed. Productization remains `NotReady`; real activation, producti
 ## CRM Sprint 8 P1
 
 Secret Provider approval decision exists for controlled NonProduction read planning. No real secret read occurs in P1. Productization remains `NotReady` and real activation remains `NoGo`.
+
+## CRM Sprint 8 P2
+
+Controlled real NonProduction Secret Provider read scaffold exists, but default read remains disabled and fail-closed. No secret values are exposed, cached or persisted. Productization remains `NotReady`; DB/Auth/Portal runtime and production activation remain separate NoGo gates.

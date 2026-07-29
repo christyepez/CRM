@@ -547,6 +547,16 @@ const expectedLabels = [
   'Redaction Plan Approved: true',
   'Secret Provider Approval Decision Warning: Secret Provider approval decision only; no real secret read in Sprint 8 P1',
   'Next Gate: Sprint8P2SecretProviderControlledRealNonProductionRead',
+  'Sprint 8 P2 Secret Provider Controlled Real NonProduction Read: Exists',
+  'Secret Provider Controlled Real NonProduction Read Approved: true',
+  'Secret Provider Controlled Real NonProduction Read Enabled: false',
+  'Secret Provider Controlled Real NonProduction Read Attempted: false',
+  'Secret Value Persisted: false',
+  'Secret Value Cached: false',
+  'Uses Approved Secret Names Only: true',
+  'NonProduction Only: true',
+  'Fail Closed By Default: true',
+  'Next Gate: Sprint8P3CommonDbControlledRealConnectivity',
   'Non-Production'
 ];
 

@@ -17,3 +17,11 @@ Status: `SecretProviderApprovalDecision`.
 Decision: `ApprovedForControlledNonProductionReadPlanning`.
 
 P1 approves entering P2, not reading secrets in P1. Productive activation remains `NoGo`.
+
+## Sprint 8 P2 Gate
+
+Status: `SecretProviderControlledRealNonProductionRead`.
+
+Decision: controlled NonProduction read scaffold implemented, disabled by default and metadata-only.
+
+P2 permits P3 to use only sanitized availability metadata. Productive activation remains `NoGo`.

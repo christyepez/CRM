@@ -587,5 +587,34 @@ foreach ($Sprint8P1Marker in @("SecretProviderApprovalDecision", "ApprovedForCon
 }
 if ($Sprint8P1Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P1 must not read secrets/env/files or activate DB, Portal/Auth runtime, token/header reads or token storage." }
 
+# Sprint 8 P2 Secret Provider Controlled Real NonProduction Read checks
+$Sprint8P2RequiredFiles = @(
+    "docs/security/crm-sprint-8-p2-secret-provider-controlled-real-nonproduction-read.md",
+    "docs/security/crm-secret-provider-controlled-real-read-policy.md",
+    "docs/security/crm-secret-provider-controlled-real-read-contract.md",
+    "docs/security/crm-secret-provider-controlled-real-read-redaction.md",
+    "docs/operations/crm-secret-provider-controlled-real-read-runbook.md",
+    "docs/operations/crm-secret-provider-controlled-real-read-rollback.md",
+    "docs/architecture/crm-secret-provider-controlled-real-read-architecture.md",
+    "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadContracts.cs",
+    "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadStatusService.cs",
+    "src/CRM.Infrastructure/Security/Secrets/ISecretProviderRuntime.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeOptions.cs",
+    "src/CRM.Infrastructure/Security/Secrets/DisabledSecretProviderRuntime.cs",
+    "src/CRM.Infrastructure/Security/Secrets/ControlledNonProductionSecretProviderRuntime.cs"
+)
+foreach ($Sprint8P2RequiredFile in $Sprint8P2RequiredFiles) {
+    if (-not (Test-Path $Sprint8P2RequiredFile)) { Fail "Missing Sprint 8 P2 required file: $Sprint8P2RequiredFile" } else { Pass "Required Sprint 8 P2 file exists: $Sprint8P2RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read*") { Pass "Sprint 8 P2 secret provider controlled read endpoint registered." } else { Fail "Sprint 8 P2 endpoint missing." }
+$Sprint8P2Text = ""
+foreach ($Sprint8P2File in @("src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/ISecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeOptions.cs", "src/CRM.Infrastructure/Security/Secrets/DisabledSecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/ControlledNonProductionSecretProviderRuntime.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P2File) { $Sprint8P2Text += "`n" + (Get-Content -Raw $Sprint8P2File) }
+}
+foreach ($Sprint8P2Marker in @("SecretProviderControlledRealNonProductionRead", "SecretProviderControlledRealNonProductionReadEnabled: false", "SecretProviderControlledRealNonProductionReadAttempted: false", "RealSecretReadAttempted: false", "SecretValueReturnedToApi: false", "SecretValuePersisted: false", "SecretValueCached: false", "FailClosedByDefault: true", "Sprint8P3CommonDbControlledRealConnectivity", "Controlled real secret read is disabled by default and never returns secret values", "DisabledSecretProviderRuntime", "ControlledNonProductionSecretProviderRuntime", "ISecretProviderRuntime")) {
+    if ($Sprint8P2Text -notmatch [regex]::Escape($Sprint8P2Marker)) { Fail "Missing Sprint 8 P2 marker: $Sprint8P2Marker" }
+}
+if ($Sprint8P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P2 must not activate secret SDK, DB, Portal/Auth runtime, token/header reads or token storage." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0
