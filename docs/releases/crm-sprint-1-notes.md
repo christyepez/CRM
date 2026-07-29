@@ -1,5 +1,9 @@
 # CRM Sprint 1 P1 Release Notes
 
+## Sprint 9 P1 note
+
+Sprint 9 P1 records a controlled runtime activation decision. It approves NonProduction trial planning only and keeps production activation as `NoGo`.
+
 ## Sprint 5 P3 reference
 
 Sprint 5 P3 adds Common DB probe optional activation only. No database connection, EF runtime, migrations, SQL Server compose, connection strings, secret reads, productive routes, DELETE or real activation are approved.

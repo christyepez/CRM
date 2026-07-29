@@ -1,5 +1,18 @@
 # CRM API Contracts
 
+## Sprint 9 P1 Controlled Runtime Activation Decision
+
+`GET /api/crm/foundation/sprint-9/controlled-runtime-activation-decision`
+
+Returns the read-only foundation decision contract for Sprint 9 P1:
+- `controlledRuntimeActivationDecision=ApprovedForNonProductionTrialsOnly`
+- `productionActivationDecision=NoGo`
+- `runtimeTrialsEnabledNow=false`
+- `productiveRoutesEnabledNow=false`
+- `productiveCrudEnabledNow=false`
+- `deleteEnabledNow=false`
+- `nextGate=Sprint9P2SecretProviderRuntimeEnablementTrial`
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

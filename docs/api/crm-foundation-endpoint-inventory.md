@@ -1,5 +1,7 @@
 # CRM Foundation Endpoint Inventory
 
+| Sprint 9 P1 | GET | `/api/crm/foundation/sprint-9/controlled-runtime-activation-decision` | Controlled runtime activation decision; NonProduction trials approved for planning only; runtime enabled now is false. |
+
 ## Sprint 7 P1 secret provider real NonProduction approval
 
 | Method | Route | Purpose |

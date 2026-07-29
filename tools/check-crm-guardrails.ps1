@@ -740,6 +740,35 @@ foreach ($Sprint8P6Marker in @("Sprint8GateDecision", "GoForSprint9ControlledRun
 }
 if ($Sprint8P6Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 8 P6 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
 
+# Sprint 9 P1 Controlled Runtime Activation Decision checks
+$Sprint9P1RequiredFiles = @(
+    "docs/releases/crm-sprint-9-p1-controlled-runtime-activation-decision.md",
+    "docs/architecture/crm-controlled-runtime-activation-decision.md",
+    "docs/security/crm-controlled-runtime-activation-approval-policy.md",
+    "docs/operations/crm-controlled-runtime-activation-runbook.md",
+    "docs/operations/crm-controlled-runtime-activation-rollback.md",
+    "docs/testing/crm-controlled-runtime-activation-test-strategy.md",
+    "docs/architecture/crm-sprint-9-gate-matrix.md",
+    "docs/security/crm-sprint-9-security-gate-review.md",
+    "docs/data/crm-sprint-9-runtime-data-gate-review.md",
+    "docs/api/crm-sprint-9-runtime-api-gate-review.md",
+    "docs/testing/crm-sprint-9-runtime-e2e-gate-review.md",
+    "src/CRM.Application/Foundation/CrmControlledRuntimeActivationDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmControlledRuntimeActivationDecisionStatusService.cs"
+)
+foreach ($Sprint9P1RequiredFile in $Sprint9P1RequiredFiles) {
+    if (-not (Test-Path $Sprint9P1RequiredFile)) { Fail "Missing Sprint 9 P1 required file: $Sprint9P1RequiredFile" } else { Pass "Required Sprint 9 P1 file exists: $Sprint9P1RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-9/controlled-runtime-activation-decision*") { Fail "Sprint 9 P1 controlled runtime activation route missing." }
+$Sprint9P1Text = ""
+foreach ($Sprint9P1File in @("src/CRM.Application/Foundation/CrmControlledRuntimeActivationDecisionContracts.cs", "src/CRM.Application/Foundation/CrmControlledRuntimeActivationDecisionStatusService.cs", "docs/releases/crm-sprint-9-p1-controlled-runtime-activation-decision.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint9P1File) { $Sprint9P1Text += "`n" + (Get-Content -Raw $Sprint9P1File) }
+}
+foreach ($Sprint9P1Marker in @("ControlledRuntimeActivationDecision", "ApprovedForNonProductionTrialsOnly", "ProductionActivationDecision", "NoGo", "RuntimeTrialsEnabledNow: false", "ProductionRuntimeEnabledNow: false", "ProductiveRoutesEnabledNow: false", "ProductiveCrudEnabledNow: false", "DeleteEnabledNow: false", "Sprint9P2SecretProviderRuntimeEnablementTrial", "Sprint 9 P1 is an approval decision only; no runtime trial is enabled now", "Sprint 9 P1 Controlled Runtime Activation Decision: Exists")) {
+    if ($Sprint9P1Text -notmatch [regex]::Escape($Sprint9P1Marker)) { Fail "Missing Sprint 9 P1 marker: $Sprint9P1Marker" }
+}
+if ($Sprint9P1Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 9 P1 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

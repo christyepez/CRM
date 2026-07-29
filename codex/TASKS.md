@@ -1,5 +1,14 @@
 # TASKS.md
 
+## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
+
+Status: Implemented in branch `crm-sprint-9-p1-controlled-runtime-activation-decision`.
+
+- Decision: `ApprovedForNonProductionTrialsOnly`.
+- Production activation: `NoGo`.
+- Runtime trials enabled now: `false`.
+- Next gate: `Sprint9P2SecretProviderRuntimeEnablementTrial`.
+
 ## CRM Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 - [x] Validate GitHub main contains Sprint 6 P6 commit.

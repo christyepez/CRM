@@ -657,6 +657,27 @@ class CrmReadinessService {
       sprint8ProductizationStatus: 'NotReady',
       sprint9PlanningDecision: 'Go',
       sprint8GateDecisionNextGate: 'Sprint9P1ControlledRuntimeActivationDecision',
+      sprint9P1ControlledRuntimeActivationDecision: 'Exists',
+      controlledRuntimeActivationDecision: 'ApprovedForNonProductionTrialsOnly',
+      productionActivationDecision: 'NoGo',
+      secretProviderRuntimeEnablementTrialApproved: true,
+      commonDbRuntimeConnectivityTrialApproved: true,
+      portalAuthRuntimeValidationTrialApproved: true,
+      productiveRouteDryRunTrialApproved: true,
+      runtimeTrialsEnabledNow: false,
+      productionRuntimeEnabledNow: false,
+      secretProviderRuntimeEnabledNow: false,
+      commonDbRuntimeEnabledNow: false,
+      portalAuthRuntimeEnabledNow: false,
+      productiveRoutesEnabledNow: false,
+      productiveCrudEnabledNow: false,
+      deleteEnabledNow: false,
+      productiveUiEnabledNow: false,
+      defaultFailClosedRequired: true,
+      explicitNonProductionFlagsRequired: true,
+      sprint9P1RollbackRequired: true,
+      sprint9P1ObservabilityRequired: true,
+      sprint9P1NextGate: 'Sprint9P2SecretProviderRuntimeEnablementTrial',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1339,6 +1360,27 @@ class CrmReadinessService {
       <p>Productization Status: NotReady</p>
       <p>Sprint 9 Planning: Go</p>
       <p>Next Gate: Sprint9P1ControlledRuntimeActivationDecision</p>
+      <p>Sprint 9 P1 Controlled Runtime Activation Decision: Exists</p>
+      <p>Controlled Runtime Activation Decision: ApprovedForNonProductionTrialsOnly</p>
+      <p>Production Activation Decision: NoGo</p>
+      <p>Secret Provider Runtime Enablement Trial Approved: true</p>
+      <p>Common DB Runtime Connectivity Trial Approved: true</p>
+      <p>Portal Auth Runtime Validation Trial Approved: true</p>
+      <p>Productive Route Dry-Run Trial Approved: true</p>
+      <p>Runtime Trials Enabled Now: false</p>
+      <p>Production Runtime Enabled Now: false</p>
+      <p>Secret Provider Runtime Enabled Now: false</p>
+      <p>Common DB Runtime Enabled Now: false</p>
+      <p>Portal Auth Runtime Enabled Now: false</p>
+      <p>Productive Routes Enabled Now: false</p>
+      <p>Productive CRUD Enabled Now: false</p>
+      <p>DELETE Enabled Now: false</p>
+      <p>Productive UI Enabled Now: false</p>
+      <p>Default Fail Closed Required: true</p>
+      <p>Explicit NonProduction Flags Required: true</p>
+      <p>Rollback Required: true</p>
+      <p>Observability Required: true</p>
+      <p>Next Gate: Sprint9P2SecretProviderRuntimeEnablementTrial</p>
       <p>Non-Production</p>
     </section>
   `
