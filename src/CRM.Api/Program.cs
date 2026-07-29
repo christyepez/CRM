@@ -58,6 +58,9 @@ builder.Services.AddSingleton<CrmPortalAuthRealRuntimeProbeStatusService>();
 builder.Services.AddSingleton<CrmLockedProductiveRouteRuntimeRegistrationStatusService>();
 builder.Services.AddSingleton<CrmSprint7GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderApprovalDecisionStatusService>();
+builder.Services.AddSingleton<CrmSecretProviderControlledRealReadStatusService>();
+builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
+builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
@@ -212,6 +215,16 @@ app.MapGet("/api/crm/foundation/sprint-7/gate-decision", (CrmSprint7GateDecision
 
 app.MapGet("/api/crm/foundation/sprint-8/secret-provider-approval-decision", (CrmSecretProviderApprovalDecisionStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint8SecretProviderApprovalDecision");
+
+app.MapGet("/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read", (CrmSecretProviderControlledRealReadStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint8SecretProviderControlledRealNonProductionRead");
+
+app.MapPost("/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read/probe", async (CrmSecretProviderControlledRealReadProbeRequest request, ISecretProviderRuntime runtime, CancellationToken cancellationToken) =>
+{
+    var result = await runtime.ReadAsync(new SecretProviderRuntimeReadRequest(request.SecretName), cancellationToken);
+    return Results.Json(result, statusCode: result.ReadAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
+})
+    .WithName("ProbeCrmFoundationSprint8SecretProviderControlledRealNonProductionRead");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

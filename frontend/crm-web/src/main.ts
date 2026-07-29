@@ -545,6 +545,23 @@ class CrmReadinessService {
       sprint8P1RedactionPlanApproved: true,
       sprint8P1Warning: 'Secret Provider approval decision only; no real secret read in Sprint 8 P1',
       sprint8P1NextGate: 'Sprint8P2SecretProviderControlledRealNonProductionRead',
+      sprint8P2SecretProviderControlledRealNonProductionRead: 'Exists',
+      secretProviderControlledRealNonProductionReadApproved: true,
+      secretProviderControlledRealNonProductionReadEnabled: false,
+      secretProviderControlledRealNonProductionReadAttempted: false,
+      sprint8P2RealSecretReadAttempted: false,
+      sprint8P2RealSecretValueMaterialized: false,
+      sprint8P2RealSecretValueLogged: false,
+      sprint8P2SecretValueReturnedToApi: false,
+      sprint8P2SecretValuePersisted: false,
+      sprint8P2SecretValueCached: false,
+      sprint8P2KeyVaultRuntimeClientCreated: false,
+      sprint8P2KeyVaultRuntimeCallAttempted: false,
+      sprint8P2AzureSecretSdkRuntimeEnabled: false,
+      sprint8P2UsesApprovedSecretNamesOnly: true,
+      sprint8P2NonProductionOnly: true,
+      sprint8P2FailClosedByDefault: true,
+      sprint8P2NextGate: 'Sprint8P3CommonDbControlledRealConnectivity',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1115,6 +1132,23 @@ class CrmReadinessService {
       <p>Redaction Plan Approved: true</p>
       <p>Secret Provider Approval Decision Warning: Secret Provider approval decision only; no real secret read in Sprint 8 P1</p>
       <p>Next Gate: Sprint8P2SecretProviderControlledRealNonProductionRead</p>
+      <p>Sprint 8 P2 Secret Provider Controlled Real NonProduction Read: Exists</p>
+      <p>Secret Provider Controlled Real NonProduction Read Approved: true</p>
+      <p>Secret Provider Controlled Real NonProduction Read Enabled: false</p>
+      <p>Secret Provider Controlled Real NonProduction Read Attempted: false</p>
+      <p>Real Secret Read Attempted: false</p>
+      <p>Real Secret Value Materialized: false</p>
+      <p>Real Secret Value Logged: false</p>
+      <p>Secret Value Returned To API: false</p>
+      <p>Secret Value Persisted: false</p>
+      <p>Secret Value Cached: false</p>
+      <p>Key Vault Runtime Client Created: false</p>
+      <p>Key Vault Runtime Call Attempted: false</p>
+      <p>Azure Secret SDK Runtime Enabled: false</p>
+      <p>Uses Approved Secret Names Only: true</p>
+      <p>NonProduction Only: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Next Gate: Sprint8P3CommonDbControlledRealConnectivity</p>
       <p>Non-Production</p>
     </section>
   `

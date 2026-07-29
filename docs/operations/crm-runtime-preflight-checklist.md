@@ -248,3 +248,13 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm approved for next sprint is true and real read enabled now is false.
 - Confirm no `.env`, no real secret reads, no runtime client, no secret values in logs/API/repo.
 - Confirm DB, Portal Auth, productive routes, CRUD, DELETE and productive UI remain disabled.
+
+## Sprint 8 P2 secret provider controlled real NonProduction read
+
+- Confirm Sprint 8 P2 docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read` exists.
+- Confirm probe endpoint is locked by default.
+- Confirm `CrmSecretProviderControlledRealReadStatusService` exists.
+- Confirm `ISecretProviderRuntime`, `DisabledSecretProviderRuntime` and `ControlledNonProductionSecretProviderRuntime` exist.
+- Confirm enabled=false, attempted=false, no value returned/logged/persisted/cached.
+- Confirm no `.env`, no real secret values, no appsettings secrets, no DB/Auth/Portal runtime, no SQL Server, no DELETE and no productive UI.

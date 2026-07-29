@@ -640,3 +640,14 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep real secret reads disabled in P1.
 - [x] Keep DB, Portal Auth, productive routes, CRUD, DELETE and productive UI disabled.
 - [x] Next Gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.
+
+## CRM Sprint 8 P2 - Secret Provider Controlled Real NonProduction Read
+
+- [x] Add controlled real read docs, policy, contract, redaction, runbook, rollback and architecture.
+- [x] Add `CrmSecretProviderControlledRealReadStatusService` and contracts.
+- [x] Add `ISecretProviderRuntime`, disabled default runtime and controlled NonProduction runtime abstraction.
+- [x] Add `GET /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read`.
+- [x] Add locked foundation probe endpoint returning sanitized metadata only.
+- [x] Keep default enabled=false, attempted=false, value returned/logged/persisted/cached=false.
+- [x] Keep DB, Portal Auth, productive routes, CRUD, DELETE and productive UI disabled.
+- [x] Next Gate: `Sprint8P3CommonDbControlledRealConnectivity`.

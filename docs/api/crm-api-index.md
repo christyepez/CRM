@@ -235,3 +235,10 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - `GET /api/crm/foundation/sprint-8/secret-provider-approval-decision`: planning-only decision for controlled Secret Provider read in P2.
 - No real secret read occurs in P1.
 - Next gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.
+
+## Sprint 8 P2
+
+- `GET /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read`: controlled real NonProduction read status, disabled and fail-closed by default.
+- `POST /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read/probe`: locked foundation probe returning sanitized metadata only.
+- No secret value, DB/Auth/Portal runtime, productive CRUD, DELETE or product UI is active.
+- Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.

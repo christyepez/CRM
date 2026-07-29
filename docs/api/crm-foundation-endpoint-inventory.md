@@ -248,3 +248,10 @@
 ## Sprint 8 P1
 
 - `/api/crm/foundation/sprint-8/secret-provider-approval-decision` - GET only. Reports approved planning for P2 controlled NonProduction read, while real read remains disabled now.
+
+## Sprint 8 P2
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read` | GET | Controlled real read status; disabled and fail-closed by default |
+| `/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read/probe` | POST | Foundation-only probe; locked by default and metadata-only |

@@ -1065,6 +1065,29 @@ if ($sprint8P1Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCr
     $failures += "Sprint 8 P1 must not read secrets/env/files or activate DB, Portal/Auth runtime, token/header reads or token storage."
 }
 
+# Sprint 8 P2 Secret Provider Controlled Real NonProduction Read checks
+foreach ($path in @("docs/security/crm-sprint-8-p2-secret-provider-controlled-real-nonproduction-read.md", "docs/security/crm-secret-provider-controlled-real-read-policy.md", "docs/security/crm-secret-provider-controlled-real-read-contract.md", "docs/security/crm-secret-provider-controlled-real-read-redaction.md", "docs/operations/crm-secret-provider-controlled-real-read-runbook.md", "docs/operations/crm-secret-provider-controlled-real-read-rollback.md", "docs/architecture/crm-secret-provider-controlled-real-read-architecture.md", "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/ISecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeOptions.cs", "src/CRM.Infrastructure/Security/Secrets/DisabledSecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/ControlledNonProductionSecretProviderRuntime.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 8 P2 required file: $path"
+    }
+}
+$sprint8P2Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint8P2Program -notlike "*/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read*") {
+    $failures += "Sprint 8 P2 secret provider controlled read endpoint missing."
+}
+$sprint8P2Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderControlledRealReadStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/ISecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeOptions.cs", "src/CRM.Infrastructure/Security/Secrets/DisabledSecretProviderRuntime.cs", "src/CRM.Infrastructure/Security/Secrets/ControlledNonProductionSecretProviderRuntime.cs", "docs/security/crm-sprint-8-p2-secret-provider-controlled-real-nonproduction-read.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint8P2Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("SecretProviderControlledRealNonProductionRead", "CrmSecretProviderControlledRealReadStatusService", "SecretProviderControlledRealNonProductionReadEnabled: false", "SecretProviderControlledRealNonProductionReadAttempted: false", "RealSecretReadAttempted: false", "RealSecretValueMaterialized: false", "RealSecretValueLogged: false", "SecretValueReturnedToApi: false", "SecretValuePersisted: false", "SecretValueCached: false", "KeyVaultRuntimeClientCreated: false", "KeyVaultRuntimeCallAttempted: false", "AzureSecretSdkRuntimeEnabled: false", "UsesApprovedSecretNamesOnly: true", "NonProductionOnly: true", "FailClosedByDefault: true", "Sprint8P3CommonDbControlledRealConnectivity", "Controlled real secret read is disabled by default and never returns secret values", "ISecretProviderRuntime", "DisabledSecretProviderRuntime", "ControlledNonProductionSecretProviderRuntime", "Sprint 8 P2 Secret Provider Controlled Real NonProduction Read: Exists")) {
+    if ($sprint8P2Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 8 P2 marker: $marker"
+    }
+}
+if ($sprint8P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") {
+    $failures += "Sprint 8 P2 must not activate secret SDK, DB, Portal/Auth runtime, token/header reads or token storage."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

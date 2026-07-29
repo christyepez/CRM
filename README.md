@@ -564,3 +564,7 @@ Sprint 7 is closed through `GET /api/crm/foundation/sprint-7/gate-decision`. The
 ## CRM Sprint 8 P1 - Secret Provider approval decision
 
 Sprint 8 starts with `GET /api/crm/foundation/sprint-8/secret-provider-approval-decision`. P1 approves moving to controlled NonProduction Secret Provider read planning in P2, but does not read real secrets now. `SecretProviderRealReadEnabledNow=false`, `RealSecretReadAttempted=false`, and the next gate is `Sprint8P2SecretProviderControlledRealNonProductionRead`.
+
+## CRM Sprint 8 P2 - Secret Provider controlled real NonProduction read
+
+Sprint 8 P2 adds `GET /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read` and a locked foundation probe for controlled Secret Provider reads. The default remains disabled and fail-closed: no real read attempted, no secret value returned, logged, persisted or cached, no `.env`, no SQL Server, no DB/Auth/Portal runtime, no productive CRUD and no DELETE. Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.

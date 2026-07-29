@@ -38,7 +38,8 @@ $positivePaths = @(
     "/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe",
     "/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration",
     "/api/crm/foundation/sprint-7/gate-decision",
-    "/api/crm/foundation/sprint-8/secret-provider-approval-decision"
+    "/api/crm/foundation/sprint-8/secret-provider-approval-decision",
+    "/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read"
 )
 
 foreach ($path in $positivePaths) {
