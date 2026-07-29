@@ -7,7 +7,7 @@ Recommended packages:
 - Sprint 8 P3: Common DB Controlled Real Connectivity.
 - Sprint 8 P4: Portal Auth Controlled Real Runtime Validation.
 - Sprint 8 P5: Locked Route Authorization Policy Integration. Default disabled; productive routes 404 by default; explicit NonProduction locked routes 423 with sanitized policy metadata only.
-- Sprint 8 P6: Sprint 8 Gate Decision.
+- Sprint 8 P6: Sprint 8 Gate Decision. Close Sprint 8, keep production activation NoGo, productization NotReady, and approve Sprint 9 controlled runtime activation planning.
 
 Do not implement Sprint 8 runtime behavior until each explicit approval gate is satisfied.
 ## P1 - Secret Provider Approval Decision

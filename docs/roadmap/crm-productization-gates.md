@@ -168,3 +168,7 @@ Portal Auth controlled real runtime validation scaffold exists, but default vali
 ## CRM Sprint 8 P5
 
 Locked route authorization policy scaffold exists, but default policy evaluation remains disabled and fail-closed. Productive routes remain 404 by default; explicit NonProduction locked routes remain 423 with sanitized metadata only. CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware and product UI remain blocked. Productization remains `NotReady`.
+
+## CRM Sprint 8 P6
+
+Sprint 8 gate decision is closed. Sprint 9 planning is approved, but production activation remains `NoGo` and productization remains `NotReady`.

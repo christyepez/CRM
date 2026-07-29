@@ -275,3 +275,4 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` | GET | Locked route authorization policy status; disabled and fail-closed by default |
+| `/api/crm/foundation/sprint-8/gate-decision` | GET | Sprint 8 gate decision; no production activation |

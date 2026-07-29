@@ -642,6 +642,21 @@ class CrmReadinessService {
       sprint8P5NonProductionOnly: true,
       sprint8P5FailClosedByDefault: true,
       sprint8P5NextGate: 'Sprint8P6Sprint8GateDecision',
+      sprint8: 'Closed',
+      sprint8GateDecision: 'Completed',
+      sprint8OverallDecision: 'GoForSprint9ControlledRuntimeActivationPlanning',
+      realProductionActivationDecision: 'NoGo',
+      secretProviderControlledReadDecision: 'GoOnlyAsExplicitNonProductionFlag',
+      commonDbControlledConnectivityDecision: 'GoOnlyAsExplicitNonProductionFlag',
+      portalAuthControlledValidationDecision: 'GoOnlyAsExplicitNonProductionFlag',
+      lockedRouteAuthorizationPolicyDecision: 'GoOnlyAsExplicitNonProductionLocked423',
+      sprint8ProductiveRoutesDefaultDecision: 'NoGo',
+      sprint8ProductiveCrudDecision: 'NoGo',
+      sprint8DeleteDecision: 'NoGo',
+      sprint8ProductiveUiDecision: 'NoGo',
+      sprint8ProductizationStatus: 'NotReady',
+      sprint9PlanningDecision: 'Go',
+      sprint8GateDecisionNextGate: 'Sprint9P1ControlledRuntimeActivationDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1309,6 +1324,21 @@ class CrmReadinessService {
       <p>NonProduction Only: true</p>
       <p>Fail Closed By Default: true</p>
       <p>Next Gate: Sprint8P6Sprint8GateDecision</p>
+      <p>Sprint 8: Closed</p>
+      <p>Sprint 8 Gate Decision: Completed</p>
+      <p>Overall Decision: GoForSprint9ControlledRuntimeActivationPlanning</p>
+      <p>Real Production Activation Decision: NoGo</p>
+      <p>Secret Provider Controlled Read: GoOnlyAsExplicitNonProductionFlag</p>
+      <p>Common DB Controlled Connectivity: GoOnlyAsExplicitNonProductionFlag</p>
+      <p>Portal Auth Controlled Validation: GoOnlyAsExplicitNonProductionFlag</p>
+      <p>Locked Route Authorization Policy: GoOnlyAsExplicitNonProductionLocked423</p>
+      <p>Productive Routes Default: NoGo</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>Productive UI: NoGo</p>
+      <p>Productization Status: NotReady</p>
+      <p>Sprint 9 Planning: Go</p>
+      <p>Next Gate: Sprint9P1ControlledRuntimeActivationDecision</p>
       <p>Non-Production</p>
     </section>
   `

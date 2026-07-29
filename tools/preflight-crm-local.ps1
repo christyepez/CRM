@@ -704,5 +704,37 @@ foreach ($Sprint8P5Marker in @("LockedRouteAuthorizationPolicyIntegration", "Loc
 }
 if ($Sprint8P5Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 8 P5 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
 
+# Sprint 8 P6 Gate Decision checks
+$Sprint8P6RequiredFiles = @(
+    "docs/releases/crm-sprint-8-closure.md",
+    "docs/releases/crm-sprint-8-integrated-evidence.md",
+    "docs/releases/crm-sprint-8-gate-decision.md",
+    "docs/releases/crm-sprint-8-go-no-go.md",
+    "docs/releases/crm-sprint-8-open-risks.md",
+    "docs/releases/crm-sprint-8-decision-record.md",
+    "docs/architecture/crm-sprint-8-gate-matrix.md",
+    "docs/security/crm-sprint-8-security-gate-review.md",
+    "docs/data/crm-sprint-8-persistence-gate-review.md",
+    "docs/api/crm-sprint-8-api-gate-review.md",
+    "docs/testing/crm-sprint-8-e2e-gate-review.md",
+    "docs/roadmap/crm-sprint-9-options.md",
+    "docs/roadmap/crm-sprint-9-recommended-path.md",
+    "docs/roadmap/crm-sprint-9-gates.md",
+    "src/CRM.Application/Foundation/CrmSprint8GateDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint8GateDecisionStatusService.cs"
+)
+foreach ($Sprint8P6RequiredFile in $Sprint8P6RequiredFiles) {
+    if (-not (Test-Path $Sprint8P6RequiredFile)) { Fail "Missing Sprint 8 P6 required file: $Sprint8P6RequiredFile" } else { Pass "Required Sprint 8 P6 file exists: $Sprint8P6RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-8/gate-decision*") { Pass "Sprint 8 P6 gate decision endpoint registered." } else { Fail "Sprint 8 P6 gate decision endpoint missing." }
+$Sprint8P6Text = ""
+foreach ($Sprint8P6File in @("src/CRM.Application/Foundation/CrmSprint8GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint8GateDecisionStatusService.cs", "docs/releases/crm-sprint-8-gate-decision.md", "docs/roadmap/crm-sprint-9-recommended-path.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P6File) { $Sprint8P6Text += "`n" + (Get-Content -Raw $Sprint8P6File) }
+}
+foreach ($Sprint8P6Marker in @("Sprint8GateDecision", "GoForSprint9ControlledRuntimeActivationPlanning", "RealProductionActivationDecision: `"NoGo`"", "SecretProviderControlledReadDecision", "GoOnlyAsExplicitNonProductionFlag", "CommonDbControlledConnectivityDecision", "PortalAuthControlledValidationDecision", "LockedRouteAuthorizationPolicyDecision", "GoOnlyAsExplicitNonProductionLocked423", "ProductiveRoutesDefaultDecision", "ProductiveCrudDecision", "DeleteDecision", "ProductiveUiDecision", "ProductizationStatus", "NotReady", "Sprint9PlanningDecision", "Sprint9P1ControlledRuntimeActivationDecision", "Sprint 8 gate decision only; no production activation", "Sprint 8: Closed")) {
+    if ($Sprint8P6Text -notmatch [regex]::Escape($Sprint8P6Marker)) { Fail "Missing Sprint 8 P6 marker: $Sprint8P6Marker" }
+}
+if ($Sprint8P6Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 8 P6 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

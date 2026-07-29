@@ -580,3 +580,7 @@ Sprint 8 P4 adds `GET /api/crm/foundation/sprint-8/portal-auth-controlled-real-r
 ## CRM Sprint 8 P5 - Locked route authorization policy integration
 
 Sprint 8 P5 adds `GET /api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` and a pure application policy evaluator for locked productive route metadata. The default remains disabled and fail-closed: productive routes return 404 by default, locked route policy is not evaluated by default, explicit NonProduction locked routes return 423, DELETE is not registered, no CRUD/domain/persistence/DB/EF/Portal HTTP/token/header/auth middleware/productive UI is activated. Next gate: `Sprint8P6Sprint8GateDecision`.
+
+## CRM Sprint 8 P6 - Sprint 8 gate decision
+
+Sprint 8 is closed with `GET /api/crm/foundation/sprint-8/gate-decision`. The decision is `GoForSprint9ControlledRuntimeActivationPlanning`; production activation remains `NoGo`, productization remains `NotReady`, productive routes remain 404 by default, locked routes remain 423 only under explicit NonProduction flags, and Sprint 9 planning is `Go`. Next gate: `Sprint9P1ControlledRuntimeActivationDecision`.

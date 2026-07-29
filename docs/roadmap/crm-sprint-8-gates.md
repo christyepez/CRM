@@ -44,6 +44,16 @@ Must remain disabled by default, NonProduction-only and fail-closed. Productive 
 
 Next gate: `Sprint8P6Sprint8GateDecision`.
 
+## Sprint 8 P6 Gate
+
+Status: `Sprint8GateDecision`.
+
+Overall decision: `GoForSprint9ControlledRuntimeActivationPlanning`.
+
+Production activation remains `NoGo`; productization remains `NotReady`; Sprint 9 planning is `Go`.
+
+Next gate: `Sprint9P1ControlledRuntimeActivationDecision`.
+
 Decision: controlled NonProduction connectivity scaffold implemented, disabled by default and metadata-only.
 
 P3 permits P4 Portal Auth validation planning without implying productive persistence. Productive activation remains `NoGo`.

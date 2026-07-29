@@ -218,3 +218,7 @@ CRM added a fail-closed Portal Auth controlled real runtime validation foundatio
 ## Sprint 8 P5 note
 
 CRM added a fail-closed locked route authorization policy foundation. The status endpoint and pure evaluator are present, productive routes remain 404 by default, explicit NonProduction locked routes remain 423 with sanitized metadata, and no CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware or product UI is active.
+
+## Sprint 8 P6 note
+
+CRM closed Sprint 8 with a formal gate decision: `GoForSprint9ControlledRuntimeActivationPlanning`, production activation `NoGo`, productization `NotReady`, Sprint 9 planning `Go`, and next gate `Sprint9P1ControlledRuntimeActivationDecision`.

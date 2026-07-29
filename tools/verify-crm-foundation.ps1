@@ -1157,6 +1157,29 @@ if ($sprint8P5Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\
     $failures += "Sprint 8 P5 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE."
 }
 
+# Sprint 8 P6 Gate Decision checks
+foreach ($path in @("docs/releases/crm-sprint-8-closure.md", "docs/releases/crm-sprint-8-integrated-evidence.md", "docs/releases/crm-sprint-8-gate-decision.md", "docs/releases/crm-sprint-8-go-no-go.md", "docs/releases/crm-sprint-8-open-risks.md", "docs/releases/crm-sprint-8-decision-record.md", "docs/architecture/crm-sprint-8-gate-matrix.md", "docs/security/crm-sprint-8-security-gate-review.md", "docs/data/crm-sprint-8-persistence-gate-review.md", "docs/api/crm-sprint-8-api-gate-review.md", "docs/testing/crm-sprint-8-e2e-gate-review.md", "docs/roadmap/crm-sprint-9-options.md", "docs/roadmap/crm-sprint-9-recommended-path.md", "docs/roadmap/crm-sprint-9-gates.md", "src/CRM.Application/Foundation/CrmSprint8GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint8GateDecisionStatusService.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 8 P6 required file: $path"
+    }
+}
+$sprint8P6Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint8P6Program -notlike "*/api/crm/foundation/sprint-8/gate-decision*") {
+    $failures += "Sprint 8 P6 gate decision endpoint missing."
+}
+$sprint8P6Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSprint8GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint8GateDecisionStatusService.cs", "docs/releases/crm-sprint-8-gate-decision.md", "docs/roadmap/crm-sprint-9-recommended-path.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint8P6Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("Sprint8GateDecision", "CrmSprint8GateDecisionStatusService", "GoForSprint9ControlledRuntimeActivationPlanning", "RealProductionActivationDecision", "NoGo", "SecretProviderControlledReadDecision", "GoOnlyAsExplicitNonProductionFlag", "CommonDbControlledConnectivityDecision", "PortalAuthControlledValidationDecision", "LockedRouteAuthorizationPolicyDecision", "GoOnlyAsExplicitNonProductionLocked423", "ProductiveRoutesDefaultDecision", "ProductiveCrudDecision", "DeleteDecision", "ProductiveUiDecision", "ProductizationStatus", "NotReady", "Sprint9PlanningDecision", "Sprint9P1ControlledRuntimeActivationDecision", "Sprint 8 gate decision only; no production activation", "Sprint 8: Closed")) {
+    if ($sprint8P6Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 8 P6 marker: $marker"
+    }
+}
+if ($sprint8P6Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") {
+    $failures += "Sprint 8 P6 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1
