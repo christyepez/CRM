@@ -13,6 +13,14 @@ Returns the read-only foundation decision contract for Sprint 9 P1:
 - `deleteEnabledNow=false`
 - `nextGate=Sprint9P2SecretProviderRuntimeEnablementTrial`
 
+## Sprint 9 P2 Secret Provider Runtime Enablement Trial
+
+`GET /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial`
+
+`POST /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe`
+
+The probe accepts `{ "secretName": "crm-common-db-connection" }`, enforces the allow-list, returns 423 when disabled by default and never returns secret values.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

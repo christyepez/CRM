@@ -765,5 +765,33 @@ foreach ($Sprint9P1Marker in @("ControlledRuntimeActivationDecision", "ApprovedF
 }
 if ($Sprint9P1Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") { Fail "Sprint 9 P1 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE." }
 
+# Sprint 9 P2 Secret Provider Runtime Enablement Trial checks
+$Sprint9P2RequiredFiles = @(
+    "docs/security/crm-sprint-9-p2-secret-provider-runtime-enablement-trial.md",
+    "docs/security/crm-secret-provider-runtime-enablement-trial-policy.md",
+    "docs/security/crm-secret-provider-runtime-enablement-trial-contract.md",
+    "docs/security/crm-secret-provider-runtime-enablement-trial-redaction.md",
+    "docs/operations/crm-secret-provider-runtime-enablement-trial-runbook.md",
+    "docs/operations/crm-secret-provider-runtime-enablement-trial-rollback.md",
+    "docs/architecture/crm-secret-provider-runtime-enablement-trial-architecture.md",
+    "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialContracts.cs",
+    "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialStatusService.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialOptions.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialService.cs",
+    "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialResult.cs"
+)
+foreach ($Sprint9P2RequiredFile in $Sprint9P2RequiredFiles) {
+    if (-not (Test-Path $Sprint9P2RequiredFile)) { Fail "Missing Sprint 9 P2 required file: $Sprint9P2RequiredFile" } else { Pass "Required Sprint 9 P2 file exists: $Sprint9P2RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial*") { Pass "Sprint 9 P2 Secret Provider trial endpoint registered." } else { Fail "Sprint 9 P2 endpoint missing." }
+$Sprint9P2Text = ""
+foreach ($Sprint9P2File in @("src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialOptions.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint9P2File) { $Sprint9P2Text += "`n" + (Get-Content -Raw $Sprint9P2File) }
+}
+foreach ($Sprint9P2Marker in @("SecretProviderRuntimeEnablementTrial", "SecretProviderRuntimeEnablementTrialEnabled: false", "SecretProviderRuntimeTrialAttempted: false", "SecretProviderRuntimeConnected: false", "RealSecretReadAttempted: false", "SecretValueReturnedToApi: false", "AllowedLogicalSecretNamesEnforced: true", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P3CommonDbRuntimeConnectivityTrial", "Secret Provider runtime trial is disabled by default and never returns secret values", "Crm:RuntimeTrials:SecretProviderEnabled", "Sprint 9 P2 Secret Provider Runtime Enablement Trial: Exists")) {
+    if ($Sprint9P2Text -notmatch [regex]::Escape($Sprint9P2Marker)) { Fail "Missing Sprint 9 P2 marker: $Sprint9P2Marker" }
+}
+if ($Sprint9P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P2 must not activate secret SDK, env/file reads, DB, Portal/Auth runtime, token/header reads, token storage or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

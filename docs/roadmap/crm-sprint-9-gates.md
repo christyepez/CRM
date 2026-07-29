@@ -9,6 +9,16 @@ P1 approves only controlled NonProduction trial planning. No trial is enabled no
 - ExplicitNonProductionFlagsRequired: true.
 - NextGate: Sprint9P2SecretProviderRuntimeEnablementTrial.
 
+## Sprint 9 P2 gate
+
+P2 adds the Secret Provider runtime enablement trial:
+
+- SecretProviderRuntimeEnablementTrialExists: true.
+- SecretProviderRuntimeEnablementTrialEnabled: false by default.
+- AllowedLogicalSecretNamesEnforced: true.
+- ObservabilityMetadataOnly: true.
+- NextGate: Sprint9P3CommonDbRuntimeConnectivityTrial.
+
 ## Sprint 9 P1
 
 Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

@@ -8,6 +8,14 @@ Endpoint: `GET /api/crm/foundation/sprint-9/controlled-runtime-activation-decisi
 
 Next gate: `Sprint9P2SecretProviderRuntimeEnablementTrial`.
 
+## CRM Sprint 9 P2 - Secret Provider Runtime Enablement Trial
+
+P2 adds a controlled Secret Provider runtime trial for NonProduction only. It is disabled by default behind `Crm:RuntimeTrials:SecretProviderEnabled=false`, enforces an allow-list of logical secret names and returns sanitized metadata only.
+
+Endpoint: `GET /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial`
+Probe: `POST /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe`
+Next gate: `Sprint9P3CommonDbRuntimeConnectivityTrial`.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.
