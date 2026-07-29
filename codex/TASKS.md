@@ -604,3 +604,11 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - Defaults: approval=false, connectionStringResolved=false, commonDbProbeEnabled=false, commonDbProbeAttempted=false, commonDbConnected=false, connectionProbeSkippedBecauseSecretProviderApprovalNotGranted=true.
 - Safety: no real connection strings, no DB connection, no EF runtime, no migrations, no SQL Server compose, no productive routes.
 - Next Gate: `Sprint7P4PortalAuthRealRuntimeProbe`.
+
+## CRM Sprint 7 P4 - Portal Auth Real Runtime Probe
+
+- Status: Implemented for PR review.
+- Endpoint: `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe`.
+- Defaults: approval=false, probeEnabled=false, probeAttempted=false, portalAuthRuntimeConnected=false, portalHttpCallAttempted=false, tokenReadAttempted=false, headerReadAttempted=false, probeSkippedBecausePortalAuthApprovalNotGranted=true.
+- Safety: no Portal URL resolution, no Portal HTTP, no HttpClient runtime, no token/header read, no Auth middleware, no `[Authorize]`, no login/logout, no CRM Identity, no roles/permissions persisted, no DB runtime, no productive routes.
+- Next Gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.

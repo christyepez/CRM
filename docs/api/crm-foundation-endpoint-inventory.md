@@ -233,3 +233,9 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe` | GET | Common DB connectivity probe contract only; skipped because Secret Provider approval is not granted |
+
+## Sprint 7 P4
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe` | GET | Portal Auth real runtime probe contract only; skipped because Portal Auth approval is not granted |

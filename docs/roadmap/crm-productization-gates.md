@@ -137,3 +137,9 @@ Secret Provider real NonProduction runtime probe exists but is skipped because a
 Productization remains `NotReady`.
 
 Common DB real connectivity probe exists but is skipped because Secret Provider approval is not granted. DB runtime, EF runtime, migrations and productive persistence remain blocked.
+
+# Sprint 7 P4 productization gate
+
+Productization remains `NotReady`.
+
+Portal Auth real runtime probe exists but is skipped because Portal Auth approval is not granted. Portal HTTP, Portal URL resolution, token/header reads, Auth middleware, CRM Identity, login/logout, roles/permissions persistence and productive routes remain blocked.

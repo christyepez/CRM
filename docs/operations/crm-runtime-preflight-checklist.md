@@ -218,3 +218,12 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm connectionStringResolved=false, commonDbProbeEnabled=false, commonDbProbeAttempted=false, commonDbConnected=false.
 - Confirm `mock://crm/common-db` is the only connection reference.
 - Confirm no real connection strings, DB connection, EF runtime, migrations, SQL Server compose, Auth runtime, Portal runtime, productive routes, locked stub runtime or DELETE endpoint exists.
+
+# Sprint 7 P4 Portal Auth real runtime preflight addendum
+
+- Validate `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe`.
+- Confirm portalAuthRealRuntimeApprovalGranted=false and secretProviderRealNonProductionApprovalGranted=false.
+- Confirm portalAuthRealRuntimeProbeEnabled=false, portalAuthRealRuntimeProbeAttempted=false, portalAuthRuntimeConnected=false and portalHttpCallAttempted=false.
+- Confirm tokenReadAttempted=false, headerReadAttempted=false and authorizationHeaderReadAttempted=false.
+- Confirm `mock://crm/portal-auth` and `mock://crm/portal-user` are the only references.
+- Confirm no Portal Auth base URL resolution, Portal HTTP, token/header reads, Auth middleware, `[Authorize]`, login/logout, CRM Identity, persisted roles/permissions, DB runtime, productive routes, locked stub runtime or DELETE endpoint exists.

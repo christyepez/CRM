@@ -9,6 +9,7 @@ using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
+using CRM.Infrastructure.Portal.RuntimeProbe;
 using CRM.Infrastructure.Portal.Simulation;
 using CRM.Infrastructure.Security.Secrets;
 
@@ -52,9 +53,11 @@ builder.Services.AddSingleton<CrmSprint6GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderRealNonProductionApprovalStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderRealNonProductionRuntimeProbeStatusService>();
 builder.Services.AddSingleton<CrmCommonDbRealConnectivityNonProductionProbeStatusService>();
+builder.Services.AddSingleton<CrmPortalAuthRealRuntimeProbeStatusService>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
+builder.Services.AddSingleton<PortalAuthRealRuntimeProbe>();
 builder.Services.AddSingleton<LeadReadModelPreviewService>();
 builder.Services.AddSingleton<AccountReadModelPreviewService>();
 builder.Services.AddSingleton<ContactReadModelPreviewService>();
@@ -193,6 +196,9 @@ app.MapGet("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runt
 
 app.MapGet("/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe", (CrmCommonDbRealConnectivityNonProductionProbeStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint7CommonDbRealConnectivityNonProductionProbe");
+
+app.MapGet("/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", (CrmPortalAuthRealRuntimeProbeStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint7PortalAuthRealRuntimeProbe");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

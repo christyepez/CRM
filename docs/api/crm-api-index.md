@@ -216,3 +216,7 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 7 P3 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe` - Common DB real connectivity NonProduction probe contract; skipped because Secret Provider approval is not granted.
+
+## Sprint 7 P4 Foundation Endpoint
+
+- `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe` - Portal Auth real runtime NonProduction probe contract; skipped because Portal Auth approval is not granted.

@@ -14,6 +14,22 @@ foreach ($root in @("src", "frontend/crm-web/src")) {
             ForEach-Object { $source += "`n" + (Get-Content -Raw $_.FullName) }
     }
 }
+$portalAuthScan = $source.
+    Replace("PortalHttpClientCreated", "").
+    Replace("portalHttpClientCreated", "").
+    Replace("Portal HTTP Client Created", "").
+    Replace("PortalAuthBaseUrlResolved", "").
+    Replace("portalAuthBaseUrlResolved", "").
+    Replace("Portal Auth Base URL Resolved", "").
+    Replace("PortalAuthBaseUrlMaterialized", "").
+    Replace("portalAuthBaseUrlMaterialized", "").
+    Replace("Portal Auth Base URL Materialized", "").
+    Replace("PortalAuthBaseUrlLogged", "").
+    Replace("portalAuthBaseUrlLogged", "").
+    Replace("Portal Auth Base URL Logged", "").
+    Replace("PortalAuthBaseUrlReturnedToApi", "").
+    Replace("portalAuthBaseUrlReturnedToApi", "").
+    Replace("Portal Auth Base URL Returned To API", "")
 
 foreach ($route in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"')) {
     if ($program -like "*$route*") { Fail "Productive route active: $route" }
@@ -35,7 +51,7 @@ if ($program -notlike "*/api/crm/foundation/sprint-5/secret-provider-runtime-con
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/secret-provider-runtime-contract") { Fail "Sprint 5 P2 secret provider runtime contract endpoint must remain GET-only." }
 if ($program -notlike "*/api/crm/foundation/sprint-5/common-db-probe-optional-activation*") { Fail "Sprint 5 P3 common DB probe optional activation route missing." }
 if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-5/common-db-probe-optional-activation") { Fail "Sprint 5 P3 common DB probe optional activation endpoint must remain GET-only." }
-if ($source -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
+if ($portalAuthScan -match "AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|HttpClient|PortalBaseUrl|PortalCorporativoUrl") { Fail "Auth, token storage or Portal runtime marker found." }
 
 $allowed = $source.Replace("DbContextConfigured", "").Replace("dbContextConfigured", "").Replace("DbContext Configured", "").Replace("DbContextRuntimeActive", "").Replace("dbContextRuntimeActive", "").Replace("DbContext Runtime Active", "").Replace("AddDbContextRuntimeEnabled", "").Replace("addDbContextRuntimeEnabled", "").Replace("AddDbContext Runtime Enabled", "").Replace("CrmDbContextPrototypeContract", "").Replace("CrmDbContextPrototype", "").Replace("InheritsRealDbContext", "").Replace("CRM_DBCONTEXT_RUNTIME_ACTIVE=false", "").Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", "").Replace("EfDbContextPrototypeDisabled", "").Replace("EF/DbContext prototype only; runtime disabled and no database configured", "").Replace("UseSqlServerEnabled", "").Replace("useSqlServerEnabled", "").Replace("UseSqlServer Enabled", "")
 if ($allowed -match "DbSet<|MigrationBuilder|UseSqlServer\(|UseNpgsql|AddDbContext|ConnectionString=") { Fail "DB runtime, migration or real configuration marker found." }
@@ -299,7 +315,26 @@ foreach ($P4File in @("src/CRM.Application/Foundation/CrmPortalAuthTokenPropagat
 foreach ($P4Marker in @("PortalAuthTokenPropagationDryRunContract", "PortalAuthTokenPropagationDryRunContractExists", "PortalAuthDryRunApprovalGranted", "PortalAuthDryRunEnabled", "PortalAuthRuntimeConnected", "TokenReadAttempted", "HeaderReadAttempted", "PortalHttpAttempted", "UsesSyntheticTokenMetadata", "mock://crm/portal-auth-token", "mock://crm/portal-user", "RealTokenUsed", "RealHeadersRead", "LoginImplementedByCrm", "IdentityImplementedByCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "Sprint6P5LockedStubRuntimeRegistrationTrial", "Portal Auth token propagation dry-run contract only; no real tokens or headers are read")) {
     if ($P4Text -notmatch [regex]::Escape($P4Marker)) { Fail "Missing Sprint 6 P4 marker: $P4Marker" }
 }
-if ($P4Text -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|HttpClient|PortalBaseUrl|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 6 P4 must not read headers/tokens, call Portal, store tokens or activate Auth runtime." }
+$P4AuthScanText = $P4Text.
+    Replace("AuthorizationHeaderReadAttempted", "").
+    Replace("authorizationHeaderReadAttempted", "").
+    Replace("Authorization Header Read Attempted", "").
+    Replace("PortalHttpClientCreated", "").
+    Replace("portalHttpClientCreated", "").
+    Replace("Portal HTTP Client Created", "").
+    Replace("PortalAuthBaseUrlResolved", "").
+    Replace("portalAuthBaseUrlResolved", "").
+    Replace("Portal Auth Base URL Resolved", "").
+    Replace("PortalAuthBaseUrlMaterialized", "").
+    Replace("portalAuthBaseUrlMaterialized", "").
+    Replace("Portal Auth Base URL Materialized", "").
+    Replace("PortalAuthBaseUrlLogged", "").
+    Replace("portalAuthBaseUrlLogged", "").
+    Replace("Portal Auth Base URL Logged", "").
+    Replace("PortalAuthBaseUrlReturnedToApi", "").
+    Replace("portalAuthBaseUrlReturnedToApi", "").
+    Replace("Portal Auth Base URL Returned To API", "")
+if ($P4AuthScanText -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|AuthorizationHeader|authorizationHeader|Bearer|HttpClient|PortalBaseUrl|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 6 P4 must not read headers/tokens, call Portal, store tokens or activate Auth runtime." }
 
 # Sprint 6 P5 Locked Stub Runtime Registration Trial checks
 $P5RequiredFiles = @(
@@ -437,6 +472,35 @@ foreach ($Sprint7P3File in @("src/CRM.Application/Foundation/CrmCommonDbRealConn
 foreach ($Sprint7P3Marker in @("CommonDbRealConnectivityNonProductionProbe", "CommonDbRealConnectivityNonProductionProbeExists", "CommonDbRealConnectivityApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "ConnectionStringResolved", "ConnectionStringValueMaterialized", "ConnectionStringLogged", "ConnectionStringReturnedToApi", "CommonDbProbeEnabled", "CommonDbProbeAttempted", "CommonDbConnected", "SqlConnectionCreated", "DbConnectionCreated", "UseSqlServerEnabled", "EfRuntimeEnabled", "AddDbContextRuntimeEnabled", "MigrationsCreated", "DatabaseSchemaChanged", "ProductivePersistenceEnabled", "ApiRequiresDatabase", "UsesSecretProviderRuntime", "UsesSyntheticFallback", "mock://crm/common-db", "ConnectionProbeSkippedBecauseSecretProviderApprovalNotGranted", "Sprint7P4PortalAuthRealRuntimeProbe", "Common DB real connectivity NonProduction probe is prepared but skipped because Secret Provider approval is not granted")) {
     if ($Sprint7P3Text -notmatch [regex]::Escape($Sprint7P3Marker)) { Fail "Missing Sprint 7 P3 marker: $Sprint7P3Marker" }
 }
+
+# Sprint 7 P4 Portal Auth Real Runtime Probe checks
+$Sprint7P4RequiredFiles = @(
+    "docs/integration/crm-sprint-7-p4-portal-auth-real-runtime-probe.md",
+    "docs/integration/crm-portal-auth-real-runtime-probe-policy.md",
+    "docs/integration/crm-portal-auth-real-runtime-probe-contract.md",
+    "docs/integration/crm-portal-auth-real-runtime-probe-safety-boundary.md",
+    "docs/operations/crm-portal-auth-real-runtime-probe-runbook.md",
+    "docs/operations/crm-portal-auth-real-runtime-probe-rollback.md",
+    "docs/architecture/crm-portal-auth-real-runtime-probe-architecture.md",
+    "docs/security/crm-portal-auth-real-runtime-probe-token-boundary.md",
+    "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeContracts.cs",
+    "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeStatusService.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbe.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbeOptions.cs"
+)
+foreach ($Sprint7P4RequiredFile in $Sprint7P4RequiredFiles) {
+    if (-not (Test-Path $Sprint7P4RequiredFile)) { Fail "Missing Sprint 7 P4 required file: $Sprint7P4RequiredFile" } else { Pass "Required Sprint 7 P4 file exists: $Sprint7P4RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe*") { Fail "Sprint 7 P4 Portal Auth route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe") { Fail "Sprint 7 P4 endpoint must remain GET-only." }
+$Sprint7P4Text = ""
+foreach ($Sprint7P4File in @("src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint7P4File) { $Sprint7P4Text += "`n" + (Get-Content -Raw $Sprint7P4File) }
+}
+foreach ($Sprint7P4Marker in @("PortalAuthRealRuntimeProbe", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthorizationHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted")) {
+    if ($Sprint7P4Text -notmatch [regex]::Escape($Sprint7P4Marker)) { Fail "Missing Sprint 7 P4 marker: $Sprint7P4Marker" }
+}
+if ($Sprint7P4Text -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|Bearer|HttpClient\(|new HttpClient|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(") { Fail "Sprint 7 P4 must not read headers/tokens, call Portal, activate Auth or connect DB." }
 
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."

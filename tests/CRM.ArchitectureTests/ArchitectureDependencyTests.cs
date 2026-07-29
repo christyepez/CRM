@@ -112,6 +112,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval", program);
         Assert.Contains("/api/crm/foundation/sprint-7/secret-provider-real-nonproduction-runtime-probe", program);
         Assert.Contains("/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproduction-probe", program);
+        Assert.Contains("/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", program);
         Assert.Contains("/api/crm/foundation/leads", program);
         Assert.Contains("/api/crm/foundation/accounts", program);
         Assert.Contains("/api/crm/foundation/contacts", program);
@@ -1920,6 +1921,99 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void PortalAuthRealRuntimeProbe_IsSkippedAndDoesNotReadHeadersTokensOrCallPortal()
+    {
+        var source = ReadSourceFiles("src", "frontend", "docker-compose.yml", "docker-compose.crm.yml");
+        var rawSource = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Application", "Foundation", "CrmPortalAuthRealRuntimeProbeStatusService.cs")) +
+            Environment.NewLine +
+            File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Infrastructure", "Portal", "RuntimeProbe", "PortalAuthRealRuntimeProbe.cs")) +
+            Environment.NewLine +
+            File.ReadAllText(Path.Combine(FindRepositoryRoot(), "frontend", "crm-web", "src", "main.ts"));
+        var program = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Api", "Program.cs"));
+        var dbContextScanSource = StripAllowedEfPrototypeMarkers(source);
+        var connectionScanSource = StripAllowedConnectionStringMarkers(source);
+        var commonDbConnectionScanSource = StripAllowedCommonDbConnectionContractMarkers(source);
+        var portalAuthScanSource = StripAllowedPortalAuthRealRuntimeProbeMarkers(source);
+        var secretProviderScanSource = StripAllowedSecretProviderContractMarkers(source);
+
+        Assert.Contains("CrmPortalAuthRealRuntimeProbeStatusService", rawSource);
+        Assert.Contains("PortalAuthRealRuntimeProbe", rawSource);
+        Assert.Contains("PortalAuthRealRuntimeProbeExists", rawSource);
+        Assert.Contains("PortalAuthRealRuntimeApprovalGranted", rawSource);
+        Assert.Contains("SecretProviderRealNonProductionApprovalGranted", rawSource);
+        Assert.Contains("PortalAuthRealRuntimeProbeEnabled", rawSource);
+        Assert.Contains("PortalAuthRealRuntimeProbeAttempted", rawSource);
+        Assert.Contains("PortalAuthRuntimeConnected", rawSource);
+        Assert.Contains("PortalAuthBaseUrlResolved", rawSource);
+        Assert.Contains("PortalAuthBaseUrlMaterialized", rawSource);
+        Assert.Contains("PortalAuthBaseUrlLogged", rawSource);
+        Assert.Contains("PortalAuthBaseUrlReturnedToApi", rawSource);
+        Assert.Contains("PortalHttpClientCreated", rawSource);
+        Assert.Contains("PortalHttpCallAttempted", rawSource);
+        Assert.Contains("PortalAuthTokenValidationAttempted", rawSource);
+        Assert.Contains("TokenReadAttempted", rawSource);
+        Assert.Contains("HeaderReadAttempted", rawSource);
+        Assert.Contains("AuthorizationHeaderReadAttempted", rawSource);
+        Assert.Contains("RealTokenMaterialized", rawSource);
+        Assert.Contains("RealTokenLogged", rawSource);
+        Assert.Contains("TokenReturnedToApi", rawSource);
+        Assert.Contains("LoginImplementedByCrm", rawSource);
+        Assert.Contains("LogoutImplementedByCrm", rawSource);
+        Assert.Contains("IdentityImplementedByCrm", rawSource);
+        Assert.Contains("RolesPersistedInCrm", rawSource);
+        Assert.Contains("PermissionsPersistedInCrm", rawSource);
+        Assert.Contains("ProductiveAuthorizationEnabled", rawSource);
+        Assert.Contains("ApiRequiresPortalAuth", rawSource);
+        Assert.Contains("UsesSyntheticFallback", rawSource);
+        Assert.Contains("mock://crm/portal-auth", rawSource);
+        Assert.Contains("mock://crm/portal-user", rawSource);
+        Assert.Contains("ProbeSkippedBecausePortalAuthApprovalNotGranted", rawSource);
+        Assert.Contains("Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted", rawSource);
+        Assert.Contains("Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", rawSource);
+
+        Assert.Contains("MapGet(\"/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe\"", program);
+        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", program);
+        Assert.DoesNotContain("MapPut(\"/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("\"/api/crm/leads\"", program);
+        Assert.DoesNotContain("\"/api/crm/accounts\"", program);
+        Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
+        Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
+        Assert.DoesNotContain("Environment.GetEnvironmentVariable", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("File.ReadAllText", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", connectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SqlConnection", commonDbConnectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbConnection", commonDbConnectionScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", StripAllowedProviderMarkers(source), StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("KeyVault", secretProviderScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Azure.Security", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SecretClient", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("DefaultAzureCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ManagedIdentityCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("EnvironmentCredential", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpContext.Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Request.Headers", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Headers[", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizationHeader", portalAuthScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("HttpClient", portalAuthScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalBaseUrl", portalAuthScanSource, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("PortalCorporativoUrl", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("AuthorizeAttribute", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Jwt" + "Bearer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Cookie" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("local" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("session" + "Storage", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static IReadOnlySet<string> ReferencedAssemblyNames(Assembly assembly) =>
         assembly.GetReferencedAssemblies().Select(reference => reference.Name ?? "").ToHashSet(StringComparer.OrdinalIgnoreCase);
 
@@ -1953,7 +2047,7 @@ public sealed class ArchitectureDependencyTests
             }
         }
 
-        return string.Join(Environment.NewLine, contents);
+        return StripAllowedPortalAuthRealRuntimeProbeMarkers(string.Join(Environment.NewLine, contents));
     }
 
     private static string StripAllowedEfPrototypeMarkers(string source) =>
@@ -2052,6 +2146,38 @@ public sealed class ArchitectureDependencyTests
             .Replace("CrmCommonDbConnectionStrategyStatusService", string.Empty, StringComparison.Ordinal)
             .Replace("GetCrmFoundationSprint3CommonDbConnectionStrategy", string.Empty, StringComparison.Ordinal)
             .Replace("/api/crm/foundation/sprint-3/common-db-connection-strategy", string.Empty, StringComparison.Ordinal);
+
+    private static string StripAllowedPortalAuthRealRuntimeProbeMarkers(string source) =>
+        source.Replace("PortalAuthBaseUrlResolved", string.Empty, StringComparison.Ordinal)
+            .Replace("portalAuthBaseUrlResolved", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal Auth Base URL Resolved", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalAuthBaseUrlMaterialized", string.Empty, StringComparison.Ordinal)
+            .Replace("portalAuthBaseUrlMaterialized", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal Auth Base URL Materialized", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalAuthBaseUrlLogged", string.Empty, StringComparison.Ordinal)
+            .Replace("portalAuthBaseUrlLogged", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal Auth Base URL Logged", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalAuthBaseUrlReturnedToApi", string.Empty, StringComparison.Ordinal)
+            .Replace("portalAuthBaseUrlReturnedToApi", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal Auth Base URL Returned To API", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalHttpClientCreated", string.Empty, StringComparison.Ordinal)
+            .Replace("portalHttpClientCreated", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal HTTP Client Created", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalHttpCallAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("portalHttpCallAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal HTTP Call Attempted", string.Empty, StringComparison.Ordinal)
+            .Replace("PortalAuthTokenValidationAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("portalAuthTokenValidationAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("Portal Auth Token Validation Attempted", string.Empty, StringComparison.Ordinal)
+            .Replace("AuthorizationHeaderReadAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("authorizationHeaderReadAttempted", string.Empty, StringComparison.Ordinal)
+            .Replace("Authorization Header Read Attempted", string.Empty, StringComparison.Ordinal)
+            .Replace("SyntheticPortalAuthReference", string.Empty, StringComparison.Ordinal)
+            .Replace("syntheticPortalAuthReference", string.Empty, StringComparison.Ordinal)
+            .Replace("Synthetic Portal Auth Reference", string.Empty, StringComparison.Ordinal)
+            .Replace("ProbeSkippedBecausePortalAuthApprovalNotGranted", string.Empty, StringComparison.Ordinal)
+            .Replace("probeSkippedBecausePortalAuthApprovalNotGranted", string.Empty, StringComparison.Ordinal)
+            .Replace("Probe Skipped Because Portal Auth Approval Not Granted", string.Empty, StringComparison.Ordinal);
 
     private static string FindRepositoryRoot()
     {

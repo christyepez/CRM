@@ -551,3 +551,7 @@ Sprint 7 P2 adds a controlled runtime probe contract for Secret Provider real No
 ## CRM Sprint 7 P3 - Common DB Real Connectivity NonProduction Probe
 
 Sprint 7 P3 adds a Common DB real connectivity NonProduction probe contract. The probe exists but is skipped because Secret Provider real approval is not granted. CRM does not resolve, materialize, log or return connection strings; does not open DB connections; does not enable EF runtime; does not create migrations; does not add SQL Server compose services; and keeps productive routes as NoGo. Next gate: `Sprint7P4PortalAuthRealRuntimeProbe`.
+
+## CRM Sprint 7 P4 - Portal Auth Real Runtime Probe
+
+Sprint 7 P4 adds a Portal Auth real runtime NonProduction probe contract at `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe`. The probe exists but is skipped because Portal Auth approval is not granted. CRM does not resolve, materialize, log or return a Portal Auth base URL; does not create a Portal HTTP client; does not call Portal; does not read tokens or headers; does not implement login/logout, Identity, roles or permissions; and keeps real activation as NoGo. Next gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
