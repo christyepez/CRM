@@ -61,6 +61,8 @@ builder.Services.AddSingleton<CrmSecretProviderApprovalDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderControlledRealReadStatusService>();
 builder.Services.AddSingleton<CrmCommonDbControlledRealConnectivityStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthControlledRealRuntimeValidationStatusService>();
+builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyIntegrationStatusService>();
+builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyEvaluator>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
@@ -251,6 +253,9 @@ app.MapPost("/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-va
     return Results.Json(result, statusCode: result.ProbeAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
 })
     .WithName("ProbeCrmFoundationSprint8PortalAuthControlledRealRuntimeValidation");
+
+app.MapGet("/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration", (CrmLockedRouteAuthorizationPolicyIntegrationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint8LockedRouteAuthorizationPolicyIntegration");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

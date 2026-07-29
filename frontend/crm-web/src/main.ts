@@ -615,6 +615,33 @@ class CrmReadinessService {
       sprint8P4NonProductionOnly: true,
       sprint8P4FailClosedByDefault: true,
       sprint8P4NextGate: 'Sprint8P5LockedRouteAuthorizationPolicyIntegration',
+      sprint8P5LockedRouteAuthorizationPolicyIntegration: 'Exists',
+      lockedRouteAuthorizationPolicyIntegrationApproved: true,
+      lockedRouteAuthorizationPolicyIntegrationEnabled: false,
+      authorizationPolicyEvaluated: false,
+      authorizationPolicyDecision: 'NotEvaluatedBecauseDisabled',
+      portalAuthMetadataUsed: true,
+      sprint8P5PortalAuthRuntimeRequired: false,
+      sprint8P5PortalAuthRuntimeConnected: false,
+      sprint8P5TokenReadAttempted: false,
+      sprint8P5HeaderReadAttempted: false,
+      sprint8P5AuthorizationHeaderReadAttempted: false,
+      sprint8P5PortalHttpCallAttempted: false,
+      productiveRoutesRegisteredByDefault: false,
+      sprint8P5DefaultNegativeRouteStatus: 404,
+      lockedRoutesEnabledOnlyWithExplicitNonProductionFlag: true,
+      sprint8P5LockedRouteStatus: 423,
+      lockedRouteAuthorizationDecisionReturned: false,
+      sprint8P5ProductiveCrudEnabled: false,
+      sprint8P5ProductiveDomainExecutionEnabled: false,
+      sprint8P5ProductivePersistenceEnabled: false,
+      sprint8P5DeleteEndpointsEnabled: false,
+      sprint8P5SideEffectsAllowed: false,
+      sprint8P5DbRuntimeEnabled: false,
+      sprint8P5EfRuntimeEnabled: false,
+      sprint8P5NonProductionOnly: true,
+      sprint8P5FailClosedByDefault: true,
+      sprint8P5NextGate: 'Sprint8P6Sprint8GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1255,6 +1282,33 @@ class CrmReadinessService {
       <p>NonProduction Only: true</p>
       <p>Fail Closed By Default: true</p>
       <p>Next Gate: Sprint8P5LockedRouteAuthorizationPolicyIntegration</p>
+      <p>Sprint 8 P5 Locked Route Authorization Policy Integration: Exists</p>
+      <p>Locked Route Authorization Policy Integration Approved: true</p>
+      <p>Locked Route Authorization Policy Integration Enabled: false</p>
+      <p>Authorization Policy Evaluated: false</p>
+      <p>Authorization Policy Decision: NotEvaluatedBecauseDisabled</p>
+      <p>Portal Auth Metadata Used: true</p>
+      <p>Portal Auth Runtime Required: false</p>
+      <p>Portal Auth Runtime Connected: false</p>
+      <p>Token Read Attempted: false</p>
+      <p>Header Read Attempted: false</p>
+      <p>Authorization Header Read Attempted: false</p>
+      <p>Portal HTTP Call Attempted: false</p>
+      <p>Productive Routes Registered By Default: false</p>
+      <p>Default Negative Route Status: 404</p>
+      <p>Locked Routes Enabled Only With Explicit NonProduction Flag: true</p>
+      <p>Locked Route Status: 423</p>
+      <p>Locked Route Authorization Decision Returned: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Domain Execution Enabled: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>Delete Endpoints Enabled: false</p>
+      <p>Side Effects Allowed: false</p>
+      <p>DB Runtime Enabled: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Next Gate: Sprint8P6Sprint8GateDecision</p>
       <p>Non-Production</p>
     </section>
   `

@@ -36,6 +36,14 @@ Status: `PortalAuthControlledRealRuntimeValidation`.
 
 Must remain disabled by default, NonProduction-only and fail-closed. CRM must not read request tokens/headers, expose Portal URLs/secrets/tokens, implement login/logout/Identity, persist roles/permissions, enable auth middleware, enable `[Authorize]`, activate productive routes, enable DELETE, enable DB runtime or enable product UI.
 
+## Sprint 8 P5 Gate
+
+Status: `LockedRouteAuthorizationPolicyIntegration`.
+
+Must remain disabled by default, NonProduction-only and fail-closed. Productive routes must remain 404 by default. Explicit locked routes may return 423 with sanitized policy metadata only. CRM must not activate CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware, `[Authorize]`, product UI or real Portal Auth.
+
+Next gate: `Sprint8P6Sprint8GateDecision`.
+
 Decision: controlled NonProduction connectivity scaffold implemented, disabled by default and metadata-only.
 
 P3 permits P4 Portal Auth validation planning without implying productive persistence. Productive activation remains `NoGo`.

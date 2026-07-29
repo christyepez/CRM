@@ -27,7 +27,8 @@ foreach ($path in @("/health", "/health/live", "/health/ready", "/api/crm/readin
     "/api/crm/foundation/sprint-8/secret-provider-approval-decision",
     "/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read",
     "/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity",
-    "/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation")) {
+    "/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation",
+    "/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration")) {
     try {
         $response = Invoke-WebRequest -UseBasicParsing "$BaseUrl$path" -TimeoutSec 5
         if ($response.StatusCode -ge 200 -and $response.StatusCode -lt 300) { Pass "$path $($response.StatusCode)" } else { Fail "$path $($response.StatusCode)" }

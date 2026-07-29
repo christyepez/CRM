@@ -80,8 +80,10 @@ public sealed class LockedProductiveRouteRuntimeRegistrationTests
         Assert.False(root.GetProperty("domainExecutionEnabled").GetBoolean());
         Assert.False(root.GetProperty("persistenceEnabled").GetBoolean());
         Assert.False(root.GetProperty("portalAuthRuntimeEnabled").GetBoolean());
-        Assert.Equal("Sprint7P6Sprint7GateDecision", root.GetProperty("nextGate").GetString());
-        Assert.DoesNotContain("token", root.GetRawText(), StringComparison.OrdinalIgnoreCase);
+        Assert.False(root.GetProperty("tokenReadAttempted").GetBoolean());
+        Assert.False(root.GetProperty("headerReadAttempted").GetBoolean());
+        Assert.False(root.GetProperty("portalHttpCallAttempted").GetBoolean());
+        Assert.Equal("Sprint8P6Sprint8GateDecision", root.GetProperty("nextGate").GetString());
         Assert.DoesNotContain("secret", root.GetRawText(), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("connection", root.GetRawText(), StringComparison.OrdinalIgnoreCase);
     }

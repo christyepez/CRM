@@ -576,3 +576,7 @@ Sprint 8 P3 adds `GET /api/crm/foundation/sprint-8/common-db-controlled-real-con
 ## CRM Sprint 8 P4 - Portal Auth controlled real runtime validation
 
 Sprint 8 P4 adds `GET /api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation` and a locked foundation probe for Portal Auth validation. The default remains disabled and fail-closed: no Portal HTTP by default, no request token/header reads, no Portal URL/secret/token returned or logged, no CRM-owned login/logout/Identity, no auth middleware, no persisted roles/permissions, no productive CRUD and no DELETE. Next gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.
+
+## CRM Sprint 8 P5 - Locked route authorization policy integration
+
+Sprint 8 P5 adds `GET /api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` and a pure application policy evaluator for locked productive route metadata. The default remains disabled and fail-closed: productive routes return 404 by default, locked route policy is not evaluated by default, explicit NonProduction locked routes return 423, DELETE is not registered, no CRUD/domain/persistence/DB/EF/Portal HTTP/token/header/auth middleware/productive UI is activated. Next gate: `Sprint8P6Sprint8GateDecision`.

@@ -1134,6 +1134,29 @@ if ($sprint8P4Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\
     $failures += "Sprint 8 P4 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF or migrations."
 }
 
+# Sprint 8 P5 Locked Route Authorization Policy Integration checks
+foreach ($path in @("docs/api/crm-sprint-8-p5-locked-route-authorization-policy-integration.md", "docs/api/crm-locked-route-authorization-policy-contract.md", "docs/api/crm-locked-route-authorization-policy-boundary.md", "docs/security/crm-locked-route-authorization-policy-security-review.md", "docs/security/crm-locked-route-authorization-policy-token-boundary.md", "docs/operations/crm-locked-route-authorization-policy-runbook.md", "docs/operations/crm-locked-route-authorization-policy-rollback.md", "docs/architecture/crm-locked-route-authorization-policy-architecture.md", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationStatusService.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluator.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluationRequest.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluationResult.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 8 P5 required file: $path"
+    }
+}
+$sprint8P5Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint8P5Program -notlike "*/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration*") {
+    $failures += "Sprint 8 P5 locked route authorization policy endpoint missing."
+}
+$sprint8P5Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationStatusService.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluator.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistration.cs", "docs/api/crm-sprint-8-p5-locked-route-authorization-policy-integration.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint8P5Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("LockedRouteAuthorizationPolicyIntegration", "CrmLockedRouteAuthorizationPolicyIntegrationStatusService", "CrmLockedRouteAuthorizationPolicyEvaluator", "LockedRouteAuthorizationPolicyIntegrationEnabled: false", "AuthorizationPolicyEvaluated: false", "NotEvaluatedBecauseDisabled", "BlockedBecauseRouteLocked", "PortalAuthMetadataUsed: true", "PortalAuthRuntimeRequired: false", "PortalAuthRuntimeConnected: false", "TokenReadAttempted: false", "HeaderReadAttempted: false", "AuthorizationHeaderReadAttempted: false", "PortalHttpCallAttempted: false", "ProductiveRoutesRegisteredByDefault: false", "DefaultNegativeRouteStatus: 404", "LockedRoutesEnabledOnlyWithExplicitNonProductionFlag: true", "LockedRouteStatus: 423", "LockedRouteAuthorizationDecisionReturned: false", "ProductiveCrudEnabled: false", "ProductiveDomainExecutionEnabled: false", "ProductivePersistenceEnabled: false", "DeleteEndpointsEnabled: false", "SideEffectsAllowed: false", "DbRuntimeEnabled: false", "EfRuntimeEnabled: false", "Sprint8P6Sprint8GateDecision", "Locked route authorization policy is disabled by default and never activates productive CRM routes", "Sprint 8 P5 Locked Route Authorization Policy Integration: Exists")) {
+    if ($sprint8P5Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 8 P5 marker: $marker"
+    }
+}
+if ($sprint8P5Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|MapDelete") {
+    $failures += "Sprint 8 P5 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

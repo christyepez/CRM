@@ -673,3 +673,15 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep default enabled=false, attempted=false, connected=false and Portal URL/secret/token/header returned/logged/persisted/cached=false.
 - [x] Keep login/logout, Identity, auth middleware, roles, permissions, productive CRUD, DELETE, DB runtime and Portal HTTP disabled by default.
 - [x] Next Gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.
+
+## CRM Sprint 8 P5 - Locked Route Authorization Policy Integration
+
+- [x] Add locked route authorization policy docs, contract, boundary, security review, token boundary, runbook, rollback and architecture.
+- [x] Add `CrmLockedRouteAuthorizationPolicyIntegrationStatusService` and contracts.
+- [x] Add pure `CrmLockedRouteAuthorizationPolicyEvaluator` with no I/O, DB, Portal HTTP, token or header reads.
+- [x] Add `GET /api/crm/foundation/sprint-8/locked-route-authorization-policy-integration`.
+- [x] Keep productive routes 404 by default.
+- [x] Keep locked routes 423 only under explicit NonProduction registration.
+- [x] Keep policy metadata disabled by default and sanitized when explicitly enabled.
+- [x] Keep CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, auth middleware and productive UI disabled.
+- [x] Next Gate: `Sprint8P6Sprint8GateDecision`.

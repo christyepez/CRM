@@ -269,3 +269,9 @@
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation` | GET | Portal Auth controlled validation status; disabled and fail-closed by default |
 | `/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation/probe` | POST | Foundation-only probe; locked by default and metadata-only |
+
+## Sprint 8 P5
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` | GET | Locked route authorization policy status; disabled and fail-closed by default |
