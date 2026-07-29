@@ -242,3 +242,6 @@
 ## Sprint 7 P5
 
 - `/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration` - GET only. Reports `LockedProductiveRouteRuntimeRegistrationWith423`, default productive route status `404`, explicit locked status `423`, no DELETE, no DB, no Portal Auth runtime and no side effects.
+## Sprint 7 P6
+
+- `/api/crm/foundation/sprint-7/gate-decision` - GET only. Reports Sprint 7 closure, NoGo real activation, NotReady productization and Sprint 8 planning Go.

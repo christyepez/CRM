@@ -146,3 +146,6 @@ Portal Auth real runtime probe exists but is skipped because Portal Auth approva
 ## CRM Sprint 7 P5
 
 Locked productive route runtime registration exists only as a safe NonProduction gate. It does not approve productive CRUD, persistence, Portal Auth runtime, DELETE endpoints or UI. Default negative route status remains `404`; explicit locked route status is `423`.
+## CRM Sprint 7 P6
+
+Sprint 7 is closed. Productization remains `NotReady`; real activation, productive CRUD, DELETE, productive UI, real DB and Portal Auth runtime remain `NoGo`. Sprint 8 planning is approved for controlled runtime approval and pilot planning.

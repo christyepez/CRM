@@ -234,3 +234,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` return 404 by default.
 - Confirm explicit NonProduction fixture covers 423 for GET/POST/PUT/PATCH and no DELETE.
 - Confirm no DB, EF, Portal Auth runtime, token/header reads, secrets, productive UI or side effects.
+## Sprint 7 P6 gate decision
+
+- Confirm Sprint 7 closure docs and gate matrix exist.
+- Confirm Sprint 8 roadmap docs exist.
+- Confirm `/api/crm/foundation/sprint-7/gate-decision` is GET-only.
+- Confirm real activation remains NoGo and productization remains NotReady.
+- Confirm default productive routes remain 404 and locked route 423 remains explicit NonProduction-only.
