@@ -1,5 +1,14 @@
 # CRM Sprint 9 Gates
 
+## Sprint 9 P1 gate
+
+P1 approves only controlled NonProduction trial planning. No trial is enabled now.
+
+- RuntimeTrialsEnabledNow: false.
+- ProductionRuntimeEnabledNow: false.
+- ExplicitNonProductionFlagsRequired: true.
+- NextGate: Sprint9P2SecretProviderRuntimeEnablementTrial.
+
 ## Sprint 9 P1
 
 Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

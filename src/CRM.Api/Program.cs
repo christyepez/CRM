@@ -64,6 +64,7 @@ builder.Services.AddSingleton<CrmPortalAuthControlledRealRuntimeValidationStatus
 builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyIntegrationStatusService>();
 builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyEvaluator>();
 builder.Services.AddSingleton<CrmSprint8GateDecisionStatusService>();
+builder.Services.AddSingleton<CrmControlledRuntimeActivationDecisionStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
@@ -260,6 +261,9 @@ app.MapGet("/api/crm/foundation/sprint-8/locked-route-authorization-policy-integ
 
 app.MapGet("/api/crm/foundation/sprint-8/gate-decision", (CrmSprint8GateDecisionStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint8GateDecision");
+
+app.MapGet("/api/crm/foundation/sprint-9/controlled-runtime-activation-decision", (CrmControlledRuntimeActivationDecisionStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint9ControlledRuntimeActivationDecision");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

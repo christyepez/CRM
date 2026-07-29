@@ -1,5 +1,9 @@
 # CRM Productization Gates
 
+## Sprint 9 P1 productization status
+
+CRM remains `NotReady` for productization. Sprint 9 P1 does not approve production runtime, productive CRUD, DELETE or Productive UI. It only approves NonProduction trial planning under explicit future gates.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 Sprint 5 P3 does not change productization readiness. Common DB optional activation exists, but activation, database connection, EF runtime, migrations, durable persistence and API database dependency remain not approved.

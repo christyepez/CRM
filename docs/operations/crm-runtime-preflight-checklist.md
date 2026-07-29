@@ -1,5 +1,13 @@
 # CRM Runtime Preflight Checklist
 
+## Sprint 9 P1 controlled runtime activation decision
+
+- Confirm docs for Sprint 9 P1 exist.
+- Confirm endpoint `/api/crm/foundation/sprint-9/controlled-runtime-activation-decision` returns 200.
+- Confirm `RuntimeTrialsEnabledNow=false`.
+- Confirm `ProductionActivationDecision=NoGo`.
+- Confirm no DB, EF, migrations, secrets, token/header reads, Portal HTTP, productive CRUD, DELETE or productive UI are enabled.
+
 ## Sprint 5 P3 common DB probe optional activation checks
 
 - [ ] `/api/crm/foundation/sprint-5/common-db-probe-optional-activation` is registered as GET-only.
