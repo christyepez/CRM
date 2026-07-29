@@ -620,6 +620,35 @@ foreach ($Sprint8P2Marker in @("SecretProviderControlledRealNonProductionRead", 
 }
 if ($Sprint8P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P2 must not activate secret SDK, DB, Portal/Auth runtime, token/header reads or token storage." }
 
+# Sprint 8 P3 Common DB Controlled Real Connectivity checks
+$Sprint8P3RequiredFiles = @(
+    "docs/data/crm-sprint-8-p3-common-db-controlled-real-connectivity.md",
+    "docs/data/crm-common-db-controlled-real-connectivity-policy.md",
+    "docs/data/crm-common-db-controlled-real-connectivity-contract.md",
+    "docs/data/crm-common-db-controlled-real-connectivity-safety-boundary.md",
+    "docs/operations/crm-common-db-controlled-real-connectivity-runbook.md",
+    "docs/operations/crm-common-db-controlled-real-connectivity-rollback.md",
+    "docs/architecture/crm-common-db-controlled-real-connectivity-architecture.md",
+    "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityStatusService.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/ICommonDbConnectivityProbe.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityProbeOptions.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/DisabledCommonDbConnectivityProbe.cs",
+    "src/CRM.Infrastructure/Persistence/RuntimeProbe/ControlledNonProductionCommonDbConnectivityProbe.cs"
+)
+foreach ($Sprint8P3RequiredFile in $Sprint8P3RequiredFiles) {
+    if (-not (Test-Path $Sprint8P3RequiredFile)) { Fail "Missing Sprint 8 P3 required file: $Sprint8P3RequiredFile" } else { Pass "Required Sprint 8 P3 file exists: $Sprint8P3RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity*") { Fail "Sprint 8 P3 common DB controlled connectivity route missing." }
+$Sprint8P3Text = ""
+foreach ($Sprint8P3File in @("src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ICommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityProbeOptions.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/DisabledCommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ControlledNonProductionCommonDbConnectivityProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P3File) { $Sprint8P3Text += "`n" + (Get-Content -Raw $Sprint8P3File) }
+}
+foreach ($Sprint8P3Marker in @("CommonDbControlledRealConnectivity", "CommonDbControlledRealConnectivityEnabled: false", "CommonDbConnectivityAttempted: false", "CommonDbConnected: false", "ConnectionStringReturnedToApi: false", "ConnectionStringLogged: false", "MigrationsCreated: false", "ProductiveCrudEnabled: false", "FailClosedByDefault: true", "Sprint8P4PortalAuthControlledRealRuntimeValidation", "Common DB controlled real connectivity is disabled by default and never exposes connection strings", "DisabledCommonDbConnectivityProbe", "ControlledNonProductionCommonDbConnectivityProbe", "ICommonDbConnectivityProbe")) {
+    if ($Sprint8P3Text -notmatch [regex]::Escape($Sprint8P3Marker)) { Fail "Missing Sprint 8 P3 marker: $Sprint8P3Marker" }
+}
+if ($Sprint8P3Text -match "System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P3 must not activate DB, EF, migrations, Portal/Auth runtime, token/header reads or token storage." }
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

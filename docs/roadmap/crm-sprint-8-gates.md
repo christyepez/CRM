@@ -25,3 +25,11 @@ Status: `SecretProviderControlledRealNonProductionRead`.
 Decision: controlled NonProduction read scaffold implemented, disabled by default and metadata-only.
 
 P2 permits P3 to use only sanitized availability metadata. Productive activation remains `NoGo`.
+
+## Sprint 8 P3 Gate
+
+Status: `CommonDbControlledRealConnectivity`.
+
+Decision: controlled NonProduction connectivity scaffold implemented, disabled by default and metadata-only.
+
+P3 permits P4 Portal Auth validation planning without implying productive persistence. Productive activation remains `NoGo`.

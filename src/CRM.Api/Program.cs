@@ -59,8 +59,11 @@ builder.Services.AddSingleton<CrmLockedProductiveRouteRuntimeRegistrationStatusS
 builder.Services.AddSingleton<CrmSprint7GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderApprovalDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderControlledRealReadStatusService>();
+builder.Services.AddSingleton<CrmCommonDbControlledRealConnectivityStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
+builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
+builder.Services.AddSingleton<ICommonDbConnectivityProbe, DisabledCommonDbConnectivityProbe>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
@@ -225,6 +228,16 @@ app.MapPost("/api/crm/foundation/sprint-8/secret-provider-controlled-real-nonpro
     return Results.Json(result, statusCode: result.ReadAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
 })
     .WithName("ProbeCrmFoundationSprint8SecretProviderControlledRealNonProductionRead");
+
+app.MapGet("/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity", (CrmCommonDbControlledRealConnectivityStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint8CommonDbControlledRealConnectivity");
+
+app.MapPost("/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity/probe", async (CrmCommonDbControlledRealConnectivityProbeRequest request, ICommonDbConnectivityProbe probe, CancellationToken cancellationToken) =>
+{
+    var result = await probe.ProbeAsync(new CommonDbConnectivityProbeRequest(request.SecretName), cancellationToken);
+    return Results.Json(result, statusCode: result.ProbeAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
+})
+    .WithName("ProbeCrmFoundationSprint8CommonDbControlledRealConnectivity");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

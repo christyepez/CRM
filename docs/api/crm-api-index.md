@@ -242,3 +242,10 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - `POST /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read/probe`: locked foundation probe returning sanitized metadata only.
 - No secret value, DB/Auth/Portal runtime, productive CRUD, DELETE or product UI is active.
 - Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.
+
+## Sprint 8 P3
+
+- `GET /api/crm/foundation/sprint-8/common-db-controlled-real-connectivity`: Common DB controlled real connectivity status, disabled and fail-closed by default.
+- `POST /api/crm/foundation/sprint-8/common-db-controlled-real-connectivity/probe`: locked foundation probe returning sanitized metadata only.
+- No connection string, SQL Server compose, EF runtime, migrations, schema changes, productive persistence, productive CRUD, DELETE or product UI is active.
+- Next gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.

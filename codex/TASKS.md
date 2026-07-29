@@ -651,3 +651,14 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep default enabled=false, attempted=false, value returned/logged/persisted/cached=false.
 - [x] Keep DB, Portal Auth, productive routes, CRUD, DELETE and productive UI disabled.
 - [x] Next Gate: `Sprint8P3CommonDbControlledRealConnectivity`.
+
+## CRM Sprint 8 P3 - Common DB Controlled Real Connectivity
+
+- [x] Add Common DB controlled real connectivity docs, policy, contract, safety boundary, runbook, rollback and architecture.
+- [x] Add `CrmCommonDbControlledRealConnectivityStatusService` and contracts.
+- [x] Add `ICommonDbConnectivityProbe`, disabled default probe and controlled NonProduction probe abstraction.
+- [x] Add `GET /api/crm/foundation/sprint-8/common-db-controlled-real-connectivity`.
+- [x] Add locked foundation probe endpoint returning sanitized metadata only.
+- [x] Keep default enabled=false, attempted=false, connected=false and connection string returned/logged/persisted/cached=false.
+- [x] Keep SQL Server compose, EF runtime, migrations, schema changes, productive persistence, CRUD, DELETE and Portal Auth disabled.
+- [x] Next Gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.

@@ -568,3 +568,7 @@ Sprint 8 starts with `GET /api/crm/foundation/sprint-8/secret-provider-approval-
 ## CRM Sprint 8 P2 - Secret Provider controlled real NonProduction read
 
 Sprint 8 P2 adds `GET /api/crm/foundation/sprint-8/secret-provider-controlled-real-nonproduction-read` and a locked foundation probe for controlled Secret Provider reads. The default remains disabled and fail-closed: no real read attempted, no secret value returned, logged, persisted or cached, no `.env`, no SQL Server, no DB/Auth/Portal runtime, no productive CRUD and no DELETE. Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.
+
+## CRM Sprint 8 P3 - Common DB controlled real connectivity
+
+Sprint 8 P3 adds `GET /api/crm/foundation/sprint-8/common-db-controlled-real-connectivity` and a locked foundation probe for Common DB connectivity. The default remains disabled and fail-closed: no connection attempt, no connection string resolved/returned/logged, no SQL Server in CRM compose, no EF runtime, no migrations, no schema changes, no productive persistence, no CRUD and no DELETE. Next gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.

@@ -562,6 +562,31 @@ class CrmReadinessService {
       sprint8P2NonProductionOnly: true,
       sprint8P2FailClosedByDefault: true,
       sprint8P2NextGate: 'Sprint8P3CommonDbControlledRealConnectivity',
+      sprint8P3CommonDbControlledRealConnectivity: 'Exists',
+      commonDbControlledRealConnectivityApproved: true,
+      commonDbControlledRealConnectivityEnabled: false,
+      commonDbConnectivityAttempted: false,
+      sprint8P3CommonDbConnected: false,
+      secretProviderAvailabilityMetadataUsed: true,
+      sprint8P3SecretValueReturnedToApi: false,
+      sprint8P3ConnectionStringResolved: false,
+      connectionStringMaterializedInPublicContract: false,
+      connectionStringLogged: false,
+      connectionStringReturnedToApi: false,
+      sprint8P3SqlConnectionCreated: false,
+      sprint8P3DbConnectionCreated: false,
+      sprint8P3DbConnectionOpened: false,
+      sprint8P3EfRuntimeEnabled: false,
+      sprint8P3AddDbContextRuntimeEnabled: false,
+      sprint8P3UseSqlServerEnabled: false,
+      sprint8P3MigrationsCreated: false,
+      sprint8P3DatabaseSchemaChanged: false,
+      sprint8P3ProductivePersistenceEnabled: false,
+      sprint8P3ProductiveCrudEnabled: false,
+      sprint8P3ApiRequiresDatabase: false,
+      sprint8P3NonProductionOnly: true,
+      sprint8P3FailClosedByDefault: true,
+      sprint8P3NextGate: 'Sprint8P4PortalAuthControlledRealRuntimeValidation',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1149,6 +1174,31 @@ class CrmReadinessService {
       <p>NonProduction Only: true</p>
       <p>Fail Closed By Default: true</p>
       <p>Next Gate: Sprint8P3CommonDbControlledRealConnectivity</p>
+      <p>Sprint 8 P3 Common DB Controlled Real Connectivity: Exists</p>
+      <p>Common DB Controlled Real Connectivity Approved: true</p>
+      <p>Common DB Controlled Real Connectivity Enabled: false</p>
+      <p>Common DB Connectivity Attempted: false</p>
+      <p>Common DB Connected: false</p>
+      <p>Secret Provider Availability Metadata Used: true</p>
+      <p>Secret Value Returned To API: false</p>
+      <p>Connection String Resolved: false</p>
+      <p>Connection String Materialized In Public Contract: false</p>
+      <p>Connection String Logged: false</p>
+      <p>Connection String Returned To API: false</p>
+      <p>SqlConnection Created: false</p>
+      <p>DbConnection Created: false</p>
+      <p>DbConnection Opened: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>AddDbContext Runtime Enabled: false</p>
+      <p>UseSqlServer Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>Database Schema Changed: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>API Requires Database: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Next Gate: Sprint8P4PortalAuthControlledRealRuntimeValidation</p>
       <p>Non-Production</p>
     </section>
   `

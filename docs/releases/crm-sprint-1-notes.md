@@ -206,3 +206,7 @@ CRM started Sprint 8 with `SecretProviderApprovalDecision`: approved to plan P2 
 ## Sprint 8 P2 note
 
 CRM added a fail-closed Secret Provider controlled real NonProduction read foundation. The runtime abstraction is present, the default provider is disabled, the probe is locked by default, and no secret values are returned, logged, persisted or cached.
+
+## Sprint 8 P3 note
+
+CRM added a fail-closed Common DB controlled real connectivity foundation. The probe abstraction is present, the default probe is disabled, the probe is locked by default, and no connection strings are returned, logged, persisted or cached.

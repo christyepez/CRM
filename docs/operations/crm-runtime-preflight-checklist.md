@@ -258,3 +258,13 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `ISecretProviderRuntime`, `DisabledSecretProviderRuntime` and `ControlledNonProductionSecretProviderRuntime` exist.
 - Confirm enabled=false, attempted=false, no value returned/logged/persisted/cached.
 - Confirm no `.env`, no real secret values, no appsettings secrets, no DB/Auth/Portal runtime, no SQL Server, no DELETE and no productive UI.
+
+## Sprint 8 P3 common DB controlled real connectivity
+
+- Confirm Sprint 8 P3 docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity` exists.
+- Confirm probe endpoint is locked by default.
+- Confirm `CrmCommonDbControlledRealConnectivityStatusService` exists.
+- Confirm `ICommonDbConnectivityProbe`, `DisabledCommonDbConnectivityProbe` and `ControlledNonProductionCommonDbConnectivityProbe` exist.
+- Confirm enabled=false, attempted=false, connected=false and no connection string returned/logged/persisted/cached.
+- Confirm no `.env`, no real connection strings, no SQL Server compose, no EF runtime, no migrations, no schema changes, no DB/Auth/Portal runtime, no DELETE and no productive UI.
