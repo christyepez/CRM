@@ -1,5 +1,16 @@
 # TASKS.md
 
+## CRM Codex Task Automation
+
+Status: Pending PR in branch `crm-codex-task-automation`.
+
+- [x] Add versioned current and next Codex task files.
+- [x] Add prompt storage folder for long sprint prompts.
+- [x] Add GitHub Issue template for Codex tasks.
+- [x] Add workflow to create a Codex task Issue when `codex/next-task.md` changes on `main`.
+- [x] Add operations runbook.
+- [x] Keep runtime CRM unchanged.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Status: Implemented in branch `crm-sprint-9-p1-controlled-runtime-activation-decision`.

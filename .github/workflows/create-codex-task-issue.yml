@@ -1,0 +1,47 @@
+name: Create Codex Task Issue
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - codex/next-task.md
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-codex-task-issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create Codex task issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const taskPath = 'codex/next-task.md';
+            const taskBody = fs.readFileSync(taskPath, 'utf8');
+            const lines = taskBody.split(/\r?\n/);
+            const phaseIndex = lines.findIndex((line) => line.trim() === '## Phase');
+            const phase = phaseIndex >= 0 ? (lines[phaseIndex + 2] || '').trim() : 'Codex task';
+            const title = `[Codex][CRM] ${phase || 'Codex task'}`;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              labels: ['codex-task', 'crm-sprint', 'ready-for-codex'],
+              body: [
+                '## Task Prompt',
+                '',
+                taskBody,
+                '',
+                '## Source',
+                '',
+                `Created automatically from \`${taskPath}\` in commit ${context.sha}.`
+              ].join('\n')
+            });
