@@ -220,3 +220,8 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 ## Sprint 7 P4 Foundation Endpoint
 
 - `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe` - Portal Auth real runtime NonProduction probe contract; skipped because Portal Auth approval is not granted.
+## Sprint 7 P5
+
+- `GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-registration`: foundation status for locked productive route runtime registration with 423.
+- Productive routes remain 404 by default; explicit NonProduction flag can register GET/POST/PUT/PATCH locked stubs returning 423.
+- DELETE, DB, Portal Auth runtime, token/header reads and productive UI remain disabled.

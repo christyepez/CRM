@@ -393,3 +393,6 @@ Required response markers:
 - `nextGate=Sprint7P3CommonDbRealConnectivityNonProductionProbe`
 
 The endpoint must remain GET-only and must not read secrets, files, environment values, DB connections, Portal Auth tokens or headers.
+## Sprint 7 P5 - Locked Productive Route Runtime Registration With 423
+
+`GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-registration` returns `LockedProductiveRouteRuntimeRegistrationWith423`, `lockedProductiveRouteRuntimeRegistrationExists=true`, `lockedProductiveRouteRuntimeRegistrationApprovalGranted=false`, `lockedProductiveRouteRuntimeRegistrationEnabled=false`, `productiveRoutesRegisteredByDefault=false`, `productiveRoutesRegisteredWhenExplicitlyEnabled=true`, `defaultNegativeRouteStatus=404`, `explicitlyEnabledLockedRouteStatus=423`, `productiveCrudEnabled=false`, `productiveDomainExecutionEnabled=false`, `productivePersistenceEnabled=false`, `deleteEndpointsEnabled=false`, `portalAuthRuntimeRequired=false`, `portalAuthRuntimeEnabled=false`, `tokenReadAttempted=false`, `headerReadAttempted=false`, `dbRuntimeEnabled=false`, `efRuntimeEnabled=false`, `migrationsCreated=false`, `sideEffectsAllowed=false`, `nextGate=Sprint7P6Sprint7GateDecision` and `Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects`.

@@ -1,3 +1,4 @@
+using CRM.Api.ProductiveRoutes;
 using CRM.Application.Contracts;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
@@ -54,6 +55,7 @@ builder.Services.AddSingleton<CrmSecretProviderRealNonProductionApprovalStatusSe
 builder.Services.AddSingleton<CrmSecretProviderRealNonProductionRuntimeProbeStatusService>();
 builder.Services.AddSingleton<CrmCommonDbRealConnectivityNonProductionProbeStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthRealRuntimeProbeStatusService>();
+builder.Services.AddSingleton<CrmLockedProductiveRouteRuntimeRegistrationStatusService>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
@@ -200,6 +202,9 @@ app.MapGet("/api/crm/foundation/sprint-7/common-db-real-connectivity-nonproducti
 app.MapGet("/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", (CrmPortalAuthRealRuntimeProbeStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint7PortalAuthRealRuntimeProbe");
 
+app.MapGet("/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration", (CrmLockedProductiveRouteRuntimeRegistrationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint7LockedProductiveRouteRuntimeRegistration");
+
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
 
@@ -326,6 +331,8 @@ app.MapGet("/api/crm/foundation/portal-authorization/sample-user-context", async
 
 app.MapPost("/api/crm/foundation/portal-authorization/check-permission", async (CrmPortalPermissionCheckRequest request, CrmPortalAuthorizationSimulationService service, CancellationToken cancellationToken) => Results.Ok(await service.CheckPermissionAsync(request.RequiredPermission, cancellationToken)))
     .WithName("CheckCrmFoundationPortalAuthorizationPermission");
+
+app.TryMapLockedProductiveRoutes();
 
 app.Run();
 

@@ -143,3 +143,6 @@ Common DB real connectivity probe exists but is skipped because Secret Provider 
 Productization remains `NotReady`.
 
 Portal Auth real runtime probe exists but is skipped because Portal Auth approval is not granted. Portal HTTP, Portal URL resolution, token/header reads, Auth middleware, CRM Identity, login/logout, roles/permissions persistence and productive routes remain blocked.
+## CRM Sprint 7 P5
+
+Locked productive route runtime registration exists only as a safe NonProduction gate. It does not approve productive CRUD, persistence, Portal Auth runtime, DELETE endpoints or UI. Default negative route status remains `404`; explicit locked route status is `423`.

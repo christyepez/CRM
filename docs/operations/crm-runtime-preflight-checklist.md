@@ -227,3 +227,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm tokenReadAttempted=false, headerReadAttempted=false and authorizationHeaderReadAttempted=false.
 - Confirm `mock://crm/portal-auth` and `mock://crm/portal-user` are the only references.
 - Confirm no Portal Auth base URL resolution, Portal HTTP, token/header reads, Auth middleware, `[Authorize]`, login/logout, CRM Identity, persisted roles/permissions, DB runtime, productive routes, locked stub runtime or DELETE endpoint exists.
+## Sprint 7 P5 locked productive route runtime registration
+
+- Confirm docs, contracts, service and API registrar exist.
+- Confirm `Crm:ProductiveRoutes:LockedRegistrationEnabled` is false by default.
+- Confirm `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` return 404 by default.
+- Confirm explicit NonProduction fixture covers 423 for GET/POST/PUT/PATCH and no DELETE.
+- Confirm no DB, EF, Portal Auth runtime, token/header reads, secrets, productive UI or side effects.

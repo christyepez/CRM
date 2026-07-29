@@ -193,3 +193,6 @@ Common DB real connectivity NonProduction probe added as skipped-by-default and 
 # Sprint 7 P4 note
 
 Portal Auth real runtime NonProduction probe added as skipped-by-default and Portal Auth approval-gated. No Portal URL resolution, Portal HTTP call, token/header read, Auth middleware, `[Authorize]`, login/logout, CRM Identity, roles/permissions persistence, DB runtime, productive routes, DELETE or productive UI are active.
+## Sprint 7 P5 note
+
+CRM added locked productive route runtime registration readiness. Productive routes remain off by default and return `404`; explicit NonProduction registration returns `423 Locked` with no side effects.

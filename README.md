@@ -555,3 +555,6 @@ Sprint 7 P3 adds a Common DB real connectivity NonProduction probe contract. The
 ## CRM Sprint 7 P4 - Portal Auth Real Runtime Probe
 
 Sprint 7 P4 adds a Portal Auth real runtime NonProduction probe contract at `GET /api/crm/foundation/sprint-7/portal-auth-real-runtime-probe`. The probe exists but is skipped because Portal Auth approval is not granted. CRM does not resolve, materialize, log or return a Portal Auth base URL; does not create a Portal HTTP client; does not call Portal; does not read tokens or headers; does not implement login/logout, Identity, roles or permissions; and keeps real activation as NoGo. Next gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
+## CRM Sprint 7 P5 - Locked productive route runtime registration
+
+P5 adds `GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-registration` and a disabled-by-default registrar for future productive CRM route shapes. `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` still return `404` by default. If `Crm:ProductiveRoutes:LockedRegistrationEnabled=true` is enabled in NonProduction, GET/POST/PUT/PATCH return `423 Locked` without CRUD, domain execution, DB, Portal Auth runtime, token/header reads, DELETE or product UI. Next gate: `Sprint7P6Sprint7GateDecision`.
