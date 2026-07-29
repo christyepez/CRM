@@ -685,3 +685,14 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep policy metadata disabled by default and sanitized when explicitly enabled.
 - [x] Keep CRUD, domain execution, persistence, DELETE, DB runtime, EF runtime, auth middleware and productive UI disabled.
 - [x] Next Gate: `Sprint8P6Sprint8GateDecision`.
+
+## CRM Sprint 8 P6 - Sprint 8 Gate Decision
+
+- [x] Add Sprint 8 closure, integrated evidence, gate decision, GO/NO-GO, open risks and decision record.
+- [x] Add Sprint 8 gate matrix, security, persistence, API and E2E gate reviews.
+- [x] Add Sprint 9 roadmap options, recommended path and gates.
+- [x] Add `CrmSprint8GateDecisionStatusService` and contracts.
+- [x] Add `GET /api/crm/foundation/sprint-8/gate-decision`.
+- [x] Record `OverallDecision=GoForSprint9ControlledRuntimeActivationPlanning`.
+- [x] Keep production activation, productive CRUD, DELETE, productive UI, DB runtime and Portal Auth runtime as `NoGo`.
+- [x] Next Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

@@ -264,3 +264,12 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - Explicit NonProduction locked GET/POST/PUT/PATCH routes return 423 with sanitized policy metadata only when the policy flag is enabled.
 - DELETE, CRUD, DB runtime, EF runtime, Portal HTTP, token/header reads, auth middleware and product UI remain inactive.
 - Next gate: `Sprint8P6Sprint8GateDecision`.
+
+## Sprint 8 P6
+
+- `GET /api/crm/foundation/sprint-8/gate-decision`: Sprint 8 formal gate decision.
+- Overall decision: `GoForSprint9ControlledRuntimeActivationPlanning`.
+- Production activation: `NoGo`.
+- Productization: `NotReady`.
+- Sprint 9 planning: `Go`.
+- Next gate: `Sprint9P1ControlledRuntimeActivationDecision`.

@@ -287,5 +287,17 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm explicit NonProduction locked routes return 423.
 - Confirm policy metadata is returned only with explicit policy flag.
 - Confirm DELETE, CRUD, DB runtime, EF runtime, migrations, Portal HTTP, token/header reads, auth middleware, `[Authorize]`, product UI and secrets remain disabled.
+
+## Sprint 8 P6 Sprint 8 gate decision
+
+- Confirm Sprint 8 closure docs and gate matrix exist.
+- Confirm Sprint 9 roadmap docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/gate-decision` exists.
+- Confirm `CrmSprint8GateDecisionStatusService` exists.
+- Confirm production activation remains `NoGo`.
+- Confirm productization remains `NotReady`.
+- Confirm productive routes return 404 by default.
+- Confirm locked routes remain 423 only under explicit NonProduction flags.
+- Confirm no DELETE, DB runtime, EF runtime, migrations, Portal HTTP, token/header reads, auth middleware, `[Authorize]`, productive CRUD or product UI is active.
 - Confirm enabled=false, attempted=false, connected=false and no connection string returned/logged/persisted/cached.
 - Confirm no `.env`, no real connection strings, no SQL Server compose, no EF runtime, no migrations, no schema changes, no DB/Auth/Portal runtime, no DELETE and no productive UI.

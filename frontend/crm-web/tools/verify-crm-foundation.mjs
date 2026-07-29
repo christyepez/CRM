@@ -629,6 +629,21 @@ const expectedLabels = [
   'NonProduction Only: true',
   'Fail Closed By Default: true',
   'Next Gate: Sprint8P6Sprint8GateDecision',
+  'Sprint 8: Closed',
+  'Sprint 8 Gate Decision: Completed',
+  'Overall Decision: GoForSprint9ControlledRuntimeActivationPlanning',
+  'Real Production Activation Decision: NoGo',
+  'Secret Provider Controlled Read: GoOnlyAsExplicitNonProductionFlag',
+  'Common DB Controlled Connectivity: GoOnlyAsExplicitNonProductionFlag',
+  'Portal Auth Controlled Validation: GoOnlyAsExplicitNonProductionFlag',
+  'Locked Route Authorization Policy: GoOnlyAsExplicitNonProductionLocked423',
+  'Productive Routes Default: NoGo',
+  'Productive CRUD: NoGo',
+  'DELETE: NoGo',
+  'Productive UI: NoGo',
+  'Productization Status: NotReady',
+  'Sprint 9 Planning: Go',
+  'Next Gate: Sprint9P1ControlledRuntimeActivationDecision',
   'Non-Production'
 ];
 
