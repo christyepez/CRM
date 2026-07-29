@@ -527,5 +527,38 @@ foreach ($Sprint7P5Marker in @("LockedProductiveRouteRuntimeRegistrationWith423"
 if ($Sprint7P5Text -notmatch "Crm:ProductiveRoutes:LockedRegistrationEnabled") { Fail "Sprint 7 P5 locked route flag missing." }
 if ($Sprint7P5Text -match "MapDelete|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 7 P5 must not enable DELETE, DB, Portal/Auth runtime, token/header reads or token storage." }
 
+# Sprint 7 P6 Gate Decision checks
+$Sprint7P6RequiredFiles = @(
+    "docs/releases/crm-sprint-7-closure.md",
+    "docs/releases/crm-sprint-7-integrated-evidence.md",
+    "docs/releases/crm-sprint-7-gate-decision.md",
+    "docs/releases/crm-sprint-7-go-no-go.md",
+    "docs/releases/crm-sprint-7-open-risks.md",
+    "docs/releases/crm-sprint-7-decision-record.md",
+    "docs/architecture/crm-sprint-7-gate-matrix.md",
+    "docs/security/crm-sprint-7-security-gate-review.md",
+    "docs/data/crm-sprint-7-persistence-gate-review.md",
+    "docs/api/crm-sprint-7-api-gate-review.md",
+    "docs/testing/crm-sprint-7-e2e-gate-review.md",
+    "docs/roadmap/crm-sprint-8-options.md",
+    "docs/roadmap/crm-sprint-8-recommended-path.md",
+    "docs/roadmap/crm-sprint-8-gates.md",
+    "src/CRM.Application/Foundation/CrmSprint7GateDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint7GateDecisionStatusService.cs"
+)
+foreach ($Sprint7P6RequiredFile in $Sprint7P6RequiredFiles) {
+    if (-not (Test-Path $Sprint7P6RequiredFile)) { Fail "Missing Sprint 7 P6 required file: $Sprint7P6RequiredFile" } else { Pass "Required Sprint 7 P6 file exists: $Sprint7P6RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-7/gate-decision*") { Pass "Sprint 7 P6 gate decision endpoint registered." } else { Fail "Sprint 7 P6 endpoint missing." }
+if ($programText -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/gate-decision") { Fail "Sprint 7 P6 endpoint must remain GET-only." }
+$Sprint7P6Text = ""
+foreach ($Sprint7P6File in @("src/CRM.Application/Foundation/CrmSprint7GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint7GateDecisionStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint7P6File) { $Sprint7P6Text += "`n" + (Get-Content -Raw $Sprint7P6File) }
+}
+foreach ($Sprint7P6Marker in @("Sprint7GateDecision", "GoForSprint8ControlledRuntimeApprovalAndPilotPlanning", "RealActivationDecision", "SecretProviderRealRuntimeDecision", "CommonDbRealConnectionDecision", "PortalAuthRealRuntimeDecision", "GoOnlyAsExplicitNonProductionLocked423", "ProductiveRoutesDefaultDecision", "ProductiveCrudDecision", "DeleteDecision", "ProductiveUiDecision", "NotReady", "Sprint8PlanningDecision", "Sprint8P1SecretProviderApprovalDecision", "Sprint 7 gate decision only; no real activation")) {
+    if ($Sprint7P6Text -notmatch [regex]::Escape($Sprint7P6Marker)) { Fail "Missing Sprint 7 P6 marker: $Sprint7P6Marker" }
+}
+if ($Sprint7P6Text -match "SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 7 P6 must not activate DB, Portal/Auth runtime, token/header reads or token storage." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

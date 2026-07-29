@@ -225,3 +225,8 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - `GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-registration`: foundation status for locked productive route runtime registration with 423.
 - Productive routes remain 404 by default; explicit NonProduction flag can register GET/POST/PUT/PATCH locked stubs returning 423.
 - DELETE, DB, Portal Auth runtime, token/header reads and productive UI remain disabled.
+## Sprint 7 P6
+
+- `GET /api/crm/foundation/sprint-7/gate-decision`: Sprint 7 closure and gate decision.
+- Real activation remains `NoGo`; Sprint 8 planning is `Go`.
+- Next gate: `Sprint8P1SecretProviderApprovalDecision`.

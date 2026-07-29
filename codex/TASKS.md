@@ -621,3 +621,12 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep DELETE, CRUD, DB, EF, Portal Auth runtime, token/header reads, secrets and product UI disabled.
 - [x] Add docs, guardrails, tests and verification updates.
 - [x] Next Gate: `Sprint7P6Sprint7GateDecision`.
+## CRM Sprint 7 P6 - Gate Decision
+
+- [x] Add Sprint 7 closure documentation and integrated evidence.
+- [x] Add Sprint 7 gate matrix, security, persistence, API and E2E reviews.
+- [x] Add Sprint 8 roadmap options, recommended path and gates.
+- [x] Add `CrmSprint7GateDecisionStatusService` and contracts.
+- [x] Add `GET /api/crm/foundation/sprint-7/gate-decision`.
+- [x] Keep real activation, DB, EF, Portal Auth runtime, productive CRUD, DELETE and productive UI disabled.
+- [x] Next Gate: `Sprint8P1SecretProviderApprovalDecision`.

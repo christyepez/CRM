@@ -558,3 +558,6 @@ Sprint 7 P4 adds a Portal Auth real runtime NonProduction probe contract at `GET
 ## CRM Sprint 7 P5 - Locked productive route runtime registration
 
 P5 adds `GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-registration` and a disabled-by-default registrar for future productive CRM route shapes. `/api/crm/leads`, `/api/crm/accounts` and `/api/crm/contacts` still return `404` by default. If `Crm:ProductiveRoutes:LockedRegistrationEnabled=true` is enabled in NonProduction, GET/POST/PUT/PATCH return `423 Locked` without CRUD, domain execution, DB, Portal Auth runtime, token/header reads, DELETE or product UI. Next gate: `Sprint7P6Sprint7GateDecision`.
+## CRM Sprint 7 P6 - Gate decision
+
+Sprint 7 is closed through `GET /api/crm/foundation/sprint-7/gate-decision`. The overall decision is `GoForSprint8ControlledRuntimeApprovalAndPilotPlanning`; real activation remains `NoGo`, productization remains `NotReady`, and Sprint 8 planning is `Go`. Next gate: `Sprint8P1SecretProviderApprovalDecision`.

@@ -56,6 +56,7 @@ builder.Services.AddSingleton<CrmSecretProviderRealNonProductionRuntimeProbeStat
 builder.Services.AddSingleton<CrmCommonDbRealConnectivityNonProductionProbeStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthRealRuntimeProbeStatusService>();
 builder.Services.AddSingleton<CrmLockedProductiveRouteRuntimeRegistrationStatusService>();
+builder.Services.AddSingleton<CrmSprint7GateDecisionStatusService>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
@@ -204,6 +205,9 @@ app.MapGet("/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe", (CrmPo
 
 app.MapGet("/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration", (CrmLockedProductiveRouteRuntimeRegistrationStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint7LockedProductiveRouteRuntimeRegistration");
+
+app.MapGet("/api/crm/foundation/sprint-7/gate-decision", (CrmSprint7GateDecisionStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint7GateDecision");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

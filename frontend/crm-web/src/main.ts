@@ -505,6 +505,22 @@ class CrmReadinessService {
       sprint7P5SideEffectsAllowed: false,
       sprint7P5Warning: 'Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects',
       sprint7P5NextGate: 'Sprint7P6Sprint7GateDecision',
+      sprint7: 'Closed',
+      sprint7GateDecision: 'Completed',
+      sprint7OverallDecision: 'GoForSprint8ControlledRuntimeApprovalAndPilotPlanning',
+      sprint7RealActivationDecision: 'NoGo',
+      sprint7SecretProviderRealRuntime: 'NoGo',
+      sprint7CommonDbRealConnection: 'NoGo',
+      sprint7PortalAuthRealRuntime: 'NoGo',
+      sprint7LockedProductiveRouteRegistration: 'GoOnlyAsExplicitNonProductionLocked423',
+      sprint7ProductiveRoutesDefault: 'NoGo',
+      sprint7ProductiveCrud: 'NoGo',
+      sprint7Delete: 'NoGo',
+      sprint7ProductiveUi: 'NoGo',
+      sprint7ProductizationStatus: 'NotReady',
+      sprint8Planning: 'Go',
+      sprint7GateDecisionWarning: 'Sprint 7 gate decision only; no real activation',
+      sprint7GateDecisionNextGate: 'Sprint8P1SecretProviderApprovalDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1035,6 +1051,22 @@ class CrmReadinessService {
       <p>Side Effects Allowed: false</p>
       <p>Locked Productive Route Runtime Registration Warning: Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects</p>
       <p>Next Gate: Sprint7P6Sprint7GateDecision</p>
+      <p>Sprint 7: Closed</p>
+      <p>Sprint 7 Gate Decision: Completed</p>
+      <p>Overall Decision: GoForSprint8ControlledRuntimeApprovalAndPilotPlanning</p>
+      <p>Real Activation Decision: NoGo</p>
+      <p>Secret Provider Real Runtime: NoGo</p>
+      <p>Common DB Real Connection: NoGo</p>
+      <p>Portal Auth Real Runtime: NoGo</p>
+      <p>Locked Productive Route Registration: GoOnlyAsExplicitNonProductionLocked423</p>
+      <p>Productive Routes Default: NoGo</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>Productive UI: NoGo</p>
+      <p>Productization Status: NotReady</p>
+      <p>Sprint 8 Planning: Go</p>
+      <p>Sprint 7 Gate Decision Warning: Sprint 7 gate decision only; no real activation</p>
+      <p>Next Gate: Sprint8P1SecretProviderApprovalDecision</p>
       <p>Non-Production</p>
     </section>
   `

@@ -196,3 +196,6 @@ Portal Auth real runtime NonProduction probe added as skipped-by-default and Por
 ## Sprint 7 P5 note
 
 CRM added locked productive route runtime registration readiness. Productive routes remain off by default and return `404`; explicit NonProduction registration returns `423 Locked` with no side effects.
+## Sprint 7 P6 note
+
+CRM closed Sprint 7 with `Sprint7GateDecision`: real activation `NoGo`, productization `NotReady`, Sprint 8 planning `Go`, next gate `Sprint8P1SecretProviderApprovalDecision`.

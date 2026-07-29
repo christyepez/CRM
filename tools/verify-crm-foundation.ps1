@@ -1013,6 +1013,32 @@ if ($sprint7P5Text -match "MapDelete|SqlConnection\(|DbConnection\(|UseSqlServer
     $failures += "Sprint 7 P5 must not enable DELETE, DB, Portal/Auth runtime, token/header reads or token storage."
 }
 
+# Sprint 7 P6 Gate Decision checks
+foreach ($path in @("docs/releases/crm-sprint-7-closure.md", "docs/releases/crm-sprint-7-integrated-evidence.md", "docs/releases/crm-sprint-7-gate-decision.md", "docs/releases/crm-sprint-7-go-no-go.md", "docs/releases/crm-sprint-7-open-risks.md", "docs/releases/crm-sprint-7-decision-record.md", "docs/architecture/crm-sprint-7-gate-matrix.md", "docs/security/crm-sprint-7-security-gate-review.md", "docs/data/crm-sprint-7-persistence-gate-review.md", "docs/api/crm-sprint-7-api-gate-review.md", "docs/testing/crm-sprint-7-e2e-gate-review.md", "docs/roadmap/crm-sprint-8-options.md", "docs/roadmap/crm-sprint-8-recommended-path.md", "docs/roadmap/crm-sprint-8-gates.md", "src/CRM.Application/Foundation/CrmSprint7GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint7GateDecisionStatusService.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 7 P6 required file: $path"
+    }
+}
+$sprint7P6Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint7P6Program -notlike "*/api/crm/foundation/sprint-7/gate-decision*") {
+    $failures += "Sprint 7 P6 gate decision endpoint missing."
+}
+if ($sprint7P6Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/gate-decision") {
+    $failures += "Sprint 7 P6 foundation endpoint must remain GET-only."
+}
+$sprint7P6Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSprint7GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint7GateDecisionStatusService.cs", "README.md", "codex/TASKS.md", "docs/releases/crm-sprint-7-closure.md", "docs/releases/crm-sprint-7-gate-decision.md", "docs/roadmap/crm-sprint-8-recommended-path.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint7P6Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("Sprint 7 gate decision only; no real activation", "Sprint7GateDecision", "CrmSprint7GateDecisionStatusService", "GoForSprint8ControlledRuntimeApprovalAndPilotPlanning", "RealActivationDecision", "SecretProviderRealRuntimeDecision", "CommonDbRealConnectionDecision", "PortalAuthRealRuntimeDecision", "GoOnlyAsExplicitNonProductionLocked423", "ProductiveRoutesDefaultDecision", "ProductiveCrudDecision", "DeleteDecision", "ProductiveUiDecision", "ProductizationStatus", "Sprint8PlanningDecision", "Sprint8P1SecretProviderApprovalDecision", "Sprint 7: Closed", "Sprint 7 Gate Decision: Completed", "Sprint 8 Planning: Go")) {
+    if ($sprint7P6Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 7 P6 gate marker: $marker"
+    }
+}
+if ($sprint7P6Text -match "SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") {
+    $failures += "Sprint 7 P6 must not activate DB, Portal/Auth runtime, token/header reads or token storage."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

@@ -507,6 +507,22 @@ const expectedLabels = [
   'Side Effects Allowed: false',
   'Locked Productive Route Runtime Registration Warning: Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects',
   'Next Gate: Sprint7P6Sprint7GateDecision',
+  'Sprint 7: Closed',
+  'Sprint 7 Gate Decision: Completed',
+  'Overall Decision: GoForSprint8ControlledRuntimeApprovalAndPilotPlanning',
+  'Real Activation Decision: NoGo',
+  'Secret Provider Real Runtime: NoGo',
+  'Common DB Real Connection: NoGo',
+  'Portal Auth Real Runtime: NoGo',
+  'Locked Productive Route Registration: GoOnlyAsExplicitNonProductionLocked423',
+  'Productive Routes Default: NoGo',
+  'Productive CRUD: NoGo',
+  'DELETE: NoGo',
+  'Productive UI: NoGo',
+  'Productization Status: NotReady',
+  'Sprint 8 Planning: Go',
+  'Sprint 7 Gate Decision Warning: Sprint 7 gate decision only; no real activation',
+  'Next Gate: Sprint8P1SecretProviderApprovalDecision',
   'Non-Production'
 ];
 

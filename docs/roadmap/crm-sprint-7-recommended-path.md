@@ -35,3 +35,8 @@ P4 prepares `PortalAuthRealRuntimeProbe` as a skipped Portal Auth probe. Portal 
 P5 is the recommended next controlled runtime step after Portal Auth real runtime probe. It registers no productive routes by default. With explicit NonProduction flag, future route shapes return `423 Locked` without CRUD, DB, Portal Auth runtime, token/header reads, DELETE, UI productiva or side effects.
 
 Next gate: `Sprint7P6Sprint7GateDecision`.
+## P6 - Sprint 7 Gate Decision
+
+Sprint 7 closes as `GoForSprint8ControlledRuntimeApprovalAndPilotPlanning`. Real activation remains `NoGo`, Productization remains `NotReady`, and Sprint 8 planning is `Go`.
+
+Next gate: `Sprint8P1SecretProviderApprovalDecision`.

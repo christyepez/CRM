@@ -51,3 +51,10 @@ Status: `LockedProductiveRouteRuntimeRegistrationWith423`.
 Decision: route shapes may be registered only as locked NonProduction stubs returning `423` behind explicit flag. Default remains `404`. Productive activation remains `NoGo`.
 
 Next: `Sprint7P6Sprint7GateDecision`.
+## Sprint 7 P6 Gate
+
+Status: `Sprint7GateDecision`.
+
+Decision: Sprint 8 planning `Go`; real activation `NoGo`; locked productive route registration only as explicit NonProduction `423`.
+
+Next: `Sprint8P1SecretProviderApprovalDecision`.
