@@ -1,0 +1,44 @@
+name: Codex Task
+description: Crear una tarea lista para Codex en CRM.
+title: "[Codex][CRM] "
+labels:
+  - codex-task
+  - crm-sprint
+  - ready-for-codex
+body:
+  - type: textarea
+    id: task_prompt
+    attributes:
+      label: Task Prompt
+      description: Prompt completo o resumen operativo para Codex.
+      placeholder: Pega aquí la tarea que Codex debe ejecutar.
+    validations:
+      required: true
+  - type: input
+    id: repository
+    attributes:
+      label: Repository
+      placeholder: christyepez/CRM
+    validations:
+      required: true
+  - type: input
+    id: base_main_commit
+    attributes:
+      label: Base Main Commit
+      placeholder: SHA esperado de main
+    validations:
+      required: true
+  - type: input
+    id: expected_branch
+    attributes:
+      label: Expected Branch
+      placeholder: crm-sprint-x-py-task-name
+    validations:
+      required: true
+  - type: input
+    id: expected_pr_title
+    attributes:
+      label: Expected PR Title
+      placeholder: feat/chore/docs: descripción breve
+    validations:
+      required: true
