@@ -1,5 +1,9 @@
 # CRM Corporativo
 
+## Codex task automation
+
+CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Sprint 9 is initiated with P1 as a decision-only gate. CRM is approved to plan controlled NonProduction trials for Secret Provider, Common DB, Portal Auth and Productive Route dry-run, but no runtime trial or production activation is enabled now.
