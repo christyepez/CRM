@@ -156,3 +156,7 @@ Secret Provider approval decision exists for controlled NonProduction read plann
 ## CRM Sprint 8 P2
 
 Controlled real NonProduction Secret Provider read scaffold exists, but default read remains disabled and fail-closed. No secret values are exposed, cached or persisted. Productization remains `NotReady`; DB/Auth/Portal runtime and production activation remain separate NoGo gates.
+
+## CRM Sprint 8 P3
+
+Common DB controlled real connectivity scaffold exists, but default connectivity remains disabled and fail-closed. No connection strings are exposed, cached or persisted. EF runtime, migrations, schema changes, productive persistence and CRUD remain blocked. Productization remains `NotReady`.

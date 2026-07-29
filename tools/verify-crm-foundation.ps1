@@ -974,7 +974,7 @@ if ($sourceText -match "AddAuthentication|UseAuthentication|UseAuthorization|Aut
     $failures += "Productive Auth middleware, JWT/cookie auth, authorization attribute or DELETE endpoint found."
 }
 
-$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "").Replace("RealConnectionStringUsed", "").Replace("realConnectionStringUsed", "").Replace("Real Connection String Used", "").Replace("ConnectionStringResolved", "").Replace("connectionStringResolved", "").Replace("Connection String Resolved", "").Replace("ConnectionStringValueMaterialized", "").Replace("connectionStringValueMaterialized", "").Replace("Connection String Value Materialized", "").Replace("ConnectionStringLogged", "").Replace("connectionStringLogged", "").Replace("Connection String Logged", "").Replace("ConnectionStringReturnedToApi", "").Replace("connectionStringReturnedToApi", "").Replace("Connection String Returned To API", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "").Replace("UseSqlServerEnabled", "").Replace("useSqlServerEnabled", "").Replace("UseSqlServer Enabled", "")
+$connectionScanText = $sourceText.Replace("ConnectionStringsConfigured", "").Replace("connectionStringsConfigured", "").Replace("Connection Strings Configured", "").Replace("CrmConnectionStringPolicyContract", "").Replace("ConnectionStringPolicy", "").Replace("connectionStringPolicy", "").Replace("RealConnectionStringUsed", "").Replace("realConnectionStringUsed", "").Replace("Real Connection String Used", "").Replace("ConnectionStringResolved", "").Replace("connectionStringResolved", "").Replace("Connection String Resolved", "").Replace("ConnectionStringValueMaterialized", "").Replace("connectionStringValueMaterialized", "").Replace("Connection String Value Materialized", "").Replace("ConnectionStringMaterializedInPublicContract", "").Replace("connectionStringMaterializedInPublicContract", "").Replace("Connection String Materialized In Public Contract", "").Replace("ConnectionStringLogged", "").Replace("connectionStringLogged", "").Replace("Connection String Logged", "").Replace("ConnectionStringReturnedToApi", "").Replace("connectionStringReturnedToApi", "").Replace("Connection String Returned To API", "").Replace("ConnectionStringReturned", "").Replace("connectionStringReturned", "").Replace("Connection String Returned", "").Replace("ConnectionStringPersisted", "").Replace("connectionStringPersisted", "").Replace("Connection String Persisted", "").Replace("ConnectionStringCached", "").Replace("connectionStringCached", "").Replace("Connection String Cached", "").Replace("UseSqlServerConfigured", "").Replace("useSqlServerConfigured", "").Replace("UseSqlServer Configured", "").Replace("UseSqlServerEnabled", "").Replace("useSqlServerEnabled", "").Replace("UseSqlServer Enabled", "")
 if ($connectionScanText -match "FinancieroDb|UseSqlServer|ConnectionString|FinancieroUrl|financialBaseUrl") {
     $failures += "Runtime Financial adapter, connection string, shared DB or URL found before integration approval."
 }
@@ -1086,6 +1086,29 @@ foreach ($marker in @("SecretProviderControlledRealNonProductionRead", "CrmSecre
 }
 if ($sprint8P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") {
     $failures += "Sprint 8 P2 must not activate secret SDK, DB, Portal/Auth runtime, token/header reads or token storage."
+}
+
+# Sprint 8 P3 Common DB Controlled Real Connectivity checks
+foreach ($path in @("docs/data/crm-sprint-8-p3-common-db-controlled-real-connectivity.md", "docs/data/crm-common-db-controlled-real-connectivity-policy.md", "docs/data/crm-common-db-controlled-real-connectivity-contract.md", "docs/data/crm-common-db-controlled-real-connectivity-safety-boundary.md", "docs/operations/crm-common-db-controlled-real-connectivity-runbook.md", "docs/operations/crm-common-db-controlled-real-connectivity-rollback.md", "docs/architecture/crm-common-db-controlled-real-connectivity-architecture.md", "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ICommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityProbeOptions.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/DisabledCommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ControlledNonProductionCommonDbConnectivityProbe.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 8 P3 required file: $path"
+    }
+}
+$sprint8P3Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint8P3Program -notlike "*/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity*") {
+    $failures += "Sprint 8 P3 common DB controlled connectivity endpoint missing."
+}
+$sprint8P3Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbControlledRealConnectivityStatusService.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ICommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/CommonDbConnectivityProbeOptions.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/DisabledCommonDbConnectivityProbe.cs", "src/CRM.Infrastructure/Persistence/RuntimeProbe/ControlledNonProductionCommonDbConnectivityProbe.cs", "docs/data/crm-sprint-8-p3-common-db-controlled-real-connectivity.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint8P3Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("CommonDbControlledRealConnectivity", "CrmCommonDbControlledRealConnectivityStatusService", "CommonDbControlledRealConnectivityEnabled: false", "CommonDbConnectivityAttempted: false", "CommonDbConnected: false", "SecretProviderAvailabilityMetadataUsed: true", "ConnectionStringResolved: false", "ConnectionStringReturnedToApi: false", "ConnectionStringLogged: false", "MigrationsCreated: false", "DatabaseSchemaChanged: false", "ProductivePersistenceEnabled: false", "ProductiveCrudEnabled: false", "ApiRequiresDatabase: false", "NonProductionOnly: true", "FailClosedByDefault: true", "Sprint8P4PortalAuthControlledRealRuntimeValidation", "Common DB controlled real connectivity is disabled by default and never exposes connection strings", "ICommonDbConnectivityProbe", "DisabledCommonDbConnectivityProbe", "ControlledNonProductionCommonDbConnectivityProbe", "Sprint 8 P3 Common DB Controlled Real Connectivity: Exists")) {
+    if ($sprint8P3Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 8 P3 marker: $marker"
+    }
+}
+if ($sprint8P3Text -match "System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") {
+    $failures += "Sprint 8 P3 must not activate DB, EF, migrations, Portal/Auth runtime, token/header reads or token storage."
 }
 
 if ($failures.Count -gt 0) {

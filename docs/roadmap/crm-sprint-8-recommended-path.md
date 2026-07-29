@@ -21,3 +21,9 @@ Next gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.
 P2 introduces a fail-closed Secret Provider runtime abstraction and metadata-only foundation probe. Default state remains disabled: no read attempted, no secret values exposed, no DB/Auth/Portal runtime and productization remains `NotReady`.
 
 Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.
+
+## P3 - Common DB Controlled Real Connectivity
+
+P3 introduces a fail-closed Common DB connectivity abstraction and metadata-only foundation probe. Default state remains disabled: no connection attempted, no connection string exposed, no EF runtime, no migrations and no productive CRUD.
+
+Next gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.
