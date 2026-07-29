@@ -230,3 +230,8 @@ Sprint 3 P2 common DB connection strategy endpoint is read-only and contract-onl
 - `GET /api/crm/foundation/sprint-7/gate-decision`: Sprint 7 closure and gate decision.
 - Real activation remains `NoGo`; Sprint 8 planning is `Go`.
 - Next gate: `Sprint8P1SecretProviderApprovalDecision`.
+## Sprint 8 P1
+
+- `GET /api/crm/foundation/sprint-8/secret-provider-approval-decision`: planning-only decision for controlled Secret Provider read in P2.
+- No real secret read occurs in P1.
+- Next gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.

@@ -241,3 +241,10 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm `/api/crm/foundation/sprint-7/gate-decision` is GET-only.
 - Confirm real activation remains NoGo and productization remains NotReady.
 - Confirm default productive routes remain 404 and locked route 423 remains explicit NonProduction-only.
+## Sprint 8 P1 secret provider approval decision
+
+- Confirm Sprint 8 P1 docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/secret-provider-approval-decision` is GET-only.
+- Confirm approved for next sprint is true and real read enabled now is false.
+- Confirm no `.env`, no real secret reads, no runtime client, no secret values in logs/API/repo.
+- Confirm DB, Portal Auth, productive routes, CRUD, DELETE and productive UI remain disabled.

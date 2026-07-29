@@ -630,3 +630,13 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Add `GET /api/crm/foundation/sprint-7/gate-decision`.
 - [x] Keep real activation, DB, EF, Portal Auth runtime, productive CRUD, DELETE and productive UI disabled.
 - [x] Next Gate: `Sprint8P1SecretProviderApprovalDecision`.
+## CRM Sprint 8 P1 - Secret Provider Approval Decision
+
+- [x] Add Secret Provider approval decision docs.
+- [x] Add approved logical secret names.
+- [x] Add redaction, rollback, runbook and approval criteria.
+- [x] Add `CrmSecretProviderApprovalDecisionStatusService` and contracts.
+- [x] Add `GET /api/crm/foundation/sprint-8/secret-provider-approval-decision`.
+- [x] Keep real secret reads disabled in P1.
+- [x] Keep DB, Portal Auth, productive routes, CRUD, DELETE and productive UI disabled.
+- [x] Next Gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.

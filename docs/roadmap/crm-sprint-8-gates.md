@@ -10,3 +10,10 @@ Gate order:
 6. `Sprint8P6Sprint8GateDecision`
 
 All gates must preserve no real production activation, no secrets in repo, no CRM-owned Auth, no CRM-owned SQL Server and no productive UI until explicitly approved.
+## Sprint 8 P1 Gate
+
+Status: `SecretProviderApprovalDecision`.
+
+Decision: `ApprovedForControlledNonProductionReadPlanning`.
+
+P1 approves entering P2, not reading secrets in P1. Productive activation remains `NoGo`.
