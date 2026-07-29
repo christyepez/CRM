@@ -199,3 +199,6 @@ CRM added locked productive route runtime registration readiness. Productive rou
 ## Sprint 7 P6 note
 
 CRM closed Sprint 7 with `Sprint7GateDecision`: real activation `NoGo`, productization `NotReady`, Sprint 8 planning `Go`, next gate `Sprint8P1SecretProviderApprovalDecision`.
+## Sprint 8 P1 note
+
+CRM started Sprint 8 with `SecretProviderApprovalDecision`: approved to plan P2 controlled NonProduction read, while real read is disabled now and no secret values are exposed.

@@ -149,3 +149,6 @@ Locked productive route runtime registration exists only as a safe NonProduction
 ## CRM Sprint 7 P6
 
 Sprint 7 is closed. Productization remains `NotReady`; real activation, productive CRUD, DELETE, productive UI, real DB and Portal Auth runtime remain `NoGo`. Sprint 8 planning is approved for controlled runtime approval and pilot planning.
+## CRM Sprint 8 P1
+
+Secret Provider approval decision exists for controlled NonProduction read planning. No real secret read occurs in P1. Productization remains `NotReady` and real activation remains `NoGo`.

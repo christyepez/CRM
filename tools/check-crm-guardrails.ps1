@@ -564,6 +564,33 @@ foreach ($Sprint7P6Marker in @("Sprint7GateDecision", "GoForSprint8ControlledRun
 }
 if ($Sprint7P6Text -match "SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 7 P6 must not activate DB, Portal/Auth runtime, token/header reads or token storage." }
 
+# Sprint 8 P1 Secret Provider Approval Decision checks
+$Sprint8P1RequiredFiles = @(
+    "docs/security/crm-sprint-8-p1-secret-provider-approval-decision.md",
+    "docs/security/crm-secret-provider-approval-decision-policy.md",
+    "docs/security/crm-secret-provider-controlled-read-approval-criteria.md",
+    "docs/security/crm-secret-provider-approved-logical-secret-names.md",
+    "docs/security/crm-secret-provider-redaction-approval.md",
+    "docs/operations/crm-secret-provider-controlled-read-runbook.md",
+    "docs/operations/crm-secret-provider-controlled-read-rollback.md",
+    "docs/architecture/crm-secret-provider-controlled-read-architecture-decision.md",
+    "src/CRM.Application/Foundation/CrmSecretProviderApprovalDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSecretProviderApprovalDecisionStatusService.cs"
+)
+foreach ($Sprint8P1RequiredFile in $Sprint8P1RequiredFiles) {
+    if (-not (Test-Path $Sprint8P1RequiredFile)) { Fail "Missing Sprint 8 P1 required file: $Sprint8P1RequiredFile" } else { Pass "Required Sprint 8 P1 file exists: $Sprint8P1RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-8/secret-provider-approval-decision*") { Fail "Sprint 8 P1 secret provider approval decision route missing." }
+if ($program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-8/secret-provider-approval-decision") { Fail "Sprint 8 P1 endpoint must remain GET-only." }
+$Sprint8P1Text = ""
+foreach ($Sprint8P1File in @("src/CRM.Application/Foundation/CrmSecretProviderApprovalDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderApprovalDecisionStatusService.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P1File) { $Sprint8P1Text += "`n" + (Get-Content -Raw $Sprint8P1File) }
+}
+foreach ($Sprint8P1Marker in @("SecretProviderApprovalDecision", "ApprovedForControlledNonProductionReadPlanning", "SecretProviderRealReadApprovedForNextSprint", "SecretProviderRealReadEnabledNow", "RealSecretReadAttempted", "RealSecretValueMaterialized", "RealSecretValueLogged", "SecretValueReturnedToApi", "KeyVaultRuntimeClientCreated", "KeyVaultRuntimeCallAttempted", "AzureSecretSdkRuntimeEnabled", "EnvFileRequired", "EnvSecretReadAllowed", "ApprovedSecretNamesOnly", "ApprovedSecretValues", "ApprovedForNonProductionOnly", "SecurityApprovalRecorded", "ArchitectureApprovalRecorded", "DevOpsApprovalRecorded", "RollbackPlanApproved", "ObservabilityPlanApproved", "RedactionPlanApproved", "Sprint8P2SecretProviderControlledRealNonProductionRead", "Secret Provider approval decision only; no real secret read in Sprint 8 P1")) {
+    if ($Sprint8P1Text -notmatch [regex]::Escape($Sprint8P1Marker)) { Fail "Missing Sprint 8 P1 marker: $Sprint8P1Marker" }
+}
+if ($Sprint8P1Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P1 must not read secrets/env/files or activate DB, Portal/Auth runtime, token/header reads or token storage." }
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

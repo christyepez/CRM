@@ -521,6 +521,30 @@ class CrmReadinessService {
       sprint8Planning: 'Go',
       sprint7GateDecisionWarning: 'Sprint 7 gate decision only; no real activation',
       sprint7GateDecisionNextGate: 'Sprint8P1SecretProviderApprovalDecision',
+      sprint8P1SecretProviderApprovalDecision: 'Exists',
+      sprint8P1SecretProviderApprovalDecisionValue: 'ApprovedForControlledNonProductionReadPlanning',
+      sprint8P1SecretProviderRealReadApprovedForNextSprint: true,
+      sprint8P1SecretProviderRealReadEnabledNow: false,
+      sprint8P1RealSecretReadAttempted: false,
+      sprint8P1RealSecretValueMaterialized: false,
+      sprint8P1RealSecretValueLogged: false,
+      sprint8P1SecretValueReturnedToApi: false,
+      sprint8P1KeyVaultRuntimeClientCreated: false,
+      sprint8P1KeyVaultRuntimeCallAttempted: false,
+      sprint8P1AzureSecretSdkRuntimeEnabled: false,
+      sprint8P1EnvFileRequired: false,
+      sprint8P1EnvSecretReadAllowed: false,
+      sprint8P1ApprovedSecretNamesOnly: true,
+      sprint8P1ApprovedSecretValues: false,
+      sprint8P1ApprovedForNonProductionOnly: true,
+      sprint8P1SecurityApprovalRecorded: true,
+      sprint8P1ArchitectureApprovalRecorded: true,
+      sprint8P1DevOpsApprovalRecorded: true,
+      sprint8P1RollbackPlanApproved: true,
+      sprint8P1ObservabilityPlanApproved: true,
+      sprint8P1RedactionPlanApproved: true,
+      sprint8P1Warning: 'Secret Provider approval decision only; no real secret read in Sprint 8 P1',
+      sprint8P1NextGate: 'Sprint8P2SecretProviderControlledRealNonProductionRead',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1067,6 +1091,30 @@ class CrmReadinessService {
       <p>Sprint 8 Planning: Go</p>
       <p>Sprint 7 Gate Decision Warning: Sprint 7 gate decision only; no real activation</p>
       <p>Next Gate: Sprint8P1SecretProviderApprovalDecision</p>
+      <p>Sprint 8 P1 Secret Provider Approval Decision: Exists</p>
+      <p>Secret Provider Approval Decision: ApprovedForControlledNonProductionReadPlanning</p>
+      <p>Secret Provider Real Read Approved For Next Sprint: true</p>
+      <p>Secret Provider Real Read Enabled Now: false</p>
+      <p>Real Secret Read Attempted: false</p>
+      <p>Real Secret Value Materialized: false</p>
+      <p>Real Secret Value Logged: false</p>
+      <p>Secret Value Returned To API: false</p>
+      <p>Key Vault Runtime Client Created: false</p>
+      <p>Key Vault Runtime Call Attempted: false</p>
+      <p>Azure Secret SDK Runtime Enabled: false</p>
+      <p>Env File Required: false</p>
+      <p>Env Secret Read Allowed: false</p>
+      <p>Approved Secret Names Only: true</p>
+      <p>Approved Secret Values: false</p>
+      <p>Approved For NonProduction Only: true</p>
+      <p>Security Approval Recorded: true</p>
+      <p>Architecture Approval Recorded: true</p>
+      <p>DevOps Approval Recorded: true</p>
+      <p>Rollback Plan Approved: true</p>
+      <p>Observability Plan Approved: true</p>
+      <p>Redaction Plan Approved: true</p>
+      <p>Secret Provider Approval Decision Warning: Secret Provider approval decision only; no real secret read in Sprint 8 P1</p>
+      <p>Next Gate: Sprint8P2SecretProviderControlledRealNonProductionRead</p>
       <p>Non-Production</p>
     </section>
   `

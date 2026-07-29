@@ -561,3 +561,6 @@ P5 adds `GET /api/crm/foundation/sprint-7/locked-productive-route-runtime-regist
 ## CRM Sprint 7 P6 - Gate decision
 
 Sprint 7 is closed through `GET /api/crm/foundation/sprint-7/gate-decision`. The overall decision is `GoForSprint8ControlledRuntimeApprovalAndPilotPlanning`; real activation remains `NoGo`, productization remains `NotReady`, and Sprint 8 planning is `Go`. Next gate: `Sprint8P1SecretProviderApprovalDecision`.
+## CRM Sprint 8 P1 - Secret Provider approval decision
+
+Sprint 8 starts with `GET /api/crm/foundation/sprint-8/secret-provider-approval-decision`. P1 approves moving to controlled NonProduction Secret Provider read planning in P2, but does not read real secrets now. `SecretProviderRealReadEnabledNow=false`, `RealSecretReadAttempted=false`, and the next gate is `Sprint8P2SecretProviderControlledRealNonProductionRead`.

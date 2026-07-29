@@ -10,3 +10,8 @@ Recommended packages:
 - Sprint 8 P6: Sprint 8 Gate Decision.
 
 Do not implement Sprint 8 runtime behavior until each explicit approval gate is satisfied.
+## P1 - Secret Provider Approval Decision
+
+Sprint 8 starts with a planning-only approval decision. P1 approves moving to P2 controlled NonProduction read planning, but performs no real secret read and exposes no values.
+
+Next gate: `Sprint8P2SecretProviderControlledRealNonProductionRead`.

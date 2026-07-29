@@ -245,3 +245,6 @@
 ## Sprint 7 P6
 
 - `/api/crm/foundation/sprint-7/gate-decision` - GET only. Reports Sprint 7 closure, NoGo real activation, NotReady productization and Sprint 8 planning Go.
+## Sprint 8 P1
+
+- `/api/crm/foundation/sprint-8/secret-provider-approval-decision` - GET only. Reports approved planning for P2 controlled NonProduction read, while real read remains disabled now.
