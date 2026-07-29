@@ -210,3 +210,7 @@ CRM added a fail-closed Secret Provider controlled real NonProduction read found
 ## Sprint 8 P3 note
 
 CRM added a fail-closed Common DB controlled real connectivity foundation. The probe abstraction is present, the default probe is disabled, the probe is locked by default, and no connection strings are returned, logged, persisted or cached.
+
+## Sprint 8 P4 note
+
+CRM added a fail-closed Portal Auth controlled real runtime validation foundation. The probe abstraction is present, the default probe is disabled, the probe is locked by default, and no Portal URLs, secrets, tokens or request headers are returned, logged, persisted, cached or read.

@@ -60,10 +60,13 @@ builder.Services.AddSingleton<CrmSprint7GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderApprovalDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderControlledRealReadStatusService>();
 builder.Services.AddSingleton<CrmCommonDbControlledRealConnectivityStatusService>();
+builder.Services.AddSingleton<CrmPortalAuthControlledRealRuntimeValidationStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
 builder.Services.AddSingleton<ICommonDbConnectivityProbe, DisabledCommonDbConnectivityProbe>();
+builder.Services.AddSingleton(PortalAuthRuntimeValidationProbeOptions.Disabled());
+builder.Services.AddSingleton<IPortalAuthRuntimeValidationProbe, DisabledPortalAuthRuntimeValidationProbe>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionApprovalPlaceholder>();
 builder.Services.AddSingleton<SecretProviderRealNonProductionRuntimeProbe>();
 builder.Services.AddSingleton<CommonDbRealConnectivityNonProductionProbe>();
@@ -238,6 +241,16 @@ app.MapPost("/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity
     return Results.Json(result, statusCode: result.ProbeAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
 })
     .WithName("ProbeCrmFoundationSprint8CommonDbControlledRealConnectivity");
+
+app.MapGet("/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation", (CrmPortalAuthControlledRealRuntimeValidationStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint8PortalAuthControlledRealRuntimeValidation");
+
+app.MapPost("/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation/probe", async (CrmPortalAuthControlledRuntimeValidationProbeRequest request, IPortalAuthRuntimeValidationProbe probe, CancellationToken cancellationToken) =>
+{
+    var result = await probe.ProbeAsync(new PortalAuthRuntimeValidationProbeRequest(request.BaseUrlSecretName, request.ClientIdSecretName, request.ClientSecretName), cancellationToken);
+    return Results.Json(result, statusCode: result.ProbeAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
+})
+    .WithName("ProbeCrmFoundationSprint8PortalAuthControlledRealRuntimeValidation");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

@@ -649,6 +649,36 @@ foreach ($Sprint8P3Marker in @("CommonDbControlledRealConnectivity", "CommonDbCo
 }
 if ($Sprint8P3Text -match "System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") { Fail "Sprint 8 P3 must not activate DB, EF, migrations, Portal/Auth runtime, token/header reads or token storage." }
 
+# Sprint 8 P4 Portal Auth Controlled Real Runtime Validation checks
+$Sprint8P4RequiredFiles = @(
+    "docs/integration/crm-sprint-8-p4-portal-auth-controlled-real-runtime-validation.md",
+    "docs/integration/crm-portal-auth-controlled-real-runtime-validation-policy.md",
+    "docs/integration/crm-portal-auth-controlled-real-runtime-validation-contract.md",
+    "docs/security/crm-portal-auth-controlled-runtime-token-boundary.md",
+    "docs/security/crm-portal-auth-controlled-runtime-redaction.md",
+    "docs/operations/crm-portal-auth-controlled-runtime-validation-runbook.md",
+    "docs/operations/crm-portal-auth-controlled-runtime-validation-rollback.md",
+    "docs/architecture/crm-portal-auth-controlled-runtime-validation-architecture.md",
+    "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationContracts.cs",
+    "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationStatusService.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/IPortalAuthRuntimeValidationProbe.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRuntimeValidationProbeOptions.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/DisabledPortalAuthRuntimeValidationProbe.cs",
+    "src/CRM.Infrastructure/Portal/RuntimeProbe/ControlledNonProductionPortalAuthRuntimeValidationProbe.cs"
+)
+foreach ($Sprint8P4RequiredFile in $Sprint8P4RequiredFiles) {
+    if (-not (Test-Path $Sprint8P4RequiredFile)) { Fail "Missing Sprint 8 P4 required file: $Sprint8P4RequiredFile" } else { Pass "Required Sprint 8 P4 file exists: $Sprint8P4RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation*") { Fail "Sprint 8 P4 Portal Auth controlled validation route missing." }
+$Sprint8P4Text = ""
+foreach ($Sprint8P4File in @("src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/IPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRuntimeValidationProbeOptions.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/DisabledPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/ControlledNonProductionPortalAuthRuntimeValidationProbe.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint8P4File) { $Sprint8P4Text += "`n" + (Get-Content -Raw $Sprint8P4File) }
+}
+foreach ($Sprint8P4Marker in @("PortalAuthControlledRealRuntimeValidation", "PortalAuthControlledRealRuntimeValidationEnabled: false", "PortalAuthRuntimeValidationAttempted: false", "PortalAuthRuntimeConnected: false", "PortalAuthBaseUrlReturnedToApi: false", "TokenReturnedToApi: false", "HeaderReadAttempted: false", "ProductiveAuthorizationEnabled: false", "FailClosedByDefault: true", "Sprint8P5LockedRouteAuthorizationPolicyIntegration", "Portal Auth controlled real runtime validation is disabled by default and never reads request tokens", "DisabledPortalAuthRuntimeValidationProbe", "ControlledNonProductionPortalAuthRuntimeValidationProbe", "IPortalAuthRuntimeValidationProbe")) {
+    if ($Sprint8P4Text -notmatch [regex]::Escape($Sprint8P4Marker)) { Fail "Missing Sprint 8 P4 marker: $Sprint8P4Marker" }
+}
+if ($Sprint8P4Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder") { Fail "Sprint 8 P4 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF or migrations." }
+
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."
 exit 0

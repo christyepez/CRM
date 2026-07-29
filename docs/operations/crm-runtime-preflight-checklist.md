@@ -265,6 +265,16 @@ powershell.exe -ExecutionPolicy Bypass -File tools\check-crm-health.ps1
 - Confirm endpoint `/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity` exists.
 - Confirm probe endpoint is locked by default.
 - Confirm `CrmCommonDbControlledRealConnectivityStatusService` exists.
+- Confirm no connection strings are returned, logged, persisted or cached.
+
+## Sprint 8 P4 Portal Auth controlled real runtime validation
+
+- Confirm Sprint 8 P4 docs exist.
+- Confirm endpoint `/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation` exists.
+- Confirm probe endpoint is locked by default.
+- Confirm `CrmPortalAuthControlledRealRuntimeValidationStatusService` exists.
+- Confirm no Portal URLs, secrets, tokens or request headers are returned, logged, persisted or cached.
+- Confirm no login/logout, Identity, auth middleware, `[Authorize]`, roles/permissions persistence, productive CRUD or DELETE is enabled.
 - Confirm `ICommonDbConnectivityProbe`, `DisabledCommonDbConnectivityProbe` and `ControlledNonProductionCommonDbConnectivityProbe` exist.
 - Confirm enabled=false, attempted=false, connected=false and no connection string returned/logged/persisted/cached.
 - Confirm no `.env`, no real connection strings, no SQL Server compose, no EF runtime, no migrations, no schema changes, no DB/Auth/Portal runtime, no DELETE and no productive UI.

@@ -1111,6 +1111,29 @@ if ($sprint8P3Text -match "System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|Us
     $failures += "Sprint 8 P3 must not activate DB, EF, migrations, Portal/Auth runtime, token/header reads or token storage."
 }
 
+# Sprint 8 P4 Portal Auth Controlled Real Runtime Validation checks
+foreach ($path in @("docs/integration/crm-sprint-8-p4-portal-auth-controlled-real-runtime-validation.md", "docs/integration/crm-portal-auth-controlled-real-runtime-validation-policy.md", "docs/integration/crm-portal-auth-controlled-real-runtime-validation-contract.md", "docs/security/crm-portal-auth-controlled-runtime-token-boundary.md", "docs/security/crm-portal-auth-controlled-runtime-redaction.md", "docs/operations/crm-portal-auth-controlled-runtime-validation-runbook.md", "docs/operations/crm-portal-auth-controlled-runtime-validation-rollback.md", "docs/architecture/crm-portal-auth-controlled-runtime-validation-architecture.md", "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/IPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRuntimeValidationProbeOptions.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/DisabledPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/ControlledNonProductionPortalAuthRuntimeValidationProbe.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 8 P4 required file: $path"
+    }
+}
+$sprint8P4Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint8P4Program -notlike "*/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation*") {
+    $failures += "Sprint 8 P4 Portal Auth controlled validation endpoint missing."
+}
+$sprint8P4Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthControlledRealRuntimeValidationStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/IPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRuntimeValidationProbeOptions.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/DisabledPortalAuthRuntimeValidationProbe.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/ControlledNonProductionPortalAuthRuntimeValidationProbe.cs", "docs/integration/crm-sprint-8-p4-portal-auth-controlled-real-runtime-validation.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint8P4Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("PortalAuthControlledRealRuntimeValidation", "CrmPortalAuthControlledRealRuntimeValidationStatusService", "PortalAuthControlledRealRuntimeValidationEnabled: false", "PortalAuthRuntimeValidationAttempted: false", "PortalAuthRuntimeConnected: false", "SecretProviderAvailabilityMetadataUsed: true", "PortalAuthBaseUrlReturnedToApi: false", "TokenReturnedToApi: false", "HeaderReadAttempted: false", "ProductiveAuthorizationEnabled: false", "ApiRequiresPortalAuth: false", "NonProductionOnly: true", "FailClosedByDefault: true", "Sprint8P5LockedRouteAuthorizationPolicyIntegration", "Portal Auth controlled real runtime validation is disabled by default and never reads request tokens", "IPortalAuthRuntimeValidationProbe", "DisabledPortalAuthRuntimeValidationProbe", "ControlledNonProductionPortalAuthRuntimeValidationProbe", "Sprint 8 P4 Portal Auth Controlled Real Runtime Validation: Exists")) {
+    if ($sprint8P4Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 8 P4 marker: $marker"
+    }
+}
+if ($sprint8P4Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|System\.Data\.SqlClient|Microsoft\.Data\.SqlClient|UseSqlServer\(|AddDbContext\(|MigrationBuilder") {
+    $failures += "Sprint 8 P4 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF or migrations."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1
