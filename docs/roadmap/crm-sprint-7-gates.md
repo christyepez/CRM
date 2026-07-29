@@ -44,3 +44,10 @@ Decision: Portal Auth real runtime probe exists; Portal Auth approval is not gra
 NoGo remains for Portal HTTP, Portal Auth base URL resolution, token/header reads, Auth middleware, login/logout, CRM Identity, roles/permissions persistence, productive routes, DELETE and productive UI.
 
 Next gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
+## Sprint 7 P5 Gate
+
+Status: `LockedProductiveRouteRuntimeRegistrationWith423`.
+
+Decision: route shapes may be registered only as locked NonProduction stubs returning `423` behind explicit flag. Default remains `404`. Productive activation remains `NoGo`.
+
+Next: `Sprint7P6Sprint7GateDecision`.

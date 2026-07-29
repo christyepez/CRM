@@ -484,6 +484,27 @@ class CrmReadinessService {
       probeSkippedBecausePortalAuthApprovalNotGranted: true,
       sprint7P4Warning: 'Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted',
       sprint7P4NextGate: 'Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423',
+      sprint7P5LockedProductiveRouteRuntimeRegistrationWith423: 'Exists',
+      lockedProductiveRouteRuntimeRegistrationApprovalGranted: false,
+      lockedProductiveRouteRuntimeRegistrationEnabled: false,
+      sprint7P5ProductiveRoutesRegisteredByDefault: false,
+      sprint7P5ProductiveRoutesRegisteredWhenExplicitlyEnabled: true,
+      sprint7P5DefaultNegativeRouteStatus: 404,
+      sprint7P5ExplicitlyEnabledLockedRouteStatus: 423,
+      sprint7P5ProductiveCrudEnabled: false,
+      sprint7P5ProductiveDomainExecutionEnabled: false,
+      sprint7P5ProductivePersistenceEnabled: false,
+      sprint7P5DeleteEndpointsEnabled: false,
+      sprint7P5PortalAuthRuntimeRequired: false,
+      sprint7P5PortalAuthRuntimeEnabled: false,
+      sprint7P5TokenReadAttempted: false,
+      sprint7P5HeaderReadAttempted: false,
+      sprint7P5DbRuntimeEnabled: false,
+      sprint7P5EfRuntimeEnabled: false,
+      sprint7P5MigrationsCreated: false,
+      sprint7P5SideEffectsAllowed: false,
+      sprint7P5Warning: 'Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects',
+      sprint7P5NextGate: 'Sprint7P6Sprint7GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -993,6 +1014,27 @@ class CrmReadinessService {
       <p>Probe Skipped Because Portal Auth Approval Not Granted: true</p>
       <p>Portal Auth Real Runtime Probe Warning: Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted</p>
       <p>Next Gate: Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423</p>
+      <p>Sprint 7 P5 Locked Productive Route Runtime Registration With 423: Exists</p>
+      <p>Locked Productive Route Runtime Registration Approval Granted: false</p>
+      <p>Locked Productive Route Runtime Registration Enabled: false</p>
+      <p>Productive Routes Registered By Default: false</p>
+      <p>Productive Routes Registered When Explicitly Enabled: true</p>
+      <p>Default Negative Route Status: 404</p>
+      <p>Explicitly Enabled Locked Route Status: 423</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Domain Execution Enabled: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>Delete Endpoints Enabled: false</p>
+      <p>Portal Auth Runtime Required: false</p>
+      <p>Portal Auth Runtime Enabled: false</p>
+      <p>Token Read Attempted: false</p>
+      <p>Header Read Attempted: false</p>
+      <p>DB Runtime Enabled: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Migrations Created: false</p>
+      <p>Side Effects Allowed: false</p>
+      <p>Locked Productive Route Runtime Registration Warning: Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects</p>
+      <p>Next Gate: Sprint7P6Sprint7GateDecision</p>
       <p>Non-Production</p>
     </section>
   `

@@ -987,6 +987,32 @@ if (Test-Path "database") {
     $failures += "Database directory or migration baseline must not exist in foundation sprints."
 }
 
+# Sprint 7 P5 Locked Productive Route Runtime Registration checks
+foreach ($path in @("docs/api/crm-sprint-7-p5-locked-productive-route-runtime-registration-with-423.md", "docs/api/crm-locked-productive-route-runtime-registration-policy.md", "docs/api/crm-locked-productive-route-runtime-registration-contract.md", "docs/security/crm-locked-productive-route-runtime-registration-safety-boundary.md", "docs/operations/crm-locked-productive-route-runtime-registration-runbook.md", "docs/operations/crm-locked-productive-route-runtime-registration-rollback.md", "docs/architecture/crm-locked-productive-route-runtime-registration-architecture.md", "src/CRM.Application/Foundation/CrmLockedProductiveRouteRuntimeRegistrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedProductiveRouteRuntimeRegistrationStatusService.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistration.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistrationOptions.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 7 P5 required file: $path"
+    }
+}
+$sprint7P5Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint7P5Program -notlike "*/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration*") {
+    $failures += "Sprint 7 P5 locked productive route endpoint missing."
+}
+if ($sprint7P5Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration") {
+    $failures += "Sprint 7 P5 foundation endpoint must remain GET-only."
+}
+$sprint7P5Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmLockedProductiveRouteRuntimeRegistrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedProductiveRouteRuntimeRegistrationStatusService.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistration.cs", "README.md", "codex/TASKS.md", "docs/api/crm-sprint-7-p5-locked-productive-route-runtime-registration-with-423.md", "docs/api/crm-locked-productive-route-runtime-registration-contract.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint7P5Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("Locked productive routes are not registered by default; explicit NonProduction flag returns 423 without side effects", "LockedProductiveRouteRuntimeRegistrationWith423", "CrmLockedProductiveRouteRuntimeRegistrationStatusService", "Crm:ProductiveRoutes:LockedRegistrationEnabled", "LockedProductiveRouteRuntimeRegistrationExists", "LockedProductiveRouteRuntimeRegistrationApprovalGranted", "LockedProductiveRouteRuntimeRegistrationEnabled", "ProductiveRoutesRegisteredByDefault", "ProductiveRoutesRegisteredWhenExplicitlyEnabled", "DefaultNegativeRouteStatus", "ExplicitlyEnabledLockedRouteStatus", "ProductiveCrudEnabled", "ProductiveDomainExecutionEnabled", "ProductivePersistenceEnabled", "DeleteEndpointsEnabled", "PortalAuthRuntimeRequired", "PortalAuthRuntimeEnabled", "TokenReadAttempted", "HeaderReadAttempted", "DbRuntimeEnabled", "EfRuntimeEnabled", "MigrationsCreated", "SideEffectsAllowed", "Sprint7P6Sprint7GateDecision", "Sprint 7 P5 Locked Productive Route Runtime Registration With 423: Exists")) {
+    if ($sprint7P5Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 7 P5 locked route marker: $marker"
+    }
+}
+if ($sprint7P5Text -match "MapDelete|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage") {
+    $failures += "Sprint 7 P5 must not enable DELETE, DB, Portal/Auth runtime, token/header reads or token storage."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

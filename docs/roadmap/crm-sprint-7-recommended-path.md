@@ -30,3 +30,8 @@ P3 prepares `CommonDbRealConnectivityNonProductionProbe` as a skipped Common DB 
 ## Sprint 7 P4 update
 
 P4 prepares `PortalAuthRealRuntimeProbe` as a skipped Portal Auth probe. Portal Auth approval remains false, no Portal base URL is resolved, no Portal HTTP call is attempted, no token/header read occurs, and the next gate is `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
+## P5 - Locked productive route runtime registration
+
+P5 is the recommended next controlled runtime step after Portal Auth real runtime probe. It registers no productive routes by default. With explicit NonProduction flag, future route shapes return `423 Locked` without CRUD, DB, Portal Auth runtime, token/header reads, DELETE, UI productiva or side effects.
+
+Next gate: `Sprint7P6Sprint7GateDecision`.

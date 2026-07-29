@@ -3,7 +3,9 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="xunit" Version="2.9.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.8.2" />
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
     <ProjectReference Include="..\..\src\CRM.Application\CRM.Application.csproj" />
+    <ProjectReference Include="..\..\src\CRM.Api\CRM.Api.csproj" />
     <ProjectReference Include="..\..\src\CRM.Infrastructure\CRM.Infrastructure.csproj" />
   </ItemGroup>
   <PropertyGroup>

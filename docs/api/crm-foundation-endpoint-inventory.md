@@ -239,3 +239,6 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-7/portal-auth-real-runtime-probe` | GET | Portal Auth real runtime probe contract only; skipped because Portal Auth approval is not granted |
+## Sprint 7 P5
+
+- `/api/crm/foundation/sprint-7/locked-productive-route-runtime-registration` - GET only. Reports `LockedProductiveRouteRuntimeRegistrationWith423`, default productive route status `404`, explicit locked status `423`, no DELETE, no DB, no Portal Auth runtime and no side effects.

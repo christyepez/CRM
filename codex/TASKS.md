@@ -612,3 +612,12 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - Defaults: approval=false, probeEnabled=false, probeAttempted=false, portalAuthRuntimeConnected=false, portalHttpCallAttempted=false, tokenReadAttempted=false, headerReadAttempted=false, probeSkippedBecausePortalAuthApprovalNotGranted=true.
 - Safety: no Portal URL resolution, no Portal HTTP, no HttpClient runtime, no token/header read, no Auth middleware, no `[Authorize]`, no login/logout, no CRM Identity, no roles/permissions persisted, no DB runtime, no productive routes.
 - Next Gate: `Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423`.
+## CRM Sprint 7 P5 - Locked Productive Route Runtime Registration With 423
+
+- [x] Add locked productive route runtime registration status contract and service.
+- [x] Add disabled-by-default API registrar with `Crm:ProductiveRoutes:LockedRegistrationEnabled=false`.
+- [x] Keep productive routes 404 by default.
+- [x] Support explicit NonProduction locked GET/POST/PUT/PATCH routes returning 423.
+- [x] Keep DELETE, CRUD, DB, EF, Portal Auth runtime, token/header reads, secrets and product UI disabled.
+- [x] Add docs, guardrails, tests and verification updates.
+- [x] Next Gate: `Sprint7P6Sprint7GateDecision`.
