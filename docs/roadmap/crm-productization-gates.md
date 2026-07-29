@@ -160,3 +160,7 @@ Controlled real NonProduction Secret Provider read scaffold exists, but default 
 ## CRM Sprint 8 P3
 
 Common DB controlled real connectivity scaffold exists, but default connectivity remains disabled and fail-closed. No connection strings are exposed, cached or persisted. EF runtime, migrations, schema changes, productive persistence and CRUD remain blocked. Productization remains `NotReady`.
+
+## CRM Sprint 8 P4
+
+Portal Auth controlled real runtime validation scaffold exists, but default validation remains disabled and fail-closed. No Portal URLs, secrets, tokens or request headers are exposed, cached, persisted or read. CRM-owned auth, Identity, role/permission persistence, productive authorization and CRUD remain blocked. Productization remains `NotReady`.

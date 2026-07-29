@@ -1,0 +1,26 @@
+namespace CRM.Infrastructure.Portal.RuntimeProbe;
+
+public sealed record PortalAuthRuntimeValidationProbeResult(
+    bool ProbeAttempted,
+    bool ProviderConfigured,
+    bool PortalAuthMetadataAvailable,
+    bool PortalAuthValidationAttempted,
+    bool PortalAuthReachable,
+    bool TimeoutApplied,
+    long ElapsedMs,
+    string ErrorCategory,
+    bool PortalUrlReturned,
+    bool PortalUrlLogged,
+    bool PortalUrlPersisted,
+    bool PortalUrlCached,
+    bool SecretValueReturned,
+    bool SecretValueLogged,
+    bool TokenReturned,
+    bool TokenLogged,
+    bool TokenPersisted,
+    bool TokenCached,
+    bool HeaderReadAttempted,
+    bool AuthorizationHeaderReadAttempted,
+    bool ApprovedSecretNames,
+    string Status,
+    string Warning);

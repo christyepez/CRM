@@ -662,3 +662,14 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Keep default enabled=false, attempted=false, connected=false and connection string returned/logged/persisted/cached=false.
 - [x] Keep SQL Server compose, EF runtime, migrations, schema changes, productive persistence, CRUD, DELETE and Portal Auth disabled.
 - [x] Next Gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.
+
+## CRM Sprint 8 P4 - Portal Auth Controlled Real Runtime Validation
+
+- [x] Add Portal Auth controlled real runtime validation docs, policy, contract, token boundary, redaction, runbook, rollback and architecture.
+- [x] Add `CrmPortalAuthControlledRealRuntimeValidationStatusService` and contracts.
+- [x] Add `IPortalAuthRuntimeValidationProbe`, disabled default probe and controlled NonProduction probe abstraction.
+- [x] Add `GET /api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation`.
+- [x] Add locked foundation probe endpoint returning sanitized metadata only.
+- [x] Keep default enabled=false, attempted=false, connected=false and Portal URL/secret/token/header returned/logged/persisted/cached=false.
+- [x] Keep login/logout, Identity, auth middleware, roles, permissions, productive CRUD, DELETE, DB runtime and Portal HTTP disabled by default.
+- [x] Next Gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.

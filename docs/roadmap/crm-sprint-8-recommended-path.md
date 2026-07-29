@@ -27,3 +27,9 @@ Next gate: `Sprint8P3CommonDbControlledRealConnectivity`.
 P3 introduces a fail-closed Common DB connectivity abstraction and metadata-only foundation probe. Default state remains disabled: no connection attempted, no connection string exposed, no EF runtime, no migrations and no productive CRUD.
 
 Next gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.
+
+## P4 - Portal Auth Controlled Real Runtime Validation
+
+P4 introduces a fail-closed Portal Auth validation abstraction and metadata-only foundation probe. Default state remains disabled: no Portal HTTP attempted, no request token/header read, no Portal URL/secret/token exposed, no CRM-owned auth and no productive CRUD.
+
+Next gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.

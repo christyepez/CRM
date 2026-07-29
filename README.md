@@ -572,3 +572,7 @@ Sprint 8 P2 adds `GET /api/crm/foundation/sprint-8/secret-provider-controlled-re
 ## CRM Sprint 8 P3 - Common DB controlled real connectivity
 
 Sprint 8 P3 adds `GET /api/crm/foundation/sprint-8/common-db-controlled-real-connectivity` and a locked foundation probe for Common DB connectivity. The default remains disabled and fail-closed: no connection attempt, no connection string resolved/returned/logged, no SQL Server in CRM compose, no EF runtime, no migrations, no schema changes, no productive persistence, no CRUD and no DELETE. Next gate: `Sprint8P4PortalAuthControlledRealRuntimeValidation`.
+
+## CRM Sprint 8 P4 - Portal Auth controlled real runtime validation
+
+Sprint 8 P4 adds `GET /api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation` and a locked foundation probe for Portal Auth validation. The default remains disabled and fail-closed: no Portal HTTP by default, no request token/header reads, no Portal URL/secret/token returned or logged, no CRM-owned login/logout/Identity, no auth middleware, no persisted roles/permissions, no productive CRUD and no DELETE. Next gate: `Sprint8P5LockedRouteAuthorizationPolicyIntegration`.

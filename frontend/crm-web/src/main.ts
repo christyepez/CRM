@@ -587,6 +587,34 @@ class CrmReadinessService {
       sprint8P3NonProductionOnly: true,
       sprint8P3FailClosedByDefault: true,
       sprint8P3NextGate: 'Sprint8P4PortalAuthControlledRealRuntimeValidation',
+      sprint8P4PortalAuthControlledRealRuntimeValidation: 'Exists',
+      portalAuthControlledRealRuntimeValidationApproved: true,
+      portalAuthControlledRealRuntimeValidationEnabled: false,
+      portalAuthRuntimeValidationAttempted: false,
+      portalAuthRuntimeConnected: false,
+      sprint8P4SecretProviderAvailabilityMetadataUsed: true,
+      sprint8P4PortalAuthBaseUrlResolved: false,
+      portalAuthBaseUrlMaterializedInPublicContract: false,
+      sprint8P4PortalAuthBaseUrlLogged: false,
+      sprint8P4PortalAuthBaseUrlReturnedToApi: false,
+      sprint8P4PortalHttpClientCreated: false,
+      sprint8P4PortalHttpCallAttempted: false,
+      sprint8P4TokenReadAttempted: false,
+      sprint8P4HeaderReadAttempted: false,
+      sprint8P4AuthorizationHeaderReadAttempted: false,
+      sprint8P4RealTokenMaterialized: false,
+      sprint8P4RealTokenLogged: false,
+      sprint8P4TokenReturnedToApi: false,
+      sprint8P4LoginImplementedByCrm: false,
+      sprint8P4LogoutImplementedByCrm: false,
+      sprint8P4IdentityImplementedByCrm: false,
+      sprint8P4RolesPersistedInCrm: false,
+      sprint8P4PermissionsPersistedInCrm: false,
+      sprint8P4ProductiveAuthorizationEnabled: false,
+      sprint8P4ApiRequiresPortalAuth: false,
+      sprint8P4NonProductionOnly: true,
+      sprint8P4FailClosedByDefault: true,
+      sprint8P4NextGate: 'Sprint8P5LockedRouteAuthorizationPolicyIntegration',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1199,6 +1227,34 @@ class CrmReadinessService {
       <p>NonProduction Only: true</p>
       <p>Fail Closed By Default: true</p>
       <p>Next Gate: Sprint8P4PortalAuthControlledRealRuntimeValidation</p>
+      <p>Sprint 8 P4 Portal Auth Controlled Real Runtime Validation: Exists</p>
+      <p>Portal Auth Controlled Real Runtime Validation Approved: true</p>
+      <p>Portal Auth Controlled Real Runtime Validation Enabled: false</p>
+      <p>Portal Auth Runtime Validation Attempted: false</p>
+      <p>Portal Auth Runtime Connected: false</p>
+      <p>Secret Provider Availability Metadata Used: true</p>
+      <p>Portal Auth Base URL Resolved: false</p>
+      <p>Portal Auth Base URL Materialized In Public Contract: false</p>
+      <p>Portal Auth Base URL Logged: false</p>
+      <p>Portal Auth Base URL Returned To API: false</p>
+      <p>Portal HTTP Client Created: false</p>
+      <p>Portal HTTP Call Attempted: false</p>
+      <p>Token Read Attempted: false</p>
+      <p>Header Read Attempted: false</p>
+      <p>Authorization Header Read Attempted: false</p>
+      <p>Real Token Materialized: false</p>
+      <p>Real Token Logged: false</p>
+      <p>Token Returned To API: false</p>
+      <p>Login Implemented By CRM: false</p>
+      <p>Logout Implemented By CRM: false</p>
+      <p>Identity Implemented By CRM: false</p>
+      <p>Roles Persisted In CRM: false</p>
+      <p>Permissions Persisted In CRM: false</p>
+      <p>Productive Authorization Enabled: false</p>
+      <p>API Requires Portal Auth: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Next Gate: Sprint8P5LockedRouteAuthorizationPolicyIntegration</p>
       <p>Non-Production</p>
     </section>
   `

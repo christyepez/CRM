@@ -262,3 +262,10 @@
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity` | GET | Common DB connectivity status; disabled and fail-closed by default |
 | `/api/crm/foundation/sprint-8/common-db-controlled-real-connectivity/probe` | POST | Foundation-only probe; locked by default and metadata-only |
+
+## Sprint 8 P4
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation` | GET | Portal Auth controlled validation status; disabled and fail-closed by default |
+| `/api/crm/foundation/sprint-8/portal-auth-controlled-real-runtime-validation/probe` | POST | Foundation-only probe; locked by default and metadata-only |
