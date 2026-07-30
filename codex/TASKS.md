@@ -766,3 +766,13 @@ Status: Implemented in branch `crm-sprint-9-p5-productive-route-dry-run-trial`.
 - Productive routes remain 404 by default.
 - Guardrails: no production activation, no CRUD productivo real, no DELETE, no DB writes, no DB/EF runtime, no migrations, no schema changes, no Portal Auth enforcement, no token/header reads and no UI productiva.
 - Next gate: Sprint9P6Sprint9GateDecision.
+
+## CRM Sprint 9 P6 - Sprint 9 Gate Decision
+
+Status: Pending via Codex versioned task.
+
+- Base Main Commit: eea6d3ef8f96f3571908ee3a9e5e1307a0e07ffc.
+- Expected branch: crm-sprint-9-p6-sprint-9-gate-decision.
+- Expected PR title: docs: close crm sprint 9 gate decision.
+- Prompt file: codex/prompts/sprint-9-p6-sprint-9-gate-decision.md.
+- Next gate: Sprint10P1ProductizationReadinessDecision.
