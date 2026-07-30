@@ -4,40 +4,44 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 9 - P4 Portal Auth Runtime Validation Trial
+CRM Sprint 9 - P5 Productive Route Dry Run Trial
 
 Base Main Commit:
-25a0951c7bd1d342a7a83676619f4349d036d326
+3da901f1d00fae351af1f4df60e80ad906cc9cf6
 
 Branch:
-crm-sprint-9-p4-portal-auth-runtime-validation-trial
+crm-sprint-9-p5-productive-route-dry-run-trial
 
 Commit sugerido:
-feat: add crm portal auth runtime validation trial
+feat: add crm productive route dry run trial
 
 PR title:
-feat: add crm portal auth runtime validation trial
+feat: add crm productive route dry run trial
 
 Objetivo:
-Implementar el trial controlado de validación Portal Auth únicamente para NonProduction, disabled/fail-closed por defecto, sin activar Auth productivo, sin login propio, sin token storage y sin leer Authorization headers por defecto.
+Implementar el dry-run controlado de rutas productivas CRM únicamente para NonProduction, disabled/fail-closed por defecto, sin activar CRUD productivo, sin DELETE, sin side effects, sin DB productiva y sin enforcement real de autorización.
 
 Guardrails:
 - No production activation.
-- No Auth productivo.
+- No CRUD productivo real.
+- No DELETE.
+- No side effects.
+- No escritura en base.
+- No DB runtime productivo.
+- No EF productivo.
+- No migrations.
+- No schema changes.
+- No Portal Auth enforcement real.
+- No lectura de Authorization headers por defecto.
+- No lectura de tokens por defecto.
+- No token storage.
+- No [Authorize] productivo.
 - No login/logout CRM.
 - No Identity propio.
-- No token storage.
-- No lectura de Authorization header por defecto.
-- No [Authorize] productivo.
-- No Portal HTTP por defecto.
-- No URLs privadas reales.
-- No client secrets reales.
-- No certificados.
-- No DB runtime productivo.
-- No CRUD productivo.
-- No DELETE.
 - No UI productiva.
-- Probe 423 por defecto.
+- No datos reales.
+- Productive routes siguen 404 por defecto.
+- Dry-run probe 423 por defecto.
 
 Prompt File:
-codex/prompts/sprint-9-p4-portal-auth-runtime-validation-trial.md
+codex/prompts/sprint-9-p5-productive-route-dry-run-trial.md
