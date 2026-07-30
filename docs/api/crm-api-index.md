@@ -19,6 +19,11 @@
 - `GET /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial` - read-only Portal Auth runtime validation trial status.
 - `POST /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe` - controlled NonProduction metadata-only probe; 423 by default.
 
+## Sprint 9 P5
+
+- `GET /api/crm/foundation/sprint-9/productive-route-dry-run-trial` - read-only productive route dry-run trial status.
+- `POST /api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe` - controlled NonProduction dry-run probe; 423 by default.
+
 ## Sprint 7 P1
 
 - `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`: Secret Provider real NonProduction approval package; no approval granted and no real secrets are read.

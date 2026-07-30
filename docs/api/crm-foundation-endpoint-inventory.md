@@ -289,3 +289,10 @@
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial` | GET | Portal Auth runtime validation trial status; disabled and fail-closed by default |
 | `/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe` | POST | Foundation-only probe; locked by default and metadata-only |
+
+## Sprint 9 P5
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-9/productive-route-dry-run-trial` | GET | Productive route dry-run trial status; productive routes remain 404 by default |
+| `/api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe` | POST | Foundation-only dry-run probe; 423 by default and metadata-only |

@@ -36,6 +36,14 @@ Endpoint: `GET /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial
 Probe: `POST /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe`
 Next gate: `Sprint9P5ProductiveRouteDryRunTrial`.
 
+## CRM Sprint 9 P5 - Productive Route Dry Run Trial
+
+P5 adds a controlled productive route dry-run trial for NonProduction only. It is disabled by default behind `Crm:RuntimeTrials:ProductiveRouteDryRunEnabled=false`, consumes only sanitized Sprint 9 P2/P3/P4 metadata, keeps productive CRM routes 404 by default and returns 423 from the probe by default.
+
+Endpoint: `GET /api/crm/foundation/sprint-9/productive-route-dry-run-trial`
+Probe: `POST /api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe`
+Next gate: `Sprint9P6Sprint9GateDecision`.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.

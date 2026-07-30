@@ -745,6 +745,41 @@ class CrmReadinessService {
       sprint9P4RollbackAvailable: true,
       sprint9P4ObservabilityMetadataOnly: true,
       sprint9P4NextGate: 'Sprint9P5ProductiveRouteDryRunTrial',
+      sprint9P5ProductiveRouteDryRunTrial: 'Exists',
+      sprint9P5ProductiveRouteDryRunTrialApproved: true,
+      sprint9P5ProductiveRouteDryRunTrialEnabled: false,
+      sprint9P5ProductiveRoutesRegisteredByDefault: false,
+      sprint9P5ProductiveRoutesDryRunRegistered: false,
+      sprint9P5ProductiveRouteDryRunAttempted: false,
+      sprint9P5ProductiveRouteDryRunAllowed: false,
+      sprint9P5ProductiveRouteDryRunDecisionReturned: false,
+      sprint9P5ProductiveRouteDryRunStatusCode: 423,
+      sprint9P5ProductiveCrudEnabled: false,
+      sprint9P5ProductiveDomainExecutionEnabled: false,
+      sprint9P5ProductivePersistenceEnabled: false,
+      sprint9P5DatabaseWriteAttempted: false,
+      sprint9P5SideEffectsAllowed: false,
+      sprint9P5DeleteEndpointsEnabled: false,
+      sprint9P5DbRuntimeEnabled: false,
+      sprint9P5EfRuntimeEnabled: false,
+      sprint9P5MigrationsEnabled: false,
+      sprint9P5SchemaChangeAllowed: false,
+      sprint9P5PortalAuthMetadataDependencyValidated: true,
+      sprint9P5CommonDbMetadataDependencyValidated: true,
+      sprint9P5SecretProviderMetadataDependencyValidated: true,
+      sprint9P5AuthHeaderRead: false,
+      sprint9P5TokenRead: false,
+      sprint9P5TokenStored: false,
+      sprint9P5AuthAttributeEnabled: false,
+      sprint9P5LoginEndpointCreated: false,
+      sprint9P5LogoutEndpointCreated: false,
+      sprint9P5IdentityRuntimeEnabled: false,
+      sprint9P5NonProductionOnly: true,
+      sprint9P5ProductionBlocked: true,
+      sprint9P5FailClosedByDefault: true,
+      sprint9P5RollbackAvailable: true,
+      sprint9P5ObservabilityMetadataOnly: true,
+      sprint9P5NextGate: 'Sprint9P6Sprint9GateDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1515,6 +1550,41 @@ class CrmReadinessService {
       <p>Rollback Available: true</p>
       <p>Observability Metadata Only: true</p>
       <p>Next Gate: Sprint9P5ProductiveRouteDryRunTrial</p>
+      <p>Sprint 9 P5 Productive Route Dry Run Trial: Exists</p>
+      <p>Productive Route Dry Run Trial Approved: true</p>
+      <p>Productive Route Dry Run Trial Enabled: false</p>
+      <p>Productive Routes Registered By Default: false</p>
+      <p>Productive Routes Dry Run Registered: false</p>
+      <p>Productive Route Dry Run Attempted: false</p>
+      <p>Productive Route Dry Run Allowed: false</p>
+      <p>Productive Route Dry Run Decision Returned: false</p>
+      <p>Productive Route Dry Run Status Code: 423</p>
+      <p>Productive CRUD Enabled: false</p>
+      <p>Productive Domain Execution Enabled: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>Database Write Attempted: false</p>
+      <p>Side Effects Allowed: false</p>
+      <p>Delete Endpoints Enabled: false</p>
+      <p>DB Runtime Enabled: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Migrations Enabled: false</p>
+      <p>Schema Change Allowed: false</p>
+      <p>Portal Auth Metadata Dependency Validated: true</p>
+      <p>Common DB Metadata Dependency Validated: true</p>
+      <p>Secret Provider Metadata Dependency Validated: true</p>
+      <p>Auth Header Read: false</p>
+      <p>Token Read: false</p>
+      <p>Token Stored: false</p>
+      <p>Auth Attribute Enabled: false</p>
+      <p>Login Endpoint Created: false</p>
+      <p>Logout Endpoint Created: false</p>
+      <p>Identity Runtime Enabled: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Production Blocked: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Rollback Available: true</p>
+      <p>Observability Metadata Only: true</p>
+      <p>Next Gate: Sprint9P6Sprint9GateDecision</p>
       <p>Non-Production</p>
     </section>
   `

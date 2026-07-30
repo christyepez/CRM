@@ -44,6 +44,23 @@ P4 adds the Portal Auth runtime validation trial:
 - ObservabilityMetadataOnly: true.
 - NextGate: Sprint9P5ProductiveRouteDryRunTrial.
 
+## Sprint 9 P5 gate
+
+P5 adds the productive route dry-run trial:
+
+- ProductiveRouteDryRunTrialExists: true.
+- ProductiveRouteDryRunTrialEnabled: false by default.
+- ProductiveRoutesRegisteredByDefault: false.
+- ProductiveRouteDryRunStatusCode: 423.
+- ProductiveCrudEnabled: false.
+- DeleteEndpointsEnabled: false.
+- DbRuntimeEnabled: false.
+- PortalAuthMetadataDependencyValidated: true.
+- CommonDbMetadataDependencyValidated: true.
+- SecretProviderMetadataDependencyValidated: true.
+- Productive routes remain 404 by default.
+- NextGate: Sprint9P6Sprint9GateDecision.
+
 ## Sprint 9 P1
 
 Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

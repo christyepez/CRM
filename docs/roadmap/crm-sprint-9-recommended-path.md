@@ -28,3 +28,5 @@ Recommended sequence:
 - Sprint 9 P6: Sprint 9 Gate Decision.
 
 Each step must remain NonProduction, reversible, observable and explicitly gated.
+
+Sprint 9 P5 is now implemented as a disabled-by-default foundation dry-run: productive routes remain 404 by default, the probe returns 423 by default and no CRUD, DELETE, DB runtime, Auth enforcement or side effects are enabled.
