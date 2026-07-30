@@ -742,10 +742,13 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 
 ## CRM Sprint 9 P4 - Portal Auth Runtime Validation Trial
 
-Status: Pending via Codex versioned task.
+Status: Implemented in branch `crm-sprint-9-p4-portal-auth-runtime-validation-trial`.
 
-- Base Main Commit: 25a0951c7bd1d342a7a83676619f4349d036d326.
+- Base Main Commit: 2450fe15703d8d543f8abe35ae55c6b4156287ef.
 - Expected branch: crm-sprint-9-p4-portal-auth-runtime-validation-trial.
 - Expected PR title: feat: add crm portal auth runtime validation trial.
 - Prompt file: codex/prompts/sprint-9-p4-portal-auth-runtime-validation-trial.md.
+- Default flag: `Crm:RuntimeTrials:PortalAuthValidationEnabled=false`.
+- Default probe status: `423 Locked`.
+- Guardrails: no Auth productivo, no login/logout CRM, no Identity propio, no Authorization header/token reads by default, no Portal HTTP by default, no secrets/URLs/tokens returned, logged, persisted or cached.
 - Next gate: Sprint9P5ProductiveRouteDryRunTrial.

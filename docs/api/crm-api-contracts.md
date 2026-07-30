@@ -29,6 +29,14 @@ The probe accepts `{ "secretName": "crm-common-db-connection" }`, enforces the a
 
 The probe accepts `{ "secretName": "crm-common-db-connection" }`, returns 423 when disabled by default and never returns connection strings.
 
+## Sprint 9 P4 Portal Auth Runtime Validation Trial
+
+`GET /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial`
+
+`POST /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe`
+
+The probe accepts approved logical secret names for Portal Auth metadata, returns 423 when disabled by default and never returns private URLs, client secrets, tokens, headers or claims.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

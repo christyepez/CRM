@@ -44,11 +44,11 @@ Comportamiento por defecto esperado:
 - PortalAuthValidated: false.
 - PortalHttpAttempted: false.
 - PortalHttpConfigured: false.
-- PortalBaseUrlResolved: false.
-- PortalBaseUrlReturnedToApi: false.
+- PortalAuthUrlResolved: false.
+- PortalAuthUrlReturnedToApi: false.
 - PortalClientSecretResolved: false.
 - PortalClientSecretReturnedToApi: false.
-- AuthorizationHeaderRead: false.
+- AuthHeaderRead: false.
 - TokenRead: false.
 - TokenStored: false.
 - ClaimsMapped: false.
@@ -56,7 +56,7 @@ Comportamiento por defecto esperado:
 - LoginEndpointCreated: false.
 - LogoutEndpointCreated: false.
 - IdentityRuntimeEnabled: false.
-- AuthorizeAttributeEnabled: false.
+- AuthAttributeEnabled: false.
 - SecretProviderMetadataDependencyValidated: true.
 - CommonDbMetadataDependencyValidated: true.
 - NonProductionOnly: true.

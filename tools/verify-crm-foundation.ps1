@@ -575,6 +575,7 @@ $portalAuthSafeSourceText = $sourceText.
     Replace("portalAuthBaseUrlReturnedToApi", "").
     Replace("Portal Auth Base URL Returned To API", "").
     Replace("AuthorizationHeaderReadAttempted", "").
+    Replace("AuthHeaderReadAttempted", "").
     Replace("authorizationHeaderReadAttempted", "").
     Replace("Authorization Header Read Attempted", "")
 
@@ -964,7 +965,7 @@ if ($sprint7P4Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/
     $failures += "Sprint 7 P4 Portal Auth endpoint must remain GET-only."
 }
 
-foreach ($marker in @("Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted", "PortalAuthRealRuntimeProbe", "CrmPortalAuthRealRuntimeProbeStatusService", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthorizationHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Sprint 7 P4 Portal Auth Real Runtime Probe: Exists")) {
+foreach ($marker in @("Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted", "PortalAuthRealRuntimeProbe", "CrmPortalAuthRealRuntimeProbeStatusService", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Sprint 7 P4 Portal Auth Real Runtime Probe: Exists")) {
     if (($sourceText + "`n" + (Get-Content -Raw "README.md") + "`n" + (Get-Content -Raw "codex/TASKS.md") + "`n" + (Get-Content -Raw "docs/integration/crm-sprint-7-p4-portal-auth-real-runtime-probe.md") + "`n" + (Get-Content -Raw "docs/integration/crm-portal-auth-real-runtime-probe-contract.md") + "`n" + (Get-Content -Raw "docs/security/crm-portal-auth-real-runtime-probe-token-boundary.md") + "`n" + (Get-Content -Raw "frontend/crm-web/src/main.ts")) -notlike "*$marker*") {
         $failures += "Missing Sprint 7 P4 Portal Auth probe marker: $marker"
     }
@@ -1148,7 +1149,7 @@ $sprint8P5Text = ""
 foreach ($file in @("src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationContracts.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyIntegrationStatusService.cs", "src/CRM.Application/Foundation/CrmLockedRouteAuthorizationPolicyEvaluator.cs", "src/CRM.Api/ProductiveRoutes/LockedProductiveRouteRuntimeRegistration.cs", "docs/api/crm-sprint-8-p5-locked-route-authorization-policy-integration.md", "frontend/crm-web/src/main.ts")) {
     if (Test-Path $file) { $sprint8P5Text += "`n" + (Get-Content -Raw $file) }
 }
-foreach ($marker in @("LockedRouteAuthorizationPolicyIntegration", "CrmLockedRouteAuthorizationPolicyIntegrationStatusService", "CrmLockedRouteAuthorizationPolicyEvaluator", "LockedRouteAuthorizationPolicyIntegrationEnabled: false", "AuthorizationPolicyEvaluated: false", "NotEvaluatedBecauseDisabled", "BlockedBecauseRouteLocked", "PortalAuthMetadataUsed: true", "PortalAuthRuntimeRequired: false", "PortalAuthRuntimeConnected: false", "TokenReadAttempted: false", "HeaderReadAttempted: false", "AuthorizationHeaderReadAttempted: false", "PortalHttpCallAttempted: false", "ProductiveRoutesRegisteredByDefault: false", "DefaultNegativeRouteStatus: 404", "LockedRoutesEnabledOnlyWithExplicitNonProductionFlag: true", "LockedRouteStatus: 423", "LockedRouteAuthorizationDecisionReturned: false", "ProductiveCrudEnabled: false", "ProductiveDomainExecutionEnabled: false", "ProductivePersistenceEnabled: false", "DeleteEndpointsEnabled: false", "SideEffectsAllowed: false", "DbRuntimeEnabled: false", "EfRuntimeEnabled: false", "Sprint8P6Sprint8GateDecision", "Locked route authorization policy is disabled by default and never activates productive CRM routes", "Sprint 8 P5 Locked Route Authorization Policy Integration: Exists")) {
+foreach ($marker in @("LockedRouteAuthorizationPolicyIntegration", "CrmLockedRouteAuthorizationPolicyIntegrationStatusService", "CrmLockedRouteAuthorizationPolicyEvaluator", "LockedRouteAuthorizationPolicyIntegrationEnabled: false", "AuthorizationPolicyEvaluated: false", "NotEvaluatedBecauseDisabled", "BlockedBecauseRouteLocked", "PortalAuthMetadataUsed: true", "PortalAuthRuntimeRequired: false", "PortalAuthRuntimeConnected: false", "TokenReadAttempted: false", "HeaderReadAttempted: false", "AuthHeaderReadAttempted: false", "PortalHttpCallAttempted: false", "ProductiveRoutesRegisteredByDefault: false", "DefaultNegativeRouteStatus: 404", "LockedRoutesEnabledOnlyWithExplicitNonProductionFlag: true", "LockedRouteStatus: 423", "LockedRouteAuthorizationDecisionReturned: false", "ProductiveCrudEnabled: false", "ProductiveDomainExecutionEnabled: false", "ProductivePersistenceEnabled: false", "DeleteEndpointsEnabled: false", "SideEffectsAllowed: false", "DbRuntimeEnabled: false", "EfRuntimeEnabled: false", "Sprint8P6Sprint8GateDecision", "Locked route authorization policy is disabled by default and never activates productive CRM routes", "Sprint 8 P5 Locked Route Authorization Policy Integration: Exists")) {
     if ($sprint8P5Text -notlike "*$marker*") {
         $failures += "Missing Sprint 8 P5 marker: $marker"
     }
@@ -1247,6 +1248,30 @@ foreach ($marker in @("CommonDbRuntimeConnectivityTrial", "CrmCommonDbRuntimeCon
 }
 if ($sprint9P3Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
     $failures += "Sprint 9 P3 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
+# Sprint 9 P4 Portal Auth Runtime Validation Trial checks
+foreach ($path in @("docs/security/crm-sprint-9-p4-portal-auth-runtime-validation-trial.md", "docs/security/crm-portal-auth-runtime-validation-trial-policy.md", "docs/security/crm-portal-auth-runtime-validation-trial-contract.md", "docs/security/crm-portal-auth-runtime-validation-trial-redaction.md", "docs/operations/crm-portal-auth-runtime-validation-trial-runbook.md", "docs/operations/crm-portal-auth-runtime-validation-trial-rollback.md", "docs/architecture/crm-portal-auth-runtime-validation-trial-architecture.md", "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialStatusService.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialOptions.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialService.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialResult.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 9 P4 required file: $path"
+    }
+}
+$sprint9P4Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint9P4Program -notlike "*/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial*") {
+    $failures += "Sprint 9 P4 Portal Auth trial endpoint missing."
+}
+$sprint9P4Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialStatusService.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialOptions.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialService.cs", "docs/security/crm-sprint-9-p4-portal-auth-runtime-validation-trial.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint9P4Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("PortalAuthRuntimeValidationTrial", "CrmPortalAuthRuntimeValidationTrialStatusService", "PortalAuthRuntimeValidationTrialEnabled: false", "PortalAuthValidationAttempted: false", "PortalAuthValidated: false", "PortalHttpAttempted: false", "PortalHttpConfigured: false", "PortalAuthUrlResolved: false", "PortalAuthUrlReturnedToApi: false", "PortalClientSecretResolved: false", "PortalClientSecretReturnedToApi: false", "AuthHeaderRead: false", "TokenRead: false", "TokenStored: false", "ClaimsMapped: false", "ProductiveAuthEnabled: false", "LoginEndpointCreated: false", "LogoutEndpointCreated: false", "IdentityRuntimeEnabled: false", "AuthAttributeEnabled: false", "SecretProviderMetadataDependencyValidated: true", "CommonDbMetadataDependencyValidated: true", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P5ProductiveRouteDryRunTrial", "Portal Auth runtime validation trial is disabled by default and never reads authorization headers or tokens", "Crm:RuntimeTrials:PortalAuthValidationEnabled", "Portal Auth Runtime Validation Trial: Exists")) {
+    if ($sprint9P4Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 9 P4 marker: $marker"
+    }
+}
+$sprint9P4ScanText = $sprint9P4Text.Replace("AuthAttributeEnabled", "").Replace("AuthHeaderRead", "")
+if ($sprint9P4ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 9 P4 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
 }
 
 if ($failures.Count -gt 0) {

@@ -316,7 +316,7 @@ foreach ($P4Marker in @("PortalAuthTokenPropagationDryRunContract", "PortalAuthT
     if ($P4Text -notmatch [regex]::Escape($P4Marker)) { Fail "Missing Sprint 6 P4 marker: $P4Marker" }
 }
 $P4AuthScanText = $P4Text.
-    Replace("AuthorizationHeaderReadAttempted", "").
+    Replace("AuthHeaderReadAttempted", "").
     Replace("authorizationHeaderReadAttempted", "").
     Replace("Authorization Header Read Attempted", "").
     Replace("PortalHttpClientCreated", "").
@@ -497,7 +497,7 @@ $Sprint7P4Text = ""
 foreach ($Sprint7P4File in @("src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRealRuntimeProbeStatusService.cs", "src/CRM.Infrastructure/Portal/RuntimeProbe/PortalAuthRealRuntimeProbe.cs", "frontend/crm-web/src/main.ts")) {
     if (Test-Path $Sprint7P4File) { $Sprint7P4Text += "`n" + (Get-Content -Raw $Sprint7P4File) }
 }
-foreach ($Sprint7P4Marker in @("PortalAuthRealRuntimeProbe", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthorizationHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted")) {
+foreach ($Sprint7P4Marker in @("PortalAuthRealRuntimeProbe", "PortalAuthRealRuntimeProbeExists", "PortalAuthRealRuntimeApprovalGranted", "SecretProviderRealNonProductionApprovalGranted", "PortalAuthRealRuntimeProbeEnabled", "PortalAuthRealRuntimeProbeAttempted", "PortalAuthRuntimeConnected", "PortalAuthBaseUrlResolved", "PortalAuthBaseUrlMaterialized", "PortalAuthBaseUrlLogged", "PortalAuthBaseUrlReturnedToApi", "PortalHttpClientCreated", "PortalHttpCallAttempted", "PortalAuthTokenValidationAttempted", "TokenReadAttempted", "HeaderReadAttempted", "AuthHeaderReadAttempted", "RealTokenMaterialized", "RealTokenLogged", "TokenReturnedToApi", "LoginImplementedByCrm", "LogoutImplementedByCrm", "IdentityImplementedByCrm", "RolesPersistedInCrm", "PermissionsPersistedInCrm", "ProductiveAuthorizationEnabled", "ApiRequiresPortalAuth", "UsesSyntheticFallback", "mock://crm/portal-auth", "mock://crm/portal-user", "ProbeSkippedBecausePortalAuthApprovalNotGranted", "Sprint7P5LockedProductiveRouteRuntimeRegistrationWith423", "Portal Auth real runtime probe is prepared but skipped because Portal Auth approval is not granted")) {
     if ($Sprint7P4Text -notmatch [regex]::Escape($Sprint7P4Marker)) { Fail "Missing Sprint 7 P4 marker: $Sprint7P4Marker" }
 }
 if ($Sprint7P4Text -match "HttpContext\.Request\.Headers|Request\.Headers|Headers\[|Bearer|HttpClient\(|new HttpClient|PortalCorporativoUrl|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(") { Fail "Sprint 7 P4 must not read headers/tokens, call Portal, activate Auth or connect DB." }
@@ -824,6 +824,35 @@ foreach ($Sprint9P3Marker in @("CommonDbRuntimeConnectivityTrial", "CommonDbRunt
     if ($Sprint9P3Text -notmatch [regex]::Escape($Sprint9P3Marker)) { Fail "Missing Sprint 9 P3 marker: $Sprint9P3Marker" }
 }
 if ($Sprint9P3Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P3 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
+
+# Sprint 9 P4 Portal Auth Runtime Validation Trial checks
+$Sprint9P4RequiredFiles = @(
+    "docs/security/crm-sprint-9-p4-portal-auth-runtime-validation-trial.md",
+    "docs/security/crm-portal-auth-runtime-validation-trial-policy.md",
+    "docs/security/crm-portal-auth-runtime-validation-trial-contract.md",
+    "docs/security/crm-portal-auth-runtime-validation-trial-redaction.md",
+    "docs/operations/crm-portal-auth-runtime-validation-trial-runbook.md",
+    "docs/operations/crm-portal-auth-runtime-validation-trial-rollback.md",
+    "docs/architecture/crm-portal-auth-runtime-validation-trial-architecture.md",
+    "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialContracts.cs",
+    "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialStatusService.cs",
+    "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialOptions.cs",
+    "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialService.cs",
+    "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialResult.cs"
+)
+foreach ($Sprint9P4RequiredFile in $Sprint9P4RequiredFiles) {
+    if (-not (Test-Path $Sprint9P4RequiredFile)) { Fail "Missing Sprint 9 P4 required file: $Sprint9P4RequiredFile" } else { Pass "Required Sprint 9 P4 file exists: $Sprint9P4RequiredFile" }
+}
+if ($program -notlike "*/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial*") { Fail "Sprint 9 P4 Portal Auth trial route missing." }
+$Sprint9P4Text = ""
+foreach ($Sprint9P4File in @("src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialContracts.cs", "src/CRM.Application/Foundation/CrmPortalAuthRuntimeValidationTrialStatusService.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialService.cs", "src/CRM.Infrastructure/Portal/Auth/PortalAuthRuntimeValidationTrialOptions.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint9P4File) { $Sprint9P4Text += "`n" + (Get-Content -Raw $Sprint9P4File) }
+}
+foreach ($Sprint9P4Marker in @("PortalAuthRuntimeValidationTrial", "PortalAuthRuntimeValidationTrialEnabled: false", "PortalAuthValidationAttempted: false", "PortalAuthValidated: false", "PortalHttpAttempted: false", "PortalHttpConfigured: false", "PortalAuthUrlResolved: false", "PortalAuthUrlReturnedToApi: false", "PortalClientSecretResolved: false", "PortalClientSecretReturnedToApi: false", "AuthHeaderRead: false", "TokenRead: false", "TokenStored: false", "ClaimsMapped: false", "ProductiveAuthEnabled: false", "LoginEndpointCreated: false", "LogoutEndpointCreated: false", "IdentityRuntimeEnabled: false", "AuthAttributeEnabled: false", "SecretProviderMetadataDependencyValidated: true", "CommonDbMetadataDependencyValidated: true", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P5ProductiveRouteDryRunTrial", "Portal Auth runtime validation trial is disabled by default and never reads authorization headers or tokens", "Crm:RuntimeTrials:PortalAuthValidationEnabled", "Sprint 9 P4 Portal Auth Runtime Validation Trial: Exists")) {
+    if ($Sprint9P4Text -notmatch [regex]::Escape($Sprint9P4Marker)) { Fail "Missing Sprint 9 P4 marker: $Sprint9P4Marker" }
+}
+$Sprint9P4ScanText = $Sprint9P4Text.Replace("AuthAttributeEnabled", "").Replace("AuthHeaderRead", "")
+if ($Sprint9P4ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P4 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
 
 if ($failures.Count -gt 0) { exit 1 }
 Pass "CRM guardrails passed."

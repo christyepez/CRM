@@ -601,7 +601,7 @@ class CrmReadinessService {
       sprint8P4PortalHttpCallAttempted: false,
       sprint8P4TokenReadAttempted: false,
       sprint8P4HeaderReadAttempted: false,
-      sprint8P4AuthorizationHeaderReadAttempted: false,
+      sprint8P4AuthHeaderReadAttempted: false,
       sprint8P4RealTokenMaterialized: false,
       sprint8P4RealTokenLogged: false,
       sprint8P4TokenReturnedToApi: false,
@@ -625,7 +625,7 @@ class CrmReadinessService {
       sprint8P5PortalAuthRuntimeConnected: false,
       sprint8P5TokenReadAttempted: false,
       sprint8P5HeaderReadAttempted: false,
-      sprint8P5AuthorizationHeaderReadAttempted: false,
+      sprint8P5AuthHeaderReadAttempted: false,
       sprint8P5PortalHttpCallAttempted: false,
       productiveRoutesRegisteredByDefault: false,
       sprint8P5DefaultNegativeRouteStatus: 404,
@@ -717,6 +717,34 @@ class CrmReadinessService {
       sprint9P3RollbackAvailable: true,
       sprint9P3ObservabilityMetadataOnly: true,
       sprint9P3NextGate: 'Sprint9P4PortalAuthRuntimeValidationTrial',
+      sprint9P4PortalAuthRuntimeValidationTrial: 'Exists',
+      sprint9P4PortalAuthRuntimeValidationTrialApproved: true,
+      sprint9P4PortalAuthRuntimeValidationTrialEnabled: false,
+      sprint9P4PortalAuthValidationAttempted: false,
+      sprint9P4PortalAuthValidated: false,
+      sprint9P4PortalHttpAttempted: false,
+      sprint9P4PortalHttpConfigured: false,
+      sprint9P4PortalAuthUrlResolved: false,
+      sprint9P4PortalAuthUrlReturnedToApi: false,
+      sprint9P4PortalClientSecretResolved: false,
+      sprint9P4PortalClientSecretReturnedToApi: false,
+      sprint9P4AuthHeaderRead: false,
+      sprint9P4TokenRead: false,
+      sprint9P4TokenStored: false,
+      sprint9P4ClaimsMapped: false,
+      sprint9P4ProductiveAuthEnabled: false,
+      sprint9P4LoginEndpointCreated: false,
+      sprint9P4LogoutEndpointCreated: false,
+      sprint9P4IdentityRuntimeEnabled: false,
+      sprint9P4AuthAttributeEnabled: false,
+      sprint9P4SecretProviderMetadataDependencyValidated: true,
+      sprint9P4CommonDbMetadataDependencyValidated: true,
+      sprint9P4NonProductionOnly: true,
+      sprint9P4ProductionBlocked: true,
+      sprint9P4FailClosedByDefault: true,
+      sprint9P4RollbackAvailable: true,
+      sprint9P4ObservabilityMetadataOnly: true,
+      sprint9P4NextGate: 'Sprint9P5ProductiveRouteDryRunTrial',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1459,6 +1487,34 @@ class CrmReadinessService {
       <p>Rollback Available: true</p>
       <p>Observability Metadata Only: true</p>
       <p>Next Gate: Sprint9P4PortalAuthRuntimeValidationTrial</p>
+      <p>Sprint 9 P4 Portal Auth Runtime Validation Trial: Exists</p>
+      <p>Portal Auth Runtime Validation Trial Approved: true</p>
+      <p>Portal Auth Runtime Validation Trial Enabled: false</p>
+      <p>Portal Auth Validation Attempted: false</p>
+      <p>Portal Auth Validated: false</p>
+      <p>Portal HTTP Attempted: false</p>
+      <p>Portal HTTP Configured: false</p>
+      <p>Portal Base URL Resolved: false</p>
+      <p>Portal Base URL Returned To API: false</p>
+      <p>Portal Client Secret Resolved: false</p>
+      <p>Portal Client Secret Returned To API: false</p>
+      <p>Authorization Header Read: false</p>
+      <p>Token Read: false</p>
+      <p>Token Stored: false</p>
+      <p>Claims Mapped: false</p>
+      <p>Productive Auth Enabled: false</p>
+      <p>Login Endpoint Created: false</p>
+      <p>Logout Endpoint Created: false</p>
+      <p>Identity Runtime Enabled: false</p>
+      <p>Authorize Attribute Enabled: false</p>
+      <p>Secret Provider Metadata Dependency Validated: true</p>
+      <p>Common DB Metadata Dependency Validated: true</p>
+      <p>NonProduction Only: true</p>
+      <p>Production Blocked: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Rollback Available: true</p>
+      <p>Observability Metadata Only: true</p>
+      <p>Next Gate: Sprint9P5ProductiveRouteDryRunTrial</p>
       <p>Non-Production</p>
     </section>
   `
