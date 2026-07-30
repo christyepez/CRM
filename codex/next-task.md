@@ -4,29 +4,29 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 9 - P5 Productive Route Dry Run Trial
+CRM Sprint 9 - P6 Sprint 9 Gate Decision
 
 Base Main Commit:
-3da901f1d00fae351af1f4df60e80ad906cc9cf6
+eea6d3ef8f96f3571908ee3a9e5e1307a0e07ffc
 
 Branch:
-crm-sprint-9-p5-productive-route-dry-run-trial
+crm-sprint-9-p6-sprint-9-gate-decision
 
 Commit sugerido:
-feat: add crm productive route dry run trial
+docs: close crm sprint 9 gate decision
 
 PR title:
-feat: add crm productive route dry run trial
+docs: close crm sprint 9 gate decision
 
 Objetivo:
-Implementar el dry-run controlado de rutas productivas CRM únicamente para NonProduction, disabled/fail-closed por defecto, sin activar CRUD productivo, sin DELETE, sin side effects, sin DB productiva y sin enforcement real de autorización.
+Cerrar Sprint 9 con una decisión formal de gate, consolidando evidencia de P1 a P5, dejando producción en NoGo, manteniendo trials como NonProduction-only y definiendo el NextGate para Sprint 10.
 
 Guardrails:
 - No production activation.
-- No CRUD productivo real.
+- No runtime activation adicional.
+- No CRUD productivo.
 - No DELETE.
-- No side effects.
-- No escritura en base.
+- No DB writes.
 - No DB runtime productivo.
 - No EF productivo.
 - No migrations.
@@ -40,8 +40,9 @@ Guardrails:
 - No Identity propio.
 - No UI productiva.
 - No datos reales.
+- Solo decisión documental/foundation status.
 - Productive routes siguen 404 por defecto.
-- Dry-run probe 423 por defecto.
+- Probes siguen locked/fail-closed por defecto.
 
 Prompt File:
-codex/prompts/sprint-9-p5-productive-route-dry-run-trial.md
+codex/prompts/sprint-9-p6-sprint-9-gate-decision.md
