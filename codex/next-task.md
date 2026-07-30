@@ -1,56 +1,41 @@
-# Próxima tarea Codex
+# CRM Next Codex Task
 
-## Repository
-
+Repository:
 christyepez/CRM
 
-## Phase
+Phase:
+CRM Sprint 9 - P3 Common DB Runtime Connectivity Trial
 
-Pendiente de definir.
+Base Main Commit:
+84e2496bc66f585890077ce143b6b1d25e0bf284
 
-## Base Main Commit
+Branch:
+crm-sprint-9-p3-common-db-runtime-connectivity-trial
 
-Pendiente de definir.
+Commit sugerido:
+feat: add crm common db runtime connectivity trial
 
-## Branch
+PR title:
+feat: add crm common db runtime connectivity trial
 
-Pendiente de definir.
+Objetivo:
+Implementar el trial controlado de conectividad Common DB únicamente para NonProduction, disabled/fail-closed por defecto, usando metadata sanitizada del Secret Provider Sprint 9 P2 sin exponer connection strings ni activar persistencia productiva.
 
-## Commit sugerido
+Guardrails:
+- No production activation.
+- No DB runtime productivo.
+- No EF runtime productivo.
+- No migrations.
+- No schema changes.
+- No CRUD productivo.
+- No DELETE.
+- No connection strings en API/logs/docs.
+- No secretos reales.
+- No .env.
+- No datos reales.
+- No Portal Auth runtime.
+- No rutas productivas por defecto.
+- Probe 423 por defecto.
 
-Pendiente de definir.
-
-## PR title
-
-Pendiente de definir.
-
-## Objetivo
-
-Pendiente de definir.
-
-## Guardrails
-
-- Usar GitHub `main` actualizado como fuente de verdad.
-- Crear rama nueva desde `origin/main`.
-- No hacer merge automático.
-- No subir secretos, `.env`, tokens, certificados ni datos reales.
-- No modificar runtime CRM salvo que la tarea vigente lo autorice explícitamente.
-- Respetar los guardrails del repositorio.
-
-## Validaciones
-
-- `git diff --check`
-- Verificar archivos creados/modificados.
-- Ejecutar solo las validaciones coherentes con el alcance de la tarea.
-
-## Cierre esperado
-
-- Agent
-- Repository
-- Task
-- Files Created
-- Files Modified
-- Branch
-- Commit
-- Pull Request
-- Next Step
+Prompt File:
+codex/prompts/sprint-9-p3-common-db-runtime-connectivity-trial.md
