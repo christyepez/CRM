@@ -752,3 +752,13 @@ Status: Implemented in branch `crm-sprint-9-p4-portal-auth-runtime-validation-tr
 - Default probe status: `423 Locked`.
 - Guardrails: no Auth productivo, no login/logout CRM, no Identity propio, no Authorization header/token reads by default, no Portal HTTP by default, no secrets/URLs/tokens returned, logged, persisted or cached.
 - Next gate: Sprint9P5ProductiveRouteDryRunTrial.
+
+## CRM Sprint 9 P5 - Productive Route Dry Run Trial
+
+Status: Pending via Codex versioned task.
+
+- Base Main Commit: 3da901f1d00fae351af1f4df60e80ad906cc9cf6.
+- Expected branch: crm-sprint-9-p5-productive-route-dry-run-trial.
+- Expected PR title: feat: add crm productive route dry run trial.
+- Prompt file: codex/prompts/sprint-9-p5-productive-route-dry-run-trial.md.
+- Next gate: Sprint9P6Sprint9GateDecision.
