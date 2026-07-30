@@ -28,6 +28,14 @@ Endpoint: `GET /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial
 Probe: `POST /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe`
 Next gate: `Sprint9P4PortalAuthRuntimeValidationTrial`.
 
+## CRM Sprint 9 P4 - Portal Auth Runtime Validation Trial
+
+P4 adds a controlled Portal Auth runtime validation trial for NonProduction only. It is disabled by default behind `Crm:RuntimeTrials:PortalAuthValidationEnabled=false`, consumes only sanitized Sprint 9 P2/P3 metadata and never reads Authorization headers, tokens, client secrets or private Portal URLs by default.
+
+Endpoint: `GET /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial`
+Probe: `POST /api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe`
+Next gate: `Sprint9P5ProductiveRouteDryRunTrial`.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.

@@ -30,6 +30,20 @@ P3 adds the Common DB runtime connectivity trial:
 - ObservabilityMetadataOnly: true.
 - NextGate: Sprint9P4PortalAuthRuntimeValidationTrial.
 
+## Sprint 9 P4 gate
+
+P4 adds the Portal Auth runtime validation trial:
+
+- PortalAuthRuntimeValidationTrialExists: true.
+- PortalAuthRuntimeValidationTrialEnabled: false by default.
+- PortalAuthValidationAttempted: false by default.
+- AuthHeaderRead: false by default.
+- TokenRead: false by default.
+- SecretProviderMetadataDependencyValidated: true.
+- CommonDbMetadataDependencyValidated: true.
+- ObservabilityMetadataOnly: true.
+- NextGate: Sprint9P5ProductiveRouteDryRunTrial.
+
 ## Sprint 9 P1
 
 Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

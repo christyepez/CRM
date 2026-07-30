@@ -16,6 +16,8 @@ P2 is complete when Secret Provider returns only sanitized metadata and remains 
 
 P3 is complete when Common DB connectivity returns only sanitized metadata and remains disabled by default.
 
+P4 is complete when Portal Auth runtime validation returns only sanitized metadata, remains disabled by default, returns 423 from the probe by default, and does not read Authorization headers or tokens.
+
 Recommended sequence:
 
 - Sprint 9 P1: Controlled Runtime Activation Decision.

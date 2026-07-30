@@ -282,3 +282,10 @@
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-8/locked-route-authorization-policy-integration` | GET | Locked route authorization policy status; disabled and fail-closed by default |
 | `/api/crm/foundation/sprint-8/gate-decision` | GET | Sprint 8 gate decision; no production activation |
+
+## Sprint 9 P4
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial` | GET | Portal Auth runtime validation trial status; disabled and fail-closed by default |
+| `/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/probe` | POST | Foundation-only probe; locked by default and metadata-only |
