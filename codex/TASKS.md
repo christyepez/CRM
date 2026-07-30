@@ -739,3 +739,13 @@ Status: implemented as closure/gate decision only. Next gate: Sprint6P1NonProduc
 - [x] Record `OverallDecision=GoForSprint9ControlledRuntimeActivationPlanning`.
 - [x] Keep production activation, productive CRUD, DELETE, productive UI, DB runtime and Portal Auth runtime as `NoGo`.
 - [x] Next Gate: `Sprint9P1ControlledRuntimeActivationDecision`.
+
+## CRM Sprint 9 P4 - Portal Auth Runtime Validation Trial
+
+Status: Pending via Codex versioned task.
+
+- Base Main Commit: 25a0951c7bd1d342a7a83676619f4349d036d326.
+- Expected branch: crm-sprint-9-p4-portal-auth-runtime-validation-trial.
+- Expected PR title: feat: add crm portal auth runtime validation trial.
+- Prompt file: codex/prompts/sprint-9-p4-portal-auth-runtime-validation-trial.md.
+- Next gate: Sprint9P5ProductiveRouteDryRunTrial.
