@@ -21,6 +21,14 @@ Returns the read-only foundation decision contract for Sprint 9 P1:
 
 The probe accepts `{ "secretName": "crm-common-db-connection" }`, enforces the allow-list, returns 423 when disabled by default and never returns secret values.
 
+## Sprint 9 P3 Common DB Runtime Connectivity Trial
+
+`GET /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial`
+
+`POST /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe`
+
+The probe accepts `{ "secretName": "crm-common-db-connection" }`, returns 423 when disabled by default and never returns connection strings.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

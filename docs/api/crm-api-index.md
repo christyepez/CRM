@@ -9,6 +9,11 @@
 - `GET /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial` - read-only Secret Provider trial status.
 - `POST /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe` - controlled NonProduction metadata-only probe; 423 by default.
 
+## Sprint 9 P3
+
+- `GET /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial` - read-only Common DB runtime connectivity trial status.
+- `POST /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe` - controlled NonProduction metadata-only probe; 423 by default.
+
 ## Sprint 7 P1
 
 - `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`: Secret Provider real NonProduction approval package; no approval granted and no real secrets are read.

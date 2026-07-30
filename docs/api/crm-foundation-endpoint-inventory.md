@@ -3,6 +3,8 @@
 | Sprint 9 P1 | GET | `/api/crm/foundation/sprint-9/controlled-runtime-activation-decision` | Controlled runtime activation decision; NonProduction trials approved for planning only; runtime enabled now is false. |
 | Sprint 9 P2 | GET | `/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial` | Secret Provider runtime enablement trial status; disabled by default. |
 | Sprint 9 P2 | POST | `/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe` | Metadata-only Secret Provider probe; 423 by default and no secret values returned. |
+| Sprint 9 P3 | GET | `/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial` | Common DB runtime connectivity trial status; disabled by default. |
+| Sprint 9 P3 | POST | `/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe` | Metadata-only Common DB probe; 423 by default and no connection strings returned. |
 
 ## Sprint 7 P1 secret provider real NonProduction approval
 

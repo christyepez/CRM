@@ -1,0 +1,25 @@
+namespace CRM.Infrastructure.Data.CommonDb;
+
+public sealed record CommonDbRuntimeConnectivityTrialResult(
+    string SecretName,
+    bool CommonDbConnectionAttempted,
+    bool CommonDbConnected,
+    bool CommonDbConnectionStringResolved,
+    bool CommonDbConnectionStringReturnedToApi,
+    bool CommonDbConnectionStringLogged,
+    bool CommonDbConnectionStringPersisted,
+    bool CommonDbConnectionStringCached,
+    bool SecretProviderMetadataDependencyValidated,
+    bool SchemaCreated,
+    bool MigrationExecuted,
+    bool EfRuntimeEnabled,
+    bool ProductivePersistenceEnabled,
+    bool NonProductionOnly,
+    bool ProductionBlocked,
+    bool FailClosedByDefault,
+    bool ObservabilityMetadataOnly,
+    bool AllowedSecretName,
+    long ElapsedMs,
+    string Status,
+    string Warning,
+    string? ErrorCategory);

@@ -793,5 +793,33 @@ foreach ($Sprint9P2Marker in @("SecretProviderRuntimeEnablementTrial", "SecretPr
 }
 if ($Sprint9P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P2 must not activate secret SDK, env/file reads, DB, Portal/Auth runtime, token/header reads, token storage or DELETE." }
 
+# Sprint 9 P3 Common DB Runtime Connectivity Trial checks
+$Sprint9P3RequiredFiles = @(
+    "docs/data/crm-sprint-9-p3-common-db-runtime-connectivity-trial.md",
+    "docs/data/crm-common-db-runtime-connectivity-trial-policy.md",
+    "docs/data/crm-common-db-runtime-connectivity-trial-contract.md",
+    "docs/data/crm-common-db-runtime-connectivity-trial-redaction.md",
+    "docs/operations/crm-common-db-runtime-connectivity-trial-runbook.md",
+    "docs/operations/crm-common-db-runtime-connectivity-trial-rollback.md",
+    "docs/architecture/crm-common-db-runtime-connectivity-trial-architecture.md",
+    "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialContracts.cs",
+    "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialStatusService.cs",
+    "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialOptions.cs",
+    "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialService.cs",
+    "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialResult.cs"
+)
+foreach ($Sprint9P3RequiredFile in $Sprint9P3RequiredFiles) {
+    if (-not (Test-Path $Sprint9P3RequiredFile)) { Fail "Missing Sprint 9 P3 required file: $Sprint9P3RequiredFile" } else { Pass "Required Sprint 9 P3 file exists: $Sprint9P3RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial*") { Pass "Sprint 9 P3 Common DB trial endpoint registered." } else { Fail "Sprint 9 P3 endpoint missing." }
+$Sprint9P3Text = ""
+foreach ($Sprint9P3File in @("src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialStatusService.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialService.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialOptions.cs", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint9P3File) { $Sprint9P3Text += "`n" + (Get-Content -Raw $Sprint9P3File) }
+}
+foreach ($Sprint9P3Marker in @("CommonDbRuntimeConnectivityTrial", "CommonDbRuntimeConnectivityTrialEnabled: false", "CommonDbConnectionAttempted: false", "CommonDbConnected: false", "CommonDbConnectionStringResolved: false", "CommonDbConnectionStringReturnedToApi: false", "CommonDbConnectionStringLogged: false", "CommonDbConnectionStringPersisted: false", "CommonDbConnectionStringCached: false", "SecretProviderMetadataDependencyValidated: true", "SchemaCreated: false", "MigrationExecuted: false", "EfRuntimeEnabled: false", "ProductivePersistenceEnabled: false", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P4PortalAuthRuntimeValidationTrial", "Common DB runtime connectivity trial is disabled by default and never exposes connection strings", "Crm:RuntimeTrials:CommonDbConnectivityEnabled", "Sprint 9 P3 Common DB Runtime Connectivity Trial: Exists")) {
+    if ($Sprint9P3Text -notmatch [regex]::Escape($Sprint9P3Marker)) { Fail "Missing Sprint 9 P3 marker: $Sprint9P3Marker" }
+}
+if ($Sprint9P3Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P3 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

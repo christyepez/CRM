@@ -14,6 +14,8 @@ Production activation remains `NoGo`.
 
 P2 is complete when Secret Provider returns only sanitized metadata and remains disabled by default.
 
+P3 is complete when Common DB connectivity returns only sanitized metadata and remains disabled by default.
+
 Recommended sequence:
 
 - Sprint 9 P1: Controlled Runtime Activation Decision.
