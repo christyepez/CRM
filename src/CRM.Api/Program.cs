@@ -70,6 +70,8 @@ builder.Services.AddSingleton<CrmControlledRuntimeActivationDecisionStatusServic
 builder.Services.AddSingleton<CrmSecretProviderRuntimeEnablementTrialStatusService>();
 builder.Services.AddSingleton<CrmCommonDbRuntimeConnectivityTrialStatusService>();
 builder.Services.AddSingleton<CrmPortalAuthRuntimeValidationTrialStatusService>();
+builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialStatusService>();
+builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialEvaluator>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
@@ -89,6 +91,10 @@ builder.Services.AddSingleton(new PortalAuthRuntimeValidationTrialOptions(
     ClientIdSecretName: CrmPortalAuthRuntimeValidationTrialStatusService.ClientIdSecretName,
     ClientSecretName: CrmPortalAuthRuntimeValidationTrialStatusService.ClientSecretName));
 builder.Services.AddSingleton<PortalAuthRuntimeValidationTrialService>();
+builder.Services.AddSingleton(new ProductiveRouteDryRunTrialOptions(
+    Enabled: builder.Configuration.GetValue<bool>("Crm:RuntimeTrials:ProductiveRouteDryRunEnabled"),
+    RuntimeEnvironment: builder.Environment.EnvironmentName));
+builder.Services.AddSingleton<ProductiveRouteDryRunTrialService>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
 builder.Services.AddSingleton<ICommonDbConnectivityProbe, DisabledCommonDbConnectivityProbe>();
 builder.Services.AddSingleton(PortalAuthRuntimeValidationProbeOptions.Disabled());
@@ -316,6 +322,16 @@ app.MapPost("/api/crm/foundation/sprint-9/portal-auth-runtime-validation-trial/p
     return Results.Json(result, statusCode: result.PortalAuthValidationAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
 })
     .WithName("ProbeCrmFoundationSprint9PortalAuthRuntimeValidationTrial");
+
+app.MapGet("/api/crm/foundation/sprint-9/productive-route-dry-run-trial", (CrmProductiveRouteDryRunTrialStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint9ProductiveRouteDryRunTrial");
+
+app.MapPost("/api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe", (CrmProductiveRouteDryRunTrialProbeContract request, ProductiveRouteDryRunTrialService service) =>
+{
+    var result = service.Probe(request);
+    return Results.Json(result, statusCode: result.ProductiveRouteDryRunStatusCode);
+})
+    .WithName("ProbeCrmFoundationSprint9ProductiveRouteDryRunTrial");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

@@ -1274,6 +1274,30 @@ if ($sprint9P4ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdenti
     $failures += "Sprint 9 P4 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
 }
 
+# Sprint 9 P5 Productive Route Dry Run Trial checks
+foreach ($path in @("docs/api/crm-sprint-9-p5-productive-route-dry-run-trial.md", "docs/api/crm-productive-route-dry-run-trial-policy.md", "docs/api/crm-productive-route-dry-run-trial-contract.md", "docs/api/crm-productive-route-dry-run-trial-redaction.md", "docs/operations/crm-productive-route-dry-run-trial-runbook.md", "docs/operations/crm-productive-route-dry-run-trial-rollback.md", "docs/architecture/crm-productive-route-dry-run-trial-architecture.md", "src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialContracts.cs", "src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialStatusService.cs", "src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialEvaluator.cs", "src/CRM.Api/ProductiveRoutes/ProductiveRouteDryRunTrialOptions.cs", "src/CRM.Api/ProductiveRoutes/ProductiveRouteDryRunTrialService.cs", "src/CRM.Api/ProductiveRoutes/ProductiveRouteDryRunTrialResult.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 9 P5 required file: $path"
+    }
+}
+$sprint9P5Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint9P5Program -notlike "*/api/crm/foundation/sprint-9/productive-route-dry-run-trial*") {
+    $failures += "Sprint 9 P5 Productive Route dry-run endpoint missing."
+}
+$sprint9P5Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialContracts.cs", "src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialStatusService.cs", "src/CRM.Application/Foundation/CrmProductiveRouteDryRunTrialEvaluator.cs", "src/CRM.Api/ProductiveRoutes/ProductiveRouteDryRunTrialOptions.cs", "src/CRM.Api/ProductiveRoutes/ProductiveRouteDryRunTrialService.cs", "docs/api/crm-sprint-9-p5-productive-route-dry-run-trial.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint9P5Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("ProductiveRouteDryRunTrial", "CrmProductiveRouteDryRunTrialStatusService", "ProductiveRouteDryRunTrialEnabled: false", "ProductiveRoutesRegisteredByDefault: false", "ProductiveRoutesDryRunRegistered: false", "ProductiveRouteDryRunAttempted: false", "ProductiveRouteDryRunAllowed: false", "ProductiveRouteDryRunDecisionReturned: false", "ProductiveRouteDryRunStatusCode: 423", "ProductiveCrudEnabled: false", "ProductiveDomainExecutionEnabled: false", "ProductivePersistenceEnabled: false", "DatabaseWriteAttempted: false", "SideEffectsAllowed: false", "DeleteEndpointsEnabled: false", "DbRuntimeEnabled: false", "EfRuntimeEnabled: false", "MigrationsEnabled: false", "SchemaChangeAllowed: false", "PortalAuthMetadataDependencyValidated: true", "CommonDbMetadataDependencyValidated: true", "SecretProviderMetadataDependencyValidated: true", "AuthHeaderRead: false", "TokenRead: false", "TokenStored: false", "AuthAttributeEnabled: false", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P6Sprint9GateDecision", "Productive route dry-run trial is disabled by default and never registers productive CRM routes", "Crm:RuntimeTrials:ProductiveRouteDryRunEnabled", "Productive Route Dry Run Trial: Exists")) {
+    if ($sprint9P5Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 9 P5 marker: $marker"
+    }
+}
+$sprint9P5ScanText = $sprint9P5Text.Replace("AuthAttributeEnabled", "").Replace("AuthHeaderRead", "")
+if ($sprint9P5ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 9 P5 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1
