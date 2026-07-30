@@ -10,6 +10,7 @@ using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
+using CRM.Infrastructure.Data.CommonDb;
 using CRM.Infrastructure.Portal.RuntimeProbe;
 using CRM.Infrastructure.Portal.Simulation;
 using CRM.Infrastructure.Security.Secrets;
@@ -66,6 +67,7 @@ builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyEvaluator>();
 builder.Services.AddSingleton<CrmSprint8GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmControlledRuntimeActivationDecisionStatusService>();
 builder.Services.AddSingleton<CrmSecretProviderRuntimeEnablementTrialStatusService>();
+builder.Services.AddSingleton<CrmCommonDbRuntimeConnectivityTrialStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
@@ -73,6 +75,11 @@ builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
     RuntimeEnvironment: builder.Environment.EnvironmentName,
     AllowedLogicalSecretNames: SecretProviderRuntimeOptions.Disabled().ApprovedSecretNames));
 builder.Services.AddSingleton<SecretProviderRuntimeTrialService>();
+builder.Services.AddSingleton(new CommonDbRuntimeConnectivityTrialOptions(
+    Enabled: builder.Configuration.GetValue<bool>("Crm:RuntimeTrials:CommonDbConnectivityEnabled"),
+    RuntimeEnvironment: builder.Environment.EnvironmentName,
+    SecretName: CrmCommonDbRuntimeConnectivityTrialStatusService.ApprovedSecretName));
+builder.Services.AddSingleton<CommonDbRuntimeConnectivityTrialService>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
 builder.Services.AddSingleton<ICommonDbConnectivityProbe, DisabledCommonDbConnectivityProbe>();
 builder.Services.AddSingleton(PortalAuthRuntimeValidationProbeOptions.Disabled());
@@ -280,6 +287,16 @@ app.MapPost("/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-tri
     return Results.Json(result, statusCode: result.ReadAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
 })
     .WithName("ProbeCrmFoundationSprint9SecretProviderRuntimeEnablementTrial");
+
+app.MapGet("/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial", (CrmCommonDbRuntimeConnectivityTrialStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint9CommonDbRuntimeConnectivityTrial");
+
+app.MapPost("/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe", async (CrmCommonDbRuntimeConnectivityTrialProbeContract request, CommonDbRuntimeConnectivityTrialService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ProbeAsync(request.SecretName, cancellationToken);
+    return Results.Json(result, statusCode: result.CommonDbConnectionAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
+})
+    .WithName("ProbeCrmFoundationSprint9CommonDbRuntimeConnectivityTrial");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

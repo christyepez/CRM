@@ -1226,6 +1226,29 @@ if ($sprint9P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCr
     $failures += "Sprint 9 P2 must not activate secret SDK, env/file reads, DB, Portal/Auth runtime, token/header reads, token storage or DELETE."
 }
 
+# Sprint 9 P3 Common DB Runtime Connectivity Trial checks
+foreach ($path in @("docs/data/crm-sprint-9-p3-common-db-runtime-connectivity-trial.md", "docs/data/crm-common-db-runtime-connectivity-trial-policy.md", "docs/data/crm-common-db-runtime-connectivity-trial-contract.md", "docs/data/crm-common-db-runtime-connectivity-trial-redaction.md", "docs/operations/crm-common-db-runtime-connectivity-trial-runbook.md", "docs/operations/crm-common-db-runtime-connectivity-trial-rollback.md", "docs/architecture/crm-common-db-runtime-connectivity-trial-architecture.md", "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialStatusService.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialOptions.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialService.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialResult.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 9 P3 required file: $path"
+    }
+}
+$sprint9P3Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint9P3Program -notlike "*/api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial*") {
+    $failures += "Sprint 9 P3 Common DB trial endpoint missing."
+}
+$sprint9P3Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialContracts.cs", "src/CRM.Application/Foundation/CrmCommonDbRuntimeConnectivityTrialStatusService.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialOptions.cs", "src/CRM.Infrastructure/Data/CommonDb/CommonDbRuntimeConnectivityTrialService.cs", "docs/data/crm-sprint-9-p3-common-db-runtime-connectivity-trial.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint9P3Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("CommonDbRuntimeConnectivityTrial", "CrmCommonDbRuntimeConnectivityTrialStatusService", "CommonDbRuntimeConnectivityTrialEnabled: false", "CommonDbConnectionAttempted: false", "CommonDbConnected: false", "CommonDbConnectionStringResolved: false", "CommonDbConnectionStringReturnedToApi: false", "CommonDbConnectionStringLogged: false", "CommonDbConnectionStringPersisted: false", "CommonDbConnectionStringCached: false", "SecretProviderMetadataDependencyValidated: true", "SchemaCreated: false", "MigrationExecuted: false", "EfRuntimeEnabled: false", "ProductivePersistenceEnabled: false", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P4PortalAuthRuntimeValidationTrial", "Common DB runtime connectivity trial is disabled by default and never exposes connection strings", "Crm:RuntimeTrials:CommonDbConnectivityEnabled", "Common DB Runtime Connectivity Trial: Exists")) {
+    if ($sprint9P3Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 9 P3 marker: $marker"
+    }
+}
+if ($sprint9P3Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 9 P3 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

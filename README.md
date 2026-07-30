@@ -20,6 +20,14 @@ Endpoint: `GET /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-t
 Probe: `POST /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe`
 Next gate: `Sprint9P3CommonDbRuntimeConnectivityTrial`.
 
+## CRM Sprint 9 P3 - Common DB Runtime Connectivity Trial
+
+P3 adds a controlled Common DB runtime connectivity trial for NonProduction only. It is disabled by default behind `Crm:RuntimeTrials:CommonDbConnectivityEnabled=false`, consumes only sanitized Secret Provider metadata and never exposes connection strings.
+
+Endpoint: `GET /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial`
+Probe: `POST /api/crm/foundation/sprint-9/common-db-runtime-connectivity-trial/probe`
+Next gate: `Sprint9P4PortalAuthRuntimeValidationTrial`.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.

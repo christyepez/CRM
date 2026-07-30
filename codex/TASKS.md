@@ -32,12 +32,15 @@ Status: Implemented in branch `crm-sprint-9-p2-secret-provider-runtime-enablemen
 
 ## CRM Sprint 9 P3 - Common DB Runtime Connectivity Trial
 
-Status: Pending via Codex versioned task.
+Status: Implemented in branch `crm-sprint-9-p3-common-db-runtime-connectivity-trial`.
 
 - Base Main Commit: 84e2496bc66f585890077ce143b6b1d25e0bf284.
 - Expected branch: crm-sprint-9-p3-common-db-runtime-connectivity-trial.
 - Expected PR title: feat: add crm common db runtime connectivity trial.
 - Prompt file: codex/prompts/sprint-9-p3-common-db-runtime-connectivity-trial.md.
+- Default enabled: `false`.
+- Explicit flag: `Crm:RuntimeTrials:CommonDbConnectivityEnabled`.
+- Response: sanitized metadata only.
 - Next gate: Sprint9P4PortalAuthRuntimeValidationTrial.
 
 ## CRM Sprint 7 P1 - Secret Provider Real NonProduction Approval

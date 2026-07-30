@@ -19,6 +19,17 @@ P2 adds the Secret Provider runtime enablement trial:
 - ObservabilityMetadataOnly: true.
 - NextGate: Sprint9P3CommonDbRuntimeConnectivityTrial.
 
+## Sprint 9 P3 gate
+
+P3 adds the Common DB runtime connectivity trial:
+
+- CommonDbRuntimeConnectivityTrialExists: true.
+- CommonDbRuntimeConnectivityTrialEnabled: false by default.
+- CommonDbConnectionAttempted: false by default.
+- SecretProviderMetadataDependencyValidated: true.
+- ObservabilityMetadataOnly: true.
+- NextGate: Sprint9P4PortalAuthRuntimeValidationTrial.
+
 ## Sprint 9 P1
 
 Gate: `Sprint9P1ControlledRuntimeActivationDecision`.

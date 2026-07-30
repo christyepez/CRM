@@ -696,6 +696,27 @@ class CrmReadinessService {
       sprint9P2RollbackAvailable: true,
       observabilityMetadataOnly: true,
       sprint9P2NextGate: 'Sprint9P3CommonDbRuntimeConnectivityTrial',
+      sprint9P3CommonDbRuntimeConnectivityTrial: 'Exists',
+      sprint9P3CommonDbRuntimeConnectivityTrialApproved: true,
+      sprint9P3CommonDbRuntimeConnectivityTrialEnabled: false,
+      sprint9P3CommonDbConnectionAttempted: false,
+      sprint9P3CommonDbConnected: false,
+      sprint9P3CommonDbConnectionStringResolved: false,
+      sprint9P3CommonDbConnectionStringReturnedToApi: false,
+      sprint9P3CommonDbConnectionStringLogged: false,
+      sprint9P3CommonDbConnectionStringPersisted: false,
+      sprint9P3CommonDbConnectionStringCached: false,
+      sprint9P3SecretProviderMetadataDependencyValidated: true,
+      sprint9P3SchemaCreated: false,
+      sprint9P3MigrationExecuted: false,
+      sprint9P3EfRuntimeEnabled: false,
+      sprint9P3ProductivePersistenceEnabled: false,
+      sprint9P3NonProductionOnly: true,
+      sprint9P3ProductionBlocked: true,
+      sprint9P3FailClosedByDefault: true,
+      sprint9P3RollbackAvailable: true,
+      sprint9P3ObservabilityMetadataOnly: true,
+      sprint9P3NextGate: 'Sprint9P4PortalAuthRuntimeValidationTrial',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1417,6 +1438,27 @@ class CrmReadinessService {
       <p>Rollback Available: true</p>
       <p>Observability Metadata Only: true</p>
       <p>Next Gate: Sprint9P3CommonDbRuntimeConnectivityTrial</p>
+      <p>Sprint 9 P3 Common DB Runtime Connectivity Trial: Exists</p>
+      <p>Common DB Runtime Connectivity Trial Approved: true</p>
+      <p>Common DB Runtime Connectivity Trial Enabled: false</p>
+      <p>Common DB Connection Attempted: false</p>
+      <p>Common DB Connected: false</p>
+      <p>Common DB Connection String Resolved: false</p>
+      <p>Common DB Connection String Returned To API: false</p>
+      <p>Common DB Connection String Logged: false</p>
+      <p>Common DB Connection String Persisted: false</p>
+      <p>Common DB Connection String Cached: false</p>
+      <p>Secret Provider Metadata Dependency Validated: true</p>
+      <p>Schema Created: false</p>
+      <p>Migration Executed: false</p>
+      <p>EF Runtime Enabled: false</p>
+      <p>Productive Persistence Enabled: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Production Blocked: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Rollback Available: true</p>
+      <p>Observability Metadata Only: true</p>
+      <p>Next Gate: Sprint9P4PortalAuthRuntimeValidationTrial</p>
       <p>Non-Production</p>
     </section>
   `
