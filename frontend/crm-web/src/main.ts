@@ -678,6 +678,24 @@ class CrmReadinessService {
       sprint9P1RollbackRequired: true,
       sprint9P1ObservabilityRequired: true,
       sprint9P1NextGate: 'Sprint9P2SecretProviderRuntimeEnablementTrial',
+      sprint9P2SecretProviderRuntimeEnablementTrial: 'Exists',
+      sprint9P2SecretProviderRuntimeEnablementTrialApproved: true,
+      sprint9P2SecretProviderRuntimeEnablementTrialEnabled: false,
+      sprint9P2SecretProviderRuntimeTrialAttempted: false,
+      sprint9P2SecretProviderRuntimeConnected: false,
+      sprint9P2RealSecretReadAttempted: false,
+      sprint9P2RealSecretValueMaterialized: false,
+      sprint9P2RealSecretValueLogged: false,
+      sprint9P2SecretValueReturnedToApi: false,
+      sprint9P2SecretValuePersisted: false,
+      sprint9P2SecretValueCached: false,
+      allowedLogicalSecretNamesEnforced: true,
+      sprint9P2NonProductionOnly: true,
+      sprint9P2ProductionBlocked: true,
+      sprint9P2FailClosedByDefault: true,
+      sprint9P2RollbackAvailable: true,
+      observabilityMetadataOnly: true,
+      sprint9P2NextGate: 'Sprint9P3CommonDbRuntimeConnectivityTrial',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1381,6 +1399,24 @@ class CrmReadinessService {
       <p>Rollback Required: true</p>
       <p>Observability Required: true</p>
       <p>Next Gate: Sprint9P2SecretProviderRuntimeEnablementTrial</p>
+      <p>Sprint 9 P2 Secret Provider Runtime Enablement Trial: Exists</p>
+      <p>Secret Provider Runtime Enablement Trial Approved: true</p>
+      <p>Secret Provider Runtime Enablement Trial Enabled: false</p>
+      <p>Secret Provider Runtime Trial Attempted: false</p>
+      <p>Secret Provider Runtime Connected: false</p>
+      <p>Real Secret Read Attempted: false</p>
+      <p>Real Secret Value Materialized: false</p>
+      <p>Real Secret Value Logged: false</p>
+      <p>Secret Value Returned To API: false</p>
+      <p>Secret Value Persisted: false</p>
+      <p>Secret Value Cached: false</p>
+      <p>Allowed Logical Secret Names Enforced: true</p>
+      <p>NonProduction Only: true</p>
+      <p>Production Blocked: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Rollback Available: true</p>
+      <p>Observability Metadata Only: true</p>
+      <p>Next Gate: Sprint9P3CommonDbRuntimeConnectivityTrial</p>
       <p>Non-Production</p>
     </section>
   `

@@ -1203,6 +1203,29 @@ if ($sprint9P1Text -match "HttpClient\(|new HttpClient|Request\.Headers|Headers\
     $failures += "Sprint 9 P1 must not activate Portal/Auth runtime, token/header reads, token storage, DB, EF, migrations or DELETE."
 }
 
+# Sprint 9 P2 Secret Provider Runtime Enablement Trial checks
+foreach ($path in @("docs/security/crm-sprint-9-p2-secret-provider-runtime-enablement-trial.md", "docs/security/crm-secret-provider-runtime-enablement-trial-policy.md", "docs/security/crm-secret-provider-runtime-enablement-trial-contract.md", "docs/security/crm-secret-provider-runtime-enablement-trial-redaction.md", "docs/operations/crm-secret-provider-runtime-enablement-trial-runbook.md", "docs/operations/crm-secret-provider-runtime-enablement-trial-rollback.md", "docs/architecture/crm-secret-provider-runtime-enablement-trial-architecture.md", "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialOptions.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialResult.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 9 P2 required file: $path"
+    }
+}
+$sprint9P2Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint9P2Program -notlike "*/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial*") {
+    $failures += "Sprint 9 P2 Secret Provider trial endpoint missing."
+}
+$sprint9P2Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialContracts.cs", "src/CRM.Application/Foundation/CrmSecretProviderRuntimeEnablementTrialStatusService.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialOptions.cs", "src/CRM.Infrastructure/Security/Secrets/SecretProviderRuntimeTrialService.cs", "docs/security/crm-sprint-9-p2-secret-provider-runtime-enablement-trial.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint9P2Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("SecretProviderRuntimeEnablementTrial", "CrmSecretProviderRuntimeEnablementTrialStatusService", "SecretProviderRuntimeEnablementTrialEnabled: false", "SecretProviderRuntimeTrialAttempted: false", "SecretProviderRuntimeConnected: false", "RealSecretReadAttempted: false", "SecretValueReturnedToApi: false", "AllowedLogicalSecretNamesEnforced: true", "NonProductionOnly: true", "ProductionBlocked: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "Sprint9P3CommonDbRuntimeConnectivityTrial", "Secret Provider runtime trial is disabled by default and never returns secret values", "Crm:RuntimeTrials:SecretProviderEnabled", "Secret Provider Runtime Enablement Trial: Exists")) {
+    if ($sprint9P2Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 9 P2 marker: $marker"
+    }
+}
+if ($sprint9P2Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 9 P2 must not activate secret SDK, env/file reads, DB, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

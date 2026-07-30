@@ -65,8 +65,14 @@ builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyIntegrationStatus
 builder.Services.AddSingleton<CrmLockedRouteAuthorizationPolicyEvaluator>();
 builder.Services.AddSingleton<CrmSprint8GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmControlledRuntimeActivationDecisionStatusService>();
+builder.Services.AddSingleton<CrmSecretProviderRuntimeEnablementTrialStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
+builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
+    Enabled: builder.Configuration.GetValue<bool>("Crm:RuntimeTrials:SecretProviderEnabled"),
+    RuntimeEnvironment: builder.Environment.EnvironmentName,
+    AllowedLogicalSecretNames: SecretProviderRuntimeOptions.Disabled().ApprovedSecretNames));
+builder.Services.AddSingleton<SecretProviderRuntimeTrialService>();
 builder.Services.AddSingleton(CommonDbConnectivityProbeOptions.Disabled());
 builder.Services.AddSingleton<ICommonDbConnectivityProbe, DisabledCommonDbConnectivityProbe>();
 builder.Services.AddSingleton(PortalAuthRuntimeValidationProbeOptions.Disabled());
@@ -264,6 +270,16 @@ app.MapGet("/api/crm/foundation/sprint-8/gate-decision", (CrmSprint8GateDecision
 
 app.MapGet("/api/crm/foundation/sprint-9/controlled-runtime-activation-decision", (CrmControlledRuntimeActivationDecisionStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint9ControlledRuntimeActivationDecision");
+
+app.MapGet("/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial", (CrmSecretProviderRuntimeEnablementTrialStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint9SecretProviderRuntimeEnablementTrial");
+
+app.MapPost("/api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe", async (CrmSecretProviderRuntimeEnablementTrialProbeContract request, SecretProviderRuntimeTrialService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ProbeAsync(request.SecretName, cancellationToken);
+    return Results.Json(result, statusCode: result.ReadAttempted ? StatusCodes.Status200OK : StatusCodes.Status423Locked);
+})
+    .WithName("ProbeCrmFoundationSprint9SecretProviderRuntimeEnablementTrial");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

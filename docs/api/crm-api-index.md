@@ -4,6 +4,11 @@
 
 - `GET /api/crm/foundation/sprint-9/controlled-runtime-activation-decision` - read-only controlled runtime activation decision. It does not enable runtime trials, productive routes, CRUD, DELETE, DB or Portal Auth.
 
+## Sprint 9 P2
+
+- `GET /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial` - read-only Secret Provider trial status.
+- `POST /api/crm/foundation/sprint-9/secret-provider-runtime-enablement-trial/probe` - controlled NonProduction metadata-only probe; 423 by default.
+
 ## Sprint 7 P1
 
 - `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`: Secret Provider real NonProduction approval package; no approval granted and no real secrets are read.

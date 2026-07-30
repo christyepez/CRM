@@ -12,6 +12,8 @@ Sprint 9 starts with `ApprovedForNonProductionTrialsOnly`. The recommended path 
 
 Production activation remains `NoGo`.
 
+P2 is complete when Secret Provider returns only sanitized metadata and remains disabled by default.
+
 Recommended sequence:
 
 - Sprint 9 P1: Controlled Runtime Activation Decision.

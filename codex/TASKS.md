@@ -20,6 +20,16 @@ Status: Implemented in branch `crm-sprint-9-p1-controlled-runtime-activation-dec
 - Runtime trials enabled now: `false`.
 - Next gate: `Sprint9P2SecretProviderRuntimeEnablementTrial`.
 
+## CRM Sprint 9 P2 - Secret Provider Runtime Enablement Trial
+
+Status: Implemented in branch `crm-sprint-9-p2-secret-provider-runtime-enablement-trial`.
+
+- Default enabled: `false`.
+- Explicit flag: `Crm:RuntimeTrials:SecretProviderEnabled`.
+- Scope: NonProduction-only.
+- Response: sanitized metadata only.
+- Next gate: `Sprint9P3CommonDbRuntimeConnectivityTrial`.
+
 ## CRM Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 - [x] Validate GitHub main contains Sprint 6 P6 commit.
