@@ -30,3 +30,5 @@ Recommended sequence:
 Each step must remain NonProduction, reversible, observable and explicitly gated.
 
 Sprint 9 P5 is now implemented as a disabled-by-default foundation dry-run: productive routes remain 404 by default, the probe returns 423 by default and no CRUD, DELETE, DB runtime, Auth enforcement or side effects are enabled.
+
+Sprint 9 P6 closes the sprint as `GoForSprint10ControlledProductizationReadinessPlanning`; production activation remains `NoGo`, productization remains `NotReady` and the next gate is `Sprint10P1ProductizationReadinessDecision`.

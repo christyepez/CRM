@@ -44,6 +44,13 @@ Endpoint: `GET /api/crm/foundation/sprint-9/productive-route-dry-run-trial`
 Probe: `POST /api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe`
 Next gate: `Sprint9P6Sprint9GateDecision`.
 
+## CRM Sprint 9 P6 - Sprint 9 Gate Decision
+
+Sprint 9 is closed as `GoForSprint10ControlledProductizationReadinessPlanning`. Production activation remains `NoGo`, productization remains `NotReady`, P2/P3/P4/P5 trials remain explicit NonProduction-only and fail-closed by default, productive routes remain 404 by default and probes remain 423 by default.
+
+Endpoint: `GET /api/crm/foundation/sprint-9/gate-decision`
+Next gate: `Sprint10P1ProductizationReadinessDecision`.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.

@@ -769,10 +769,14 @@ Status: Implemented in branch `crm-sprint-9-p5-productive-route-dry-run-trial`.
 
 ## CRM Sprint 9 P6 - Sprint 9 Gate Decision
 
-Status: Pending via Codex versioned task.
+Status: Implemented in branch `crm-sprint-9-p6-sprint-9-gate-decision`.
 
 - Base Main Commit: eea6d3ef8f96f3571908ee3a9e5e1307a0e07ffc.
 - Expected branch: crm-sprint-9-p6-sprint-9-gate-decision.
 - Expected PR title: docs: close crm sprint 9 gate decision.
 - Prompt file: codex/prompts/sprint-9-p6-sprint-9-gate-decision.md.
+- Endpoint: `GET /api/crm/foundation/sprint-9/gate-decision`.
+- Decision: `GoForSprint10ControlledProductizationReadinessPlanning`.
+- Production activation: `NoGo`.
+- Productization status: `NotReady`.
 - Next gate: Sprint10P1ProductizationReadinessDecision.

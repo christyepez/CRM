@@ -85,4 +85,17 @@ Gate: `Sprint9P5ProductiveRouteDryRunTrial`.
 
 Gate: `Sprint9P6Sprint9GateDecision`.
 
+- Sprint9GateDecisionExists: true.
+- Sprint9Closed: true.
+- Sprint9EvidenceComplete: true.
+- OverallSprint9Decision: GoForSprint10ControlledProductizationReadinessPlanning.
+- ProductionActivationDecision: NoGo.
+- ProductiveRouteRegistrationDecision: NoGoByDefault.
+- ProductiveCrudDecision: NoGo.
+- DeleteDecision: NoGo.
+- DbRuntimeDecision: NoGoForProduction.
+- PortalAuthEnforcementDecision: NoGoForProduction.
+- ProductizationStatus: NotReady.
+- NextGate: Sprint10P1ProductizationReadinessDecision.
+
 No Sprint 9 gate implies production activation until explicitly approved.
