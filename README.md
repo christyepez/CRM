@@ -51,6 +51,15 @@ Sprint 9 is closed as `GoForSprint10ControlledProductizationReadinessPlanning`. 
 Endpoint: `GET /api/crm/foundation/sprint-9/gate-decision`
 Next gate: `Sprint10P1ProductizationReadinessDecision`.
 
+## CRM Sprint 10 P1 - Productization Readiness Decision
+
+Sprint 10 P1 is approved as `GoForControlledNonProductionProductizationPreparation`. Production activation remains `NoGo`, productive runtime activation remains `NoGoForProduction`, productive CRUD remains `NoGoUntilP5`, productive UI remains `NoGo` and productization status is `PreparationOnly`.
+
+Endpoint: `GET /api/crm/foundation/sprint-10/productization-readiness-decision`
+Next gate: `Sprint10P2CommonDbControlledActivationPlan`.
+
+The endpoint is GET-only and foundation-status only. It does not read secrets, tokens, headers, Portal, DB or files; it does not register productive routes, execute CRM domain behavior, write data or create side effects.
+
 ## Sprint 7 P1 - Secret Provider Real NonProduction Approval
 
 Sprint 7 P1 creates the approval package for a future real Secret Provider NonProduction runtime probe. The package exists, but approval is not granted and no real secret read occurs.

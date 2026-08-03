@@ -302,3 +302,4 @@
 | Endpoint | Method | Runtime |
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-9/gate-decision` | GET | Sprint 9 closure and gate status only; no runtime activation |
+| `/api/crm/foundation/sprint-10/productization-readiness-decision` | GET | Sprint 10 P1 productization readiness decision only; preparation-only and no runtime activation |

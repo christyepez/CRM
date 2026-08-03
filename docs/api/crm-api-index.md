@@ -28,6 +28,10 @@
 
 - `GET /api/crm/foundation/sprint-9/gate-decision` - read-only Sprint 9 gate decision status; production remains NoGo.
 
+## Sprint 10 P1
+
+- `GET /api/crm/foundation/sprint-10/productization-readiness-decision` - read-only Sprint 10 P1 productization readiness decision; preparation-only and production remains NoGo.
+
 ## Sprint 7 P1
 
 - `GET /api/crm/foundation/sprint-7/secret-provider-real-nonproduction-approval`: Secret Provider real NonProduction approval package; no approval granted and no real secrets are read.
