@@ -780,3 +780,13 @@ Status: Implemented in branch `crm-sprint-9-p6-sprint-9-gate-decision`.
 - Production activation: `NoGo`.
 - Productization status: `NotReady`.
 - Next gate: Sprint10P1ProductizationReadinessDecision.
+
+## CRM Sprint 10 P1 - Productization Readiness Decision
+
+Status: Pending via Codex versioned task.
+
+- Base Main Commit: 1c711833d7fcce4744f04aac88c40a6783c2a3b8.
+- Expected branch: crm-sprint-10-p1-productization-readiness-decision.
+- Expected PR title: docs: add crm sprint 10 productization readiness decision.
+- Prompt file: codex/prompts/sprint-10-p1-productization-readiness-decision.md.
+- Next gate: Sprint10P2CommonDbControlledActivationPlan.
