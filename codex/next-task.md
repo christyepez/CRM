@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 9 - P6 Sprint 9 Gate Decision
+CRM Sprint 10 - P1 Productization Readiness Decision
 
 Base Main Commit:
-eea6d3ef8f96f3571908ee3a9e5e1307a0e07ffc
+1c711833d7fcce4744f04aac88c40a6783c2a3b8
 
 Branch:
-crm-sprint-9-p6-sprint-9-gate-decision
+crm-sprint-10-p1-productization-readiness-decision
 
 Commit sugerido:
-docs: close crm sprint 9 gate decision
+docs: add crm sprint 10 productization readiness decision
 
 PR title:
-docs: close crm sprint 9 gate decision
+docs: add crm sprint 10 productization readiness decision
 
 Objetivo:
-Cerrar Sprint 9 con una decisión formal de gate, consolidando evidencia de P1 a P5, dejando producción en NoGo, manteniendo trials como NonProduction-only y definiendo el NextGate para Sprint 10.
+Crear la decisión formal de readiness para Sprint 10, evaluando si CRM puede iniciar activaciones controladas de productización en NonProduction sin activar producción real.
 
 Guardrails:
 - No production activation.
@@ -42,7 +42,7 @@ Guardrails:
 - No datos reales.
 - Solo decisión documental/foundation status.
 - Productive routes siguen 404 por defecto.
-- Probes siguen locked/fail-closed por defecto.
+- P2/P3/P4/P5 probes siguen locked/fail-closed por defecto.
 
 Prompt File:
-codex/prompts/sprint-9-p6-sprint-9-gate-decision.md
+codex/prompts/sprint-10-p1-productization-readiness-decision.md
