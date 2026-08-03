@@ -797,3 +797,22 @@ Status: Implemented in branch `crm-sprint-10-p1-productization-readiness-decisio
 - Productive UI: `NoGo`.
 - Productization status: `PreparationOnly`.
 - Next gate: Sprint10P2CommonDbControlledActivationPlan.
+
+## CRM Sprint 10 P2 - Common DB Controlled Activation Plan
+
+Status: Implemented in branch `crm-sprint-10-p2-common-db-controlled-activation-plan`.
+
+- Base Main Commit: ec0515e961c35ae0dab71aae4d85b43a65964e7f.
+- Expected branch: crm-sprint-10-p2-common-db-controlled-activation-plan.
+- Expected PR title: docs: add crm sprint 10 p2 common db controlled activation plan.
+- Scope: documentation, guardrails and verification only.
+- Common DB activation readiness: `PlanPreparedContractOnly`.
+- Productization status: `PreparationOnly`.
+- Production activation: `NoGo`.
+- Runtime DB activation: disabled.
+- Real connection strings: absent.
+- Shared Portal table access: disabled.
+- Cross-domain migrations: absent.
+- Portal direct DB access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- Next gate: CrmSprint10P3PortalConsumerContractAlignment.
