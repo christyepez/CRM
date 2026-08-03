@@ -51,6 +51,14 @@ The probe accepts route/method metadata, returns 423 when disabled by default, n
 
 The endpoint returns Sprint 9 closure metadata only. It is GET-only, does not probe secrets, DB or Portal Auth, does not read headers or tokens, does not register productive routes and does not execute CRUD, DELETE or side effects.
 
+## Sprint 10 P1 Productization Readiness Decision
+
+`GET /api/crm/foundation/sprint-10/productization-readiness-decision`
+
+The endpoint returns Sprint 10 P1 preparation-only productization metadata: `Sprint10P1ProductizationReadinessDecisionExists=true`, `Sprint10P1Approved=true`, `Sprint9GateReviewed=true`, `Sprint9ProductionNoGoPreserved=true`, `Sprint10P1Decision=GoForControlledNonProductionProductizationPreparation`, `ProductionActivationDecision=NoGo`, `ProductiveRuntimeActivationDecision=NoGoForProduction`, `CommonDbControlledActivationDecision=GoOnlyAsExplicitNonProductionPreparation`, `PortalAuthControlledActivationDecision=GoOnlyAsExplicitNonProductionPreparation`, `ProductiveRouteControlledActivationDecision=GoOnlyAsExplicitNonProductionPreparation`, `ProductiveCrudPilotDecision=NoGoUntilP5`, `ProductiveUiDecision=NoGo`, `ProductizationStatus=PreparationOnly` and `NextGate=Sprint10P2CommonDbControlledActivationPlan`.
+
+It is GET-only and foundation-status only. It does not run probes, read secrets, read headers/tokens, call Portal, connect to DB, register productive routes, execute domain behavior or produce side effects.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

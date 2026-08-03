@@ -1324,6 +1324,31 @@ if ($sprint9P6Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCr
     $failures += "Sprint 9 P6 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
 }
 
+# Sprint 10 P1 Productization Readiness Decision checks
+foreach ($path in @("docs/roadmap/crm-sprint-10-productization-readiness-decision.md", "docs/roadmap/crm-sprint-10-go-no-go.md", "docs/roadmap/crm-sprint-10-risk-register.md", "docs/roadmap/crm-sprint-10-recommended-path.md", "docs/operations/crm-sprint-10-productization-readiness-runbook.md", "docs/architecture/crm-sprint-10-productization-readiness-architecture.md", "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionStatusService.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 10 P1 required file: $path"
+    }
+}
+if ($apiProgram -notlike "*/api/crm/foundation/sprint-10/productization-readiness-decision*") {
+    $failures += "Missing Sprint 10 P1 productization readiness endpoint."
+}
+if ($apiProgram -like "*/api/crm/foundation/sprint-10/productization-readiness-decision/probe*") {
+    $failures += "Sprint 10 P1 must remain GET-only and must not add a probe route."
+}
+$sprint10P1Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionStatusService.cs", "docs/roadmap/crm-sprint-10-productization-readiness-decision.md", "docs/roadmap/crm-sprint-10-go-no-go.md", "docs/roadmap/crm-sprint-10-risk-register.md", "docs/roadmap/crm-sprint-10-recommended-path.md", "docs/operations/crm-sprint-10-productization-readiness-runbook.md", "docs/architecture/crm-sprint-10-productization-readiness-architecture.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint10P1Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("Sprint10P1ProductizationReadinessDecision", "CrmSprint10ProductizationReadinessDecisionStatusService", "Sprint10P1ProductizationReadinessDecisionExists: true", "Sprint10P1Approved: true", "Sprint9GateReviewed: true", "Sprint9ProductionNoGoPreserved: true", "GoForControlledNonProductionProductizationPreparation", "ProductionActivationDecision", "NoGo", "ProductiveRuntimeActivationDecision", "NoGoForProduction", "CommonDbControlledActivationDecision", "GoOnlyAsExplicitNonProductionPreparation", "PortalAuthControlledActivationDecision", "ProductiveRouteControlledActivationDecision", "ProductiveCrudPilotDecision", "NoGoUntilP5", "ProductiveUiDecision", "ProductionActivationApproved: false", "ProductiveRuntimeActivationApprovedForProduction: false", "CommonDbControlledPreparationApproved: true", "PortalAuthControlledPreparationApproved: true", "ProductiveRouteControlledPreparationApproved: true", "ProductiveCrudPilotApproved: false", "ProductiveUiApproved: false", "NonProductionOnly: true", "ExplicitFlagsRequired: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "ProductizationStatus", "PreparationOnly", "Sprint10P2CommonDbControlledActivationPlan", "Sprint 10 P1 Productization Readiness Decision: Exists")) {
+    if ($sprint10P1Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 10 P1 marker: $marker"
+    }
+}
+if ($sprint10P1Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 10 P1 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1

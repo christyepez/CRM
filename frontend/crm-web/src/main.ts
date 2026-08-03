@@ -817,6 +817,34 @@ class CrmReadinessService {
       sprint9ProductizationStatus: 'NotReady',
       sprint9GateDecisionWarning: 'Sprint 9 gate decision only; production activation remains NoGo',
       sprint9NextGate: 'Sprint10P1ProductizationReadinessDecision',
+      sprint10P1ProductizationReadinessDecision: 'Exists',
+      sprint10P1ProductizationReadinessDecisionExists: true,
+      sprint10P1Approved: true,
+      sprint9GateReviewed: true,
+      sprint9ProductionNoGoPreserved: true,
+      sprint10P1Decision: 'GoForControlledNonProductionProductizationPreparation',
+      sprint10ProductionActivationDecision: 'NoGo',
+      productiveRuntimeActivationDecision: 'NoGoForProduction',
+      commonDbControlledActivationDecision: 'GoOnlyAsExplicitNonProductionPreparation',
+      portalAuthControlledActivationDecision: 'GoOnlyAsExplicitNonProductionPreparation',
+      productiveRouteControlledActivationDecision: 'GoOnlyAsExplicitNonProductionPreparation',
+      productiveCrudPilotDecision: 'NoGoUntilP5',
+      sprint10ProductiveUiDecision: 'NoGo',
+      sprint10ProductionActivationApproved: false,
+      productiveRuntimeActivationApprovedForProduction: false,
+      commonDbControlledPreparationApproved: true,
+      portalAuthControlledPreparationApproved: true,
+      productiveRouteControlledPreparationApproved: true,
+      productiveCrudPilotApproved: false,
+      productiveUiApproved: false,
+      sprint10P1NonProductionOnly: true,
+      explicitFlagsRequired: true,
+      sprint10P1FailClosedByDefault: true,
+      sprint10P1ObservabilityMetadataOnly: true,
+      sprint10P1RollbackAvailable: true,
+      sprint10ProductizationStatus: 'PreparationOnly',
+      sprint10P1Warning: 'Sprint 10 P1 Productization Readiness Decision: Exists; no runtime activation is approved',
+      sprint10P1NextGate: 'Sprint10P2CommonDbControlledActivationPlan',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1659,6 +1687,34 @@ class CrmReadinessService {
       <p>Productization Status: NotReady</p>
       <p>Sprint 9 Gate Decision Warning: Sprint 9 gate decision only; production activation remains NoGo</p>
       <p>Next Gate: Sprint10P1ProductizationReadinessDecision</p>
+      <p>Sprint 10 P1 Productization Readiness Decision: Exists</p>
+      <p>Sprint 10 P1 Productization Readiness Decision Exists: true</p>
+      <p>Sprint 10 P1 Approved: true</p>
+      <p>Sprint 9 Gate Reviewed: true</p>
+      <p>Sprint 9 Production NoGo Preserved: true</p>
+      <p>Sprint 10 P1 Decision: GoForControlledNonProductionProductizationPreparation</p>
+      <p>Production Activation Decision: NoGo</p>
+      <p>Productive Runtime Activation Decision: NoGoForProduction</p>
+      <p>Common DB Controlled Activation Decision: GoOnlyAsExplicitNonProductionPreparation</p>
+      <p>Portal Auth Controlled Activation Decision: GoOnlyAsExplicitNonProductionPreparation</p>
+      <p>Productive Route Controlled Activation Decision: GoOnlyAsExplicitNonProductionPreparation</p>
+      <p>Productive CRUD Pilot Decision: NoGoUntilP5</p>
+      <p>Productive UI Decision: NoGo</p>
+      <p>Production Activation Approved: false</p>
+      <p>Productive Runtime Activation Approved For Production: false</p>
+      <p>Common DB Controlled Preparation Approved: true</p>
+      <p>Portal Auth Controlled Preparation Approved: true</p>
+      <p>Productive Route Controlled Preparation Approved: true</p>
+      <p>Productive CRUD Pilot Approved: false</p>
+      <p>Productive UI Approved: false</p>
+      <p>NonProduction Only: true</p>
+      <p>Explicit Flags Required: true</p>
+      <p>Fail Closed By Default: true</p>
+      <p>Observability Metadata Only: true</p>
+      <p>Rollback Available: true</p>
+      <p>Productization Status: PreparationOnly</p>
+      <p>Sprint 10 P1 Warning: Sprint 10 P1 Productization Readiness Decision: Exists; no runtime activation is approved</p>
+      <p>Next Gate: Sprint10P2CommonDbControlledActivationPlan</p>
       <p>Non-Production</p>
     </section>
   `

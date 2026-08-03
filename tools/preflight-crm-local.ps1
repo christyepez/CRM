@@ -906,5 +906,29 @@ foreach ($Sprint9P6Marker in @("Sprint9GateDecision", "CrmSprint9GateDecisionSta
 }
 if ($Sprint9P6Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P6 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
 
+$Sprint10P1RequiredFiles = @(
+    "docs/roadmap/crm-sprint-10-productization-readiness-decision.md",
+    "docs/roadmap/crm-sprint-10-go-no-go.md",
+    "docs/roadmap/crm-sprint-10-risk-register.md",
+    "docs/roadmap/crm-sprint-10-recommended-path.md",
+    "docs/operations/crm-sprint-10-productization-readiness-runbook.md",
+    "docs/architecture/crm-sprint-10-productization-readiness-architecture.md",
+    "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionStatusService.cs"
+)
+foreach ($Sprint10P1RequiredFile in $Sprint10P1RequiredFiles) {
+    if (-not (Test-Path $Sprint10P1RequiredFile)) { Fail "Missing Sprint 10 P1 required file: $Sprint10P1RequiredFile" } else { Pass "Required Sprint 10 P1 file exists: $Sprint10P1RequiredFile" }
+}
+if ($programText -notmatch [regex]::Escape('/api/crm/foundation/sprint-10/productization-readiness-decision')) { Fail "Missing Sprint 10 P1 productization readiness endpoint." }
+if ($programText -match [regex]::Escape('/api/crm/foundation/sprint-10/productization-readiness-decision/probe')) { Fail "Sprint 10 P1 must not add a POST probe endpoint." }
+$Sprint10P1Text = ""
+foreach ($Sprint10P1File in @("src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint10ProductizationReadinessDecisionStatusService.cs", "docs/roadmap/crm-sprint-10-productization-readiness-decision.md", "docs/roadmap/crm-sprint-10-go-no-go.md", "docs/roadmap/crm-sprint-10-risk-register.md", "docs/roadmap/crm-sprint-10-recommended-path.md", "docs/operations/crm-sprint-10-productization-readiness-runbook.md", "docs/architecture/crm-sprint-10-productization-readiness-architecture.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint10P1File) { $Sprint10P1Text += "`n" + (Get-Content -Raw $Sprint10P1File) }
+}
+foreach ($Sprint10P1Marker in @("Sprint10P1ProductizationReadinessDecision", "CrmSprint10ProductizationReadinessDecisionStatusService", "Sprint10P1ProductizationReadinessDecisionExists: true", "Sprint10P1Approved: true", "Sprint9GateReviewed: true", "Sprint9ProductionNoGoPreserved: true", "GoForControlledNonProductionProductizationPreparation", "ProductionActivationDecision", "NoGo", "ProductiveRuntimeActivationDecision", "NoGoForProduction", "CommonDbControlledActivationDecision", "GoOnlyAsExplicitNonProductionPreparation", "PortalAuthControlledActivationDecision", "ProductiveRouteControlledActivationDecision", "ProductiveCrudPilotDecision", "NoGoUntilP5", "ProductiveUiDecision", "ProductionActivationApproved: false", "ProductiveRuntimeActivationApprovedForProduction: false", "CommonDbControlledPreparationApproved: true", "PortalAuthControlledPreparationApproved: true", "ProductiveRouteControlledPreparationApproved: true", "ProductiveCrudPilotApproved: false", "ProductiveUiApproved: false", "NonProductionOnly: true", "ExplicitFlagsRequired: true", "FailClosedByDefault: true", "ObservabilityMetadataOnly: true", "ProductizationStatus", "PreparationOnly", "Sprint10P2CommonDbControlledActivationPlan", "Sprint 10 P1 Productization Readiness Decision: Exists")) {
+    if ($Sprint10P1Text -notmatch [regex]::Escape($Sprint10P1Marker)) { Fail "Missing Sprint 10 P1 marker: $Sprint10P1Marker" }
+}
+if ($Sprint10P1Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 10 P1 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0
