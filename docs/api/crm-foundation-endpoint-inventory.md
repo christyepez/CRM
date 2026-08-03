@@ -296,3 +296,9 @@
 | --- | --- | --- |
 | `/api/crm/foundation/sprint-9/productive-route-dry-run-trial` | GET | Productive route dry-run trial status; productive routes remain 404 by default |
 | `/api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe` | POST | Foundation-only dry-run probe; 423 by default and metadata-only |
+
+## Sprint 9 P6
+
+| Endpoint | Method | Runtime |
+| --- | --- | --- |
+| `/api/crm/foundation/sprint-9/gate-decision` | GET | Sprint 9 closure and gate status only; no runtime activation |

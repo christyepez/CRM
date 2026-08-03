@@ -780,6 +780,43 @@ class CrmReadinessService {
       sprint9P5RollbackAvailable: true,
       sprint9P5ObservabilityMetadataOnly: true,
       sprint9P5NextGate: 'Sprint9P6Sprint9GateDecision',
+      sprint9: 'Closed',
+      sprint9GateDecision: 'Completed',
+      sprint9GateDecisionExists: true,
+      sprint9GateDecisionApproved: true,
+      sprint9EvidenceComplete: true,
+      sprint9OverallDecision: 'GoForSprint10ControlledProductizationReadinessPlanning',
+      sprint9ProductionActivationDecision: 'NoGo',
+      sprint9SecretProviderRuntimeTrialDecision: 'GoOnlyAsExplicitNonProductionTrial',
+      sprint9CommonDbRuntimeConnectivityTrialDecision: 'GoOnlyAsExplicitNonProductionTrial',
+      sprint9PortalAuthRuntimeValidationTrialDecision: 'GoOnlyAsExplicitNonProductionTrial',
+      sprint9ProductiveRouteDryRunTrialDecision: 'GoOnlyAsExplicitNonProductionDryRun',
+      sprint9ProductiveRouteRegistrationDecision: 'NoGoByDefault',
+      sprint9ProductiveCrudDecision: 'NoGo',
+      sprint9DeleteDecision: 'NoGo',
+      sprint9DbRuntimeDecision: 'NoGoForProduction',
+      sprint9PortalAuthEnforcementDecision: 'NoGoForProduction',
+      sprint9ProductionActivationApproved: false,
+      sprint9RuntimeActivationApprovedForProduction: false,
+      sprint9ProductiveRoutesApprovedByDefault: false,
+      sprint9ProductiveCrudApproved: false,
+      sprint9DeleteApproved: false,
+      sprint9DatabaseWritesApproved: false,
+      sprint9EfRuntimeApproved: false,
+      sprint9MigrationsApproved: false,
+      sprint9SchemaChangesApproved: false,
+      sprint9PortalAuthEnforcementApproved: false,
+      sprint9TokenHeaderReadsApproved: false,
+      sprint9LoginLogoutApproved: false,
+      sprint9IdentityRuntimeApproved: false,
+      sprint9ProductiveUiApproved: false,
+      sprint9NonProductionTrialsRemainAllowedOnlyWithExplicitFlags: true,
+      sprint9AllTrialsFailClosedByDefault: true,
+      sprint9AllObservabilityMetadataOnly: true,
+      sprint9RollbackAvailable: true,
+      sprint9ProductizationStatus: 'NotReady',
+      sprint9GateDecisionWarning: 'Sprint 9 gate decision only; production activation remains NoGo',
+      sprint9NextGate: 'Sprint10P1ProductizationReadinessDecision',
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
@@ -1585,6 +1622,43 @@ class CrmReadinessService {
       <p>Rollback Available: true</p>
       <p>Observability Metadata Only: true</p>
       <p>Next Gate: Sprint9P6Sprint9GateDecision</p>
+      <p>Sprint 9: Closed</p>
+      <p>Sprint 9 Gate Decision: Completed</p>
+      <p>Sprint 9 Gate Decision Exists: true</p>
+      <p>Sprint 9 Gate Decision Approved: true</p>
+      <p>Sprint 9 Evidence Complete: true</p>
+      <p>Overall Sprint 9 Decision: GoForSprint10ControlledProductizationReadinessPlanning</p>
+      <p>Production Activation Decision: NoGo</p>
+      <p>Secret Provider Runtime Trial: GoOnlyAsExplicitNonProductionTrial</p>
+      <p>Common DB Runtime Connectivity Trial: GoOnlyAsExplicitNonProductionTrial</p>
+      <p>Portal Auth Runtime Validation Trial: GoOnlyAsExplicitNonProductionTrial</p>
+      <p>Productive Route Dry Run Trial: GoOnlyAsExplicitNonProductionDryRun</p>
+      <p>Productive Route Registration: NoGoByDefault</p>
+      <p>Productive CRUD: NoGo</p>
+      <p>DELETE: NoGo</p>
+      <p>DB Runtime: NoGoForProduction</p>
+      <p>Portal Auth Enforcement: NoGoForProduction</p>
+      <p>Production Activation Approved: false</p>
+      <p>Runtime Activation Approved For Production: false</p>
+      <p>Productive Routes Approved By Default: false</p>
+      <p>Productive CRUD Approved: false</p>
+      <p>Delete Approved: false</p>
+      <p>Database Writes Approved: false</p>
+      <p>EF Runtime Approved: false</p>
+      <p>Migrations Approved: false</p>
+      <p>Schema Changes Approved: false</p>
+      <p>Portal Auth Enforcement Approved: false</p>
+      <p>Token Header Reads Approved: false</p>
+      <p>Login Logout Approved: false</p>
+      <p>Identity Runtime Approved: false</p>
+      <p>Productive UI Approved: false</p>
+      <p>NonProduction Trials Remain Allowed Only With Explicit Flags: true</p>
+      <p>All Trials Fail Closed By Default: true</p>
+      <p>All Observability Metadata Only: true</p>
+      <p>Rollback Available: true</p>
+      <p>Productization Status: NotReady</p>
+      <p>Sprint 9 Gate Decision Warning: Sprint 9 gate decision only; production activation remains NoGo</p>
+      <p>Next Gate: Sprint10P1ProductizationReadinessDecision</p>
       <p>Non-Production</p>
     </section>
   `

@@ -880,5 +880,31 @@ foreach ($Sprint9P5Marker in @("ProductiveRouteDryRunTrial", "ProductiveRouteDry
 $Sprint9P5ScanText = $Sprint9P5Text.Replace("AuthAttributeEnabled", "").Replace("AuthHeaderRead", "")
 if ($Sprint9P5ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P5 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
 
+# Sprint 9 P6 Gate Decision checks
+$Sprint9P6RequiredFiles = @(
+    "docs/roadmap/crm-sprint-9-gate-decision.md",
+    "docs/roadmap/crm-sprint-9-go-no-go.md",
+    "docs/roadmap/crm-sprint-9-evidence-summary.md",
+    "docs/roadmap/crm-sprint-9-risk-register.md",
+    "docs/roadmap/crm-sprint-9-release-notes.md",
+    "docs/operations/crm-sprint-9-gate-decision-runbook.md",
+    "docs/architecture/crm-sprint-9-gate-decision-architecture.md",
+    "src/CRM.Application/Foundation/CrmSprint9GateDecisionContracts.cs",
+    "src/CRM.Application/Foundation/CrmSprint9GateDecisionStatusService.cs"
+)
+foreach ($Sprint9P6RequiredFile in $Sprint9P6RequiredFiles) {
+    if (-not (Test-Path $Sprint9P6RequiredFile)) { Fail "Missing Sprint 9 P6 required file: $Sprint9P6RequiredFile" } else { Pass "Required Sprint 9 P6 file exists: $Sprint9P6RequiredFile" }
+}
+if ($programText -like "*/api/crm/foundation/sprint-9/gate-decision*") { Pass "Sprint 9 P6 gate decision endpoint registered." } else { Fail "Sprint 9 P6 endpoint missing." }
+if ($programText -like "*/api/crm/foundation/sprint-9/gate-decision/probe*") { Fail "Sprint 9 P6 must remain GET-only and must not add a probe route." }
+$Sprint9P6Text = ""
+foreach ($Sprint9P6File in @("src/CRM.Application/Foundation/CrmSprint9GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint9GateDecisionStatusService.cs", "docs/roadmap/crm-sprint-9-gate-decision.md", "docs/roadmap/crm-sprint-9-go-no-go.md", "docs/roadmap/crm-sprint-9-evidence-summary.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $Sprint9P6File) { $Sprint9P6Text += "`n" + (Get-Content -Raw $Sprint9P6File) }
+}
+foreach ($Sprint9P6Marker in @("Sprint9GateDecision", "CrmSprint9GateDecisionStatusService", "Sprint9GateDecisionExists: true", "Sprint9Closed: true", "Sprint9EvidenceComplete: true", "GoForSprint10ControlledProductizationReadinessPlanning", "ProductionActivationDecision", "NoGo", "SecretProviderRuntimeTrialDecision", "GoOnlyAsExplicitNonProductionTrial", "CommonDbRuntimeConnectivityTrialDecision", "PortalAuthRuntimeValidationTrialDecision", "ProductiveRouteDryRunTrialDecision", "GoOnlyAsExplicitNonProductionDryRun", "ProductiveRouteRegistrationDecision", "NoGoByDefault", "ProductiveCrudDecision", "DeleteDecision", "DbRuntimeDecision", "NoGoForProduction", "PortalAuthEnforcementDecision", "ProductionActivationApproved: false", "RuntimeActivationApprovedForProduction: false", "ProductiveRoutesApprovedByDefault: false", "ProductiveCrudApproved: false", "DeleteApproved: false", "DatabaseWritesApproved: false", "EfRuntimeApproved: false", "MigrationsApproved: false", "SchemaChangesApproved: false", "PortalAuthEnforcementApproved: false", "TokenHeaderReadsApproved: false", "LoginLogoutApproved: false", "IdentityRuntimeApproved: false", "ProductiveUiApproved: false", "NonProductionTrialsRemainAllowedOnlyWithExplicitFlags: true", "AllTrialsFailClosedByDefault: true", "AllObservabilityMetadataOnly: true", "ProductizationStatus", "NotReady", "Sprint10P1ProductizationReadinessDecision", "Sprint 9 gate decision only; production activation remains NoGo", "Sprint 9 Gate Decision: Completed")) {
+    if ($Sprint9P6Text -notmatch [regex]::Escape($Sprint9P6Marker)) { Fail "Missing Sprint 9 P6 marker: $Sprint9P6Marker" }
+}
+if ($Sprint9P6Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") { Fail "Sprint 9 P6 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE." }
+
 if ($failures.Count -gt 0) { exit 1 }
 exit 0

@@ -72,6 +72,7 @@ builder.Services.AddSingleton<CrmCommonDbRuntimeConnectivityTrialStatusService>(
 builder.Services.AddSingleton<CrmPortalAuthRuntimeValidationTrialStatusService>();
 builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialStatusService>();
 builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialEvaluator>();
+builder.Services.AddSingleton<CrmSprint9GateDecisionStatusService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
@@ -332,6 +333,9 @@ app.MapPost("/api/crm/foundation/sprint-9/productive-route-dry-run-trial/probe",
     return Results.Json(result, statusCode: result.ProductiveRouteDryRunStatusCode);
 })
     .WithName("ProbeCrmFoundationSprint9ProductiveRouteDryRunTrial");
+
+app.MapGet("/api/crm/foundation/sprint-9/gate-decision", (CrmSprint9GateDecisionStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint9GateDecision");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");

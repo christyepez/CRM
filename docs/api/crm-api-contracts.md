@@ -45,6 +45,12 @@ The probe accepts approved logical secret names for Portal Auth metadata, return
 
 The probe accepts route/method metadata, returns 423 when disabled by default, never registers productive CRM routes by default and never executes CRUD, DELETE, persistence, DB runtime, Auth enforcement, token/header reads or side effects.
 
+## Sprint 9 P6 Gate Decision
+
+`GET /api/crm/foundation/sprint-9/gate-decision`
+
+The endpoint returns Sprint 9 closure metadata only. It is GET-only, does not probe secrets, DB or Portal Auth, does not read headers or tokens, does not register productive routes and does not execute CRUD, DELETE or side effects.
+
 ## Sprint 5 P3 common DB probe optional activation
 
 `GET /api/crm/foundation/sprint-5/common-db-probe-optional-activation`

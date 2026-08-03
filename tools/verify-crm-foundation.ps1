@@ -1298,6 +1298,32 @@ if ($sprint9P5ScanText -match "SecretClient|DefaultAzureCredential|ManagedIdenti
     $failures += "Sprint 9 P5 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
 }
 
+# Sprint 9 P6 Gate Decision checks
+foreach ($path in @("docs/roadmap/crm-sprint-9-gate-decision.md", "docs/roadmap/crm-sprint-9-go-no-go.md", "docs/roadmap/crm-sprint-9-evidence-summary.md", "docs/roadmap/crm-sprint-9-risk-register.md", "docs/roadmap/crm-sprint-9-release-notes.md", "docs/operations/crm-sprint-9-gate-decision-runbook.md", "docs/architecture/crm-sprint-9-gate-decision-architecture.md", "src/CRM.Application/Foundation/CrmSprint9GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint9GateDecisionStatusService.cs")) {
+    if (-not (Test-Path $path)) {
+        $failures += "Missing Sprint 9 P6 required file: $path"
+    }
+}
+$sprint9P6Program = Get-Content -Raw "src/CRM.Api/Program.cs"
+if ($sprint9P6Program -notlike "*/api/crm/foundation/sprint-9/gate-decision*") {
+    $failures += "Sprint 9 P6 gate decision endpoint missing."
+}
+if ($sprint9P6Program -like "*/api/crm/foundation/sprint-9/gate-decision/probe*") {
+    $failures += "Sprint 9 P6 must remain GET-only and must not add a probe route."
+}
+$sprint9P6Text = ""
+foreach ($file in @("src/CRM.Application/Foundation/CrmSprint9GateDecisionContracts.cs", "src/CRM.Application/Foundation/CrmSprint9GateDecisionStatusService.cs", "docs/roadmap/crm-sprint-9-gate-decision.md", "docs/roadmap/crm-sprint-9-go-no-go.md", "docs/roadmap/crm-sprint-9-evidence-summary.md", "frontend/crm-web/src/main.ts")) {
+    if (Test-Path $file) { $sprint9P6Text += "`n" + (Get-Content -Raw $file) }
+}
+foreach ($marker in @("Sprint9GateDecision", "CrmSprint9GateDecisionStatusService", "Sprint9GateDecisionExists: true", "Sprint9Closed: true", "Sprint9EvidenceComplete: true", "GoForSprint10ControlledProductizationReadinessPlanning", "ProductionActivationDecision", "NoGo", "SecretProviderRuntimeTrialDecision", "GoOnlyAsExplicitNonProductionTrial", "CommonDbRuntimeConnectivityTrialDecision", "PortalAuthRuntimeValidationTrialDecision", "ProductiveRouteDryRunTrialDecision", "GoOnlyAsExplicitNonProductionDryRun", "ProductiveRouteRegistrationDecision", "NoGoByDefault", "ProductiveCrudDecision", "DeleteDecision", "DbRuntimeDecision", "NoGoForProduction", "PortalAuthEnforcementDecision", "ProductionActivationApproved: false", "RuntimeActivationApprovedForProduction: false", "ProductiveRoutesApprovedByDefault: false", "ProductiveCrudApproved: false", "DeleteApproved: false", "DatabaseWritesApproved: false", "EfRuntimeApproved: false", "MigrationsApproved: false", "SchemaChangesApproved: false", "PortalAuthEnforcementApproved: false", "TokenHeaderReadsApproved: false", "LoginLogoutApproved: false", "IdentityRuntimeApproved: false", "ProductiveUiApproved: false", "NonProductionTrialsRemainAllowedOnlyWithExplicitFlags: true", "AllTrialsFailClosedByDefault: true", "AllObservabilityMetadataOnly: true", "ProductizationStatus", "NotReady", "Sprint10P1ProductizationReadinessDecision", "Sprint 9 gate decision only; production activation remains NoGo", "Sprint 9 Gate Decision: Completed")) {
+    if ($sprint9P6Text -notlike "*$marker*") {
+        $failures += "Missing Sprint 9 P6 marker: $marker"
+    }
+}
+if ($sprint9P6Text -match "SecretClient|DefaultAzureCredential|ManagedIdentityCredential|EnvironmentCredential|Environment\.GetEnvironmentVariable|File\.ReadAllText|SqlConnection\(|DbConnection\(|UseSqlServer\(|AddDbContext\(|MigrationBuilder|HttpClient\(|new HttpClient|Request\.Headers|Headers\[|AddAuthentication|UseAuthentication|UseAuthorization|AuthorizeAttribute|JwtBearer|CookieAuthentication|localStorage|sessionStorage|MapDelete") {
+    $failures += "Sprint 9 P6 must not activate secret SDK, env/file reads, DB, EF, migrations, Portal/Auth runtime, token/header reads, token storage or DELETE."
+}
+
 if ($failures.Count -gt 0) {
     $failures | ForEach-Object { Write-Error $_ }
     exit 1
