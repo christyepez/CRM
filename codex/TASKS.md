@@ -816,3 +816,21 @@ Status: Implemented in branch `crm-sprint-10-p2-common-db-controlled-activation-
 - Portal direct DB access: disabled.
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - Next gate: CrmSprint10P3PortalConsumerContractAlignment.
+
+## CRM Sprint 10 P3 - Portal Consumer Contract Alignment
+
+Status: Implemented in branch `crm-sprint-10-p3-portal-consumer-contract-alignment`.
+
+- Base Main Commit: 7a68a56d853ae6a4d7adb2903c57b9e7b8b93799.
+- Expected branch: crm-sprint-10-p3-portal-consumer-contract-alignment.
+- Expected PR title: docs: add crm sprint 10 p3 portal consumer contract alignment.
+- Scope: documentation, guardrails and verification only.
+- Portal consumer contract alignment readiness: `AlignedContractOnly`.
+- Productization status: `PreparationOnly`.
+- Production activation: `NoGo`.
+- Portal runtime coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- Next gate: CrmSprint10P4ControlledRuntimeIntegrationDesign.
