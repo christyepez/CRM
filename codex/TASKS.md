@@ -1058,3 +1058,44 @@ Status: Implemented in branch `crm-sprint-10-p10-controlled-runtime-pilot-condit
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotConditionalEnablementDesignReadiness: ConditionalDesignPreparedNoGo.
 - NextGate: CrmSprint10P11ControlledRuntimePilotConditionalEnablementImplementationPlan.
+
+## CRM Sprint 10 P11 - Controlled Runtime Pilot Conditional Enablement Implementation Plan
+
+Status: Implemented in branch `crm-sprint-10-p11-controlled-runtime-pilot-conditional-enablement-implementation-plan`.
+
+- Base Main Commit: 62926a03d65b8cb16fe0aea3adfb6d5adeef0b15.
+- Expected branch: crm-sprint-10-p11-controlled-runtime-pilot-conditional-enablement-implementation-plan.
+- Expected PR title: docs: add crm sprint 10 p11 controlled runtime pilot conditional implementation plan.
+- Scope: documentation, implementation planning, guardrail, verifier and local plan tooling only.
+- CrmSprint10P11ControlledRuntimePilotConditionalImplementationPlanExists: true.
+- CrmSprint10P10ConditionalDesignReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ConditionalImplementationPlanAttempted: true.
+- ConditionalImplementationPlanPrepared: true.
+- ConditionalImplementationPhasesPrepared: true.
+- ConditionalImplementationWbsPrepared: true.
+- ConditionalImplementationPrSequencePrepared: true.
+- ConditionalImplementationChangeMatrixPrepared: true.
+- ConditionalImplementationConfigurationPlanPrepared: true.
+- ConditionalImplementationFeatureFlagRolloutPrepared: true.
+- ConditionalImplementationClientEnablementPrepared: true.
+- ConditionalImplementationGatewayNavigationPrepared: true.
+- ConditionalImplementationHealthSmokeValidationPrepared: true.
+- ConditionalImplementationRollbackPrepared: true.
+- ConditionalImplementationQaUatPrepared: true.
+- ConditionalImplementationEvidencePlanPrepared: true.
+- ConditionalImplementationRunbookPrepared: true.
+- ConditionalImplementationSecurityDecisionPrepared: true.
+- ImplementationPlanOnly: true.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotConditionalImplementationPlanReadiness: ImplementationPlanPreparedNoGo.
+- NextGate: CrmSprint10P12ControlledRuntimePilotImplementationReadinessReview.
