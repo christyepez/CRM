@@ -1020,3 +1020,41 @@ Status: Implemented in branch `crm-sprint-10-p9-controlled-runtime-pilot-enablem
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotApprovalGateReadiness: ApprovalGatePreparedNoGo.
 - NextGate: CrmSprint10P10ControlledRuntimePilotConditionalEnablementDesign.
+
+## CRM Sprint 10 P10 - Controlled Runtime Pilot Conditional Enablement Design
+
+Status: Implemented in branch `crm-sprint-10-p10-controlled-runtime-pilot-conditional-enablement-design`.
+
+- Base Main Commit: fe882f9dafaba75c6518929f46b48cc2ffb24efe.
+- Expected branch: crm-sprint-10-p10-controlled-runtime-pilot-conditional-enablement-design.
+- Expected PR title: docs: add crm sprint 10 p10 controlled runtime pilot conditional enablement design.
+- Scope: documentation, conditional design, guardrail, verifier and local design tooling only.
+- CrmSprint10P10ControlledRuntimePilotConditionalEnablementDesignExists: true.
+- CrmSprint10P9ApprovalGateReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotConditionalEnablementDesignAttempted: true.
+- ControlledRuntimePilotConditionalEnablementDesignPrepared: true.
+- ConditionalEnablementFeatureFlagsPrepared: true.
+- ConditionalEnablementSafeConfigurationPrepared: true.
+- ConditionalEnablementDisabledClientDesignPrepared: true.
+- ConditionalEnablementGatewayRoutesDesignPrepared: true.
+- ConditionalEnablementNavigationDesignPrepared: true.
+- ConditionalEnablementHealthSmokeDesignPrepared: true.
+- ConditionalEnablementPreflightPlanPrepared: true.
+- ConditionalEnablementRollbackDesignPrepared: true.
+- ConditionalEnablementEvidenceMatrixPrepared: true.
+- ConditionalEnablementBlockersPrepared: true.
+- ConditionalEnablementRunbookPrepared: true.
+- ConditionalEnablementSecurityDecisionPrepared: true.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotConditionalEnablementDesignReadiness: ConditionalDesignPreparedNoGo.
+- NextGate: CrmSprint10P11ControlledRuntimePilotConditionalEnablementImplementationPlan.
