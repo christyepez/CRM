@@ -882,3 +882,34 @@ Status: Implemented in branch `crm-sprint-10-p5-controlled-runtime-pilot-scaffol
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotScaffoldReadiness: ScaffoldPreparedDisabledOnly.
 - NextGate: CrmSprint10P6ControlledRuntimePilotValidation.
+
+## CRM Sprint 10 P6 - Controlled Runtime Pilot Validation
+
+Status: Implemented in branch `crm-sprint-10-p6-controlled-runtime-pilot-validation`.
+
+- Base Main Commit: 7e032bb6bb5e3a995ecd1f335235285d7b876ffc.
+- Expected branch: crm-sprint-10-p6-controlled-runtime-pilot-validation.
+- Expected PR title: docs: add crm sprint 10 p6 controlled runtime pilot validation.
+- Scope: documentation, evidence, guardrails, verifier and aggregate validation tooling only.
+- CrmSprint10P6ControlledRuntimePilotValidationExists: true.
+- CrmSprint10P5ScaffoldReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotValidationAttempted: true.
+- ControlledRuntimePilotValidationReportPrepared: true.
+- ControlledRuntimePilotEvidenceMatrixPrepared: true.
+- ControlledRuntimePilotFeatureFlagValidationPrepared: true.
+- ControlledRuntimePilotDisabledClientValidationPrepared: true.
+- ControlledRuntimePilotHealthSmokeValidationPrepared: true.
+- ControlledRuntimePilotPreflightValidationPrepared: true.
+- ControlledRuntimePilotValidationRunbookPrepared: true.
+- ControlledRuntimePilotValidationSecurityDecisionPrepared: true.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotValidationReadiness: ValidatedDisabledOnly.
+- NextGate: CrmSprint10P7ControlledRuntimePilotEnablementPlan.
