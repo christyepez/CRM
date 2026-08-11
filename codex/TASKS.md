@@ -852,3 +852,33 @@ Status: Implemented in branch `crm-sprint-10-p4-controlled-runtime-integration-d
 - Common DB runtime: disabled.
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - Next gate: CrmSprint10P5ControlledRuntimePilotScaffold.
+
+## CRM Sprint 10 P5 - Controlled Runtime Pilot Scaffold
+
+Status: Implemented in branch `crm-sprint-10-p5-controlled-runtime-pilot-scaffold`.
+
+- Base Main Commit: 3d6464d3d794863a6e4b71c51f589d3d8bdf051f.
+- Expected branch: crm-sprint-10-p5-controlled-runtime-pilot-scaffold.
+- Expected PR title: docs: add crm sprint 10 p5 controlled runtime pilot scaffold.
+- Scope: documentation, guardrails, preflight and smoke tooling only.
+- CrmSprint10P5ControlledRuntimePilotScaffoldExists: true.
+- CrmSprint10P4RuntimeDesignReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotScaffoldAttempted: true.
+- ControlledRuntimePilotScaffoldPrepared: true.
+- ControlledRuntimePilotFeatureFlagsPrepared: true.
+- ControlledRuntimePilotDisabledClientPrepared: true.
+- ControlledRuntimePilotHealthSmokeContractPrepared: true.
+- ControlledRuntimePilotPreflightPrepared: true.
+- ControlledRuntimePilotRunbookPrepared: true.
+- ControlledRuntimePilotSecurityDecisionPrepared: true.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotScaffoldReadiness: ScaffoldPreparedDisabledOnly.
+- NextGate: CrmSprint10P6ControlledRuntimePilotValidation.
