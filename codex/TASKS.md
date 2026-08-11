@@ -948,3 +948,39 @@ Status: Implemented in branch `crm-sprint-10-p7-controlled-runtime-pilot-enablem
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotEnablementPlanReadiness: PlannedDisabledOnly.
 - NextGate: CrmSprint10P8ControlledRuntimePilotEnablementDryRun.
+
+## CRM Sprint 10 P8 - Controlled Runtime Pilot Enablement Dry Run
+
+Status: Implemented in branch `crm-sprint-10-p8-controlled-runtime-pilot-enablement-dry-run`.
+
+- Base Main Commit: 4b088be9a70af9c88f61df82991b80c259256a5c.
+- Expected branch: crm-sprint-10-p8-controlled-runtime-pilot-enablement-dry-run.
+- Expected PR title: docs: add crm sprint 10 p8 controlled runtime pilot enablement dry run.
+- Scope: documentation, dry-run evidence, guardrail, verifier and local dry-run tooling only.
+- CrmSprint10P8ControlledRuntimePilotEnablementDryRunExists: true.
+- CrmSprint10P7EnablementPlanReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotEnablementDryRunAttempted: true.
+- ControlledRuntimePilotEnablementDryRunReportPrepared: true.
+- ControlledRuntimePilotEnablementDryRunStepsPrepared: true.
+- ControlledRuntimePilotEnablementDryRunEntryChecklistPrepared: true.
+- ControlledRuntimePilotEnablementDryRunApprovalResultPrepared: true.
+- ControlledRuntimePilotEnablementDryRunSafeConfigurationPrepared: true.
+- ControlledRuntimePilotEnablementDryRunFeatureFlagsPrepared: true.
+- ControlledRuntimePilotEnablementDryRunPreflightPrepared: true.
+- ControlledRuntimePilotEnablementDryRunSmokePrepared: true.
+- ControlledRuntimePilotEnablementDryRunRollbackPrepared: true.
+- ControlledRuntimePilotEnablementDryRunEvidencePrepared: true.
+- ControlledRuntimePilotEnablementDryRunRunbookPrepared: true.
+- ControlledRuntimePilotEnablementDryRunSecurityDecisionPrepared: true.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotEnablementDryRunReadiness: DryRunCompletedDisabledOnly.
+- DryRunOnly: true.
+- NextGate: CrmSprint10P9ControlledRuntimePilotEnablementApprovalGate.
