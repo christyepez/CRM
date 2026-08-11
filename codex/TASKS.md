@@ -834,3 +834,21 @@ Status: Implemented in branch `crm-sprint-10-p3-portal-consumer-contract-alignme
 - Common DB runtime: disabled.
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - Next gate: CrmSprint10P4ControlledRuntimeIntegrationDesign.
+
+## CRM Sprint 10 P4 - Controlled Runtime Integration Design
+
+Status: Implemented in branch `crm-sprint-10-p4-controlled-runtime-integration-design`.
+
+- Base Main Commit: b918de11f86a60a856b20ed1609abb2e4f156ca9.
+- Expected branch: crm-sprint-10-p4-controlled-runtime-integration-design.
+- Expected PR title: docs: add crm sprint 10 p4 controlled runtime integration design.
+- Scope: documentation, guardrails and verification only.
+- Controlled runtime integration design readiness: `DesignedContractOnly`.
+- Productization status: `PreparationOnly`.
+- Production activation: `NoGo`.
+- Runtime Portal coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- Next gate: CrmSprint10P5ControlledRuntimePilotScaffold.
