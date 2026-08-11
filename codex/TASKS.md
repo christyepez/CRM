@@ -984,3 +984,39 @@ Status: Implemented in branch `crm-sprint-10-p8-controlled-runtime-pilot-enablem
 - ControlledRuntimePilotEnablementDryRunReadiness: DryRunCompletedDisabledOnly.
 - DryRunOnly: true.
 - NextGate: CrmSprint10P9ControlledRuntimePilotEnablementApprovalGate.
+
+## CRM Sprint 10 P9 - Controlled Runtime Pilot Enablement Approval Gate
+
+Status: Implemented in branch `crm-sprint-10-p9-controlled-runtime-pilot-enablement-approval-gate`.
+
+- Base Main Commit: 2e7178f0c6970ac9f23991c5c6bafba048905cd8.
+- Expected branch: crm-sprint-10-p9-controlled-runtime-pilot-enablement-approval-gate.
+- Expected PR title: docs: add crm sprint 10 p9 controlled runtime pilot approval gate.
+- Scope: documentation, approval gate evidence, guardrail, verifier and local approval gate tooling only.
+- CrmSprint10P9ControlledRuntimePilotEnablementApprovalGateExists: true.
+- CrmSprint10P8DryRunReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotApprovalGateAttempted: true.
+- ControlledRuntimePilotApprovalGatePrepared: true.
+- ControlledRuntimePilotApprovalGateEvidenceSummaryPrepared: true.
+- ControlledRuntimePilotApprovalGateApproversPrepared: true.
+- ControlledRuntimePilotApprovalGateDecisionCriteriaPrepared: true.
+- ControlledRuntimePilotApprovalGateComplianceChecklistPrepared: true.
+- ControlledRuntimePilotApprovalGateBlockersPrepared: true.
+- ControlledRuntimePilotApprovalGateRaciPrepared: true.
+- ControlledRuntimePilotApprovalGateCommunicationPlanPrepared: true.
+- ControlledRuntimePilotApprovalGateRunbookPrepared: true.
+- ControlledRuntimePilotApprovalGateSecurityDecisionPrepared: true.
+- ApprovalGateOnly: true.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotApprovalGateReadiness: ApprovalGatePreparedNoGo.
+- NextGate: CrmSprint10P10ControlledRuntimePilotConditionalEnablementDesign.
