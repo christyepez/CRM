@@ -913,3 +913,38 @@ Status: Implemented in branch `crm-sprint-10-p6-controlled-runtime-pilot-validat
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotValidationReadiness: ValidatedDisabledOnly.
 - NextGate: CrmSprint10P7ControlledRuntimePilotEnablementPlan.
+
+## CRM Sprint 10 P7 - Controlled Runtime Pilot Enablement Plan
+
+Status: Implemented in branch `crm-sprint-10-p7-controlled-runtime-pilot-enablement-plan`.
+
+- Base Main Commit: eaa99ac0a5ed7c2146f85bfcf2e455c660a37200.
+- Expected branch: crm-sprint-10-p7-controlled-runtime-pilot-enablement-plan.
+- Expected PR title: docs: add crm sprint 10 p7 controlled runtime pilot enablement plan.
+- Scope: documentation, planning, guardrail, verifier and readiness tooling only.
+- CrmSprint10P7ControlledRuntimePilotEnablementPlanExists: true.
+- CrmSprint10P6ValidationReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- ControlledRuntimePilotEnablementPlanAttempted: true.
+- ControlledRuntimePilotEnablementPlanPrepared: true.
+- ControlledRuntimePilotEntryChecklistPrepared: true.
+- ControlledRuntimePilotExitChecklistPrepared: true.
+- ControlledRuntimePilotFeatureFlagsPlanPrepared: true.
+- ControlledRuntimePilotSafeConfigurationPrepared: true.
+- ControlledRuntimePilotApprovalPlanPrepared: true.
+- ControlledRuntimePilotRollbackPlanPrepared: true.
+- ControlledRuntimePilotPreflightPlanPrepared: true.
+- ControlledRuntimePilotSmokePlanPrepared: true.
+- ControlledRuntimePilotEvidencePlanPrepared: true.
+- ControlledRuntimePilotEnablementRunbookPrepared: true.
+- ControlledRuntimePilotEnablementSecurityDecisionPrepared: true.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotEnablementPlanReadiness: PlannedDisabledOnly.
+- NextGate: CrmSprint10P8ControlledRuntimePilotEnablementDryRun.
