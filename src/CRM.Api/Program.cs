@@ -76,10 +76,14 @@ builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialEvaluator>();
 builder.Services.AddSingleton<CrmSprint9GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSprint10ProductizationReadinessDecisionStatusService>();
 builder.Services.AddSingleton<CrmControlledRuntimePilotFirstSliceScaffoldStatusService>();
+builder.Services.AddSingleton<CrmControlledRuntimePilotFirstSliceNonProductionActivationScaffoldStatusService>();
 builder.Services.AddSingleton(PortalRuntimeOptions.Disabled());
 builder.Services.AddSingleton(PortalRuntimeFeatureFlags.Disabled());
 builder.Services.AddSingleton<IPortalRuntimeClient, DisabledPortalRuntimeClient>();
 builder.Services.AddSingleton<PortalRuntimeHealthCheck>();
+builder.Services.AddSingleton(NonProductionActivationOptions.Disabled());
+builder.Services.AddSingleton(NonProductionActivationFeatureFlags.Disabled());
+builder.Services.AddSingleton<DisabledNonProductionActivationService>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
@@ -349,6 +353,13 @@ app.MapGet("/api/crm/foundation/sprint-10/productization-readiness-decision", (C
 
 app.MapGet("/api/crm/foundation/sprint-10/controlled-runtime-pilot-first-slice-scaffold", (CrmControlledRuntimePilotFirstSliceScaffoldStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint10ControlledRuntimePilotFirstSliceScaffold");
+
+app.MapGet("/api/crm/foundation/sprint-10/controlled-runtime-pilot-first-slice-nonproduction-activation-scaffold", (CrmControlledRuntimePilotFirstSliceNonProductionActivationScaffoldStatusService service, DisabledNonProductionActivationService activationService) => Results.Ok(new
+{
+    status = service.GetStatus(),
+    dryRun = activationService.GetDryRunResult()
+}))
+    .WithName("GetCrmFoundationSprint10ControlledRuntimePilotFirstSliceNonProductionActivationScaffold");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
