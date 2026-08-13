@@ -1178,3 +1178,38 @@ Status: Implemented in branch `crm-sprint-10-p13-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstImplementationSliceDesignReadiness: FirstSliceDesignPreparedNoGo.
 - NextGate: CrmSprint10P14ControlledRuntimePilotFirstImplementationSliceScaffold.
+
+## CRM Sprint 10 P14 - Controlled Runtime Pilot First Implementation Slice Scaffold
+
+Status: Implemented in branch `crm-sprint-10-p14-controlled-runtime-pilot-first-implementation-slice-scaffold`.
+
+- Base Main Commit: 09ed457424daff211b11c1d75f49686ae3db697a.
+- Expected branch: crm-sprint-10-p14-controlled-runtime-pilot-first-implementation-slice-scaffold.
+- Expected PR title: feat: add crm sprint 10 p14 controlled runtime pilot first slice scaffold.
+- Scope: disabled-by-default scaffold, contracts, safe options, disabled client, foundation status endpoint, tests, docs and tooling.
+- CrmSprint10P14ControlledRuntimePilotFirstImplementationSliceScaffoldExists: true.
+- CrmSprint10P13FirstSliceDesignReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstImplementationSliceScaffoldAttempted: true.
+- FirstImplementationSliceScaffoldPrepared: true.
+- FirstSliceScaffoldFeatureFlagsPrepared: true.
+- FirstSliceScaffoldSafeConfigurationPrepared: true.
+- FirstSliceScaffoldDisabledClientPrepared: true.
+- FirstSliceScaffoldHealthSmokePrepared: true.
+- FirstSliceScaffoldTestEvidencePrepared: true.
+- FirstSliceScaffoldRollbackPrepared: true.
+- FirstSliceScaffoldRunbookPrepared: true.
+- FirstSliceScaffoldSecurityDecisionPrepared: true.
+- FirstImplementationSliceScaffoldOnly: true.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstImplementationSliceScaffoldReadiness: FirstSliceScaffoldPreparedDisabledOnly.
+- NextGate: CrmSprint10P15ControlledRuntimePilotFirstSliceScaffoldValidation.

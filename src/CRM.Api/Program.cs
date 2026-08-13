@@ -12,6 +12,7 @@ using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
 using CRM.Infrastructure.Data.CommonDb;
 using CRM.Infrastructure.Portal.Auth;
+using CRM.Infrastructure.Portal.ControlledRuntimePilot;
 using CRM.Infrastructure.Portal.RuntimeProbe;
 using CRM.Infrastructure.Portal.Simulation;
 using CRM.Infrastructure.Security.Secrets;
@@ -74,6 +75,11 @@ builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialStatusService>();
 builder.Services.AddSingleton<CrmProductiveRouteDryRunTrialEvaluator>();
 builder.Services.AddSingleton<CrmSprint9GateDecisionStatusService>();
 builder.Services.AddSingleton<CrmSprint10ProductizationReadinessDecisionStatusService>();
+builder.Services.AddSingleton<CrmControlledRuntimePilotFirstSliceScaffoldStatusService>();
+builder.Services.AddSingleton(PortalRuntimeOptions.Disabled());
+builder.Services.AddSingleton(PortalRuntimeFeatureFlags.Disabled());
+builder.Services.AddSingleton<IPortalRuntimeClient, DisabledPortalRuntimeClient>();
+builder.Services.AddSingleton<PortalRuntimeHealthCheck>();
 builder.Services.AddSingleton(SecretProviderRuntimeOptions.Disabled());
 builder.Services.AddSingleton<ISecretProviderRuntime, DisabledSecretProviderRuntime>();
 builder.Services.AddSingleton(new SecretProviderRuntimeTrialOptions(
@@ -340,6 +346,9 @@ app.MapGet("/api/crm/foundation/sprint-9/gate-decision", (CrmSprint9GateDecision
 
 app.MapGet("/api/crm/foundation/sprint-10/productization-readiness-decision", (CrmSprint10ProductizationReadinessDecisionStatusService service) => Results.Ok(service.GetStatus()))
     .WithName("GetCrmFoundationSprint10ProductizationReadinessDecision");
+
+app.MapGet("/api/crm/foundation/sprint-10/controlled-runtime-pilot-first-slice-scaffold", (CrmControlledRuntimePilotFirstSliceScaffoldStatusService service) => Results.Ok(service.GetStatus()))
+    .WithName("GetCrmFoundationSprint10ControlledRuntimePilotFirstSliceScaffold");
 
 app.MapGet("/api/crm/foundation/leads", async (FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationLeads");
