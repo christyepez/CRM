@@ -1330,3 +1330,42 @@ Status: Implemented in branch `crm-sprint-10-p17-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationDryRunReadiness: NonProductionActivationDryRunCompletedDisabledOnly.
 - NextGate: CrmSprint10P18ControlledRuntimePilotFirstSliceActivationApprovalGate.
+
+## CRM Sprint 10 P18 - Controlled Runtime Pilot First Slice Activation Approval Gate
+
+Status: Implemented in branch `crm-sprint-10-p18-controlled-runtime-pilot-first-slice-activation-approval-gate`.
+
+- Base Main Commit: d05a7d7eabf40129959715f4bea2c04830fc8004.
+- Expected branch: crm-sprint-10-p18-controlled-runtime-pilot-first-slice-activation-approval-gate.
+- Expected PR title: docs: add crm sprint 10 p18 controlled runtime pilot first slice activation approval gate.
+- Scope: approval gate documentation and tooling only; no runtime activation, no Portal calls and no feature flags changed to true.
+- CrmSprint10P18ControlledRuntimePilotFirstSliceActivationApprovalGateExists: true.
+- CrmSprint10P17DryRunReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceActivationApprovalGateAttempted: true.
+- FirstSliceActivationApprovalGatePrepared: true.
+- FirstSliceActivationApprovalGateEvidenceSummaryPrepared: true.
+- FirstSliceActivationApprovalGateApproversPrepared: true.
+- FirstSliceActivationApprovalGateDecisionCriteriaPrepared: true.
+- FirstSliceActivationApprovalGateComplianceChecklistPrepared: true.
+- FirstSliceActivationApprovalGateBlockersPrepared: true.
+- FirstSliceActivationApprovalGateRaciPrepared: true.
+- FirstSliceActivationApprovalGateCommunicationPlanPrepared: true.
+- FirstSliceActivationApprovalGateAuditEvidencePrepared: true.
+- FirstSliceActivationApprovalGateRollbackPrepared: true.
+- FirstSliceActivationApprovalGateRunbookPrepared: true.
+- FirstSliceActivationApprovalGateSecurityDecisionPrepared: true.
+- ActivationApprovalGateOnly: true.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstSliceActivationApprovalGateReadiness: ActivationApprovalGatePreparedNoGo.
+- NextGate: CrmSprint10P19ControlledRuntimePilotFirstSliceNonProductionActivationImplementationPlan.
