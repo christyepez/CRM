@@ -1138,3 +1138,43 @@ Status: Implemented in branch `crm-sprint-10-p12-controlled-runtime-pilot-implem
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotImplementationReadinessReviewReadiness: ReadinessReviewPreparedNoGo.
 - NextGate: CrmSprint10P13ControlledRuntimePilotFirstImplementationSliceDesign.
+
+## CRM Sprint 10 P13 - Controlled Runtime Pilot First Implementation Slice Design
+
+Status: Implemented in branch `crm-sprint-10-p13-controlled-runtime-pilot-first-implementation-slice-design`.
+
+- Base Main Commit: f632d9bcad90f9c251de70181efa54e23719aa65.
+- Expected branch: crm-sprint-10-p13-controlled-runtime-pilot-first-implementation-slice-design.
+- Expected PR title: docs: add crm sprint 10 p13 controlled runtime pilot first implementation slice design.
+- Scope: documentation, first slice design, guardrail, verifier and local design tooling only.
+- CrmSprint10P13ControlledRuntimePilotFirstImplementationSliceDesignExists: true.
+- CrmSprint10P12ReadinessReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstImplementationSliceDesignAttempted: true.
+- FirstImplementationSliceDesignPrepared: true.
+- FirstSliceObjectivePrepared: true.
+- FirstSliceScopePrepared: true.
+- FirstSliceFileBoundariesPrepared: true.
+- FirstSliceFeatureFlagsPrepared: true.
+- FirstSliceSafeConfigurationPrepared: true.
+- FirstSliceDisabledClientPrepared: true.
+- FirstSliceHealthSmokePrepared: true.
+- FirstSliceTestPlanPrepared: true.
+- FirstSliceRollbackPrepared: true.
+- FirstSliceAcceptanceCriteriaPrepared: true.
+- FirstSliceSecurityChecklistPrepared: true.
+- FirstSliceRunbookPrepared: true.
+- FirstSliceSecurityDecisionPrepared: true.
+- FirstImplementationSliceDesignOnly: true.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstImplementationSliceDesignReadiness: FirstSliceDesignPreparedNoGo.
+- NextGate: CrmSprint10P14ControlledRuntimePilotFirstImplementationSliceScaffold.
