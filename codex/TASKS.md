@@ -1410,3 +1410,46 @@ Status: Implemented in branch `crm-sprint-10-p19-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationImplementationPlanReadiness: NonProductionActivationImplementationPlanPreparedNoGo.
 - NextGate: CrmSprint10P20ControlledRuntimePilotFirstSliceActivationReadinessReview.
+
+## CRM Sprint 10 P20 - Controlled Runtime Pilot First Slice Activation Readiness Review
+
+Status: Implemented in branch `crm-sprint-10-p20-controlled-runtime-pilot-first-slice-activation-readiness-review`.
+
+- Base Main Commit: f1d5d4cdfe81b6b8a1a96a7e5209ba12a086ed4b.
+- Expected branch: crm-sprint-10-p20-controlled-runtime-pilot-first-slice-activation-readiness-review.
+- Expected PR title: docs: add crm sprint 10 p20 controlled runtime pilot first slice activation readiness review.
+- Scope: readiness review documentation and tooling only; no runtime activation, no Portal calls and no feature flags changed to true.
+- CrmSprint10P20ControlledRuntimePilotFirstSliceActivationReadinessReviewExists: true.
+- CrmSprint10P19ImplementationPlanReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceActivationReadinessReviewAttempted: true.
+- FirstSliceActivationReadinessReviewPrepared: true.
+- FirstSliceActivationReadinessEvidenceSummaryPrepared: true.
+- FirstSliceActivationReadinessChecklistPrepared: true.
+- FirstSliceActivationReadinessGapsPrepared: true.
+- FirstSliceActivationReadinessBlockersPrepared: true.
+- FirstSliceActivationReadinessResidualRisksPrepared: true.
+- FirstSliceActivationReadinessApprovalReviewPrepared: true.
+- FirstSliceActivationReadinessImplementationPlanReviewPrepared: true.
+- FirstSliceActivationReadinessFeatureFlagsReviewPrepared: true.
+- FirstSliceActivationReadinessSafeConfigurationReviewPrepared: true.
+- FirstSliceActivationReadinessDisabledClientReviewPrepared: true.
+- FirstSliceActivationReadinessQaUatReviewPrepared: true.
+- FirstSliceActivationReadinessRollbackReviewPrepared: true.
+- FirstSliceActivationReadinessEvidenceAuditReviewPrepared: true.
+- FirstSliceActivationReadinessRunbookPrepared: true.
+- FirstSliceActivationReadinessSecurityDecisionPrepared: true.
+- ActivationReadinessReviewOnly: true.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstSliceActivationReadinessReviewReadiness: ActivationReadinessReviewPreparedNoGo.
+- NextGate: CrmSprint10P21ControlledRuntimePilotFirstSliceNonProductionActivationScaffold.
