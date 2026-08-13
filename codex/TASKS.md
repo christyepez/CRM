@@ -1290,3 +1290,43 @@ Status: Implemented in branch `crm-sprint-10-p16-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationPlanReadiness: NonProductionActivationPlanPreparedNoGo.
 - NextGate: CrmSprint10P17ControlledRuntimePilotFirstSliceNonProductionActivationDryRun.
+
+## CRM Sprint 10 P17 - Controlled Runtime Pilot First Slice NonProduction Activation Dry Run
+
+Status: Implemented in branch `crm-sprint-10-p17-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run`.
+
+- Base Main Commit: 31862990a102f31ea912391eb3a45107e24a91ca.
+- Expected branch: crm-sprint-10-p17-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run.
+- Expected PR title: docs: add crm sprint 10 p17 controlled runtime pilot first slice nonproduction activation dry run.
+- Scope: dry run documentation and tooling only; no runtime activation, no Portal calls and no feature flags changed to true.
+- CrmSprint10P17ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExists: true.
+- CrmSprint10P16ActivationPlanReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationDryRunAttempted: true.
+- FirstSliceNonProductionActivationDryRunPrepared: true.
+- FirstSliceNonProductionActivationDryRunStepsPrepared: true.
+- FirstSliceNonProductionActivationDryRunPrerequisitesPrepared: true.
+- FirstSliceNonProductionActivationDryRunApprovalsPrepared: true.
+- FirstSliceNonProductionActivationDryRunFeatureFlagsPrepared: true.
+- FirstSliceNonProductionActivationDryRunSafeConfigurationPrepared: true.
+- FirstSliceNonProductionActivationDryRunEnvironmentSeparationPrepared: true.
+- FirstSliceNonProductionActivationDryRunPreValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunPostSmokePrepared: true.
+- FirstSliceNonProductionActivationDryRunRollbackPrepared: true.
+- FirstSliceNonProductionActivationDryRunEvidencePrepared: true.
+- FirstSliceNonProductionActivationDryRunRunbookPrepared: true.
+- FirstSliceNonProductionActivationDryRunSecurityDecisionPrepared: true.
+- NonProductionActivationDryRunOnly: true.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstSliceNonProductionActivationDryRunReadiness: NonProductionActivationDryRunCompletedDisabledOnly.
+- NextGate: CrmSprint10P18ControlledRuntimePilotFirstSliceActivationApprovalGate.
