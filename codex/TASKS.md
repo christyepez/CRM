@@ -1489,3 +1489,41 @@ Status: Implemented in branch `crm-sprint-10-p21-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationScaffoldReadiness: NonProductionActivationScaffoldPreparedDisabledOnly.
 - NextGate: CrmSprint10P22ControlledRuntimePilotFirstSliceNonProductionActivationScaffoldValidation.
+
+## CRM Sprint 10 P22 - Controlled Runtime Pilot First Slice NonProduction Activation Scaffold Validation
+
+Status: Implemented in branch `crm-sprint-10-p22-controlled-runtime-pilot-first-slice-nonproduction-activation-scaffold-validation`.
+
+- Base Main Commit: 7e853f47d9e9a6ba97c9b6a98296ba075118eeb5.
+- Expected branch: crm-sprint-10-p22-controlled-runtime-pilot-first-slice-nonproduction-activation-scaffold-validation.
+- Expected PR title: docs: add crm sprint 10 p22 controlled runtime pilot first slice nonproduction activation scaffold validation.
+- Scope: validation evidence, GO/NO-GO, risk register, runbook, security decision, guardrail and verifier only.
+- CrmSprint10P22ControlledRuntimePilotFirstSliceNonProductionActivationScaffoldValidationExists: true.
+- CrmSprint10P21NonProductionActivationScaffoldReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationScaffoldValidationAttempted: true.
+- FirstSliceNonProductionActivationScaffoldValidationPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationEvidenceMatrixPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationFoundationEndpointPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationDisabledServicePrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationFeatureFlagsPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationSafeConfigurationPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationTestEvidencePrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationComposePrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationSecurityChecklistPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationRunbookPrepared: true.
+- FirstSliceNonProductionActivationScaffoldValidationSecurityDecisionPrepared: true.
+- NonProductionActivationScaffoldValidatedDisabledOnly: true.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstSliceNonProductionActivationScaffoldValidationReadiness: NonProductionActivationScaffoldValidatedDisabledOnly.
+- NextGate: CrmSprint10P23ControlledRuntimePilotFirstSliceNonProductionActivationFinalApprovalGate.
