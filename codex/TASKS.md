@@ -1613,3 +1613,47 @@ Status: Implemented in branch `crm-sprint-10-p24-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationControlledImplementationReadiness: ControlledImplementationPreparedDisabledOnly.
 - NextGate: CrmSprint10P25ControlledRuntimePilotFirstSliceNonProductionActivationControlledImplementationValidation.
+
+## CRM Sprint 10 P25 - Controlled Runtime Pilot First Slice NonProduction Activation Controlled Implementation Validation
+
+Status: Implemented in branch `crm-sprint-10-p25-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-implementation-validation`.
+
+- Base Main Commit: 824713318b4c7982bc091da9821e21a56e357ede.
+- P24 Pull Request: #95.
+- P24 Merge Commit: 824713318b4c7982bc091da9821e21a56e357ede.
+- Expected branch: crm-sprint-10-p25-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-implementation-validation.
+- Expected PR title: docs: add crm sprint 10 p25 controlled runtime pilot first slice nonproduction activation controlled implementation validation.
+- Scope: validation report, evidence matrix, endpoint/dry-run/disabled-service/flags/configuration/compose/security validation, guardrail, verifier and wrapper only.
+- CrmSprint10P25ControlledRuntimePilotFirstSliceNonProductionActivationControlledImplementationValidationExists: true.
+- CrmSprint10P24ControlledImplementationReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationControlledImplementationValidationAttempted: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationEvidenceMatrixPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationFoundationEndpointPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationDryRunPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationDisabledServicePrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationFeatureFlagsPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationSafeConfigurationPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationTestEvidencePrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationComposePrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationSecurityChecklistPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationRunbookPrepared: true.
+- FirstSliceNonProductionActivationControlledImplementationValidationSecurityDecisionPrepared: true.
+- NonProductionActivationControlledImplementationValidatedDisabledOnly: true.
+- NonProductionActivationControlledImplementationExecuted: false.
+- ConditionalGoFutureDefined: true.
+- ConditionalGoFutureExecuted: false.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- ControlledRuntimePilotFirstSliceNonProductionActivationControlledImplementationValidationReadiness: ControlledImplementationValidatedDisabledOnly.
+- NextGate: CrmSprint10P26ControlledRuntimePilotFirstSliceNonProductionActivationExplicitApproval.
