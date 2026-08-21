@@ -1657,3 +1657,65 @@ Status: Implemented in branch `crm-sprint-10-p25-controlled-runtime-pilot-first-
 - Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
 - ControlledRuntimePilotFirstSliceNonProductionActivationControlledImplementationValidationReadiness: ControlledImplementationValidatedDisabledOnly.
 - NextGate: CrmSprint10P26ControlledRuntimePilotFirstSliceNonProductionActivationExplicitApproval.
+
+## CRM Sprint 10 P26 - Controlled Runtime Pilot First Slice NonProduction Activation Explicit Approval
+
+Status: Implemented in branch `crm-sprint-10-p26-controlled-runtime-pilot-first-slice-nonproduction-activation-explicit-approval`.
+
+- Base Main Commit: dd1d6487bf187013834fe35240bcaaa0ae1ee5a2.
+- P25 Pull Request: #96.
+- P25 Merge Commit: dd1d6487bf187013834fe35240bcaaa0ae1ee5a2.
+- Expected branch: crm-sprint-10-p26-controlled-runtime-pilot-first-slice-nonproduction-activation-explicit-approval.
+- Expected PR title: docs: add crm sprint 10 p26 controlled runtime pilot first slice nonproduction activation explicit approval.
+- Scope: explicit approval gate documentation and tooling only; no activation, no Portal calls and no feature flags changed to true.
+- CrmSprint10P26ControlledRuntimePilotFirstSliceNonProductionActivationExplicitApprovalExists: true.
+- CrmSprint10P25ControlledImplementationValidationReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationExplicitApprovalAttempted: true.
+- FirstSliceNonProductionActivationExplicitApprovalPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalMatrixPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalCriteriaPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalEvidenceSummaryPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalRaciPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalSecurityChecklistPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalArchitectureChecklistPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalDevOpsRollbackChecklistPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalQaUatChecklistPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalMonitoringChecklistPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalP27ConditionsPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalRunbookPrepared: true.
+- FirstSliceNonProductionActivationExplicitApprovalSecurityDecisionPrepared: true.
+- NonProductionActivationExplicitApprovalGateOnly: true.
+- ExplicitApprovalPrepared: true.
+- ExplicitApprovalExecuted: false.
+- NonProductionActivationControlledImplementationValidatedDisabledOnly: true.
+- NonProductionActivationControlledImplementationExecuted: false.
+- ConditionalGoFutureDefined: true.
+- ConditionalGoFutureExecuted: false.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- RealPortalPrivateUrlsPresent: false.
+- RealCommonDbConnectionConfigured: false.
+- SharedPortalTablesAccessEnabled: false.
+- CrossDomainMigrationsPresent: false.
+- PortalDatabaseDirectAccessEnabled: false.
+- SsoOidcProductionConfigured: false.
+- RealSecretProviderConfigured: false.
+- RealNotificationProviderConfigured: false.
+- RealObservabilityProviderConfigured: false.
+- BrowserTokenStorageDetected: false.
+- SecretsPresent: false.
+- EnvRealFileCommitted: false.
+- PrivateUrlsPresent: false.
+- RealDataPresent: false.
+- ControlledRuntimePilotFirstSliceNonProductionActivationExplicitApprovalReadiness: ExplicitApprovalPreparedNoGoNow.
+- NextGate: CrmSprint10P27ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionPlan.
