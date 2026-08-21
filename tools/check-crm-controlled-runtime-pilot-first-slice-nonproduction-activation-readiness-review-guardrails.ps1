@@ -1,0 +1,83 @@
+$ErrorActionPreference = "Stop"
+$root = Split-Path -Parent $PSScriptRoot
+$paths = @(
+    "docs/roadmap/crm-sprint-10-p32-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review.md",
+    "docs/roadmap/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-go-no-go.md",
+    "docs/roadmap/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-risk-register.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-consolidated-evidence.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-technical-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-security-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-architecture-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-devops-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-qa-uat-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-monitoring-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-rollback-readiness.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-portal-first-boundaries.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-common-db-boundaries.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-p33-conditions.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-runbook.md",
+    "docs/security/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-security-decision.md",
+    "tools/check-crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review-guardrails.ps1",
+    "tools/verify-crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review.ps1",
+    "tools/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-readiness-review.ps1",
+    "codex/TASKS.md"
+)
+foreach ($path in $paths) { if (-not (Test-Path (Join-Path $root $path))) { throw "Missing expected P32 file: $path" } }
+$joined = ($paths | ForEach-Object { Get-Content (Join-Path $root $_) -Raw }) -join "`n"
+$p32Only = ($paths | Where-Object { $_ -ne "codex/TASKS.md" } | ForEach-Object { Get-Content (Join-Path $root $_) -Raw }) -join "`n"
+foreach ($marker in @(
+    "CrmSprint10P32ControlledRuntimePilotFirstSliceNonProductionActivationReadinessReviewExists: true",
+    "CrmSprint10P31DryRunControlledExecutionValidationReviewed: true",
+    "PortalSprint21ContractAlignmentReviewed: true",
+    "ProductizationStatus: PreparationOnly",
+    "ProductionActivationDecision: NoGo",
+    "CrmProductionReady: false",
+    "FirstSliceNonProductionActivationReadinessReviewConsolidatedEvidencePrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewTechnicalPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewSecurityPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewArchitecturePrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewDevOpsPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewQaUatPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewMonitoringPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewRollbackPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewPortalFirstBoundariesPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewCommonDbBoundariesPrepared: true",
+    "FirstSliceNonProductionActivationReadinessReviewP33ConditionsPrepared: true",
+    "NonProductionActivationReadinessReviewOnly: true",
+    "NonProductionActivationReadinessReviewed: true",
+    "NonProductionActivationReadinessPrepared: true",
+    "NonProductionActivationReadinessApprovedForExecution: false",
+    "DryRunControlledExecutionValidated: true",
+    "DryRunExecuted: true",
+    "DryRunExternalCallExecuted: false",
+    "DryRunPortalCallExecuted: false",
+    "DryRunActivationExecuted: false",
+    "DryRunExecutionApprovalExecuted: false",
+    "ExplicitApprovalExecuted: false",
+    "NonProductionActivationControlledImplementationExecuted: false",
+    "ConditionalGoFutureExecuted: false",
+    "ConditionalFutureGoExecuted: false",
+    "RuntimePortalCouplingEnabled: false",
+    "RuntimePortalCallsEnabled: false",
+    "ProductivePortalNavigationEnabled: false",
+    "ProductivePortalGatewayRoutesEnabled: false",
+    "PortalServicesInCrmCompose: false",
+    "CommonDbRuntimeEnabled: false",
+    "PortalAuthDuplicated: false",
+    "PortalMenuDuplicated: false",
+    "PortalPermissionsDuplicated: false",
+    "PortalAuditDuplicated: false",
+    "PortalNotificationDuplicated: false",
+    "PortalConfigurationDuplicated: false",
+    "SecretsPresent: false",
+    "EnvRealFileCommitted: false",
+    "PrivateUrlsPresent: false",
+    "RealDataPresent: false",
+    "ControlledRuntimePilotFirstSliceNonProductionActivationReadinessReviewReadiness: NonProductionReadinessReviewedNoGoNow",
+    "NextGate: CrmSprint10P33ControlledRuntimePilotFirstSliceNonProductionActivationExecutionApprovalGate"
+)) { if ($joined -notlike "*$marker*") { throw "Missing required P32 marker: $marker" } }
+foreach ($pattern in @(("client" + "_secret="), ("BEGIN " + "CERTIFICATE"), ("PRIVATE " + "KEY"), ("local" + "Storage"), ("session" + "Storage"), ("http" + "://"), ("https" + "://"), ("Http" + "Client"), ("Use" + "SqlServer"), ("Password" + "="), ("User " + "ID="))) { if ($p32Only -like "*$pattern*") { throw "Forbidden P32 content detected: $pattern" } }
+$compose = Get-Content (Join-Path $root "docker-compose.yml") -Raw
+if ($compose -match "mcr\.microsoft\.com/mssql|1433:1433|PortalCorporativo|portal.*image:|portal.*build:") { throw "CRM compose appears to define SQL Server or Portal services." }
+Write-Host "PASS CRM P32 NonProduction activation readiness review guardrails passed."

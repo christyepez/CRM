@@ -1,0 +1,85 @@
+# P32 Risk Register
+
+Purpose: residual risk tracking before P33
+
+P31 Pull Request: #102.
+P31 Merge Commit: dc5bf2d43fc29b14d89b8f2dd5bf9c514ff4bcb0.
+P32 Base Main Commit: dc5bf2d43fc29b14d89b8f2dd5bf9c514ff4bcb0.
+
+Decision: P32 is a readiness review only. It consolidates P14-P31 evidence and prepares strict P33 conditions, but it does not approve execution, activate integration, call Portal, call external systems, enable Common DB runtime, enable runtime coupling, change productive flags to true or mark CRM production-ready.
+
+Readiness summary: prepared and reviewed for future gate discussion, current decision remains NoGo.
+
+Markers:
+CrmSprint10P32ControlledRuntimePilotFirstSliceNonProductionActivationReadinessReviewExists: true
+CrmSprint10P31DryRunControlledExecutionValidationReviewed: true
+PortalSprint21ContractAlignmentReviewed: true
+ProductizationStatus: PreparationOnly
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+FirstSliceNonProductionActivationReadinessReviewAttempted: true
+FirstSliceNonProductionActivationReadinessReviewPrepared: true
+FirstSliceNonProductionActivationReadinessReviewConsolidatedEvidencePrepared: true
+FirstSliceNonProductionActivationReadinessReviewTechnicalPrepared: true
+FirstSliceNonProductionActivationReadinessReviewSecurityPrepared: true
+FirstSliceNonProductionActivationReadinessReviewArchitecturePrepared: true
+FirstSliceNonProductionActivationReadinessReviewDevOpsPrepared: true
+FirstSliceNonProductionActivationReadinessReviewQaUatPrepared: true
+FirstSliceNonProductionActivationReadinessReviewMonitoringPrepared: true
+FirstSliceNonProductionActivationReadinessReviewRollbackPrepared: true
+FirstSliceNonProductionActivationReadinessReviewPortalFirstBoundariesPrepared: true
+FirstSliceNonProductionActivationReadinessReviewCommonDbBoundariesPrepared: true
+FirstSliceNonProductionActivationReadinessReviewP33ConditionsPrepared: true
+FirstSliceNonProductionActivationReadinessReviewRunbookPrepared: true
+FirstSliceNonProductionActivationReadinessReviewSecurityDecisionPrepared: true
+NonProductionActivationReadinessReviewOnly: true
+NonProductionActivationReadinessReviewed: true
+NonProductionActivationReadinessPrepared: true
+NonProductionActivationReadinessApprovedForExecution: false
+NonProductionActivationDryRunControlledExecutionValidationOnly: true
+DryRunControlledExecutionValidated: true
+DryRunControlledExecutionExecuted: true
+DryRunExecuted: true
+DryRunExternalCallExecuted: false
+DryRunPortalCallExecuted: false
+DryRunActivationExecuted: false
+DryRunExecutionApprovalPrepared: true
+DryRunExecutionApprovalExecuted: false
+ExplicitApprovalPrepared: true
+ExplicitApprovalExecuted: false
+NonProductionActivationControlledImplementationValidatedDisabledOnly: true
+NonProductionActivationControlledImplementationExecuted: false
+ConditionalGoFutureDefined: true
+ConditionalGoFutureExecuted: false
+NonProductionActivationExecuted: false
+ConditionalFutureGoDefined: true
+ConditionalFutureGoExecuted: false
+RuntimePortalCouplingEnabled: false
+RuntimePortalCallsEnabled: false
+ProductivePortalNavigationEnabled: false
+ProductivePortalGatewayRoutesEnabled: false
+RealPortalPrivateUrlsPresent: false
+PortalServicesInCrmCompose: false
+CommonDbRuntimeEnabled: false
+RealCommonDbConnectionConfigured: false
+SharedPortalTablesAccessEnabled: false
+CrossDomainMigrationsPresent: false
+PortalDatabaseDirectAccessEnabled: false
+PortalAuthDuplicated: false
+PortalMenuDuplicated: false
+PortalPermissionsDuplicated: false
+PortalAuditDuplicated: false
+PortalNotificationDuplicated: false
+PortalConfigurationDuplicated: false
+SsoOidcProductionConfigured: false
+RealSecretProviderConfigured: false
+RealNotificationProviderConfigured: false
+RealObservabilityProviderConfigured: false
+BrowserTokenStorageDetected: false
+SecretsPresent: false
+EnvRealFileCommitted: false
+PrivateUrlsPresent: false
+RealDataPresent: false
+ControlledRuntimePilotFirstSliceNonProductionActivationReadinessReviewReadiness: NonProductionReadinessReviewedNoGoNow
+NextGate: CrmSprint10P33ControlledRuntimePilotFirstSliceNonProductionActivationExecutionApprovalGate
+Result: NonProduction readiness reviewed, execution approval remains false, production remains NoGo.
