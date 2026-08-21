@@ -1,0 +1,22 @@
+# P40 Controlled Execution Decision
+
+P40ControlledExecutionOnly: true
+P40ExecutionDecision: Successful
+FinalResult: Successful
+SuccessfulWithWarnings: false
+Aborted: false
+RolledBack: false
+Failed: false
+ApprovalDriftDetected: false
+CriticalBlockers: 0
+AbortCriteriaTriggered: false
+RollbackTriggered: false
+NonProductionActivationControlledExecutionExecuted: true
+NonProductionActivationExecuted: true
+RuntimePortalCallsEnabled: false
+CommonDbRuntimeEnabled: false
+DataChangesExecuted: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+NextGate: CrmSprint10P41ControlledRuntimePilotFirstSliceNonProductionPostExecutionValidationAndStabilization
