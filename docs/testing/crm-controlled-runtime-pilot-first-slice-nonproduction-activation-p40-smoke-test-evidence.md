@@ -1,0 +1,23 @@
+# P40 Smoke Test Evidence
+
+CrmHealth: passed
+CrmLive: passed
+CrmReady: passed
+CrmReadiness: passed
+Sprint10ProductizationReadinessEndpoint: passed
+Sprint9GateDecisionEndpoint: passed
+PortalIntegrationStatusEndpoint: passed
+CommonDbRuntimeConnectivityTrialStatusEndpoint: passed
+PortalAuthRuntimeValidationTrialStatusEndpoint: passed
+ProductiveLeadRouteNegativeCheck: 404
+ProductiveAccountRouteNegativeCheck: 404
+ProductiveContactRouteNegativeCheck: 404
+ProductiveRouteDryRunProbeLockedCheck: 423
+AuthenticationRuntimeActivated: false
+AuthorizationRuntimeActivated: false
+PrimaryCrmEndpointValidated: true
+PortalDependencyValidatedAsDisabled: true
+CommonDbDependencyValidatedAsDisabled: true
+ConfigurationResolutionValidated: true
+TimeoutOrErrorBehaviorUnexpected: false
+SmokeTestsPassed: true
