@@ -2992,3 +2992,43 @@ PortalNavigationActivated: false
 PortalServicesInCompose: false
 CommonDbRuntimeEnabled: false
 NextGate: CrmSprint10P44ExplicitProductionActivationApprovalGate
+
+## CRM Sprint 10 P44 - Explicit Production Activation Approval Gate
+
+- P43 Pull Request: #116.
+- P43 Merge Commit: 46415e26b6ce4877694be74898108fcbc87bf606.
+- P44 Base Main Commit: 46415e26b6ce4877694be74898108fcbc87bf606.
+- Branch: crm-sprint-10-p44-explicit-production-activation-approval-gate.
+
+CrmSprint10P44ExplicitProductionActivationApprovalGateExists: true
+P44ProductionApprovalGateOnly: true
+Environment: Production
+ProductionReadinessRemediationDecision: ReadyForApprovalGate
+NonProductionActivationExecuted: true
+NonProductionRuntimeStable: true
+ProductionApprovalDriftDetected: false
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+TechnicalProductionApprovalPassed: true
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+HumanProductionApproverReference: NotRecorded
+HumanProductionApprovalDecision: NotRecorded
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+RuntimePortalCallsEnabled: false
+RuntimeCouplingEnabled: false
+PortalRoutesActivated: false
+PortalNavigationActivated: false
+PortalServicesInCompose: false
+CommonDbRuntimeEnabled: false
+NextGate: HumanApprovalRequiredBeforeCrmSprint10P45ControlledProductionActivationExecution
