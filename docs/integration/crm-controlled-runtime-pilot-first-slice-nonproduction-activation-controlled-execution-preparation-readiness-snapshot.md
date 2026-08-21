@@ -1,0 +1,6 @@
+# P37 Readiness Snapshot
+
+Readiness is prepared but not approved for execution.
+
+FirstSliceNonProductionActivationControlledExecutionPreparationReadinessSnapshotPrepared: true
+NonProductionActivationReadinessApprovedForExecution: false
