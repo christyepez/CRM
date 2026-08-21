@@ -1719,3 +1719,67 @@ Status: Implemented in branch `crm-sprint-10-p26-controlled-runtime-pilot-first-
 - RealDataPresent: false.
 - ControlledRuntimePilotFirstSliceNonProductionActivationExplicitApprovalReadiness: ExplicitApprovalPreparedNoGoNow.
 - NextGate: CrmSprint10P27ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionPlan.
+
+## CRM Sprint 10 P27 - Controlled Runtime Pilot First Slice NonProduction Activation Dry Run Execution Plan
+
+Status: Implemented in branch `crm-sprint-10-p27-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run-execution-plan`.
+
+- Base Main Commit: e78b858fea8e1e303de340a87032b51202f2af26.
+- P26 Pull Request: #97.
+- P26 Merge Commit: e78b858fea8e1e303de340a87032b51202f2af26.
+- Expected branch: crm-sprint-10-p27-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run-execution-plan.
+- Expected PR title: docs: add crm sprint 10 p27 controlled runtime pilot first slice nonproduction activation dry run execution plan.
+- Scope: dry-run execution plan documentation and tooling only; no dry-run execution, no activation, no Portal calls and no feature flags changed to true.
+- CrmSprint10P27ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionPlanExists: true.
+- CrmSprint10P26ExplicitApprovalReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationDryRunExecutionPlanAttempted: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanPreChecklistPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanExecutionChecklistPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanPostChecklistPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanEvidenceMatrixPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanCommandMatrixPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanFoundationStatusValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanDryRunValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanObservabilityValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanRollbackPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanP28ConditionsPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanRunbookPrepared: true.
+- FirstSliceNonProductionActivationDryRunExecutionPlanSecurityDecisionPrepared: true.
+- NonProductionActivationDryRunExecutionPlanOnly: true.
+- DryRunExecutionPlanPrepared: true.
+- DryRunExecuted: false.
+- ExplicitApprovalPrepared: true.
+- ExplicitApprovalExecuted: false.
+- NonProductionActivationControlledImplementationValidatedDisabledOnly: true.
+- NonProductionActivationControlledImplementationExecuted: false.
+- ConditionalGoFutureDefined: true.
+- ConditionalGoFutureExecuted: false.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- RealPortalPrivateUrlsPresent: false.
+- RealCommonDbConnectionConfigured: false.
+- SharedPortalTablesAccessEnabled: false.
+- CrossDomainMigrationsPresent: false.
+- PortalDatabaseDirectAccessEnabled: false.
+- SsoOidcProductionConfigured: false.
+- RealSecretProviderConfigured: false.
+- RealNotificationProviderConfigured: false.
+- RealObservabilityProviderConfigured: false.
+- BrowserTokenStorageDetected: false.
+- SecretsPresent: false.
+- EnvRealFileCommitted: false.
+- PrivateUrlsPresent: false.
+- RealDataPresent: false.
+- ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionPlanReadiness: DryRunExecutionPlanPreparedNoGoNow.
+- NextGate: CrmSprint10P28ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionValidation.
