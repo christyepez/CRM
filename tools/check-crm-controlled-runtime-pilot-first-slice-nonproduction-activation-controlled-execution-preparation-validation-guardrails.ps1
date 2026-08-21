@@ -1,0 +1,97 @@
+$ErrorActionPreference = "Stop"
+$root = Split-Path -Parent $PSScriptRoot
+$paths = @(
+    "docs/roadmap/crm-sprint-10-p38-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-execution-preparation-validation.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-execution-preparation-validation-matrix.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-preconditions-validation.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-command-validation-matrix.md",
+    "docs/security/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-safe-by-default-validation.md",
+    "docs/security/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-approval-boundary-validation.md",
+    "docs/architecture/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-architecture-validation.md",
+    "docs/integration/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-portal-first-boundary-validation.md",
+    "docs/data/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-common-db-boundary-validation.md",
+    "docs/security/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-security-validation.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-devops-validation.md",
+    "docs/testing/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-qa-uat-validation.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-monitoring-validation.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-abort-criteria.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-rollback-validation.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-evidence-model.md",
+    "docs/roadmap/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-p38-risk-register.md",
+    "docs/roadmap/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-p38-validation-decision.md",
+    "docs/roadmap/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-p39-entry-conditions.md",
+    "docs/operations/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-p38-runbook.md",
+    "docs/security/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-p38-security-decision.md",
+    "tools/check-crm-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-execution-preparation-validation-guardrails.ps1",
+    "tools/verify-crm-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-execution-preparation-validation.ps1",
+    "tools/crm-controlled-runtime-pilot-first-slice-nonproduction-activation-controlled-execution-preparation-validation.ps1",
+    "codex/TASKS.md"
+)
+foreach ($path in $paths) { if (-not (Test-Path (Join-Path $root $path))) { throw "Missing expected P38 file: $path" } }
+$joined = ($paths | ForEach-Object { Get-Content (Join-Path $root $_) -Raw }) -join "`n"
+$p38Only = ($paths | Where-Object { $_ -like "docs/*" } | ForEach-Object { Get-Content (Join-Path $root $_) -Raw }) -join "`n"
+foreach ($marker in @(
+    "CrmSprint10P38ControlledRuntimePilotFirstSliceNonProductionActivationControlledExecutionPreparationValidationExists: true",
+    "PreparationValidation: completed",
+    "ValidationDecision: Validated",
+    "ProductionActivationDecision: NoGo",
+    "CrmProductionReady: false",
+    "NonProductionActivationControlledExecutionPreparationValidationOnly: true",
+    "NonProductionActivationControlledExecutionPreparationValidated: true",
+    "NonProductionActivationControlledExecutionPrepared: true",
+    "NonProductionActivationControlledExecutionExecuted: false",
+    "NonProductionActivationFinalGoNoGoDecision: NoGo",
+    "NonProductionActivationFinalGoApproved: false",
+    "NonProductionActivationExecutionPlanExecuted: false",
+    "NonProductionActivationExecutionApprovalExecuted: false",
+    "NonProductionActivationReadinessApprovedForExecution: false",
+    "DryRunControlledExecutionValidated: true",
+    "DryRunExecuted: true",
+    "DryRunExternalCallExecuted: false",
+    "DryRunPortalCallExecuted: false",
+    "DryRunActivationExecuted: false",
+    "ExplicitApprovalExecuted: false",
+    "NonProductionActivationControlledImplementationExecuted: false",
+    "NonProductionActivationExecuted: false",
+    "ConditionalFutureGoExecuted: false",
+    "RuntimePortalCallsEnabled: false",
+    "RuntimeCouplingEnabled: false",
+    "PortalRoutesActivated: false",
+    "PortalNavigationActivated: false",
+    "PortalServicesInCompose: false",
+    "CommonDbRuntimeEnabled: false",
+    "PortalDuplicationDetected: false",
+    "SafeByDefaultValidationPassed: true",
+    "ApprovalBoundaryValidationPassed: true",
+    "SecurityValidationPassed: true",
+    "ArchitectureValidationPassed: true",
+    "DevOpsValidationPassed: true",
+    "QaUatValidationPassed: true",
+    "MonitoringValidationPassed: true",
+    "AbortCriteriaPrepared: true",
+    "RollbackValidationPassed: true",
+    "EvidenceModelValidated: true",
+    "RiskRegisterUpdated: true",
+    "P39EntryConditionsPrepared: true",
+    "SecretsPresent: false",
+    "EnvRealFileCommitted: false",
+    "PrivateUrlsPresent: false",
+    "RealDataPresent: false",
+    "NextGate: CrmSprint10P39ControlledRuntimePilotFirstSliceNonProductionActivationExplicitExecutionApprovalGate"
+)) { if ($joined -notlike "*$marker*") { throw "Missing required P38 marker: $marker" } }
+foreach ($bad in @(
+    "NonProductionActivationExecuted: true",
+    "ExplicitApprovalExecuted: true",
+    "RuntimePortalCallsEnabled: true",
+    "RuntimeCouplingEnabled: true",
+    "PortalRoutesActivated: true",
+    "PortalNavigationActivated: true",
+    "PortalServicesInCompose: true",
+    "CommonDbRuntimeEnabled: true",
+    "CrmProductionReady: true",
+    "ProductionActivationDecision: Go"
+)) { if ($p38Only -like "*$bad*") { throw "Forbidden P38 activation marker detected: $bad" } }
+foreach ($pattern in @(("client" + "_secret="), ("BEGIN " + "CERTIFICATE"), ("PRIVATE " + "KEY"), ("local" + "Storage"), ("session" + "Storage"), ("http" + "://"), ("https" + "://"), ("Http" + "Client"), ("Use" + "SqlServer"), ("Password" + "="), ("User " + "ID="), ("Authorization" + ":"))) { if ($p38Only -like "*$pattern*") { throw "Forbidden P38 content detected: $pattern" } }
+$compose = Get-Content (Join-Path $root "docker-compose.yml") -Raw
+if ($compose -match "mcr\.microsoft\.com/mssql|1433:1433|PortalCorporativo|portal.*image:|portal.*build:") { throw "CRM compose appears to define SQL Server or Portal services." }
+Write-Host "PASS CRM P38 controlled execution preparation validation guardrails passed."
