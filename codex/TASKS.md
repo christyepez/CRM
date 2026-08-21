@@ -2723,3 +2723,58 @@ EnvRealFileCommitted: false
 PrivateUrlsPresent: false
 RealDataPresent: false
 NextGate: CrmSprint10P39HumanApprovalRecordOrReApprovalGate
+
+## CRM Sprint 10 P39A - Controlled Runtime Pilot First Slice NonProduction Activation Human Approval Re-Approval Gate
+
+- P39 Pull Request: #110.
+- P39 Merge Commit: 6f332a824cacc8cac78a9876fc6ed0dc6dd23ce6.
+- P39A Base Main Commit: 6f332a824cacc8cac78a9876fc6ed0dc6dd23ce6.
+- Branch: crm-sprint-10-p39a-controlled-runtime-pilot-first-slice-nonproduction-activation-human-approval-reapproval-gate.
+
+P39AHumanApprovalReApprovalGateOnly: true
+P39HistoricalStatePreserved: true
+P39TechnicalApprovalReviewed: true
+TechnicalApprovalPassed: true
+HumanApprovalRequired: true
+HumanApprovalRecorded: false
+HumanApproverReference: not-recorded
+HumanApprovalDecision: NoGo
+HumanApprovalScope: NonProduction-P40-Controlled-Activation-only
+HumanApprovalEnvironment: NonProduction
+HumanApprovalTargetCommit: 6f332a824cacc8cac78a9876fc6ed0dc6dd23ce6
+HumanApprovalTimestamp: not-recorded
+HumanApprovalReason: Human approval evidence was not supplied to Codex.
+ApprovalDriftDetected: false
+CriticalBlockers: HumanApprovalMissing
+ExplicitApprovalExecuted: false
+NonProductionActivationExecutionApprovalExecuted: false
+NonProductionActivationReadinessApprovedForExecution: false
+NonProductionActivationFinalGoApproved: false
+NonProductionActivationFinalGoNoGoDecision: NoGo
+NonProductionExecutionDecision: NoGo
+NonProductionActivationControlledExecutionExecuted: false
+NonProductionActivationExecuted: false
+DryRunActivationExecuted: false
+RuntimePortalCallsEnabled: false
+RuntimeCouplingEnabled: false
+CommonDbRuntimeEnabled: false
+PortalRoutesActivated: false
+PortalNavigationActivated: false
+PortalServicesInCompose: false
+PortalDuplicationDetected: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionExecutionApproved: false
+SecurityApprovalPassed: true
+ArchitectureApprovalPassed: true
+DevOpsValidationPassed: true
+QaValidationPassed: true
+MonitoringValidationPassed: true
+RollbackValidationPassed: true
+P40EntryConditionsPrepared: true
+P40Authorized: false
+SecretsPresent: false
+EnvRealFileCommitted: false
+PrivateUrlsPresent: false
+RealDataPresent: false
+NextGate: CrmSprint10P39AHumanApprovalRecordOrNoGoClosure
