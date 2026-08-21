@@ -2736,22 +2736,22 @@ P39HistoricalStatePreserved: true
 P39TechnicalApprovalReviewed: true
 TechnicalApprovalPassed: true
 HumanApprovalRequired: true
-HumanApprovalRecorded: false
-HumanApproverReference: not-recorded
-HumanApprovalDecision: NoGo
+HumanApprovalRecorded: true
+HumanApproverReference: explicit-user-chat-approval-2026-08-21
+HumanApprovalDecision: Go
 HumanApprovalScope: NonProduction-P40-Controlled-Activation-only
 HumanApprovalEnvironment: NonProduction
 HumanApprovalTargetCommit: 6f332a824cacc8cac78a9876fc6ed0dc6dd23ce6
-HumanApprovalTimestamp: not-recorded
-HumanApprovalReason: Human approval evidence was not supplied to Codex.
+HumanApprovalTimestamp: 2026-08-21
+HumanApprovalReason: Explicit human approval supplied for P40 controlled execution in NonProduction only. Production and scope expansion remain unauthorized.
 ApprovalDriftDetected: false
-CriticalBlockers: HumanApprovalMissing
-ExplicitApprovalExecuted: false
-NonProductionActivationExecutionApprovalExecuted: false
-NonProductionActivationReadinessApprovedForExecution: false
-NonProductionActivationFinalGoApproved: false
-NonProductionActivationFinalGoNoGoDecision: NoGo
-NonProductionExecutionDecision: NoGo
+CriticalBlockers: 0
+ExplicitApprovalExecuted: true
+NonProductionActivationExecutionApprovalExecuted: true
+NonProductionActivationReadinessApprovedForExecution: true
+NonProductionActivationFinalGoApproved: true
+NonProductionActivationFinalGoNoGoDecision: Go
+NonProductionExecutionDecision: Go
 NonProductionActivationControlledExecutionExecuted: false
 NonProductionActivationExecuted: false
 DryRunActivationExecuted: false
@@ -2772,9 +2772,9 @@ QaValidationPassed: true
 MonitoringValidationPassed: true
 RollbackValidationPassed: true
 P40EntryConditionsPrepared: true
-P40Authorized: false
+P40Authorized: true
 SecretsPresent: false
 EnvRealFileCommitted: false
 PrivateUrlsPresent: false
 RealDataPresent: false
-NextGate: CrmSprint10P39AHumanApprovalRecordOrNoGoClosure
+NextGate: CrmSprint10P40ControlledRuntimePilotFirstSliceNonProductionActivationControlledExecution
