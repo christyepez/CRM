@@ -1,0 +1,6 @@
+# P37 Conditions for P38
+
+P38 must validate this preparation package before any future controlled execution. P38 must keep NoGo unless explicit approval evidence is separately provided.
+
+FirstSliceNonProductionActivationControlledExecutionPreparationP38ConditionsPrepared: true
+NextGate: CrmSprint10P38ControlledRuntimePilotFirstSliceNonProductionActivationControlledExecutionPreparationValidation
