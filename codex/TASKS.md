@@ -1916,3 +1916,76 @@ Status: Implemented in branch `crm-sprint-10-p29-controlled-runtime-pilot-first-
 - RealDataPresent: false.
 - ControlledRuntimePilotFirstSliceNonProductionActivationDryRunExecutionApprovalReadiness: DryRunExecutionApprovalPreparedNoGoNow.
 - NextGate: CrmSprint10P30ControlledRuntimePilotFirstSliceNonProductionActivationDryRunControlledExecution.
+
+## CRM Sprint 10 P30 - Controlled Runtime Pilot First Slice NonProduction Activation Dry Run Controlled Execution
+
+Status: Implemented in branch `crm-sprint-10-p30-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run-controlled-execution`.
+
+- Base Main Commit: c03f00f416f2517667097365923a502c3ecdd20e.
+- P29 Pull Request: #100.
+- P29 Merge Commit: c03f00f416f2517667097365923a502c3ecdd20e.
+- Expected branch: crm-sprint-10-p30-controlled-runtime-pilot-first-slice-nonproduction-activation-dry-run-controlled-execution.
+- Expected PR title: docs: add crm sprint 10 p30 controlled runtime pilot first slice nonproduction activation dry run controlled execution.
+- Scope: local/no-op/fail-closed dry-run evidence only; no external call, no Portal call, no real activation, no runtime coupling and no production readiness.
+- CrmSprint10P30ControlledRuntimePilotFirstSliceNonProductionActivationDryRunControlledExecutionExists: true.
+- CrmSprint10P29DryRunExecutionApprovalReviewed: true.
+- PortalSprint21ContractAlignmentReviewed: true.
+- ProductizationStatus: PreparationOnly.
+- ProductionActivationDecision: NoGo.
+- CrmProductionReady: false.
+- FirstSliceNonProductionActivationDryRunControlledExecutionAttempted: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionReportPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionEvidenceMatrixPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionOutputValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionPostChecklistPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionNoExternalCallValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionNoPortalCallValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionNoActivationValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionFeatureFlagsValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionComposeValidationPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionRollbackPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionP31ConditionsPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionRunbookPrepared: true.
+- FirstSliceNonProductionActivationDryRunControlledExecutionSecurityDecisionPrepared: true.
+- NonProductionActivationDryRunControlledExecutionOnly: true.
+- DryRunControlledExecutionPrepared: true.
+- DryRunControlledExecutionExecuted: true.
+- DryRunExecuted: true.
+- DryRunExternalCallExecuted: false.
+- DryRunPortalCallExecuted: false.
+- DryRunActivationExecuted: false.
+- DryRunExecutionApprovalPrepared: true.
+- DryRunExecutionApprovalExecuted: false.
+- NonProductionActivationDryRunExecutionValidationOnly: true.
+- DryRunExecutionPlanValidated: true.
+- ExplicitApprovalPrepared: true.
+- ExplicitApprovalExecuted: false.
+- NonProductionActivationControlledImplementationValidatedDisabledOnly: true.
+- NonProductionActivationControlledImplementationExecuted: false.
+- ConditionalGoFutureDefined: true.
+- ConditionalGoFutureExecuted: false.
+- NonProductionActivationExecuted: false.
+- ConditionalFutureGoDefined: true.
+- ConditionalFutureGoExecuted: false.
+- Runtime Portal calls and coupling: disabled.
+- Productive Portal navigation and Gateway routes: disabled.
+- Portal services in CRM compose: absent.
+- Common DB runtime and direct Portal database access: disabled.
+- Portal duplication: Auth/Menu/Permissions/Audit/Notification/Configuration remain not duplicated.
+- RealPortalPrivateUrlsPresent: false.
+- RealCommonDbConnectionConfigured: false.
+- SharedPortalTablesAccessEnabled: false.
+- CrossDomainMigrationsPresent: false.
+- PortalDatabaseDirectAccessEnabled: false.
+- SsoOidcProductionConfigured: false.
+- RealSecretProviderConfigured: false.
+- RealNotificationProviderConfigured: false.
+- RealObservabilityProviderConfigured: false.
+- BrowserTokenStorageDetected: false.
+- SecretsPresent: false.
+- EnvRealFileCommitted: false.
+- PrivateUrlsPresent: false.
+- RealDataPresent: false.
+- ControlledRuntimePilotFirstSliceNonProductionActivationDryRunControlledExecutionReadiness: DryRunControlledExecutionCompletedLocalNoOpNoGoNow.
+- NextGate: CrmSprint10P31ControlledRuntimePilotFirstSliceNonProductionActivationDryRunControlledExecutionValidation.
