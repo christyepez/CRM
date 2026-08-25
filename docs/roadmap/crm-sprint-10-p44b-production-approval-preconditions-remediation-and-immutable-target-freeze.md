@@ -1,0 +1,38 @@
+# CRM Sprint 10 P44B - Production Approval Preconditions Remediation and Immutable Target Freeze
+
+P44APullRequest: #118
+P44AMergeCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+P44BBaseMainCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+
+CrmSprint10P44BProductionApprovalPreconditionsRemediationAndImmutableTargetFreezeExists: true
+P44BPreconditionsRemediationOnly: true
+
+P44HistoricalStatePreserved: true
+P44AHistoricalStatePreserved: true
+P44HistoricalApprovalDecision: NoGo
+P44AHistoricalApprovalDecision: NoGo
+
+NonProductionRuntimeBefore: NotRunning
+NonProductionRuntimeAfter: Running
+NonProductionRuntimeStable: true
+
+ProductionTargetImageDecision: ImmutableLocallyOnly
+ProductionArtifactPublished: false
+RegistryDigestAvailable: false
+
+P44BTechnicalPreconditionsDecision: ReadyForFinalHumanApprovalWithConditions
+P44CReady: false
+
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+
+NextGate: PublishOrApproveLocalOnlyArtifactBeforeCrmSprint10P44CFinalHumanProductionApprovalGate

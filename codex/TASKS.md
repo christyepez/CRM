@@ -3070,3 +3070,54 @@ ProductionActivated: false
 ProductionExecutionStarted: false
 ProductionDeploymentExecuted: false
 NextGate: HumanApprovalAndNonProductionRuntimeStabilityRequiredBeforeCrmSprint10P45ControlledProductionActivationExecution
+
+## CRM Sprint 10 P44B - Production Approval Preconditions Remediation and Immutable Target Freeze
+
+- P44A Pull Request: #118.
+- P44A Merge Commit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c.
+- P44B Base Main Commit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c.
+- Branch: crm-sprint-10-p44b-production-approval-preconditions-remediation-and-immutable-target-freeze.
+
+CrmSprint10P44BProductionApprovalPreconditionsRemediationAndImmutableTargetFreezeExists: true
+P44BPreconditionsRemediationOnly: true
+P44HistoricalStatePreserved: true
+P44AHistoricalStatePreserved: true
+P44HistoricalApprovalDecision: NoGo
+P44AHistoricalApprovalDecision: NoGo
+NonProductionRuntimeBefore: NotRunning
+NonProductionRuntimeAfter: Running
+NonProductionRuntimeStable: true
+RuntimeCodeChangedSinceP43: false
+RuntimeConfigurationChangedSinceP43: false
+DockerBuildInputsChangedSinceP43: false
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ProductionTargetImageDecision: ImmutableLocallyOnly
+ProductionArtifactPublished: false
+RegistryDigestAvailable: false
+ProductionTargetImage: crm-api:prod-candidate-8623c619
+ProductionTargetImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+ProductionExecutionScope: p45-crm-api-first-slice-no-portal-no-common-db-no-data-writes-v1
+ProductionExecutionScopeHash: p45-crm-api-first-slice-no-portal-no-common-db-no-data-writes-v1
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+ProductionMonitoringReadyForApproval: true
+RollbackReadyForApproval: true
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+P44BTechnicalPreconditionsDecision: ReadyForFinalHumanApprovalWithConditions
+P44CReady: false
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+NextGate: PublishOrApproveLocalOnlyArtifactBeforeCrmSprint10P44CFinalHumanProductionApprovalGate
