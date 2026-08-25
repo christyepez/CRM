@@ -1,0 +1,12 @@
+# CRM Sprint 10 P44E - P45 Immutable Image Gate
+
+P45CandidateImageRebuildAllowed: false
+ExpectedP45ImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ExpectedP45ImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+
+P45MustVerifyActualImageIdBeforeExecution: true
+P45MustStopIfImageIdDiffers: true
+P45MustStopIfImageMissing: true
+P45MustStopIfPacketHashDiffers: true
+
+P45Authorized: false
