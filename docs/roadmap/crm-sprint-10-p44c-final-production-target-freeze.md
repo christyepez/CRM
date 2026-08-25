@@ -1,0 +1,25 @@
+# CRM Sprint 10 P44C - Final Production Target Freeze
+
+RuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ApprovalGovernanceCommit: PendingP44CMergeCommit
+TargetRelease: CRM Sprint 10 Production Candidate First Slice
+ImageTag: crm-api:prod-candidate-8623c619
+ImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ArtifactLocation: LocalDockerHostOnly
+ExecutionScope: CRM API first slice only
+ScopeHash: P44BProductionScopeFreezeV2
+DeploymentStrategy: P45ControlledProductionExecutionOnlyAfterValidP44CGo
+ConfigurationManifestVersion: P44B
+RunbookVersion: P44B
+RollbackVersion: P44BLocalOnlyCondition
+MonitoringPlanVersion: P44B
+TestPlanVersion: P44CNoGoValidation
+
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+ProductionTargetImageDecision: ImmutableLocallyOnly
+ProductionArtifactPublished: false
+
+NoRebuildAfterApproval: true
+P45MustAbortIfImageIdDiffers: true
