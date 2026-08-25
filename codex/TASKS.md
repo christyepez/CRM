@@ -3032,3 +3032,41 @@ PortalNavigationActivated: false
 PortalServicesInCompose: false
 CommonDbRuntimeEnabled: false
 NextGate: HumanApprovalRequiredBeforeCrmSprint10P45ControlledProductionActivationExecution
+
+## CRM Sprint 10 P44A - Human Production Approval Re-Approval Gate
+
+- P44 Pull Request: #117.
+- P44 Merge Commit: 3e905c1e586f0954f56f3bf2dd7aa4f2c01d029a.
+- P44A Base Main Commit: 3e905c1e586f0954f56f3bf2dd7aa4f2c01d029a.
+- Branch: crm-sprint-10-p44a-human-production-approval-reapproval-gate.
+
+CrmSprint10P44AHumanProductionApprovalReApprovalGateExists: true
+P44AHumanProductionApprovalGateOnly: true
+P44HistoricalStatePreserved: true
+P44HistoricalApprovalDecision: NoGo
+TechnicalProductionApprovalPassed: true
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+HumanProductionApproverReference: NotRecorded
+HumanProductionApprovalDecision: NotRecorded
+HumanProductionApprovalTimestamp: NotRecorded
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+ProductionApprovalDriftDetected: false
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+NonProductionActivationExecuted: true
+NonProductionRuntimeStable: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+NextGate: HumanApprovalAndNonProductionRuntimeStabilityRequiredBeforeCrmSprint10P45ControlledProductionActivationExecution
