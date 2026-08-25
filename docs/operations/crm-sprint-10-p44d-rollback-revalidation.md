@@ -1,0 +1,15 @@
+# CRM Sprint 10 P44D - Rollback Revalidation
+
+RollbackMechanismAvailable: true
+RollbackTargetIdentified: true
+RollbackTargetImmutable: true
+RollbackArtifactPresent: true
+RollbackArtifactPublished: false
+
+RollbackImageTag: crm-api:prod-candidate-8623c619
+RollbackImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+RollbackImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+RollbackArtifactLocation: LocalDockerHostOnly
+
+LocalOnlyRollbackAccepted: false
+RollbackExecutionPerformed: false

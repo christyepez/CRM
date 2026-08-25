@@ -3170,3 +3170,63 @@ ProductionExecutionStarted: false
 ProductionDeploymentExecuted: false
 P45Blocked: true
 NextGate: ReRestoreNonProductionAndRepeatP44COrProvideValidExplicitApprovalAfterStability
+## CRM Sprint 10 P44D - NonProduction Stability Remediation and Final Approval Revalidation Preparation
+
+CrmSprint10P44DNonProductionStabilityRemediationExists: true
+P44DRemediationAndRevalidationOnly: true
+P44CPullRequest: #120
+P44CMergeCommit: f3242c910b242f8311b9aa97bfe950aa1efb9dd5
+P44DBaseMainCommit: f3242c910b242f8311b9aa97bfe950aa1efb9dd5
+P44HistoricalDecision: NoGo
+P44AHistoricalDecision: NoGo
+P44BHistoricalDecision: ReadyForFinalHumanApprovalWithConditions
+P44CHistoricalDecision: NoGo
+HistoricalStatePreserved: true
+NonProductionRuntimeBefore: Exited
+NonProductionExitRootCause: ContainerRuntimeFailure
+CorrectiveAction: Restarted only crm-api in NonProduction
+NonProductionRuntimeAfter: Running
+NonProductionRuntimeStable: true
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+ProductionTargetImageDecision: ImmutableLocallyOnly
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+ProductionApprovalDriftDetected: false
+ApprovalDriftResolved: true
+RollbackMechanismAvailable: true
+RollbackTargetImmutable: true
+RollbackArtifactPresent: true
+SBOMAvailable: false
+OfficialImageScannerAvailable: false
+ProductionMonitoringReady: true
+ProductionExecutionScope: CRM API first slice only
+ProductionExecutionScopeHash: P44BProductionScopeFreezeV2
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+LocalOnlyArtifactAcceptedForP45: false
+LocalOnlyRollbackAccepted: false
+SbomScannerResidualRiskAccepted: false
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+FinalApprovalPacketId: CRM-S10-P44D-PACKET-V2
+FinalApprovalPacketHash: 15c4f02bfb5f09824d6facb41629e262db2d7fa571458c548b4bb882c554ca12
+P44DDecision: ReadyForFinalApprovalRevalidationWithConditions
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+P45Authorized: false
+NextGate: CRM Sprint 10 P44E - Final Human Production Approval Revalidation Gate

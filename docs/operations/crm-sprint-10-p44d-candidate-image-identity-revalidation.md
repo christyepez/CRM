@@ -1,0 +1,13 @@
+# CRM Sprint 10 P44D - Candidate Image Identity Revalidation
+
+CandidateImage: crm-api:prod-candidate-8623c619
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+
+ProductionArtifactPublished: false
+ProductionTargetImageDecision: ImmutableLocallyOnly
+LocalArtifactPresent: true
+LocalArtifactIdentityVerified: true
+LocalArtifactRebuiltDuringP44D: false
