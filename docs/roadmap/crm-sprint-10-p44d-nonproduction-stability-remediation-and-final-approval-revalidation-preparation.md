@@ -1,0 +1,27 @@
+# CRM Sprint 10 P44D - NonProduction Stability Remediation and Final Approval Revalidation Preparation
+
+CrmSprint10P44DNonProductionStabilityRemediationExists: true
+P44DRemediationAndRevalidationOnly: true
+
+P44CPullRequest: #120
+P44CMergeCommit: f3242c910b242f8311b9aa97bfe950aa1efb9dd5
+P44DBaseMainCommit: f3242c910b242f8311b9aa97bfe950aa1efb9dd5
+
+P44HistoricalDecision: NoGo
+P44AHistoricalDecision: NoGo
+P44BHistoricalDecision: ReadyForFinalHumanApprovalWithConditions
+P44CHistoricalDecision: NoGo
+HistoricalStatePreserved: true
+
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionTrafficSwitched: false
+
+P44DDecision: ReadyForFinalApprovalRevalidationWithConditions
+P45Authorized: false
