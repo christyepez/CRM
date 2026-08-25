@@ -1,0 +1,14 @@
+# CRM Sprint 10 P44C - Final Artifact Identity Evidence
+
+ProductionCandidateImage: crm-api:prod-candidate-8623c619
+ProductionCandidateImageTag: prod-candidate-8623c619
+ProductionCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ProductionCandidateImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ProductionArtifactPublished: false
+ProductionTargetImageDecision: ImmutableLocallyOnly
+
+ActualP44CImageIdObserved: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ArtifactIdentityMatchesP44B: true
+
+P45ExpectedImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+P45MustStopIfActualImageIdDiffers: true

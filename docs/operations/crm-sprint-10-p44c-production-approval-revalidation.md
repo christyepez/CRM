@@ -1,0 +1,27 @@
+# CRM Sprint 10 P44C - Production Approval Revalidation
+
+Environment: NonProductionValidationForProductionApproval
+
+NonProductionRuntimeStable: false
+NonProductionContainerStatus: Exited
+NonProductionContainerRestartCount: 0
+NonProductionComposeConfigValid: true
+NonProductionComposePsShowsRunningService: false
+
+HealthValidation: NotExecutedBecauseContainerExited
+ReadinessValidation: NotExecutedBecauseContainerExited
+CriticalLogsFound: false
+SmokeRegression: BlockedByNonProductionContainerExited
+
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ProductionCandidateImage: crm-api:prod-candidate-8623c619
+ProductionCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ProductionCandidateImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+
+CriticalProductionBlockers: 1
+HighBlockingRisks: 0
+BlockingCondition: NonProduction runtime was not stable at P44C revalidation.
+
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
