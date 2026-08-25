@@ -3298,3 +3298,65 @@ ProductionDeploymentExecuted: false
 ProductionTrafficSwitched: false
 P45CandidateImageRebuildAllowed: false
 NextGate: CorrectFinalApprovalPacketHashAndRepeatFinalHumanApprovalGate
+## CRM Sprint 10 P44F - Final Approval Packet Canonicalization and Hash Re-Freeze
+
+CrmSprint10P44FFinalApprovalPacketCanonicalizationExists: true
+P44FIntegrityRemediationOnly: true
+P44EPullRequest: #122
+P44EMergeCommit: 5062814cc33f7ad44bf5c985d866c27323ada009
+P44FBaseMainCommit: 5062814cc33f7ad44bf5c985d866c27323ada009
+P44EHistoricalDecision: NoGo
+HistoricalStatePreserved: true
+Old FinalApprovalPacketId: CRM-S10-P44D-PACKET-V2
+Old Expected FinalApprovalPacketHash: 15c4f02bfb5f09824d6facb41629e262db2d7fa571458c548b4bb882c554ca12
+Old Actual FinalApprovalPacketHash: 0a212d1d11c1a70a2b1019f04dc1607d776c0b2c4f7c67829fac1cdf584fdf44
+HashMismatchRootCause: Markdown packet V2 was non-canonical and sensitive to non-semantic document changes.
+CanonicalizationVersion: crm-approval-packet-canonical-json-v1
+CanonicalPacketSchema: docs/architecture/crm-sprint-10-p44f-canonical-approval-packet-schema.md
+CanonicalPacketPath: docs/roadmap/crm-sprint-10-p44f-final-approval-packet-v3.json
+CanonicalHashTool: tools/approval-packet-hash.ps1
+NewFinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+NewFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashVerificationRun1: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashVerificationRun2: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashVerificationRun3: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+CanonicalPacketHashStable: true
+PropertyOrderTest: pass
+WhitespaceTest: pass
+LineEndingTest: pass
+SemanticChangeTest: pass
+SchemaValidation: pass
+FinalApprovalPacketFrozen: true
+NonProductionRuntimeStable: true
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+ProductionApprovalDriftDetected: false
+P44EHashMismatchResolved: true
+ProductionExecutionScope: CRM API first slice only
+ProductionExecutionScopeHash: P44BProductionScopeFreezeV2
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+LocalOnlyArtifactAcceptedForP45: false
+LocalOnlyRollbackAccepted: false
+SbomScannerResidualRiskAccepted: false
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+P44FDecision: ReadyForHumanApprovalOnCanonicalPacketWithConditions
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+P45Authorized: false
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+NextGate: CRM Sprint 10 P44G - Canonical Final Human Production Approval Gate

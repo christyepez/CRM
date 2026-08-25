@@ -1,0 +1,27 @@
+# CRM Sprint 10 P44F - Decision
+
+P44FDecision: ReadyForHumanApprovalOnCanonicalPacketWithConditions
+
+NewFinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+NewFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+
+CanonicalPacketHashStable: true
+FinalApprovalPacketFrozen: true
+P44EHashMismatchResolved: true
+ProductionApprovalDriftDetected: false
+
+NonProductionRuntimeStable: true
+CandidateImageIdentityMatched: true
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+LocalOnlyArtifactAcceptedForP45: false
+LocalOnlyRollbackAccepted: false
+SbomScannerResidualRiskAccepted: false
+
+ProductionApprovalDecision: NoGo
+ProductionExecutionAuthorized: false
+P45Authorized: false
+ProductionActivated: false

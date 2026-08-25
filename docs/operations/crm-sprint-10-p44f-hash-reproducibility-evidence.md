@@ -1,0 +1,25 @@
+# CRM Sprint 10 P44F - Hash Reproducibility Evidence
+
+CanonicalizationVersion: crm-approval-packet-canonical-json-v1
+CanonicalPacketPath: docs/roadmap/crm-sprint-10-p44f-final-approval-packet-v3.json
+CanonicalPacketContentHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+ComputedHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashAlgorithm: SHA-256
+HashToolVersion: tools/approval-packet-hash.ps1
+
+HashVerificationRun1: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashVerificationRun2: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashVerificationRun3: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+VerificationRunCount: 3
+VerificationResult: pass
+
+PropertyOrderTest: pass
+WhitespaceTest: pass
+LineEndingTest: pass
+SemanticChangeTest: pass
+SchemaValidation: pass
+UnknownFieldRejectedOrHandledDeterministically: pass
+RequiredFieldMissingFailsValidation: pass
+
+CanonicalPacketHashStable: true
+FinalApprovalPacketFrozen: true

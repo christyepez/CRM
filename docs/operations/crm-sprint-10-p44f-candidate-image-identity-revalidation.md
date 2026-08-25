@@ -1,0 +1,10 @@
+# CRM Sprint 10 P44F - Candidate Image Identity Revalidation
+
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+ProductionCandidateImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+
+CandidateImageRebuiltDuringP44F: false
+ProductionTargetFrozen: true
+ProductionScopeFrozen: true
