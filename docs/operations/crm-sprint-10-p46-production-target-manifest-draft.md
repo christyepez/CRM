@@ -1,0 +1,21 @@
+# CRM Sprint 10 P46 - Production Target Manifest Draft
+
+ProductionTargetManifestVersion: crm-sprint-10-p47-production-target-manifest-v1-draft
+Environment: Production
+DeploymentPlatform: NotResolved
+TargetHostIdentifier: MissingRequiredExternalConfiguration
+TargetRuntimeIdentifier: MissingRequiredExternalConfiguration
+DeploymentMechanism: ManualControlledRequiresExternalTarget
+DockerContextOrEquivalent: MissingRequiredExternalConfiguration
+ComposeProjectOrEquivalent: MissingRequiredExternalConfiguration
+ConfigurationSource: crm-p43-production-configuration-manifest-v1
+SecretSource: MissingRequiredExternalConfiguration
+NetworkBoundary: MissingRequiredExternalConfiguration
+ExpectedServiceName: crm-api
+ExpectedPort: MissingRequiredExternalConfiguration
+ExpectedHealthEndpoint: MissingRequiredExternalConfiguration
+ExpectedReadinessEndpoint: MissingRequiredExternalConfiguration
+MonitoringSource: crm-p43-observability-alert-catalog-v1
+RollbackSource: MissingRequiredExternalConfiguration
+TargetOwnerReference: MissingRequiredExternalConfiguration
+
