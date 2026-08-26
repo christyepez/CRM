@@ -1,0 +1,104 @@
+# CRM Sprint 10 P47T - Supply Real Production Target Evidence and Stabilize ArchitectureDependencyTests
+
+P47TSupplyRealProductionTargetEvidenceAndStabilizeArchitectureDependencyTestsExists: true
+P47SPullRequest: #130
+P47SMergeCommit: b12221a3f77ea04134bb672d60e0f617f4d9fbf1
+P47TBaseMainCommit: b12221a3f77ea04134bb672d60e0f617f4d9fbf1
+
+P45HistoricalExecutionResult: AbortedBeforeExecution
+P47RHistoricalDecision: NotReadyForNewHumanApproval
+P47SHistoricalDecision: NotReadyForNewHumanApproval
+HistoricalStatePreserved: true
+
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+ApprovalConsumed: false
+P45RetryAuthorized: false
+
+ExternalInputsTotal: 11
+ExternalInputsResolved: 0
+ExternalInputsRemaining: 11
+
+ProductionTargetDefinitionStatus: MissingRequiredExternalConfiguration
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetFrozen: false
+ProductionTargetManifestId: CRM-S10-P47-PRODUCTION-TARGET-MANIFEST-DRAFT
+ProductionTargetManifestHash: 46b2c2abea9cc4007cfb8b47042544c6e78f269452de7761a88afeb33be1e224
+
+DeploymentPlatform: NotResolved
+DeploymentMechanism: ManualControlledRequiresExternalTarget
+TargetHostIdentifier: MissingRequiredExternalConfiguration
+TargetRuntimeIdentifier: MissingRequiredExternalConfiguration
+ConfigurationSource: crm-p43-production-configuration-manifest-v1
+SecretSource: MissingRequiredExternalConfiguration
+NetworkBoundary: MissingRequiredExternalConfiguration
+ProductionBaseUrl: MissingRequiredExternalConfiguration
+
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+
+CurrentProductionServicePresent: Unknown
+ProductionDeploymentState: Unknown
+
+RollbackBaselineType: NotResolved
+RollbackBaselineId: CRM-S10-P47-ROLLBACK-BASELINE-MANIFEST-DRAFT
+RollbackBaselineHash: f3fb2349b63f3f5885c01aaaa50f9fa54dfd6f3a93842fdf4929d174110b4d68
+RollbackBaselineIdentified: false
+RollbackMechanismDefined: true
+RollbackMechanismDeterministic: false
+RollbackTargetDeterministic: false
+RollbackValidationDefined: true
+RollbackMonitoringAvailable: false
+RollbackReadyForRetry: false
+RollbackBaselineFrozen: false
+
+ArchitectureDependencyTestsRun1: Passed 54/54
+ArchitectureDependencyTestsRun2: Passed 54/54
+ArchitectureDependencyTestsRun3: Passed 54/54
+ArchitectureTestsStatus: Passed
+ArchitectureTestsRootCause: RepeatedRepositoryWideSourceScanWithoutCachingAndTextFileFiltering
+ArchitectureTestsFixApplied: true
+ArchitectureTestsRuntimeBehaviorChanged: false
+ArchitectureTestsBlocking: false
+
+NewFinalApprovalPacketId: NotCreated
+NewFinalApprovalPacketHash: NotCreated
+CanonicalPacketHashStable: false
+FinalApprovalPacketFrozen: false
+
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+
+PreviousHumanApprovalReusable: false
+ExistingHumanApprovalStillValidForRetry: false
+NewHumanApprovalRequiredForRetry: true
+
+ProductionExecutionScope: CRM API first slice only
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+RuntimePortalCallsEnabled: false
+CommonDbRuntimeEnabled: false
+
+CriticalProductionBlockers: 3
+HighBlockingRisks: 0
+P47TDecision: NotReadyForNewHumanApproval
+NextGate: CRM Sprint 10 P47U - Supply Real Production Target Rollback and Monitoring Evidence
+
+## Decision
+
+P47T resolved the ArchitectureTests blocker with a test-only stabilization. The production target, rollback baseline and monitoring binding remain unresolved because no real production evidence was supplied or discoverable from repository evidence.
+
+P47T does not create or freeze an approval-ready packet V5. P48 remains blocked.
+

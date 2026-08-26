@@ -5,6 +5,24 @@ namespace CRM.ArchitectureTests;
 
 public sealed class ArchitectureDependencyTests
 {
+    private static readonly object SourceCacheLock = new();
+    private static readonly Dictionary<string, string> SourceCache = new(StringComparer.OrdinalIgnoreCase);
+    private static readonly HashSet<string> SourceFileExtensions = new(StringComparer.OrdinalIgnoreCase)
+    {
+        ".cs",
+        ".csproj",
+        ".json",
+        ".md",
+        ".ts",
+        ".tsx",
+        ".js",
+        ".mjs",
+        ".html",
+        ".css",
+        ".yml",
+        ".yaml"
+    };
+
     [Fact]
     public void Domain_DoesNotDependOnApplicationInfrastructureOrApi()
     {
@@ -2019,6 +2037,15 @@ public sealed class ArchitectureDependencyTests
 
     private static string ReadSourceFiles(params string[] roots)
     {
+        var cacheKey = string.Join("|", roots.Select(root => root.Replace('\\', '/')).Order(StringComparer.OrdinalIgnoreCase));
+        lock (SourceCacheLock)
+        {
+            if (SourceCache.TryGetValue(cacheKey, out var cached))
+            {
+                return cached;
+            }
+        }
+
         var repositoryRoot = FindRepositoryRoot();
         var contents = new List<string>();
         foreach (var root in roots)
@@ -2038,16 +2065,28 @@ public sealed class ArchitectureDependencyTests
             foreach (var file in Directory.EnumerateFiles(path, "*.*", SearchOption.AllDirectories)
                          .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                          .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}.git{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}.vs{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}.vscode{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                          .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}node_modules{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                          .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}dist{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}coverage{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}TestResults{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
                          .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}.angular{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
-                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}tools{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase)))
+                         .Where(file => !file.Contains($"{Path.DirectorySeparatorChar}tools{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase))
+                         .Where(file => SourceFileExtensions.Contains(Path.GetExtension(file))))
             {
                 contents.Add(File.ReadAllText(file));
             }
         }
 
-        return StripAllowedPortalAuthRealRuntimeProbeMarkers(string.Join(Environment.NewLine, contents));
+        var source = StripAllowedPortalAuthRealRuntimeProbeMarkers(string.Join(Environment.NewLine, contents));
+        lock (SourceCacheLock)
+        {
+            SourceCache[cacheKey] = source;
+        }
+
+        return source;
     }
 
     private static string StripAllowedEfPrototypeMarkers(string source) =>
