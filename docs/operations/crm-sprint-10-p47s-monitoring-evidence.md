@@ -1,0 +1,14 @@
+# CRM Sprint 10 P47S - Monitoring Evidence
+
+P47SMonitoringEvidenceExists: true
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+
+ProductionLogSource: MissingRequiredExternalConfiguration
+ProductionMetricSource: MissingRequiredExternalConfiguration
+ProductionContainerStateSource: MissingRequiredExternalConfiguration
+ProductionRestartSignalSource: MissingRequiredExternalConfiguration
+ProductionHealthMonitoringSource: MissingRequiredExternalConfiguration
+
+P43 monitoring policy exists, but no production-bound monitoring evidence was supplied.
+
