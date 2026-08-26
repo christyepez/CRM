@@ -3618,3 +3618,49 @@ CriticalProductionBlockers: 3
 HighBlockingRisks: 0
 P46Decision: ReadyForProductionRetryAfterExternalInputs
 NextGate: CRM Sprint 10 P47 - Production Target and Rollback Baseline Resolution
+
+## CRM Sprint 10 P47 - Production Target and Rollback Baseline Resolution
+
+P47ProductionTargetAndRollbackBaselineResolutionExists: true
+P46PullRequest: #127
+P46MergeCommit: 44b4556c00f51ff840a9f517a5dbd99b80e237ec
+P47BaseMainCommit: 44b4556c00f51ff840a9f517a5dbd99b80e237ec
+
+P45HistoricalExecutionResult: AbortedBeforeExecution
+P46HistoricalDecision: ReadyForProductionRetryAfterExternalInputs
+HistoricalStatePreserved: true
+
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+P45RetryAuthorized: false
+
+ProductionTargetDefinitionStatus: MissingRequiredExternalConfiguration
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetFrozen: false
+
+RollbackBaselineIdentified: false
+RollbackMechanismDefined: true
+RollbackMechanismDeterministic: false
+RollbackReadyForRetry: false
+RollbackBaselineFrozen: false
+
+PreviousHumanApprovalReusable: false
+ExistingHumanApprovalStillValidForRetry: false
+NewHumanApprovalRequiredForRetry: true
+
+NewFinalApprovalPacketId: CRM-S10-P47-PACKET-V4
+NewFinalApprovalPacketHash: 107ebf5e698a4235bdaa47cef9156f3334ec90badca26de6336cf8c7b2c835d2
+FinalApprovalPacketV4Frozen: false
+
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+CommonDbRuntimeEnabled: false
+
+ArchitectureTestsStatus: Timeout
+CriticalProductionBlockers: 4
+P47Decision: NotReadyForNewHumanApproval
+NextGate: CRM Sprint 10 P47R - Production Target External Inputs Resolution

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "manifestId": "CRM-S10-P47-PRODUCTION-TARGET-MANIFEST-DRAFT",
+  "environment": "Production",
+  "deploymentPlatform": "NotResolved",
+  "deploymentMechanism": "ManualControlledRequiresExternalTarget",
+  "targetHostIdentifier": "MissingRequiredExternalConfiguration",
+  "targetRuntimeIdentifier": "MissingRequiredExternalConfiguration",
+  "dockerContext": "MissingRequiredExternalConfiguration",
+  "composeProject": "crm",
+  "serviceName": "crm-api",
+  "configurationSource": "crm-p43-production-configuration-manifest-v1",
+  "secretSource": "MissingRequiredExternalConfiguration",
+  "networkBoundary": "MissingRequiredExternalConfiguration",
+  "expectedPort": "8093",
+  "expectedHealthEndpoint": "/health",
+  "expectedReadinessEndpoint": "/health/ready",
+  "monitoringSource": "crm-p43-observability-alert-catalog-v1",
+  "rollbackBaselineId": "CRM-S10-P47-ROLLBACK-BASELINE-MANIFEST-DRAFT",
+  "ownerReference": "MissingRequiredExternalConfiguration",
+  "resolutionDecision": "NotResolved",
+  "productionTargetFrozen": false
+}
+
