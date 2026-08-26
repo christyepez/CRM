@@ -3486,3 +3486,72 @@ ProductionDeploymentExecuted: false
 ProductionTrafficSwitched: false
 P44HDecision: Go
 NextGate: CRM Sprint 10 P45 - Controlled Production Activation Execution
+
+## CRM Sprint 10 P45 - Controlled Production Activation Execution
+
+P45ControlledProductionActivationExecution: true
+P44HPullRequest: #125
+P44HMergeCommit: f462d03ecceee0b4d8faa34bbd2b11df21bcca97
+P45BaseMainCommit: f462d03ecceee0b4d8faa34bbd2b11df21bcca97
+FinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+ExpectedFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+ActualFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+FinalApprovalPacketIdentityMatched: true
+CanonicalPacketHashStable: true
+HumanProductionApprovalRecorded: true
+HumanProductionApprovalDecision: Go
+HumanProductionApproverReference: explicit-user-chat-p44h-production-approval-2026-08-26
+LocalOnlyArtifactAcceptedForP45: true
+LocalOnlyRollbackAccepted: true
+SbomScannerResidualRiskAccepted: true
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+RuntimeTargetCommitMatched: true
+ProductionCandidateImage: crm-api:prod-candidate-8623c619
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+ProductionApprovalDriftDetected: false
+ProductionExecutionScope: CRM API first slice only
+ProductionExecutionScopeHash: P44BProductionScopeFreezeV2
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+ProductionEnvironmentValidated: true
+ProductionTarget: NotResolved
+ProductionTargetResolved: false
+ProductionSecurityPreflightPassed: true
+ProductionMonitoringReady: true
+RollbackPreflightPassed: false
+CriticalProductionBlockers: 1
+HighBlockingRisks: 0
+P45PreExecutionValidated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+DeploymentResult: AbortedBeforeExecution
+RunningProductionImageId: NotStarted
+RunningProductionImageMatched: false
+ProductionHealth: NotExecuted
+ProductionLiveness: NotExecuted
+ProductionReadiness: NotExecuted
+ProductionSmoke: NotExecuted
+UnexpectedExternalDependencyDetected: false
+ProductionDataChangesExecuted: false
+ProductionAbortTriggered: true
+AbortReason: Production target could not be resolved with repository evidence and previous production rollback artifact was not captured before execution.
+RollbackTriggered: false
+RollbackResult: NotRequiredBecauseExecutionDidNotStart
+ApprovalConsumed: false
+ProductionExecutionResult: AbortedBeforeExecution
+ProductionApprovalDecision: Go
+ProductionExecutionAuthorized: true
+P45Authorized: true
+ProductionActivated: false
+ProductionTrafficSwitchApplicable: false
+ProductionTrafficSwitched: false
+RuntimePortalCallsEnabled: false
+PortalRoutesActivated: false
+PortalNavigationActivated: false
+CommonDbRuntimeEnabled: false
+P46EntryConditionsPrepared: true
+NextGate: CRM Sprint 10 P46 - Production Post-Activation Validation and Stabilization
