@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "rollbackBaselineId": "CRM-S10-P47-ROLLBACK-BASELINE-MANIFEST-DRAFT",
+  "environment": "Production",
+  "baselineType": "NotResolved",
+  "previousServiceState": "Unknown",
+  "previousImageTag": "Unknown",
+  "previousImageId": "Unknown",
+  "previousImageDigest": "Unknown",
+  "previousConfigurationVersion": "Unknown",
+  "rollbackTarget": "MissingRequiredExternalConfiguration",
+  "rollbackMechanism": "If first deployment is externally confirmed, rollback means stop/remove CRM service and restore previous routing/configuration state. If existing deployment is externally confirmed, rollback means redeploy exact previous image/configuration baseline.",
+  "rollbackValidation": "Validate target health/readiness, traffic state, logs, and absence/presence of CRM endpoint according to deployment classification.",
+  "healthValidation": "Requires resolved production health endpoint.",
+  "trafficValidation": "Requires resolved routing/load-balancer target.",
+  "dataValidation": "No production data changes are approved or expected.",
+  "rollbackBaselineIdentified": false,
+  "rollbackMechanismDefined": true,
+  "rollbackMechanismDeterministic": false,
+  "rollbackTargetDeterministic": false,
+  "rollbackReadyForRetry": false,
+  "rollbackBaselineFrozen": false
+}
+

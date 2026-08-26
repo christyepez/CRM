@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0",
+  "packetId": "CRM-S10-P47-PACKET-V4",
+  "environment": "Production",
+  "runtimeTargetCommit": "8623c6191f5b59397d1243d2e0f8b30ee5caae6c",
+  "candidateImageTag": "crm-api:prod-candidate-8623c619",
+  "candidateImageId": "sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "candidateImageDigest": "crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "executionScope": "CRM API first slice only",
+  "scopeHash": "crm-api-first-slice-only-portal-off-common-db-off-no-data-changes",
+  "productionTargetManifestId": "CRM-S10-P47-PRODUCTION-TARGET-MANIFEST-DRAFT",
+  "productionTargetManifestHash": "46b2c2abea9cc4007cfb8b47042544c6e78f269452de7761a88afeb33be1e224",
+  "rollbackBaselineId": "CRM-S10-P47-ROLLBACK-BASELINE-MANIFEST-DRAFT",
+  "rollbackBaselineHash": "f3fb2349b63f3f5885c01aaaa50f9fa54dfd6f3a93842fdf4929d174110b4d68",
+  "deploymentMechanism": "ManualControlledRequiresExternalTarget",
+  "configurationManifest": "crm-p43-production-configuration-manifest-v1",
+  "monitoringPlan": "crm-p43-observability-alert-catalog-v1",
+  "securityState": "PortalOffCommonDbOffNoSecretsNoProductionExecution",
+  "portalIncluded": false,
+  "commonDbIncluded": false,
+  "productionDataChangesApproved": false,
+  "approvedExternalDependencies": "none",
+  "residualRisks": [
+    "ProductionTargetUnresolved",
+    "RollbackBaselineUnresolved",
+    "ProductionMonitoringTargetUnresolved",
+    "ArchitectureTestsTimeout"
+  ],
+  "approvalPacketState": "DraftNotApprovalReady",
+  "newHumanApprovalRequiredForRetry": true
+}
