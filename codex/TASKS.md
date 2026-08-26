@@ -3716,3 +3716,57 @@ ProductionDataChangesApproved: false
 CriticalProductionBlockers: 4
 P47RDecision: NotReadyForNewHumanApproval
 NextGate: CRM Sprint 10 P47S - Provide Production Target, Rollback and Monitoring Evidence
+
+## CRM Sprint 10 P47S - Provide Production Target, Rollback and Monitoring Evidence
+
+P47SProvideProductionTargetRollbackMonitoringEvidenceExists: true
+P47RPullRequest: #129
+P47RMergeCommit: 708d566f70f072d44011ed9f5d3c5aa1148dcc31
+P47SBaseMainCommit: 708d566f70f072d44011ed9f5d3c5aa1148dcc31
+
+P47RHistoricalDecision: NotReadyForNewHumanApproval
+HistoricalStatePreserved: true
+
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+P45RetryAuthorized: false
+ApprovalConsumed: false
+
+ExternalInputsTotal: 11
+ExternalInputsResolved: 0
+ExternalInputsRemaining: 11
+
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetFrozen: false
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+CurrentProductionServicePresent: Unknown
+ProductionDeploymentState: Unknown
+
+RollbackBaselineIdentified: false
+RollbackMechanismDefined: true
+RollbackMechanismDeterministic: false
+RollbackReadyForRetry: false
+RollbackBaselineFrozen: false
+
+NewFinalApprovalPacketId: NotCreated
+FinalApprovalPacketFrozen: false
+
+ArchitectureTestsStatus: Timeout
+ArchitectureTestsRootCause: ArchitectureDependencyTestsRepositoryWideSourceScanTimeout
+ArchitectureTestsBlocking: true
+
+PreviousHumanApprovalReusable: false
+ExistingHumanApprovalStillValidForRetry: false
+NewHumanApprovalRequiredForRetry: true
+
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+
+CriticalProductionBlockers: 4
+P47SDecision: NotReadyForNewHumanApproval
+NextGate: CRM Sprint 10 P47T - Supply Real Production Target Evidence and Stabilize ArchitectureDependencyTests

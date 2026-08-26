@@ -1,0 +1,101 @@
+# CRM Sprint 10 P47S - Provide Production Target, Rollback and Monitoring Evidence
+
+P47SProvideProductionTargetRollbackMonitoringEvidenceExists: true
+P47RPullRequest: #129
+P47RMergeCommit: 708d566f70f072d44011ed9f5d3c5aa1148dcc31
+P47SBaseMainCommit: 708d566f70f072d44011ed9f5d3c5aa1148dcc31
+
+P45HistoricalExecutionResult: AbortedBeforeExecution
+P46HistoricalDecision: ReadyForProductionRetryAfterExternalInputs
+P47HistoricalDecision: NotReadyForNewHumanApproval
+P47RHistoricalDecision: NotReadyForNewHumanApproval
+HistoricalStatePreserved: true
+
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+P45RetryAuthorized: false
+ApprovalConsumed: false
+
+ExternalInputsTotal: 11
+ExternalInputsResolved: 0
+ExternalInputsRemaining: 11
+
+ProductionTargetDefinitionStatus: MissingRequiredExternalConfiguration
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetFrozen: false
+ProductionTargetManifestId: CRM-S10-P47-PRODUCTION-TARGET-MANIFEST-DRAFT
+ProductionTargetManifestHash: 46b2c2abea9cc4007cfb8b47042544c6e78f269452de7761a88afeb33be1e224
+
+DeploymentPlatform: NotResolved
+DeploymentMechanism: ManualControlledRequiresExternalTarget
+TargetHostIdentifier: MissingRequiredExternalConfiguration
+TargetRuntimeIdentifier: MissingRequiredExternalConfiguration
+
+ConfigurationSource: crm-p43-production-configuration-manifest-v1
+SecretSource: MissingRequiredExternalConfiguration
+NetworkBoundary: MissingRequiredExternalConfiguration
+
+ProductionBaseUrl: MissingRequiredExternalConfiguration
+ProductionHealthEndpoint: MissingRequiredExternalConfiguration/health
+ProductionReadinessEndpoint: MissingRequiredExternalConfiguration/health/ready
+
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+
+CurrentProductionServicePresent: Unknown
+ProductionDeploymentState: Unknown
+
+RollbackBaselineType: NotResolved
+RollbackBaselineId: CRM-S10-P47-ROLLBACK-BASELINE-MANIFEST-DRAFT
+RollbackBaselineHash: f3fb2349b63f3f5885c01aaaa50f9fa54dfd6f3a93842fdf4929d174110b4d68
+RollbackBaselineIdentified: false
+RollbackMechanismDefined: true
+RollbackMechanismDeterministic: false
+RollbackReadyForRetry: false
+RollbackBaselineFrozen: false
+
+NewFinalApprovalPacketId: NotCreated
+NewFinalApprovalPacketHash: NotCreated
+CanonicalPacketHashStable: false
+FinalApprovalPacketFrozen: false
+
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+
+ArchitectureTestsStatus: Timeout
+ArchitectureTestsRootCause: ArchitectureDependencyTestsRepositoryWideSourceScanTimeout
+ArchitectureTestsBlocking: true
+
+PreviousHumanApprovalReusable: false
+ExistingHumanApprovalStillValidForRetry: false
+NewHumanApprovalRequiredForRetry: true
+
+ProductionExecutionScope: CRM API first slice only
+PortalIncludedInProductionExecution: false
+CommonDbIncludedInProductionExecution: false
+ProductionDataChangesApproved: false
+ApprovedProductionExternalDependencies: none
+RuntimePortalCallsEnabled: false
+CommonDbRuntimeEnabled: false
+
+CriticalProductionBlockers: 4
+HighBlockingRisks: 0
+P47SDecision: NotReadyForNewHumanApproval
+NextGate: CRM Sprint 10 P47T - Supply Real Production Target Evidence and Stabilize ArchitectureDependencyTests
+
+## Decision
+
+P47S did not receive real production target, rollback or monitoring evidence. Repository evidence still contains local compose and prior readiness artifacts only.
+
+No final production target manifest, rollback baseline manifest, or approval-ready packet V5 was created. P48 remains blocked.
+
