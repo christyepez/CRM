@@ -1,0 +1,117 @@
+# CRM Sprint 10 P44G - Canonical Final Human Production Approval Gate
+
+CrmSprint10P44GCanonicalFinalHumanProductionApprovalGateExists: true
+P44GCanonicalFinalHumanProductionApprovalGateOnly: true
+
+P44FPullRequest: #123
+P44FMergeCommit: d3b360052807dd08251c74e18a7c3209cd11bb01
+P44GBaseMainCommit: d3b360052807dd08251c74e18a7c3209cd11bb01
+
+Environment: Production
+
+P44HistoricalDecision: NoGo
+P44AHistoricalDecision: NoGo
+P44BHistoricalDecision: ReadyForFinalHumanApprovalWithConditions
+P44CHistoricalDecision: NoGo
+P44DHistoricalDecision: ReadyForFinalApprovalRevalidationWithConditions
+P44EHistoricalDecision: NoGo
+P44FHistoricalDecision: ReadyForHumanApprovalOnCanonicalPacketWithConditions
+HistoricalStatePreserved: true
+
+FinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+ExpectedFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+ActualFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+FinalApprovalPacketIdentityMatched: true
+CanonicalPacketHashStable: true
+CanonicalizationVersion: crm-approval-packet-canonical-json-v1
+CanonicalPacketPath: docs/roadmap/crm-sprint-10-p44f-final-approval-packet-v3.json
+CanonicalHashTool: tools/approval-packet-hash.ps1
+
+HashRun1: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashRun2: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashRun3: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+
+NonProductionRuntimeStable: true
+HealthPassed: true
+LivenessPassed: true
+ReadinessPassed: true
+SmokeRegressionPassed: true
+
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+ProductionCandidateImage: crm-api:prod-candidate-8623c619
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+ProductionCandidateImageDigest: crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ProductionArtifactPublished: false
+ProductionTargetImageDecision: ImmutableLocallyOnly
+
+ProductionExecutionScope: CRM API first slice only
+ProductionExecutionScopeHash: P44BProductionScopeFreezeV2
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+
+PortalIncludedInProductionExecution: false
+RuntimePortalCallsEnabled: false
+RuntimeCouplingEnabled: false
+PortalRoutesActivated: false
+PortalNavigationActivated: false
+PortalServicesInCompose: false
+
+CommonDbIncludedInProductionExecution: false
+CommonDbRuntimeEnabled: false
+
+ProductionDataChangesApproved: false
+ProductionDataChangesExecuted: false
+ApprovedProductionExternalDependencies: none
+
+RollbackMechanismAvailable: true
+RollbackTargetImmutable: true
+RollbackArtifactPresent: true
+
+SBOMAvailable: false
+OfficialImageScannerAvailable: false
+
+LocalOnlyArtifactAcceptedForP45: false
+LocalOnlyRollbackAccepted: false
+SbomScannerResidualRiskAccepted: false
+
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+ProductionApprovalDriftDetected: false
+
+CriticalProductionBlockers: 0
+HighBlockingRisks: 0
+
+ProductionMonitoringReady: true
+TechnicalProductionApprovalPassed: true
+
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+HumanProductionApproverReference: NotRecorded
+HumanProductionApprovalDecision: NotRecorded
+HumanProductionApprovalTimestamp: NotRecorded
+
+ProductionApprovalDecision: NoGo
+ProductionApprovalExecuted: false
+ProductionExecutionAuthorized: false
+P45Authorized: false
+
+ProductionActivationDecision: NoGo
+CrmProductionReady: false
+
+ProductionActivated: false
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionTrafficSwitched: false
+
+P45CandidateImageRebuildAllowed: false
+ExpectedP45ImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+P45ExactPacketGateRequired: true
+P45ExactRuntimeTargetGateRequired: true
+
+P44GDecision: NoGo
+NextGate: ExplicitHumanApprovalRequiredBeforeCrmSprint10P45ControlledProductionActivationExecution
+

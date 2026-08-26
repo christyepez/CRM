@@ -1,0 +1,16 @@
+# CRM Sprint 10 P44G - Canonical Packet Identity Revalidation
+
+FinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+ExpectedFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+ActualFinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+FinalApprovalPacketIdentityMatched: true
+CanonicalPacketHashStable: true
+CanonicalizationVersion: crm-approval-packet-canonical-json-v1
+CanonicalHashTool: tools/approval-packet-hash.ps1
+
+HashRun1: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashRun2: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+HashRun3: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+
+PacketV3ModifiedByP44G: false
+

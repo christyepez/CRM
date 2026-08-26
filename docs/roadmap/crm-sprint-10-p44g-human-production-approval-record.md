@@ -1,0 +1,26 @@
+# CRM Sprint 10 P44G - Human Production Approval Record
+
+HumanProductionApprovalRequired: true
+HumanProductionApprovalRecorded: false
+HumanProductionApproverReference: NotRecorded
+HumanProductionApprovalDecision: NotRecorded
+HumanProductionApprovalTimestamp: NotRecorded
+
+RequiredApprovalEnvironment: Production
+RequiredApprovalTask: CRM Sprint 10 P45 - Controlled Production Activation Execution
+RequiredApprovalPacketId: CRM-S10-P44F-PACKET-V3
+RequiredApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+RequiredApprovalRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+RequiredApprovalImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+RequiredApprovalScope: CRM API first slice only
+
+ApprovalMustExplicitlyExcludePortal: true
+ApprovalMustExplicitlyExcludeCommonDb: true
+ApprovalMustExplicitlyExcludeProductionDataChanges: true
+ApprovalMustExplicitlyExcludeAdditionalExternalDependencies: true
+ApprovalMustExplicitlyRejectScopeExpansion: true
+
+ProductionApprovalDecision: NoGo
+ProductionExecutionAuthorized: false
+P45Authorized: false
+
