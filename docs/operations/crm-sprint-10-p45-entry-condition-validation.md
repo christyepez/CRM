@@ -1,0 +1,23 @@
+# CRM Sprint 10 P45 - Entry Condition Validation
+
+P44HMergeCommit: f462d03ecceee0b4d8faa34bbd2b11df21bcca97
+P45BaseMainCommit: f462d03ecceee0b4d8faa34bbd2b11df21bcca97
+
+P44HExplicitHumanProductionApprovalRecordOnly: true
+TechnicalProductionApprovalPassed: true
+HumanProductionApprovalRecorded: true
+HumanProductionApprovalDecision: Go
+ProductionApprovalDecision: Go
+ProductionApprovalExecuted: true
+ProductionExecutionAuthorized: true
+P45Authorized: true
+LocalOnlyArtifactAcceptedForP45: true
+LocalOnlyRollbackAccepted: true
+SbomScannerResidualRiskAccepted: true
+ProductionScopeFrozen: true
+ProductionTargetFrozen: true
+ProductionApprovalDriftDetected: false
+
+P45EntryConditionsPassedBeforeTargetDiscovery: true
+P45EntryConditionsBlockedByProductionTargetResolution: true
+
