@@ -1,0 +1,38 @@
+{
+  "approvedExternalDependencies": [],
+  "artifactPublished": false,
+  "candidateImageDigest": "crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "candidateImageId": "sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "candidateImageTag": "crm-api:prod-candidate-8623c619",
+  "commonDbIncluded": false,
+  "configurationManifestVersion": "P44F-v3",
+  "deploymentStrategy": "P45-controlled-production-execution-without-rebuild",
+  "environment": "Production",
+  "executionScope": {
+    "crmApiFirstSlice": true,
+    "description": "CRM API first slice only"
+  },
+  "executionScopeHash": "P44BProductionScopeFreezeV2",
+  "monitoringPlanVersion": "P44D",
+  "monitoringReady": true,
+  "officialImageScannerAvailable": false,
+  "packetId": "CRM-S10-P44F-PACKET-V3",
+  "portalIncluded": false,
+  "productionDataChangesApproved": false,
+  "residualRiskIds": [
+    "LocalOnlyProductionArtifact",
+    "LocalOnlyRollbackArtifact",
+    "NoOfficialSBOMScanner"
+  ],
+  "rollbackArtifactId": "crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "rollbackArtifactPublished": false,
+  "rollbackMechanism": "local immutable target validation before P45; abort if unavailable or mismatched",
+  "rollbackPlanVersion": "P44D",
+  "rollbackTargetImmutable": true,
+  "runbookVersion": "P44D",
+  "runtimeTargetCommit": "8623c6191f5b59397d1243d2e0f8b30ee5caae6c",
+  "sbomAvailable": false,
+  "schemaVersion": "crm-approval-packet-v1",
+  "targetImageDecision": "ImmutableLocallyOnly",
+  "testPlanVersion": "P44F"
+}
