@@ -1,0 +1,95 @@
+# CRM Sprint 10 P46 - Production Post-Abort Validation and Remediation Readiness
+
+P46ProductionPostAbortValidationAndRemediationReadinessExists: true
+
+P45PullRequest: #126
+P45MergeCommit: 587ac2991406d98361c28fae394c514ed1a1036f
+P46BaseMainCommit: 587ac2991406d98361c28fae394c514ed1a1036f
+
+Environment: ProductionPostAbortValidation
+
+P45ControlledProductionActivationExecution: true
+P45HistoricalExecutionResult: AbortedBeforeExecution
+P45HistoricalProductionExecutionStarted: false
+P45HistoricalProductionDeploymentExecuted: false
+P45HistoricalProductionActivated: false
+P45HistoricalAbortTriggered: true
+P45HistoricalAbortReason: ProductionTargetUnresolvedAndRollbackPreviousArtifactMissing
+P45HistoricalApprovalConsumed: false
+HistoricalStatePreserved: true
+
+ProductionUntouchedAfterP45Abort: true
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+RollbackTriggered: false
+ApprovalConsumed: false
+
+HumanProductionApprovalRecorded: true
+HumanProductionApprovalDecision: Go
+FinalApprovalPacketId: CRM-S10-P44F-PACKET-V3
+FinalApprovalPacketHash: 55be737c45256180f8fa157c4c5d26e9d6a8cadbc234945a995e96da660b078c
+FinalApprovalPacketIdentityMatched: true
+CanonicalPacketHashStable: true
+ProductionRuntimeTargetCommit: 8623c6191f5b59397d1243d2e0f8b30ee5caae6c
+
+CandidateImageStillPresent: true
+ExpectedCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+ActualCandidateImageId: sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37
+CandidateImageIdentityMatched: true
+
+RuntimeSourceDriftDetected: false
+DockerBuildInputDriftDetected: false
+RuntimeConfigurationDriftDetected: false
+DependencyDriftDetected: false
+
+ProductionTargetDefinitionStatus: MissingRequiredExternalConfiguration
+ProductionTargetResolutionDecision: NotResolved
+DeploymentPlatform: NotResolved
+TargetHostIdentifier: MissingRequiredExternalConfiguration
+TargetRuntimeIdentifier: MissingRequiredExternalConfiguration
+DeploymentMechanism: ManualControlledRequiresExternalTarget
+ConfigurationSource: crm-p43-production-configuration-manifest-v1
+SecretSource: MissingRequiredExternalConfiguration
+MonitoringSource: crm-p43-observability-alert-catalog-v1
+
+CurrentProductionServicePresent: Unknown
+ProductionDeploymentState: UnknownUntilP47
+
+RollbackBaselineType: NotResolved
+RollbackTarget: MissingRequiredExternalConfiguration
+RollbackBaselineIdentified: false
+RollbackMechanismDefined: false
+RollbackReadyForRetry: false
+
+ExistingHumanApprovalStillValidForRetry: false
+NewHumanApprovalRequiredForRetry: true
+
+NonProductionRuntimeStable: true
+
+PortalIncludedInProductionExecution: false
+RuntimePortalCallsEnabled: false
+PortalRoutesActivated: false
+PortalNavigationActivated: false
+
+CommonDbIncludedInProductionExecution: false
+CommonDbRuntimeEnabled: false
+
+ProductionDataChangesApproved: false
+ProductionDataChangesExecuted: false
+ApprovedProductionExternalDependencies: none
+
+ArchitectureTestsStatus: NonConclusive
+ArchitectureTestsCommand: dotnet test tests/CRM.ArchitectureTests/CRM.ArchitectureTests.csproj --no-build
+ArchitectureTestsLastOutput: Test assembly discovered, then execution hung without final result.
+ArchitectureTestsSuspectedCause: Pre-existing local runner/project hang observed in P44F through P45.
+ArchitectureTestsBlocksRetryUnderCurrentEvidence: true
+
+CriticalProductionBlockers: 3
+HighBlockingRisks: 0
+
+P46Decision: ReadyForProductionRetryAfterExternalInputs
+NextGate: CRM Sprint 10 P47 - Production Target and Rollback Baseline Resolution
+
