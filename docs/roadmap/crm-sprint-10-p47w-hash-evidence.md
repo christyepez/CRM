@@ -1,0 +1,23 @@
+# CRM P47W Hash Evidence
+
+CanonicalHashTool: tools/hash-crm-sprint-10-p47w-json.ps1
+CanonicalizationBasis: copied from P44F canonical JSON/SHA-256 method without modifying historical P44F tool
+
+ProductionTargetManifestId: CRM-S10-P47W-SIMPROD-TARGET-V1
+TargetHash1: 075b67f6bf492e446908b21f365523252d91c76c5cc62e70faa62831313b61b5
+TargetHash2: 075b67f6bf492e446908b21f365523252d91c76c5cc62e70faa62831313b61b5
+TargetHash3: 075b67f6bf492e446908b21f365523252d91c76c5cc62e70faa62831313b61b5
+ProductionTargetFrozen: true
+
+RollbackBaselineId: CRM-S10-P47W-SIMPROD-ROLLBACK-V1
+RollbackHash1: 9d4e5a95f5be179516f7fac160f855adb8595e7b8012acc9270fe6f6a93edf1d
+RollbackHash2: 9d4e5a95f5be179516f7fac160f855adb8595e7b8012acc9270fe6f6a93edf1d
+RollbackHash3: 9d4e5a95f5be179516f7fac160f855adb8595e7b8012acc9270fe6f6a93edf1d
+RollbackBaselineFrozen: true
+
+NewFinalApprovalPacketId: CRM-S10-P47W-SIMPROD-PACKET-V5
+PacketHash1: f33a6af176066e90dbc674ae9393318dd934646cc6a747ef5ffd31ca988593a9
+PacketHash2: f33a6af176066e90dbc674ae9393318dd934646cc6a747ef5ffd31ca988593a9
+PacketHash3: f33a6af176066e90dbc674ae9393318dd934646cc6a747ef5ffd31ca988593a9
+CanonicalPacketHashStable: true
+FinalApprovalPacketFrozen: true

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "rollbackBaselineId": "CRM-S10-P47W-SIMPROD-ROLLBACK-V1",
+  "environmentClassification": "SimulatedProduction",
+  "realProduction": false,
+  "localSimulation": true,
+  "deploymentState": "FirstDeployment",
+  "baselineType": "NoPreviousDeployment",
+  "rollbackTarget": "PreDeploymentNoCRMState",
+  "preDeploymentServicePresent": false,
+  "preDeploymentPortBindingPresent": false,
+  "preDeploymentNetworkPresent": false,
+  "rollbackMechanism": "docker compose -p crm-prod-sim --env-file .env.prod-sim.example -f docker-compose.prod-sim.yml down",
+  "rollbackValidation": [
+    "crm-api-prod-sim absent",
+    "127.0.0.1:8094 closed",
+    "NonProduction 8093 remains healthy",
+    "unrelated Docker resources unchanged"
+  ],
+  "monitoringValidation": [
+    "Docker container state",
+    "Docker RestartCount",
+    "HTTP health/readiness probes",
+    "Docker logs"
+  ]
+}
