@@ -1,5 +1,23 @@
 # TASKS.md
 
+## CRM Sprint 10 P48 - Local Simulated Production Explicit Human Approval Gate
+
+Status: Implemented in branch `crm-sprint-10-p48-local-simulated-production-explicit-human-approval`.
+
+- [x] Validate GitHub main contains P47W merge commit `af2e80993e09ec42e623a291e4db2c2a6c973e46`.
+- [x] Receive explicit human approval block for `CRM-S10-P47W-SIMPROD-PACKET-V5`.
+- [x] Confirm approval is limited to `SimulatedProduction`.
+- [x] Keep `RealProductionAuthorized=false`.
+- [x] Confirm packet, target and rollback hashes match frozen P47W artifacts.
+- [x] Confirm candidate image identity matches.
+- [x] Confirm residual risks accepted.
+- [x] Record immutable P48 approval artifact.
+- [x] Set `P49Authorized=true`.
+- [x] Keep `ApprovalConsumed=false`.
+- [x] Keep `ProductionActivated=false`.
+- [x] Do not deploy, restart, rollback, rebuild, switch traffic or modify data.
+- [x] Next gate: CRM Sprint 10 P49 - Local Simulated Production Controlled Execution.
+
 ## CRM Sprint 10 P47W - Freeze Local Simulated Production Target and Approval Packet V5
 
 Status: Implemented in branch `crm-sprint-10-p47w-freeze-local-simulated-production-target`.
