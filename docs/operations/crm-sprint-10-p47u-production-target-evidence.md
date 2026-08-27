@@ -1,0 +1,20 @@
+# CRM Sprint 10 P47U - Production Target Evidence
+
+ProductionPlatformResolved: false
+ProductionTargetDefinitionStatus: MissingRequiredExternalOperationsEvidence
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetConnectivityValidated: false
+ProductionTargetManifestId: NotCreated
+ProductionTargetManifestHash: NotCreated
+ProductionTargetFrozen: false
+
+DeploymentPlatform: MissingRequiredExternalOperationsEvidence
+TargetHostIdentifier: MissingRequiredExternalOperationsEvidence
+TargetRuntimeIdentifier: MissingRequiredExternalOperationsEvidence
+DeploymentMechanism: MissingRequiredExternalOperationsEvidence
+ConfigurationSource: MissingRequiredExternalOperationsEvidence
+SecretSource: MissingRequiredExternalOperationsEvidence
+NetworkBoundary: MissingRequiredExternalOperationsEvidence
+ProductionBaseUrl: MissingRequiredExternalOperationsEvidence
+
+No repository-side or task-supplied evidence identifies the real Production target. localhost, Docker Desktop NonProduction, and local compose state are explicitly not accepted as Production evidence.

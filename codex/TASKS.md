@@ -1,5 +1,22 @@
 # TASKS.md
 
+## CRM Sprint 10 P47U - Supply Real Production Target Rollback and Monitoring Evidence
+
+Status: Implemented in branch `crm-sprint-10-p47u-supply-real-production-target-rollback-monitoring-evidence`.
+
+- [x] Validate GitHub main contains P47T merge commit `2e2fdd9efacfc92dc1c643fb265bc8285009bfaf`.
+- [x] Preserve P45/P47R/P47S/P47T historical NotReady/aborted state.
+- [x] Revalidate ArchitectureDependencyTests and full ArchitectureTests stability.
+- [x] Revalidate candidate image identity without rebuild.
+- [x] Confirm production target, rollback and monitoring evidence remain unavailable from repository-side evidence.
+- [x] Create P47U Production Input Matrix.
+- [x] Create exact Human/Operations Input Request instead of another repository-discovery loop.
+- [x] Keep `ProductionExecutionStarted=false`, `ProductionDeploymentExecuted=false`, `ProductionActivated=false`.
+- [x] Keep `P45RetryAuthorized=false` and `ApprovalConsumed=false`.
+- [x] Keep `P47UDecision=NotReadyForNewHumanApproval`.
+- [x] Keep `P48AllowedNow=false`.
+- [x] Next gate: Human/Operations Production Input Required Before Any P48 Approval Gate.
+
 ## CRM Codex Task Automation
 
 Status: Pending PR in branch `crm-codex-task-automation`.
