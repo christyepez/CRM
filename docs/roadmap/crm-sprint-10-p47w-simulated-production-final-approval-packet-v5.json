@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0",
+  "packetId": "CRM-S10-P47W-SIMPROD-PACKET-V5",
+  "environmentClassification": "SimulatedProduction",
+  "realProduction": false,
+  "localSimulation": true,
+  "runtimeTargetCommit": "8623c6191f5b59397d1243d2e0f8b30ee5caae6c",
+  "candidateImageTag": "crm-api:prod-candidate-8623c619",
+  "candidateImageId": "sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "candidateImageDigest": "crm-api@sha256:b0a75dc3986d433ba18207fea518c2a3e264eb89cf7298fd4fdb9bf860caec37",
+  "productionExecutionScope": "CRM API first slice only",
+  "scopeHash": "3e912837c3ad34ccf9ee8e61048ddf15f0ebdf972dc0c78dc7df127b8e45a237",
+  "productionTargetManifestId": "CRM-S10-P47W-SIMPROD-TARGET-V1",
+  "productionTargetManifestHash": "075b67f6bf492e446908b21f365523252d91c76c5cc62e70faa62831313b61b5",
+  "rollbackBaselineId": "CRM-S10-P47W-SIMPROD-ROLLBACK-V1",
+  "rollbackBaselineHash": "9d4e5a95f5be179516f7fac160f855adb8595e7b8012acc9270fe6f6a93edf1d",
+  "monitoringSources": {
+    "logSource": "docker logs crm-api-prod-sim",
+    "metricSource": "docker stats / docker inspect local simulation",
+    "availabilitySource": "HTTP health/readiness probes",
+    "restartSignalSource": "Docker RestartCount",
+    "errorRateSource": "HTTP responses + container/application logs",
+    "latencySource": "controlled HTTP probe timing"
+  },
+  "applicationType": "APIOnly",
+  "expectedSimulatedProductionAccess": "APIHealthOnly",
+  "webAccessStatus": "ExpectedBehavior",
+  "portalIncluded": false,
+  "commonDbIncluded": false,
+  "productionDataChangesApproved": false,
+  "approvedProductionExternalDependencies": "none",
+  "residualRisks": [
+    "Local simulation is not real enterprise Production.",
+    "Frontend crm-web exists but is outside CRM API first slice scope.",
+    "Swagger is not configured/enabled in Production environment.",
+    "Azure Container Apps real Production path remains deferred."
+  ]
+}

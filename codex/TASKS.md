@@ -1,5 +1,24 @@
 # TASKS.md
 
+## CRM Sprint 10 P47W - Freeze Local Simulated Production Target and Approval Packet V5
+
+Status: Implemented in branch `crm-sprint-10-p47w-freeze-local-simulated-production-target`.
+
+- [x] Validate GitHub main contains OPS-04 merge commit `cb7b1cc3cf9fd632cb83f4eb56a6787aa1ddbbc6`.
+- [x] Diagnose reported web issue.
+- [x] Classify current surface as API-only for CRM API first slice.
+- [x] Confirm `/` and Swagger 404 are expected, not blockers.
+- [x] Confirm health/live/ready and CRM readiness are HTTP 200.
+- [x] Confirm productive dry-run route remains 423.
+- [x] Freeze simulated Production target manifest.
+- [x] Freeze rollback baseline manifest.
+- [x] Freeze monitoring evidence.
+- [x] Freeze packet V5 for `SimulatedProduction` only.
+- [x] Keep `RealProduction=false`.
+- [x] Keep Portal, Common DB and Production data changes out of scope.
+- [x] Set `P47WDecision=ReadyForNewHumanSimulatedProductionApproval`.
+- [x] Set `P48AllowedNow=true` for Local Simulated Production approval only.
+
 ## CRM Sprint 10 OPS-04 - Provision Local Docker Compose Simulated Production Infrastructure
 
 Status: Implemented in branch `crm-sprint-10-ops04-provision-local-docker-compose-simulated-production`.
