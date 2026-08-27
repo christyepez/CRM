@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "task": "CRM Sprint 10 P47V - Operations Evidence Intake, Production Target Freeze and Approval Packet Finalization",
+  "decision": "NotReadyForNewHumanApproval",
+  "p48AllowedNow": false,
+  "operationsInputsTotal": 12,
+  "operationsInputsResolved": 0,
+  "operationsInputsMissing": 12,
+  "productionExecutionStarted": false,
+  "productionDeploymentExecuted": false,
+  "productionActivated": false,
+  "inputs": [
+    { "inputId": "OPS-01", "field": "DeploymentPlatform", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-02", "field": "TargetHostIdentifier", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-03", "field": "TargetRuntimeIdentifier", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-04", "field": "DeploymentMechanism", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-05", "field": "ProductionConfigurationSource", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-06", "field": "ProductionSecretSource", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": true },
+    { "inputId": "OPS-07", "field": "ProductionNetworkBoundary", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-08", "field": "ProductionBaseUrl", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-09", "field": "ProductionServicePort", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-10", "field": "ProductionPublishedPort", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-11", "field": "ProductionMonitoringSources", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false },
+    { "inputId": "OPS-12", "field": "CurrentProductionServicePresent", "value": "MissingRequiredOperationsInput", "validated": false, "blocking": true, "sensitive": false }
+  ]
+}

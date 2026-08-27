@@ -1,5 +1,20 @@
 # TASKS.md
 
+## CRM Sprint 10 P47V - Operations Evidence Intake, Production Target Freeze and Approval Packet Finalization
+
+Status: Implemented in branch `crm-sprint-10-p47v-operations-evidence-intake-production-target-freeze`.
+
+- [x] Validate GitHub main contains P47U merge commit `6a9d7703eb72463abf4ed573cde180b94d97dd33`.
+- [x] Reject placeholder Operations input block.
+- [x] Preserve P45/P47T/P47U historical state.
+- [x] Keep `ProductionExecutionStarted=false`, `ProductionDeploymentExecuted=false`, `ProductionActivated=false`.
+- [x] Keep `P45RetryAuthorized=false` and `ApprovalConsumed=false`.
+- [x] Keep Production target, rollback baseline, monitoring and packet V5 unfrozen.
+- [x] Keep `P47VDecision=NotReadyForNewHumanApproval`.
+- [x] Keep `P48AllowedNow=false`.
+- [x] Report exact missing Operations inputs instead of creating P47W.
+- [x] Next gate: Operations must supply real Production evidence before P48.
+
 ## CRM Sprint 10 P47U - Supply Real Production Target Rollback and Monitoring Evidence
 
 Status: Implemented in branch `crm-sprint-10-p47u-supply-real-production-target-rollback-monitoring-evidence`.
