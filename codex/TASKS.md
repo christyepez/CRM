@@ -1,5 +1,22 @@
 # TASKS.md
 
+## CRM Sprint 10 OPS-04 - Provision Local Docker Compose Simulated Production Infrastructure
+
+Status: Implemented in branch `crm-sprint-10-ops04-provision-local-docker-compose-simulated-production`.
+
+- [x] Validate GitHub main contains P47V merge commit `777c444a075c3d2a8d19dff99df6dd40bbab5929`.
+- [x] Record explicit user approval for local simulated Production only.
+- [x] Defer Azure Container Apps real Production architecture.
+- [x] Add isolated `docker-compose.prod-sim.yml` using frozen image and no `build:`.
+- [x] Add safe `.env.prod-sim.example`.
+- [x] Bind simulated Production to `127.0.0.1:8094`.
+- [x] Keep NonProduction `8093` unaffected.
+- [x] Keep Portal, Common DB, SQL Server and Production data writes out of scope.
+- [x] Validate rollback/down/redeploy for `crm-prod-sim` only.
+- [x] Produce Operations input package for P47W SimulatedProduction.
+- [x] Keep `P48AllowedNow=false`.
+- [x] Next gate: P47W freeze for Local Simulated Production target.
+
 ## CRM Sprint 10 P47V - Operations Evidence Intake, Production Target Freeze and Approval Packet Finalization
 
 Status: Implemented in branch `crm-sprint-10-p47v-operations-evidence-intake-production-target-freeze`.

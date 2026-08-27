@@ -1,0 +1,39 @@
+services:
+  crm-api-prod-sim:
+    image: crm-api:prod-candidate-8623c619
+    container_name: crm-api-prod-sim
+    user: "65532:65532"
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: ${ASPNETCORE_ENVIRONMENT:-Production}
+      ASPNETCORE_URLS: ${ASPNETCORE_URLS:-http://+:8080}
+      CRM__EnvironmentClassification: ${CRM_ENVIRONMENT_CLASSIFICATION:-SimulatedProduction}
+      CRM__RuntimeMode: ${CRM_RUNTIME_MODE:-SimulatedProduction}
+      CRM__PortalIntegration: ${CRM_PORTAL_INTEGRATION:-Disabled}
+      CRM__FinancialIntegration: ${CRM_FINANCIAL_INTEGRATION:-Disabled}
+    ports:
+      - "${CRM_PROD_SIM_HOST_BIND:-127.0.0.1}:${CRM_PROD_SIM_PORT:-8094}:8080"
+    networks:
+      crm-prod-sim-net:
+        aliases:
+          - crm-api-prod-sim
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "grep -q ':1F90 ' /proc/net/tcp /proc/net/tcp6"
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+      start_period: 20s
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+networks:
+  crm-prod-sim-net:
+    name: crm-prod-sim-net
+    driver: bridge
