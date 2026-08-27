@@ -1,0 +1,14 @@
+# CRM Sprint 10 P47U - Production Monitoring Evidence
+
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+
+ProductionLogSource: MissingRequiredExternalOperationsEvidence
+ProductionMetricSource: MissingRequiredExternalOperationsEvidence
+ProductionAvailabilitySource: MissingRequiredExternalOperationsEvidence
+ProductionHealthMonitoringSource: MissingRequiredExternalOperationsEvidence
+ProductionRestartSignalSource: MissingRequiredExternalOperationsEvidence
+ProductionErrorRateSource: MissingRequiredExternalOperationsEvidence
+ProductionLatencySource: MissingRequiredExternalOperationsEvidence
+
+Monitoring is not ready for a Production retry because no real Production log, metric, availability, health, restart, error-rate or latency evidence was supplied.
