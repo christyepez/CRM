@@ -3770,3 +3770,47 @@ ProductionDataChangesApproved: false
 CriticalProductionBlockers: 4
 P47SDecision: NotReadyForNewHumanApproval
 NextGate: CRM Sprint 10 P47T - Supply Real Production Target Evidence and Stabilize ArchitectureDependencyTests
+
+## CRM Sprint 10 P47T - Supply Real Production Target Evidence and Stabilize ArchitectureDependencyTests
+
+P47TSupplyRealProductionTargetEvidenceAndStabilizeArchitectureDependencyTestsExists: true
+P47SPullRequest: #130
+P47SMergeCommit: b12221a3f77ea04134bb672d60e0f617f4d9fbf1
+P47TBaseMainCommit: b12221a3f77ea04134bb672d60e0f617f4d9fbf1
+
+P47SHistoricalDecision: NotReadyForNewHumanApproval
+HistoricalStatePreserved: true
+
+ProductionExecutionStarted: false
+ProductionDeploymentExecuted: false
+ProductionActivated: false
+ProductionTrafficSwitched: false
+ProductionDataChangesExecuted: false
+ApprovalConsumed: false
+
+ExternalInputsTotal: 11
+ExternalInputsResolved: 0
+ExternalInputsRemaining: 11
+
+ProductionTargetResolutionDecision: NotResolved
+ProductionTargetFrozen: false
+ProductionMonitoringTargetResolved: false
+ProductionMonitoringReadyForRetry: false
+RollbackBaselineIdentified: false
+RollbackReadyForRetry: false
+
+ArchitectureDependencyTestsRun1: Passed 54/54
+ArchitectureDependencyTestsRun2: Passed 54/54
+ArchitectureDependencyTestsRun3: Passed 54/54
+ArchitectureTestsStatus: Passed
+ArchitectureTestsRootCause: RepeatedRepositoryWideSourceScanWithoutCachingAndTextFileFiltering
+ArchitectureTestsFixApplied: true
+ArchitectureTestsRuntimeBehaviorChanged: false
+ArchitectureTestsBlocking: false
+
+NewFinalApprovalPacketId: NotCreated
+FinalApprovalPacketFrozen: false
+
+CriticalProductionBlockers: 3
+P47TDecision: NotReadyForNewHumanApproval
+NextGate: CRM Sprint 10 P47U - Supply Real Production Target Rollback and Monitoring Evidence
