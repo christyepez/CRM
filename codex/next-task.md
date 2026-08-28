@@ -4,45 +4,45 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 10 - P1 Productization Readiness Decision
+CRM Sprint 11 S11-01 - Lead Qualification Contracts and Domain Rules
 
 Base Main Commit:
-1c711833d7fcce4744f04aac88c40a6783c2a3b8
+b2d09708ada9db76b6e125c22f1b976e3ec2ae4a
 
 Branch:
-crm-sprint-10-p1-productization-readiness-decision
+crm-sprint-11-s11-01-lead-qualification-contracts-domain-rules
 
 Commit sugerido:
-docs: add crm sprint 10 productization readiness decision
+feat(crm): add lead qualification foundation contracts
 
 PR title:
-docs: add crm sprint 10 productization readiness decision
+CRM Sprint 11 S11-01 - Lead Qualification Contracts and Domain Rules
 
 Objetivo:
-Crear la decisión formal de readiness para Sprint 10, evaluando si CRM puede iniciar activaciones controladas de productización en NonProduction sin activar producción real.
+Implementar contratos y reglas de dominio para Lead Qualification Foundation, primer slice funcional de Sprint 11, sin desbloquear rutas productivas ni activar integraciones runtime.
 
 Guardrails:
-- No production activation.
-- No runtime activation adicional.
-- No CRUD productivo.
+- No redeploy/restart/rollback de `crm-prod-sim`.
+- No P51 ni nuevos gates de producción.
+- No real Production/Azure activation.
+- No productive `/api/crm/leads` unlock.
 - No DELETE.
-- No DB writes.
-- No DB runtime productivo.
-- No EF productivo.
+- No DB runtime productivo ni Common DB activation.
+- No EF runtime.
 - No migrations.
 - No schema changes.
-- No Portal Auth enforcement real.
-- No lectura de Authorization headers por defecto.
-- No lectura de tokens por defecto.
-- No token storage.
-- No [Authorize] productivo.
-- No login/logout CRM.
-- No Identity propio.
-- No UI productiva.
-- No datos reales.
-- Solo decisión documental/foundation status.
-- Productive routes siguen 404 por defecto.
-- P2/P3/P4/P5 probes siguen locked/fail-closed por defecto.
+- No Portal Auth runtime activation.
+- No Authorization header/token reads by default.
+- No CRM-owned Identity/login.
+- No secrets, `.env`, tokens, certificates or real data.
+- Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-10-p1-productization-readiness-decision.md
+codex/prompts/sprint-11-lead-qualification-s11-01.md
+
+Acceptance Criteria:
+- Lead qualification contracts/domain rules exist.
+- Foundation scope remains explicit.
+- Productive routes remain locked/404 by default.
+- Existing 281 tests remain green.
+- Architecture/security guardrails pass.
