@@ -1,5 +1,26 @@
 # TASKS.md
 
+## CRM Sprint 11 P1 - Functional Slice Selection, Backlog Refresh and Implementation Baseline
+
+Status: Implemented in branch `crm-sprint-11-p1-functional-slice-selection-backlog-refresh`.
+
+- [x] Validate GitHub main contains P50 merge commit `b2d09708ada9db76b6e125c22f1b976e3ec2ae4a`.
+- [x] Confirm Sprint 10 local simulated Production pilot is closed.
+- [x] Preserve simulated Production baseline without redeploy/restart/rollback.
+- [x] Inventory backend, frontend, tests, Docker and codex task structure.
+- [x] Inventory CRM API surface and productive route state.
+- [x] Inventory functional CRM capabilities.
+- [x] Inventory frontend status.
+- [x] Inventory persistence architecture and guardrails.
+- [x] Assess candidate functional slices.
+- [x] Select `S11-LEAD-QUAL` as first Sprint 11 slice.
+- [x] Include frontend in Sprint 11 as controlled development-only scope.
+- [x] Define Sprint 11 backlog and story order.
+- [x] Refresh stale `codex/next-task.md`.
+- [x] Create executable S11-01 prompt.
+- [x] Keep Portal/Common DB dependencies out of S11-01.
+- [x] Set `Sprint11PlanningStatus=ReadyForImplementation`.
+
 ## CRM Sprint 10 P50 - Local Simulated Production Post-Execution Validation and Pilot Closure
 
 Status: Implemented in branch `crm-sprint-10-p50-local-simulated-production-post-execution-closure`.
