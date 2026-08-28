@@ -1,5 +1,29 @@
 # TASKS.md
 
+## CRM Sprint 10 P49 - Controlled Local Simulated Production Execution and Validation
+
+Status: Implemented in branch `crm-sprint-10-p49-controlled-local-simulated-production-execution`.
+
+- [x] Validate GitHub main contains P48 merge commit `1db2ef042058324bce490ab0e2346cee8c50c480`.
+- [x] Revalidate P48 approval and frozen P47W hashes before execution.
+- [x] Confirm target image `crm-api:prod-candidate-8623c619` matches approved image ID.
+- [x] Capture NonProd and simulated Production pre-execution snapshots.
+- [x] Consume P48 approval at execution start.
+- [x] Execute only local simulated Production compose target with `up -d --force-recreate`.
+- [x] Do not rebuild, pull, change config, switch traffic or modify data.
+- [x] Validate container identity, non-root user, loopback port and network.
+- [x] Validate `/health`, `/health/live`, `/health/ready` and `/api/crm/readiness`.
+- [x] Confirm `/` and `/swagger` remain expected 404 for API-only scope.
+- [x] Collect immediate stability samples and logs.
+- [x] Confirm Portal/Common DB/data-write/external dependency boundaries remain closed.
+- [x] Confirm NonProd remains unaffected on port 8093.
+- [x] Keep simulated Production running; no rollback required.
+- [x] Set `P49Decision=ExecutedSuccessfully`.
+- [x] Set `SimulatedProductionActivated=true`.
+- [x] Keep `RealProductionActivated=false`.
+- [x] Mark P48 approval non-reusable; future retry requires new human approval.
+- [x] Next gate: CRM Sprint 10 P50 - Local Simulated Production Post-Execution Validation and Pilot Closure.
+
 ## CRM Sprint 10 P48 - Local Simulated Production Explicit Human Approval Gate
 
 Status: Implemented in branch `crm-sprint-10-p48-local-simulated-production-explicit-human-approval`.
