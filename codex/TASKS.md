@@ -1,5 +1,26 @@
 # TASKS.md
 
+## CRM Sprint 10 P50 - Local Simulated Production Post-Execution Validation and Pilot Closure
+
+Status: Implemented in branch `crm-sprint-10-p50-local-simulated-production-post-execution-closure`.
+
+- [x] Validate GitHub main contains P49 merge commit `175431431c2b492042e821ec7ac46a868e3c859d`.
+- [x] Verify immutable P49 evidence and consumed P48 approval.
+- [x] Confirm simulated Production target remains running and healthy.
+- [x] Confirm candidate image identity, non-root user, loopback port and network.
+- [x] Validate continued `/health`, `/health/live`, `/health/ready` and `/api/crm/readiness`.
+- [x] Confirm `/` and `/swagger` remain expected 404 for API-only scope.
+- [x] Collect 10 health and 10 readiness samples.
+- [x] Confirm restart count, OOMKilled and exit state are clean.
+- [x] Review post-P49 logs for critical errors and unexpected dependencies.
+- [x] Confirm Portal/Common DB/data-write/external dependency boundaries remain closed.
+- [x] Confirm NonProd remains unaffected on port 8093.
+- [x] Confirm rollback readiness without executing rollback.
+- [x] Confirm no drift in target, rollback or approval packet hashes.
+- [x] Run build, unit tests, architecture tests and full tests.
+- [x] Close local simulated Production pilot successfully.
+- [x] Preserve real corporate/Azure Production as deferred and not authorized.
+
 ## CRM Sprint 10 P49 - Controlled Local Simulated Production Execution and Validation
 
 Status: Implemented in branch `crm-sprint-10-p49-controlled-local-simulated-production-execution`.
