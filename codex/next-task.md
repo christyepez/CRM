@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 11 S11-01 - Lead Qualification Contracts and Domain Rules
+CRM Sprint 11 S11-02 - Lead Qualification Application Service
 
 Base Main Commit:
-b2d09708ada9db76b6e125c22f1b976e3ec2ae4a
+S11-01 merge commit required
 
 Branch:
-crm-sprint-11-s11-01-lead-qualification-contracts-domain-rules
+crm-sprint-11-s11-02-lead-qualification-application-service
 
 Commit sugerido:
-feat(crm): add lead qualification foundation contracts
+feat(crm): add lead qualification foundation service
 
 PR title:
-CRM Sprint 11 S11-01 - Lead Qualification Contracts and Domain Rules
+CRM Sprint 11 S11-02 - Lead Qualification Application Service
 
 Objetivo:
-Implementar contratos y reglas de dominio para Lead Qualification Foundation, primer slice funcional de Sprint 11, sin desbloquear rutas productivas ni activar integraciones runtime.
+Implementar el servicio de aplicación para Lead Qualification Foundation usando los contratos y reglas de dominio de S11-01, sin desbloquear rutas productivas ni activar integraciones runtime.
 
 Guardrails:
 - No redeploy/restart/rollback de `crm-prod-sim`.
@@ -38,11 +38,12 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-11-lead-qualification-s11-01.md
+codex/prompts/sprint-11-lead-qualification-s11-02.md
 
 Acceptance Criteria:
-- Lead qualification contracts/domain rules exist.
+- Lead qualification application service exists.
+- S11-01 contracts/domain rules are reused.
 - Foundation scope remains explicit.
 - Productive routes remain locked/404 by default.
-- Existing 281 tests remain green.
+- Existing and new tests remain green.
 - Architecture/security guardrails pass.
