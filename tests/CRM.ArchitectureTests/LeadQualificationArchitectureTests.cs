@@ -22,6 +22,26 @@ public sealed class LeadQualificationArchitectureTests
         Assert.DoesNotContain("DbContext", source, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void LeadQualificationApi_IsFoundationOnly_AndUsesApplicationService()
+    {
+        var root = FindRepositoryRoot();
+        var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
+        var apiContract = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Foundation", "LeadQualificationApiContracts.cs"));
+        var endpointStart = program.IndexOf("app.MapPost(\"/api/crm/foundation/leads/{leadId}/qualification\"", StringComparison.Ordinal);
+        var endpointEnd = program.IndexOf("app.MapGet(\"/api/crm/foundation/accounts\"", StringComparison.Ordinal);
+        var endpointBlock = program[endpointStart..endpointEnd];
+
+        Assert.Contains("/api/crm/foundation/leads/{leadId}/qualification", program);
+        Assert.Contains("ILeadQualificationService", program);
+        Assert.DoesNotContain("/api/crm/leads/{leadId}/qualification", program);
+        Assert.DoesNotContain("MapDelete", program);
+        Assert.DoesNotContain("LeadQualificationPolicy", endpointBlock);
+        Assert.DoesNotContain("ILeadFoundationStore", endpointBlock);
+        Assert.Contains("ToApplicationRequest", apiContract);
+        Assert.Contains("ToStatusCode", apiContract);
+    }
+
     private static string FindRepositoryRoot()
     {
         var current = AppContext.BaseDirectory;
