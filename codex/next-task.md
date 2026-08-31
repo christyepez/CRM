@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 11 S11-02 - Lead Qualification Application Service
+CRM Sprint 11 S11-03 - Lead Qualification API Foundation Endpoints
 
 Base Main Commit:
-S11-01 merge commit required
+S11-02 merge commit required
 
 Branch:
-crm-sprint-11-s11-02-lead-qualification-application-service
+crm-sprint-11-s11-03-lead-qualification-api-foundation-endpoints
 
 Commit sugerido:
-feat(crm): add lead qualification foundation service
+feat(crm): add lead qualification foundation endpoints
 
 PR title:
-CRM Sprint 11 S11-02 - Lead Qualification Application Service
+CRM Sprint 11 S11-03 - Lead Qualification API Foundation Endpoints
 
 Objetivo:
-Implementar el servicio de aplicación para Lead Qualification Foundation usando los contratos y reglas de dominio de S11-01, sin desbloquear rutas productivas ni activar integraciones runtime.
+Exponer endpoints foundation-only para Lead Qualification usando el servicio de aplicación de S11-02, sin desbloquear rutas productivas ni activar integraciones runtime.
 
 Guardrails:
 - No redeploy/restart/rollback de `crm-prod-sim`.
@@ -38,11 +38,11 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-11-lead-qualification-s11-02.md
+codex/prompts/sprint-11-lead-qualification-s11-03.md
 
 Acceptance Criteria:
-- Lead qualification application service exists.
-- S11-01 contracts/domain rules are reused.
+- Lead qualification foundation endpoint exists.
+- S11-02 application service is reused.
 - Foundation scope remains explicit.
 - Productive routes remain locked/404 by default.
 - Existing and new tests remain green.
