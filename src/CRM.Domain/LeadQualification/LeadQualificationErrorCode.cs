@@ -4,12 +4,13 @@ public enum LeadQualificationErrorCode
 {
     None = 0,
     LeadIdRequired = 1,
-    InvalidQualificationDecision = 2,
-    InvalidTransition = 3,
-    DisqualificationReasonRequired = 4,
-    DisqualificationReasonNotAllowed = 5,
-    OtherReasonExplanationRequired = 6,
-    OtherReasonExplanationTooLong = 7,
-    CommentTooLong = 8
+    LeadNotFound = 2,
+    InvalidQualificationDecision = 3,
+    InvalidTransition = 4,
+    DisqualificationReasonRequired = 5,
+    DisqualificationReasonNotAllowed = 6,
+    OtherReasonExplanationRequired = 7,
+    OtherReasonExplanationTooLong = 8,
+    CommentTooLong = 9
 }
 
