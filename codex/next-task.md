@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
+CRM Sprint 11 S11-05 - Lead Qualification Test and Guardrail Hardening
 
 Base Main Commit:
-S11-03 merge commit required
+S11-04 merge commit required
 
 Branch:
-crm-sprint-11-s11-04-lead-intake-frontend-foundation-page
+crm-sprint-11-s11-05-lead-qualification-test-guardrail-hardening
 
 Commit sugerido:
-feat(crm): add lead qualification foundation frontend
+test(crm): harden lead qualification foundation guardrails
 
 PR title:
-CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
+CRM Sprint 11 S11-05 - Lead Qualification Test and Guardrail Hardening
 
 Objetivo:
-Implementar una página Angular 18 foundation-only para Lead Intake and Qualification usando el endpoint S11-03, sin desbloquear rutas productivas ni activar integraciones runtime.
+Endurecer pruebas y guardrails cross-layer para Lead Qualification Foundation sin desbloquear rutas productivas ni activar integraciones runtime.
 
 Guardrails:
 - No redeploy/restart/rollback de `crm-prod-sim`.
@@ -38,11 +38,11 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-11-lead-qualification-s11-04.md
+codex/prompts/sprint-11-lead-qualification-s11-05.md
 
 Acceptance Criteria:
-- Lead intake/qualification foundation page exists.
-- S11-03 foundation endpoint is consumed safely.
+- Cross-layer lead qualification guardrails are hardened.
+- Productive routes remain disabled.
 - Foundation scope remains explicit.
 - Productive routes remain locked/404 by default.
 - Existing and new tests remain green.
