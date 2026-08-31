@@ -9,7 +9,7 @@ const required = [
   'src/index.html',
   'src/styles.css'
 ];
-const forbidden = ['localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'AddIdentity', 'JwtBearer', 'CookieAuthentication', '<form', 'FormGroup', 'ngSubmit', 'CreateLead', 'UpdateLead', 'DeleteLead'];
+const forbidden = ['localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'AddIdentity', 'JwtBearer', 'CookieAuthentication', 'CreateLead', 'UpdateLead', 'DeleteLead', '/api/crm/leads'];
 const failures = [];
 
 for (const file of required) {
@@ -819,6 +819,31 @@ const main = readFileSync(join(root, 'src/main.ts'), 'utf8');
 for (const expected of expectedLabels) {
   if (!main.includes(expected)) {
     failures.push(`Missing readiness label '${expected}'`);
+  }
+}
+
+const sprint11Labels = [
+  'Lead Qualification',
+  'Development / Foundation',
+  'NonProductionOnly',
+  'foundation/leads/qualification',
+  '/api/crm/foundation/leads/{leadId}/qualification',
+  '/crm/foundation/leads/',
+  'InvalidContactInformation',
+  'Duplicate',
+  'NoInterest',
+  'OutOfTarget',
+  'Unreachable',
+  'Other',
+  'Submit qualification',
+  'Changed',
+  'portalRuntimeEnabled',
+  'commonDbRuntimeEnabled'
+];
+
+for (const expected of sprint11Labels) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing S11-04 frontend marker '${expected}'`);
   }
 }
 

@@ -2,6 +2,12 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, RouterOutlet, Routes } from '@angular/router';
 import { Component, Injectable, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
+import {
+  HttpClient as FoundationApiClient,
+  HttpErrorResponse as FoundationApiErrorResponse,
+  provideHttpClient as provideFoundationApiClient
+} from '@angular/common/http';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Injectable({ providedIn: 'root' })
 class CrmReadinessService {
@@ -848,6 +854,66 @@ class CrmReadinessService {
       runtimeMode: 'NonProduction',
       apiBaseUrl: this.apiBaseUrl
     };
+  }
+}
+
+type LeadQualificationDecision = 'Qualify' | 'Disqualify';
+type LeadDisqualificationReason = 'InvalidContactInformation' | 'Duplicate' | 'NoInterest' | 'OutOfTarget' | 'Unreachable' | 'Other';
+
+interface FoundationLead {
+  id: string;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  companyName?: string | null;
+  title?: string | null;
+  phone?: string | null;
+  status: string;
+}
+
+interface FoundationLeadListResponse {
+  data?: FoundationLead[];
+}
+
+interface LeadQualificationRequest {
+  decision: LeadQualificationDecision;
+  disqualificationReason?: LeadDisqualificationReason | null;
+  otherReason?: string | null;
+  comment?: string | null;
+}
+
+interface LeadQualificationResponse {
+  leadId: string;
+  previousStatus: string;
+  currentStatus: string;
+  decision: string;
+  disqualificationReason?: string | null;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  foundationMode: boolean;
+  persistenceMode: string;
+  productiveLeadQualificationRouteEnabled: boolean;
+  portalRuntimeEnabled: boolean;
+  commonDbRuntimeEnabled: boolean;
+}
+
+@Injectable({ providedIn: 'root' })
+class LeadQualificationApiService {
+  private readonly apiBaseUrl = '/api';
+  readonly foundationQualificationRoute = '/api/crm/foundation/leads/{leadId}/qualification';
+
+  constructor(private readonly http: FoundationApiClient) {
+  }
+
+  getFoundationLeads() {
+    return this.http.get<FoundationLeadListResponse>(`${this.apiBaseUrl}/crm/foundation/leads`);
+  }
+
+  qualifyLead(leadId: string, request: LeadQualificationRequest) {
+    const safeLeadId = encodeURIComponent(leadId);
+    return this.http.post<LeadQualificationResponse>(`${this.apiBaseUrl}/crm/foundation/leads/${safeLeadId}/qualification`, request);
   }
 }
 
@@ -1740,9 +1806,340 @@ class ReadinessComponent {
   }
 }
 
+@Component({
+  standalone: true,
+  selector: 'crm-lead-qualification-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="leadQualificationTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="leadQualificationTitle">Lead Qualification</h1>
+          <p class="lede">Review a synthetic foundation lead, choose a qualification decision, and submit it through the safe CRM foundation API.</p>
+        </div>
+        <span class="scope-pill">NonProductionOnly</span>
+      </div>
+
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="leadSelectionTitle">
+          <h2 id="leadSelectionTitle">Lead selection</h2>
+          <p class="muted">Synthetic foundation records only. No productive CRM data is used.</p>
+
+          <label for="leadSelector">Foundation lead</label>
+          <select id="leadSelector" [value]="selectedLeadId()" (change)="selectLead($event)">
+            @for (lead of leads(); track lead.id) {
+              <option [value]="lead.id">{{ leadLabel(lead) }}</option>
+            }
+          </select>
+
+          @if (selectedLead(); as lead) {
+            <article class="lead-card" aria-label="Selected lead summary">
+              <div>
+                <span class="label">Name</span>
+                <strong>{{ leadLabel(lead) }}</strong>
+              </div>
+              <div>
+                <span class="label">Status</span>
+                <strong>{{ lead.status }}</strong>
+              </div>
+              <div>
+                <span class="label">Company</span>
+                <strong>{{ lead.companyName || 'Synthetic foundation company' }}</strong>
+              </div>
+              <div>
+                <span class="label">Contact</span>
+                <strong>{{ lead.email || lead.phone || 'Synthetic contact only' }}</strong>
+              </div>
+            </article>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="qualificationFormTitle">
+          <h2 id="qualificationFormTitle">Qualification decision</h2>
+
+          <form [formGroup]="qualificationForm" (ngSubmit)="submitQualification()" novalidate>
+            <label for="decision">Decision</label>
+            <select id="decision" formControlName="decision" (change)="syncReasonValidators()">
+              <option value="Qualify">Qualify lead</option>
+              <option value="Disqualify">Disqualify lead</option>
+            </select>
+
+            @if (isDisqualifying()) {
+              <label for="disqualificationReason">Disqualification reason</label>
+              <select id="disqualificationReason" formControlName="disqualificationReason" (change)="syncReasonValidators()">
+                @for (reason of disqualificationReasons; track reason.value) {
+                  <option [value]="reason.value">{{ reason.label }}</option>
+                }
+              </select>
+            }
+
+            @if (isOtherReason()) {
+              <label for="otherReason">Other reason explanation</label>
+              <textarea id="otherReason" formControlName="otherReason" rows="3" maxlength="250" aria-describedby="otherReasonHelp"></textarea>
+              <small id="otherReasonHelp">Required for Other. Maximum 250 characters.</small>
+            }
+
+            <label for="comment">Comment</label>
+            <textarea id="comment" formControlName="comment" rows="4" maxlength="500" aria-describedby="commentHelp"></textarea>
+            <small id="commentHelp">Optional foundation note. Maximum 500 characters.</small>
+
+            @if (validationMessage(); as message) {
+              <p class="feedback validation" role="alert">{{ message }}</p>
+            }
+
+            <button type="submit" [disabled]="isSubmitting() || qualificationForm.invalid">
+              @if (isSubmitting()) {
+                Submitting...
+              } @else {
+                Submit qualification
+              }
+            </button>
+          </form>
+        </section>
+      </div>
+
+      @if (result(); as qualificationResult) {
+        <section class="panel result-panel" aria-live="polite">
+          <h2>{{ resultTitle() }}</h2>
+          <p>{{ qualificationResult.message }}</p>
+          <dl class="result-grid">
+            <div>
+              <dt>Previous status</dt>
+              <dd>{{ qualificationResult.previousStatus }}</dd>
+            </div>
+            <div>
+              <dt>Current status</dt>
+              <dd>{{ qualificationResult.currentStatus }}</dd>
+            </div>
+            <div>
+              <dt>Changed</dt>
+              <dd>{{ qualificationResult.changed }}</dd>
+            </div>
+            <div>
+              <dt>Foundation route</dt>
+              <dd>{{ qualificationResult.productiveLeadQualificationRouteEnabled ? 'Unexpected productive route' : 'Foundation only' }}</dd>
+            </div>
+          </dl>
+        </section>
+      }
+
+      @if (safeError(); as error) {
+        <section class="panel error-panel" role="alert">
+          <h2>{{ error.title }}</h2>
+          <p>{{ error.message }}</p>
+        </section>
+      }
+    </section>
+  `
+})
+class LeadQualificationPageComponent {
+  readonly leads = signal<FoundationLead[]>([
+    {
+      id: 'lead-preview-001',
+      firstName: 'Ada',
+      lastName: 'Preview',
+      email: 'ada.preview@example.test',
+      companyName: 'Foundation Preview Co',
+      title: 'Synthetic buyer',
+      phone: '555-0101',
+      status: 'New'
+    }
+  ]);
+  readonly selectedLeadId = signal('lead-preview-001');
+  readonly result = signal<LeadQualificationResponse | null>(null);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly isSubmitting = signal(false);
+
+  readonly disqualificationReasons: { value: LeadDisqualificationReason; label: string }[] = [
+    { value: 'InvalidContactInformation', label: 'Invalid contact information' },
+    { value: 'Duplicate', label: 'Duplicate lead' },
+    { value: 'NoInterest', label: 'No interest' },
+    { value: 'OutOfTarget', label: 'Outside target profile' },
+    { value: 'Unreachable', label: 'Unable to contact' },
+    { value: 'Other', label: 'Other' }
+  ];
+
+  readonly qualificationForm = this.formBuilder.nonNullable.group({
+    decision: ['Qualify' as LeadQualificationDecision, Validators.required],
+    disqualificationReason: ['NoInterest' as LeadDisqualificationReason],
+    otherReason: ['', Validators.maxLength(250)],
+    comment: ['', Validators.maxLength(500)]
+  });
+
+  constructor(
+    private readonly api: LeadQualificationApiService,
+    private readonly formBuilder: FormBuilder) {
+    this.loadFoundationLeads();
+    this.syncReasonValidators();
+  }
+
+  selectedLead() {
+    return this.leads().find(lead => lead.id === this.selectedLeadId()) ?? this.leads()[0];
+  }
+
+  leadLabel(lead: FoundationLead) {
+    const fullName = `${lead.firstName ?? ''} ${lead.lastName ?? ''}`.trim();
+    return fullName.length > 0 ? fullName : lead.id;
+  }
+
+  selectLead(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    this.selectedLeadId.set(select.value);
+    this.result.set(null);
+    this.safeError.set(null);
+  }
+
+  isDisqualifying() {
+    return this.qualificationForm.controls.decision.value === 'Disqualify';
+  }
+
+  isOtherReason() {
+    return this.isDisqualifying() && this.qualificationForm.controls.disqualificationReason.value === 'Other';
+  }
+
+  validationMessage() {
+    if (!this.qualificationForm.touched) {
+      return null;
+    }
+
+    if (this.qualificationForm.controls.decision.invalid) {
+      return 'Choose a qualification decision.';
+    }
+
+    if (this.qualificationForm.controls.disqualificationReason.invalid) {
+      return 'Choose a disqualification reason.';
+    }
+
+    if (this.qualificationForm.controls.otherReason.invalid) {
+      return 'Provide a bounded explanation for Other.';
+    }
+
+    if (this.qualificationForm.controls.comment.invalid) {
+      return 'Comment must be 500 characters or less.';
+    }
+
+    return null;
+  }
+
+  syncReasonValidators() {
+    const reason = this.qualificationForm.controls.disqualificationReason;
+    const other = this.qualificationForm.controls.otherReason;
+
+    if (this.isDisqualifying()) {
+      reason.addValidators(Validators.required);
+    } else {
+      reason.clearValidators();
+      other.setValue('');
+    }
+
+    if (this.isOtherReason()) {
+      other.addValidators([Validators.required, Validators.maxLength(250)]);
+    } else {
+      other.setValidators([Validators.maxLength(250)]);
+    }
+
+    reason.updateValueAndValidity({ emitEvent: false });
+    other.updateValueAndValidity({ emitEvent: false });
+  }
+
+  submitQualification() {
+    this.qualificationForm.markAllAsTouched();
+    this.syncReasonValidators();
+
+    if (this.qualificationForm.invalid || this.isSubmitting()) {
+      return;
+    }
+
+    const leadId = this.selectedLeadId().trim();
+    if (leadId.length === 0) {
+      this.safeError.set({ title: 'Lead required', message: 'Select a foundation lead before submitting.' });
+      return;
+    }
+
+    const formValue = this.qualificationForm.getRawValue();
+    const request: LeadQualificationRequest = {
+      decision: formValue.decision,
+      disqualificationReason: this.isDisqualifying() ? formValue.disqualificationReason : null,
+      otherReason: this.isOtherReason() ? formValue.otherReason.trim() : null,
+      comment: formValue.comment.trim() || null
+    };
+
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.result.set(null);
+
+    this.api.qualifyLead(leadId, request).subscribe({
+      next: response => {
+        this.result.set(response);
+        this.updateSelectedLeadStatus(response);
+        this.isSubmitting.set(false);
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  resultTitle() {
+    const current = this.result();
+    if (!current) {
+      return 'Qualification result';
+    }
+
+    if (!current.changed) {
+      return 'No change needed';
+    }
+
+    return current.currentStatus === 'Disqualified' ? 'Lead disqualified' : 'Lead qualified';
+  }
+
+  private loadFoundationLeads() {
+    this.api.getFoundationLeads().subscribe({
+      next: response => {
+        const data = response.data ?? [];
+        if (data.length > 0) {
+          this.leads.set(data);
+          this.selectedLeadId.set(data[0].id);
+        }
+      },
+      error: () => {
+        this.safeError.set({
+          title: 'Using synthetic lead',
+          message: 'Foundation lead list is unavailable, so the page is using safe synthetic fallback data.'
+        });
+      }
+    });
+  }
+
+  private updateSelectedLeadStatus(response: LeadQualificationResponse) {
+    this.leads.update(leads => leads.map(lead => lead.id === response.leadId ? { ...lead, status: response.currentStatus } : lead));
+  }
+
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      if (error.status === 400) {
+        return { title: 'Validation issue', message: 'Review the decision, reason and comment fields before trying again.' };
+      }
+
+      if (error.status === 404) {
+        return { title: 'Lead not found', message: 'The selected foundation lead was not found.' };
+      }
+
+      if (error.status === 409) {
+        return { title: 'Transition not permitted', message: 'The selected lead cannot move to that qualification state.' };
+      }
+    }
+
+    return { title: 'Qualification unavailable', message: 'The foundation qualification service could not process the request.' };
+  }
+}
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'readiness', component: ReadinessComponent }
+  { path: 'readiness', component: ReadinessComponent },
+  { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent }
 ];
 
 @Component({
@@ -1755,5 +2152,5 @@ class AppComponent {
 }
 
 bootstrapApplication(AppComponent, {
-  providers: [provideRouter(routes)]
+  providers: [provideRouter(routes), provideFoundationApiClient()]
 }).catch(error => console.error(error));

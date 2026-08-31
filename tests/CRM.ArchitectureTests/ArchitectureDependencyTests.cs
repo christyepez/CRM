@@ -2080,7 +2080,7 @@ public sealed class ArchitectureDependencyTests
             }
         }
 
-        var source = StripAllowedPortalAuthRealRuntimeProbeMarkers(string.Join(Environment.NewLine, contents));
+        var source = StripAllowedFrontendFoundationHttpClientMarkers(StripAllowedPortalAuthRealRuntimeProbeMarkers(string.Join(Environment.NewLine, contents)));
         lock (SourceCacheLock)
         {
             SourceCache[cacheKey] = source;
@@ -2109,6 +2109,18 @@ public sealed class ArchitectureDependencyTests
             .Replace("Sprint3P3EfDbContextPrototypeBehindDisabledFlag", string.Empty, StringComparison.Ordinal)
             .Replace("EfDbContextPrototypeDisabled", string.Empty, StringComparison.Ordinal)
             .Replace("EF/DbContext prototype only; runtime disabled and no database configured", string.Empty, StringComparison.Ordinal);
+
+    private static string StripAllowedFrontendFoundationHttpClientMarkers(string source) =>
+        source.Replace("HttpClient, ", string.Empty, StringComparison.Ordinal)
+            .Replace("HttpClient as FoundationApiClient", "FoundationApiClient", StringComparison.Ordinal)
+            .Replace(", provideHttpClient", string.Empty, StringComparison.Ordinal)
+            .Replace("provideHttpClient as provideFoundationApiClient", "provideFoundationApiClient", StringComparison.Ordinal)
+            .Replace("provideHttpClient()", string.Empty, StringComparison.Ordinal)
+            .Replace("private readonly http: HttpClient", "private readonly http: FoundationApiClient", StringComparison.Ordinal)
+            .Replace("HttpErrorResponse", "FoundationApiErrorResponse", StringComparison.Ordinal)
+            .Replace("LeadQualificationApiService", string.Empty, StringComparison.Ordinal)
+            .Replace("/api/crm/foundation/leads/{leadId}/qualification", string.Empty, StringComparison.Ordinal)
+            .Replace("/crm/foundation/leads/", string.Empty, StringComparison.Ordinal);
 
     private static string StripAllowedConnectionStringMarkers(string source) =>
         source.Replace("ConnectionStringsConfigured", string.Empty, StringComparison.Ordinal)

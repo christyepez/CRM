@@ -4061,3 +4061,31 @@ SimulatedProductionTouched: false
 
 S1103Decision: ReadyForS1104FrontendFoundationPage
 NextGate: CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
+
+## CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
+
+S1103PullRequest: #145
+S1103MergeCommit: 7b269b1c4be3e0989a50422f81a5a1c190e10e59
+S1104BaseMainCommit: 7b269b1c4be3e0989a50422f81a5a1c190e10e59
+
+SelectedSliceId: S11-LEAD-QUAL
+SelectedSliceName: Lead Intake and Qualification Foundation
+
+AngularVersion: 18.2.x
+FrontendArchitecture: Standalone components in src/main.ts
+FrontendQualificationRoute: /foundation/leads/qualification
+PageComponent: LeadQualificationPageComponent
+ApiService: LeadQualificationApiService
+
+FoundationApiRouteUsed: POST /api/crm/foundation/leads/{leadId}/qualification
+FrontendUsesProductiveLeadRoute: false
+PortalRuntimeEnabled: false
+TokenStorageAdded: false
+CommonDbDependency: none
+
+LeadQualificationImplementationStatus: FrontendFoundationImplemented
+LeadQualificationFrontend: FoundationImplemented
+SimulatedProductionTouched: false
+
+S1104Decision: ReadyForS1105TestAndGuardrailHardening
+NextGate: CRM Sprint 11 S11-05 - Lead Qualification Test and Guardrail Hardening
