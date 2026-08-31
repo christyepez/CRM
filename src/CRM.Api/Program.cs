@@ -1,4 +1,5 @@
 using CRM.Api.ProductiveRoutes;
+using CRM.Api.Foundation;
 using CRM.Application.Contracts;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
@@ -26,6 +27,7 @@ builder.Services.AddSingleton<LeadFoundationService>();
 builder.Services.AddSingleton<AccountFoundationService>();
 builder.Services.AddSingleton<ContactFoundationService>();
 builder.Services.AddSingleton<FoundationLeadCrudService>();
+builder.Services.AddSingleton<ILeadQualificationService, LeadQualificationService>();
 builder.Services.AddSingleton<FoundationAccountCrudService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
@@ -383,6 +385,13 @@ app.MapPost("/api/crm/foundation/leads", async (FoundationLeadCreateRequest requ
 
 app.MapPut("/api/crm/foundation/leads/{id}", async (string id, FoundationLeadUpdateRequest request, FoundationLeadCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.UpdateAsync(id, request, cancellationToken)))
     .WithName("UpdateCrmFoundationLead");
+
+app.MapPost("/api/crm/foundation/leads/{leadId}/qualification", async (string leadId, LeadQualificationApiRequest request, ILeadQualificationService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.QualifyAsync(request.ToApplicationRequest(leadId), cancellationToken);
+    return Results.Json(LeadQualificationApiResponse.From(result), statusCode: LeadQualificationApiResponse.ToStatusCode(result));
+})
+    .WithName("QualifyCrmFoundationLead");
 
 app.MapGet("/api/crm/foundation/accounts", async (FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationAccounts");

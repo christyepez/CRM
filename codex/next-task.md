@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 11 S11-03 - Lead Qualification API Foundation Endpoints
+CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
 
 Base Main Commit:
-S11-02 merge commit required
+S11-03 merge commit required
 
 Branch:
-crm-sprint-11-s11-03-lead-qualification-api-foundation-endpoints
+crm-sprint-11-s11-04-lead-intake-frontend-foundation-page
 
 Commit sugerido:
-feat(crm): add lead qualification foundation endpoints
+feat(crm): add lead qualification foundation frontend
 
 PR title:
-CRM Sprint 11 S11-03 - Lead Qualification API Foundation Endpoints
+CRM Sprint 11 S11-04 - Lead Intake Frontend Foundation Page
 
 Objetivo:
-Exponer endpoints foundation-only para Lead Qualification usando el servicio de aplicación de S11-02, sin desbloquear rutas productivas ni activar integraciones runtime.
+Implementar una página Angular 18 foundation-only para Lead Intake and Qualification usando el endpoint S11-03, sin desbloquear rutas productivas ni activar integraciones runtime.
 
 Guardrails:
 - No redeploy/restart/rollback de `crm-prod-sim`.
@@ -38,11 +38,11 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-11-lead-qualification-s11-03.md
+codex/prompts/sprint-11-lead-qualification-s11-04.md
 
 Acceptance Criteria:
-- Lead qualification foundation endpoint exists.
-- S11-02 application service is reused.
+- Lead intake/qualification foundation page exists.
+- S11-03 foundation endpoint is consumed safely.
 - Foundation scope remains explicit.
 - Productive routes remain locked/404 by default.
 - Existing and new tests remain green.
