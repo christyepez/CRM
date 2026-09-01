@@ -17,9 +17,14 @@ using CRM.Infrastructure.Portal.ControlledRuntimePilot;
 using CRM.Infrastructure.Portal.RuntimeProbe;
 using CRM.Infrastructure.Portal.Simulation;
 using CRM.Infrastructure.Security.Secrets;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.ConfigureHttpJsonOptions(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
 builder.Services.AddHealthChecks();
 builder.Services.AddSingleton<CrmReadinessService>();
 builder.Services.AddSingleton<CrmDomainCatalogService>();

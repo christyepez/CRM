@@ -7,7 +7,9 @@ function Fail($Message) { $script:failures += $Message; Write-Output "FAIL $Mess
 function Remove-AllowedSprint11FrontendFoundationMarkers($Text) {
     return $Text.
         Replace("HttpClient, ", "").
+        Replace("HttpClient as FoundationApiClient", "FoundationApiClient").
         Replace(", provideHttpClient", "").
+        Replace("provideHttpClient as provideFoundationApiClient", "provideFoundationApiClient").
         Replace("provideHttpClient()", "").
         Replace("private readonly http: HttpClient", "private readonly foundationApiClient: FoundationApiClient").
         Replace("HttpErrorResponse", "FoundationApiErrorResponse").

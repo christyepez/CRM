@@ -847,6 +847,79 @@ for (const expected of sprint11Labels) {
   }
 }
 
+const leadQualificationDecisionValues = ["'Qualify'", "'Disqualify'"];
+const leadDisqualificationReasonValues = [
+  "'InvalidContactInformation'",
+  "'Duplicate'",
+  "'NoInterest'",
+  "'OutOfTarget'",
+  "'Unreachable'",
+  "'Other'"
+];
+
+for (const expected of [...leadQualificationDecisionValues, ...leadDisqualificationReasonValues]) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing S11-05 enum parity marker ${expected}`);
+  }
+}
+
+const s11FrontendContractFields = [
+  'decision:',
+  'disqualificationReason:',
+  'otherReason:',
+  'comment:',
+  'leadId:',
+  'previousStatus:',
+  'currentStatus:',
+  'allowed:',
+  'changed:',
+  'errorCode:',
+  'message:'
+];
+
+for (const expected of s11FrontendContractFields) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing S11-05 frontend contract field '${expected}'`);
+  }
+}
+
+const leadQualificationSourceStart = main.indexOf('type LeadQualificationDecision');
+const leadQualificationSourceEnd = main.indexOf("bootstrapApplication(AppComponent, {");
+const leadQualificationSource = leadQualificationSourceStart >= 0 && leadQualificationSourceEnd > leadQualificationSourceStart
+  ? main.slice(leadQualificationSourceStart, leadQualificationSourceEnd)
+  : '';
+
+if (!leadQualificationSource.includes("if (this.qualificationForm.invalid || this.isSubmitting())")) {
+  failures.push('Missing duplicate submission protection before foundation API call.');
+}
+
+for (const expected of ['Validation issue', 'Lead not found', 'Transition not permitted']) {
+  if (!leadQualificationSource.includes(expected)) {
+    failures.push(`Missing S11-05 frontend error state '${expected}'`);
+  }
+}
+
+for (const forbidden of ['innerHTML', 'bypassSecurityTrustHtml', 'document.querySelector', 'localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'Bearer ']) {
+  if (leadQualificationSource.includes(forbidden)) {
+    failures.push(`Forbidden S11-05 frontend marker '${forbidden}' found.`);
+  }
+}
+
+if (leadQualificationSource.includes('/api/crm/leads')) {
+  failures.push('Lead qualification frontend must not call productive lead API route.');
+}
+
+const styles = readFileSync(join(root, 'src/styles.css'), 'utf8');
+if (!styles.includes('@media (max-width: 760px)') || styles.includes('width: 1200px')) {
+  failures.push('Missing responsive S11-05 source evidence for lead qualification page.');
+}
+
+for (const expected of ['aria-labelledby', 'aria-live', '<label for=', 'type="submit"', '[disabled]="isSubmitting() || qualificationForm.invalid"']) {
+  if (!leadQualificationSource.includes(expected)) {
+    failures.push(`Missing S11-05 accessibility/workflow marker '${expected}'`);
+  }
+}
+
 if (failures.length > 0) {
   console.error(failures.join('\n'));
   process.exit(1);

@@ -93,6 +93,20 @@ public sealed class LeadQualificationServiceTests
     }
 
     [Fact]
+    public async Task QualifyAsync_WhenDisqualifyRequestIsIdempotent_DoesNotWrite()
+    {
+        var store = new CountingLeadFoundationStore(new CrmFoundationPreviewItemContract("lead-001", "Lead", "Ada Preview", "Disqualified", DateTimeOffset.UtcNow, new Dictionary<string, string>()));
+        var service = new LeadQualificationService(store);
+
+        var result = await service.QualifyAsync(new LeadQualificationRequest("lead-001", LeadQualificationDecision.Disqualify, LeadDisqualificationReasonCode.Duplicate, null, null));
+
+        Assert.True(result.Allowed);
+        Assert.False(result.Changed);
+        Assert.Equal(LeadStatus.Disqualified, result.CurrentStatus);
+        Assert.Equal(0, store.SaveCount);
+    }
+
+    [Fact]
     public async Task QualifyAsync_PropagatesPolicyResultMetadata()
     {
         var store = new CountingLeadFoundationStore(new CrmFoundationPreviewItemContract("lead-001", "Lead", "Ada Preview", "New", DateTimeOffset.UtcNow, new Dictionary<string, string>()));

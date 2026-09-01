@@ -77,5 +77,66 @@ public sealed class LeadQualificationApiContractsTests
 
         Assert.Equal(expectedStatus, LeadQualificationApiResponse.ToStatusCode(result));
     }
+
+    [Fact]
+    public void Frontend_And_Backend_Enum_Values_Remain_Aligned()
+    {
+        var root = FindRepositoryRoot();
+        var frontend = File.ReadAllText(Path.Combine(root, "frontend", "crm-web", "src", "main.ts"));
+
+        foreach (var decision in Enum.GetNames<LeadQualificationDecision>())
+        {
+            Assert.Contains($"'{decision}'", frontend);
+        }
+
+        foreach (var reason in Enum.GetNames<LeadDisqualificationReasonCode>())
+        {
+            Assert.Contains($"'{reason}'", frontend);
+        }
+    }
+
+    [Fact]
+    public void Frontend_Response_Model_Matches_Backend_Response_Semantics()
+    {
+        var root = FindRepositoryRoot();
+        var frontend = File.ReadAllText(Path.Combine(root, "frontend", "crm-web", "src", "main.ts"));
+
+        foreach (var field in new[]
+        {
+            "leadId",
+            "previousStatus",
+            "currentStatus",
+            "decision",
+            "disqualificationReason",
+            "allowed",
+            "changed",
+            "errorCode",
+            "message",
+            "foundationMode",
+            "persistenceMode",
+            "productiveLeadQualificationRouteEnabled",
+            "portalRuntimeEnabled",
+            "commonDbRuntimeEnabled"
+        })
+        {
+            Assert.Contains(field, frontend);
+        }
+    }
+
+    private static string FindRepositoryRoot()
+    {
+        var current = AppContext.BaseDirectory;
+        while (current is not null)
+        {
+            if (File.Exists(Path.Combine(current, "CRM.sln")))
+            {
+                return current;
+            }
+
+            current = Directory.GetParent(current)?.FullName;
+        }
+
+        throw new DirectoryNotFoundException("Repository root containing CRM.sln was not found.");
+    }
 }
 
