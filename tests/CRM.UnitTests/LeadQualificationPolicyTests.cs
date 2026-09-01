@@ -76,6 +76,44 @@ public sealed class LeadQualificationPolicyTests
     }
 
     [Fact]
+    public void Evaluate_Allows_OtherReason_When_Explanation_Is_Provided()
+    {
+        var result = LeadQualificationPolicy.Evaluate(LeadStatus.New, new LeadQualificationCommand("lead-001", LeadQualificationDecision.Disqualify, LeadDisqualificationReasonCode.Other, "Synthetic reason"));
+
+        Assert.True(result.Allowed);
+        Assert.True(result.Changed);
+        Assert.Equal(LeadStatus.Disqualified, result.CurrentStatus);
+        Assert.Equal(LeadDisqualificationReasonCode.Other, result.ReasonCode);
+        Assert.Equal(LeadQualificationErrorCode.None, result.ErrorCode);
+    }
+
+    [Theory]
+    [InlineData(LeadQualificationDecision.Qualify)]
+    [InlineData(LeadQualificationDecision.Disqualify)]
+    public void Evaluate_Rejects_Converted_State_For_Qualification_Decisions(LeadQualificationDecision decision)
+    {
+        LeadDisqualificationReasonCode? reason = decision == LeadQualificationDecision.Disqualify ? LeadDisqualificationReasonCode.NoInterest : null;
+
+        var result = LeadQualificationPolicy.Evaluate(LeadStatus.Converted, new LeadQualificationCommand("lead-001", decision, reason));
+
+        Assert.False(result.Allowed);
+        Assert.False(result.Changed);
+        Assert.Equal(LeadQualificationErrorCode.InvalidTransition, result.ErrorCode);
+        Assert.Equal(LeadStatus.Converted, result.CurrentStatus);
+    }
+
+    [Fact]
+    public void Evaluate_ErrorCodes_Are_Deterministic()
+    {
+        var values = Enum.GetValues<LeadQualificationErrorCode>();
+
+        Assert.Equal(values.Length, values.Distinct().Count());
+        Assert.Equal(0, (int)LeadQualificationErrorCode.None);
+        Assert.Equal(1, (int)LeadQualificationErrorCode.LeadIdRequired);
+        Assert.Equal(9, (int)LeadQualificationErrorCode.CommentTooLong);
+    }
+
+    [Fact]
     public void Evaluate_Rejects_Invalid_Enum_Decision()
     {
         var result = LeadQualificationPolicy.Evaluate(LeadStatus.New, new LeadQualificationCommand("lead-001", (LeadQualificationDecision)99));
