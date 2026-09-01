@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "ng build",
+    "start": "node tools/serve-local-integration.mjs",
     "test": "node tools/verify-crm-foundation.mjs"
   },
   "dependencies": {

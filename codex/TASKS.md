@@ -4142,3 +4142,59 @@ SimulatedProductionTouched: false
 
 S1105Decision: ReadyForS1106LocalIntegrationValidation
 NextGate: CRM Sprint 11 S11-06 - Lead Qualification Local Integration Validation
+
+## CRM Sprint 11 S11-06 - Lead Qualification Local Integration Validation
+
+S1105PullRequest: #149
+S1105MergeCommit: 1f376d3eaeffcef61dc498f4e35f1a4b72cc260c
+S1106BaseMainCommit: 1f376d3eaeffcef61dc498f4e35f1a4b72cc260c
+
+SelectedSliceId: S11-LEAD-QUAL
+SelectedSliceName: Lead Intake and Qualification Foundation
+
+LocalBackendUrl: http://localhost:8093
+LocalFrontendUrl: http://127.0.0.1:4200
+FrontendRoute: /foundation/leads/qualification
+FrontendApiRoutingMode: Proxy
+FrontendProxyTarget: http://localhost:8093
+
+BackendHealth: PASS
+BackendLive: PASS
+BackendReady: PASS
+FrontendRouteStatus: PASS
+FrontendToApiConnectivity: PASS
+
+FoundationLeadSourceRoute: GET /api/crm/foundation/leads
+FoundationLeadSourceStatus: PASS
+FoundationQualificationRoute: POST /api/crm/foundation/leads/{leadId}/qualification
+IntegrationLeadId: lead-preview-001
+IntegrationLeadFinalStatus: Qualified
+
+QualifyScenario: PASS
+IdempotentQualifyScenario: PASS
+DisqualifyScenario: PASS
+OtherReasonScenario: PASS
+ValidationErrorScenario: PASS
+LeadNotFoundScenario: PASS
+InvalidTransitionScenario: PASS
+ReadAfterWriteScenario: PASS
+
+ProductiveRouteNegativeTest: PASS
+ProductiveQualificationRouteAvailable: false
+ProductiveQualificationRouteStatus: 404
+
+AuthorizationHeaderRequired: false
+TokenRuntimeObserved: false
+PortalRuntimeObserved: false
+PortalAuthRuntimeEnabled: false
+CommonDbRuntimeObserved: false
+CommonDbRuntimeEnabled: false
+CommonDbReadAttempted: false
+CommonDbWriteAttempted: false
+SchemaChangesDetected: false
+SimulatedProductionTouched: false
+
+LocalIntegrationValidationStatus: PASS
+LeadQualificationImplementationStatus: LocalIntegrationValidated
+S1106Decision: ReadyForS1107SprintClosure
+NextGate: CRM Sprint 11 S11-07 - Lead Qualification Sprint Closure

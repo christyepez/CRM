@@ -17,6 +17,15 @@
             "tsConfig": "tsconfig.app.json",
             "styles": ["src/styles.css"]
           }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "buildTarget": "crm-web:build",
+            "host": "127.0.0.1",
+            "port": 4200,
+            "proxyConfig": "proxy.conf.json"
+          }
         }
       }
     }
