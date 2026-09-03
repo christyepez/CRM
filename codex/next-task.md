@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 S12-02 - Contact Application Service
+CRM Sprint 12 S12-03 - Contact Foundation API Integration
 
 Base Main Commit:
-S12-01 merge commit required
+S12-02 merge commit required
 
 Branch:
-crm-sprint-12-s12-02-contact-application-service
+crm-sprint-12-s12-03-contact-foundation-api-integration
 
 Commit sugerido:
-feat(crm): add contact application service
+feat(crm): wire contact foundation api to application service
 
 PR title:
-CRM Sprint 12 S12-02 - Contact Application Service
+CRM Sprint 12 S12-03 - Contact Foundation API Integration
 
 Objetivo:
-Implementar la orquestación application de Contact Management usando los contratos y reglas de dominio de S12-01, manteniendo el alcance foundation-only.
+Integrar de forma controlada las rutas foundation de Contact con el servicio application de S12-02, manteniendo el alcance foundation-only.
 
 Guardrails:
 - No productive `/api/crm/contacts` unlock.
@@ -35,10 +35,11 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-s12-02.md
+codex/prompts/sprint-12-contact-management-s12-03.md
 
 Acceptance Criteria:
-- Contact Management application service invokes S12-01 domain rules.
+- Existing foundation Contact API remains backward compatible.
+- Contact application service is invoked where route semantics allow it.
 - Existing Contact foundation CRUD remains compatible.
 - Productive Contact route remains unavailable.
 - New domain tests pass.

@@ -4325,3 +4325,23 @@ Summary:
 Next:
 
 - CRM Sprint 12 S12-02 - Contact Application Service.
+## CRM Sprint 12 S12-02 - Contact Application Service
+
+Status: Implemented
+
+Branch: crm-sprint-12-s12-02-contact-application-service
+
+S1202Decision: Implemented
+
+Summary:
+
+- Added Contact Management application service interface, implementation and safe result contracts.
+- Reused `IContactFoundationStore` as the foundation-only NonProduction seam.
+- Delegated deterministic Contact rules to `ContactManagementPolicy`.
+- Preserved write-count guarantees for create/update/no-change/not-found/invalid flows.
+- Kept productive `/api/crm/contacts`, Portal runtime and Common DB runtime disabled.
+- Prepared S12-03 prompt and next-task handoff.
+
+Next:
+
+- CRM Sprint 12 S12-03 - Contact Foundation API Integration.
