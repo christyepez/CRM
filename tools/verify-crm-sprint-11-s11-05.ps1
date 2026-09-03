@@ -88,8 +88,8 @@ if (($application + "`n" + $apiContracts + "`n" + $frontendQualification) -match
 }
 
 $nextTask = Get-Content "codex/next-task.md" -Raw
-if (-not $nextTask.Contains("CRM Sprint 11 S11-06 - Lead Qualification Local Integration Validation")) {
-    throw "next-task must point to S11-06."
+if (-not ($nextTask.Contains("CRM Sprint 11 S11-06 - Lead Qualification Local Integration Validation") -or $nextTask.Contains("CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog"))) {
+    throw "next-task must point to S11-06 or the post-Sprint-11 next functional slice."
 }
 
 Write-Host "CRM Sprint 11 S11-05 verification passed."

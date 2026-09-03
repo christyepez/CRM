@@ -4,27 +4,25 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 11 S11-07 - Lead Qualification Sprint Closure
+CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
 
 Base Main Commit:
-S11-06 merge commit required
+S11-07 merge commit required
 
 Branch:
-crm-sprint-11-s11-07-lead-qualification-sprint-closure
+crm-sprint-12-p1-contact-management-functional-baseline-backlog
 
 Commit sugerido:
-docs(crm): close lead qualification foundation slice
+docs(crm): plan contact management foundation slice
 
 PR title:
-CRM Sprint 11 S11-07 - Lead Qualification Sprint Closure
+CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
 
 Objetivo:
-Cerrar formalmente el slice Lead Qualification Foundation de Sprint 11 después de validar contratos, dominio, aplicación, API foundation, frontend foundation, pruebas, guardrails e integración local S11-06.
+Planificar el slice Contact Management Foundation después del cierre de Sprint 11 Lead Qualification, sin implementar runtime nuevo todavía.
 
 Guardrails:
-- No redeploy/restart/rollback de `crm-prod-sim`.
-- No P51 ni nuevos gates de producción.
-- No real Production/Azure activation.
+- No productive `/api/crm/contacts` unlock.
 - No productive `/api/crm/leads` unlock.
 - No DELETE.
 - No DB runtime productivo ni Common DB activation.
@@ -38,12 +36,11 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-11-lead-qualification-s11-07.md
+codex/prompts/sprint-12-contact-management-p1.md
 
 Acceptance Criteria:
-- S11-01 through S11-06 evidence is reviewed.
-- Lead Qualification Foundation closure is documented.
+- Sprint 11 Lead Qualification closure is used as input.
+- Contact Management current state is reviewed.
+- Sprint 12 backlog and first implementation story are defined.
 - Productive routes remain locked/404 by default.
 - Portal Auth, Common DB, SimulatedProduction and Production remain untouched.
-- Existing verification suite remains green.
-- Next functional slice candidates are proposed.
