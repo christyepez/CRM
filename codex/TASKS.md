@@ -4306,3 +4306,22 @@ NextTaskPromptFile: codex/prompts/sprint-12-contact-management-s12-01.md
 SimulatedProductionTouched: false
 Sprint12P1Decision: ReadyForS1201ContactContractsAndDomainRules
 NextGate: CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
+## CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
+
+Status: Implemented
+
+Branch: crm-sprint-12-s12-01-contact-contracts-domain-rules
+
+S1201Decision: Implemented
+
+Summary:
+
+- Added explicit Contact Management domain contracts and deterministic policy.
+- Preserved existing foundation Contact CRUD compatibility.
+- Kept productive `/api/crm/contacts` locked.
+- Kept Portal Auth and Common DB runtime disabled.
+- Prepared S12-02 prompt and next-task handoff.
+
+Next:
+
+- CRM Sprint 12 S12-02 - Contact Application Service.
