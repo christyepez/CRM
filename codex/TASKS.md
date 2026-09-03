@@ -4345,3 +4345,22 @@ Summary:
 Next:
 
 - CRM Sprint 12 S12-03 - Contact Foundation API Integration.
+## CRM Sprint 12 S12-03 - Contact Foundation API Integration
+
+Status: Implemented
+
+Branch: crm-sprint-12-s12-03-contact-foundation-api-integration
+
+S1203Decision: Implemented
+
+Summary:
+
+- Wired existing foundation Contact POST/PUT routes through `IContactManagementService`.
+- Preserved existing Contact foundation GET, preview and read-model routes.
+- Added explicit API DTO mapping and safe HTTP status mapping.
+- Kept productive `/api/crm/contacts`, DELETE, Portal runtime and Common DB runtime disabled.
+- Prepared S12-04 frontend prompt and next-task handoff.
+
+Next:
+
+- CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page.
