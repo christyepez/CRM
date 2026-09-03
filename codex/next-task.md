@@ -4,26 +4,25 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
+CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
 
 Base Main Commit:
-S11-07 merge commit required
+Sprint 12 P1 merge commit required
 
 Branch:
-crm-sprint-12-p1-contact-management-functional-baseline-backlog
+crm-sprint-12-s12-01-contact-contracts-domain-rules
 
 Commit sugerido:
-docs(crm): plan contact management foundation slice
+feat(crm): add contact management domain rules
 
 PR title:
-CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
+CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
 
 Objetivo:
-Planificar el slice Contact Management Foundation después del cierre de Sprint 11 Lead Qualification, sin implementar runtime nuevo todavía.
+Implementar contratos y reglas de dominio explícitas para Contact Management Foundation, manteniendo el alcance foundation-only.
 
 Guardrails:
 - No productive `/api/crm/contacts` unlock.
-- No productive `/api/crm/leads` unlock.
 - No DELETE.
 - No DB runtime productivo ni Common DB activation.
 - No EF runtime.
@@ -36,11 +35,13 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-p1.md
+codex/prompts/sprint-12-contact-management-s12-01.md
 
 Acceptance Criteria:
-- Sprint 11 Lead Qualification closure is used as input.
-- Contact Management current state is reviewed.
-- Sprint 12 backlog and first implementation story are defined.
-- Productive routes remain locked/404 by default.
-- Portal Auth, Common DB, SimulatedProduction and Production remain untouched.
+- Contact Management domain rules are explicit and deterministic.
+- Existing Contact foundation CRUD remains compatible.
+- Productive Contact route remains unavailable.
+- New domain tests pass.
+- Existing backend/frontend tests remain green.
+- Guardrails pass.
+- S12-02 prompt is prepared.

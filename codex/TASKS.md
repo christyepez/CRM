@@ -4254,3 +4254,55 @@ NextTaskPromptFile: codex/prompts/sprint-12-contact-management-p1.md
 
 S1107Decision: ClosedSuccessfully
 NextGate: CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
+
+## CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog
+
+Sprint11ClosurePullRequest: #153
+Sprint11ClosureMergeCommit: 5097cfebf9042d5b2d531390ab42adc9c46842cb
+Sprint12P1BaseMainCommit: 5097cfebf9042d5b2d531390ab42adc9c46842cb
+
+SelectedSliceId: S12-CONTACT-MGMT
+SelectedSliceName: Contact Management Foundation
+
+ContactDomainStatus: PartiallyImplemented
+ContactApplicationStatus: FoundationOnly
+ContactPersistenceArchitecture: Foundation/NonProduction seam
+ContactApiStatus: FoundationImplemented
+ContactFrontendStatus: DashboardReferenceOnly
+
+ExistingContactFields: Id, Name, Email, Phone, Role, AccountId, PreferredContactMethod, Status
+ExistingContactRelationships: Contact->Account via AccountId; Account->Contact via ContactReferences
+
+LeadContactRelationshipExists: false
+LeadContactDecision: ContractOnlyLater
+AccountRelationshipRequiredForFoundation: false
+
+ProductiveContactRouteEnabled: false
+FoundationContactRoutes: POST /api/crm/foundation/contacts/preview; GET /api/crm/foundation/contacts; GET /api/crm/foundation/contacts/{id}; POST /api/crm/foundation/contacts; PUT /api/crm/foundation/contacts/{id}; GET /api/crm/foundation/contacts/read-model-preview
+
+Sprint12FunctionalScope: Contact identity/details, create/update, list/search, detail, preference validation, Angular foundation page, synthetic foundation persistence, tests and local integration
+Sprint12OutOfScope: Productive contacts API, DELETE, real DB, EF runtime, migrations, Portal Auth runtime, CRM Identity, Lead conversion, Account Management dependency, SimulatedProduction, real Production
+
+Sprint12FrontendIncluded: true
+
+ContactSecurityRequirements: no PII logs, explicit DTO mapping, bounded text, safe errors, no mass assignment, no tokens/secrets, synthetic data only, XSS-safe frontend
+
+CurrentContactTests: LeadAccountContactFoundationTests, FoundationContactCrudServiceTests, FoundationPreviewServiceTests, ReadModelPreviewServiceTests, ArchitectureDependencyTests
+ContactTestGaps: dedicated Contact policy tests, command/result/error code tests, application service tests, API contract tests, Angular contact page tests, local integration runner
+
+SelectedImplementationSequence: S12-01 Domain Rules; S12-02 Application Service; S12-03 Foundation API; S12-04 Angular UI; S12-05 Test Hardening; S12-06 Local Integration; S12-07 Closure
+
+Sprint12Milestones: M1 Domain/Contract Ready; M2 Application Ready; M3 API Ready; M4 UI Ready; M5 Quality Hardened; M6 Local Integration Validated; M7 Sprint Closed
+
+FirstImplementationStoryId: S12-01
+FirstImplementationStoryName: Contact Contracts and Domain Rules
+FirstImplementationStoryRationale: Existing Contact capability is foundation CRUD, but explicit Contact Management domain rules should be made deterministic before new application/API/UI work.
+
+FirstImplementationPrompt: codex/prompts/sprint-12-contact-management-s12-01.md
+NextTaskUpdated: true
+NextTaskPhase: CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
+NextTaskPromptFile: codex/prompts/sprint-12-contact-management-s12-01.md
+
+SimulatedProductionTouched: false
+Sprint12P1Decision: ReadyForS1201ContactContractsAndDomainRules
+NextGate: CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules

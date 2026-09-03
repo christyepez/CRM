@@ -72,8 +72,8 @@ if ($nextTask.Contains("CRM Sprint 11 S11-07 - Lead Qualification Sprint Closure
     throw "codex/next-task.md must not point back to S11-07 after closure."
 }
 
-if (-not $nextTask.Contains("CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog")) {
-    throw "codex/next-task.md must point to Sprint 12 Contact Management planning."
+if (-not ($nextTask.Contains("CRM Sprint 12 P1 - Contact Management Functional Baseline and Backlog") -or $nextTask.Contains("CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules"))) {
+    throw "codex/next-task.md must point to Sprint 12 Contact Management planning or the selected first implementation story."
 }
 
 Write-Host "CRM Sprint 11 S11-07 verification passed."
