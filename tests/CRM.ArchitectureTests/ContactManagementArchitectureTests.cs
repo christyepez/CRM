@@ -26,9 +26,30 @@ public sealed class ContactManagementArchitectureTests
         Assert.DoesNotContain("MapDelete(\"/api/crm/contacts", program, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void ContactManagementApplicationService_UsesStoreAbstractionAndAvoidsRuntimeCoupling()
+    {
+        var source = ReadApplicationContactManagementSources();
+
+        Assert.Contains("IContactFoundationStore", source, StringComparison.Ordinal);
+        Assert.Contains("ContactManagementPolicy", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("CRM.Infrastructure", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("SqlConnection", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Authorization", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static string ReadContactManagementSources()
     {
         var directory = Path.Combine(FindRepositoryRoot(), "src", "CRM.Domain", "ContactManagement");
+        return string.Join(
+            Environment.NewLine,
+            Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories).Select(File.ReadAllText));
+    }
+
+    private static string ReadApplicationContactManagementSources()
+    {
+        var directory = Path.Combine(FindRepositoryRoot(), "src", "CRM.Application", "ContactManagement");
         return string.Join(
             Environment.NewLine,
             Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories).Select(File.ReadAllText));
