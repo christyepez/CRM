@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
+CRM Sprint 12 S12-02 - Contact Application Service
 
 Base Main Commit:
-Sprint 12 P1 merge commit required
+S12-01 merge commit required
 
 Branch:
-crm-sprint-12-s12-01-contact-contracts-domain-rules
+crm-sprint-12-s12-02-contact-application-service
 
 Commit sugerido:
-feat(crm): add contact management domain rules
+feat(crm): add contact application service
 
 PR title:
-CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules
+CRM Sprint 12 S12-02 - Contact Application Service
 
 Objetivo:
-Implementar contratos y reglas de dominio explícitas para Contact Management Foundation, manteniendo el alcance foundation-only.
+Implementar la orquestación application de Contact Management usando los contratos y reglas de dominio de S12-01, manteniendo el alcance foundation-only.
 
 Guardrails:
 - No productive `/api/crm/contacts` unlock.
@@ -35,10 +35,10 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-s12-01.md
+codex/prompts/sprint-12-contact-management-s12-02.md
 
 Acceptance Criteria:
-- Contact Management domain rules are explicit and deterministic.
+- Contact Management application service invokes S12-01 domain rules.
 - Existing Contact foundation CRUD remains compatible.
 - Productive Contact route remains unavailable.
 - New domain tests pass.
