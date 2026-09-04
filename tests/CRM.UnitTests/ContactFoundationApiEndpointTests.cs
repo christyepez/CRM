@@ -93,7 +93,8 @@ public sealed class ContactFoundationApiEndpointTests
             lastName = "Byron",
             email = "ADA.BYRON@EXAMPLE.TEST",
             phone = "0999999999",
-            title = "Sponsor"
+            title = "Sponsor",
+            preferredContactMethod = "Email"
         });
         var updated = await ReadJsonAsync(update);
 
@@ -108,6 +109,8 @@ public sealed class ContactFoundationApiEndpointTests
         Assert.Equal("Ada", body.RootElement.GetProperty("data").GetProperty("firstName").GetString());
         Assert.Equal("Byron", body.RootElement.GetProperty("data").GetProperty("lastName").GetString());
         Assert.Equal("ada.byron@example.test", body.RootElement.GetProperty("data").GetProperty("email").GetString());
+        Assert.Equal("Sponsor", body.RootElement.GetProperty("data").GetProperty("title").GetString());
+        Assert.Equal("Email", body.RootElement.GetProperty("data").GetProperty("preferredContactMethod").GetString());
     }
 
     [Fact]

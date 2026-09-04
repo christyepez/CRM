@@ -117,10 +117,16 @@ foreach ($marker in @("S1205Decision: Implemented", "ContactManagementCoverageMa
     }
 }
 
-foreach ($marker in @("CRM Sprint 12 S12-06 - Contact Management Local Integration Validation", "codex/prompts/sprint-12-contact-management-s12-06.md", "S12-05 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S12-06 and avoid invented SHA: $marker"
-    }
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-06 - Contact Management Local Integration Validation") -or $nextTask.Contains("CRM Sprint 12 S12-07 - Contact Management Sprint Closure"))) {
+    throw "codex/next-task.md must point to S12-06 or a later approved Sprint 12 Contact Management task."
+}
+
+if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-06.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-07.md"))) {
+    throw "codex/next-task.md must reference S12-06 or a later approved Sprint 12 Contact Management prompt."
+}
+
+if (-not ($nextTask.Contains("S12-05 merge commit required") -or $nextTask.Contains("S12-06 merge commit required"))) {
+    throw "codex/next-task.md must avoid invented future SHA."
 }
 
 if (-not $tasks.Contains("S1205Decision: Implemented")) {

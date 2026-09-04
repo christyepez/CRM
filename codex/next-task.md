@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 S12-06 - Contact Management Local Integration Validation
+CRM Sprint 12 S12-07 - Contact Management Sprint Closure
 
 Base Main Commit:
-S12-05 merge commit required
+S12-06 merge commit required
 
 Branch:
-crm-sprint-12-s12-06-contact-management-local-integration-validation
+crm-sprint-12-s12-07-contact-management-sprint-closure
 
 Commit sugerido:
-test(crm): validate contact management local integration
+docs(crm): close contact management foundation sprint
 
 PR title:
-CRM Sprint 12 S12-06 - Contact Management Local Integration Validation
+CRM Sprint 12 S12-07 - Contact Management Sprint Closure
 
 Objetivo:
-Validar localmente el flujo end-to-end Angular -> API foundation de Contact Management después de S12-05.
+Cerrar Sprint 12 Contact Management revisando P1 y S12-01..S12-06, confirmando Definition of Done, riesgos residuales y siguiente capacidad CRM.
 
 Guardrails:
 - No productive `/api/crm/contacts` unlock.
@@ -34,15 +34,16 @@ Guardrails:
 - No CRM-owned Identity/login.
 - No secrets, `.env`, tokens, certificates or real data.
 - Keep simulated Production baseline untouched.
+- Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-s12-06.md
+codex/prompts/sprint-12-contact-management-s12-07.md
 
 Acceptance Criteria:
-- CRM API runs locally for foundation Contact routes.
-- Angular frontend runs locally and calls only `/api/crm/foundation/contacts`.
-- Contact list/create/edit/no-change/invalid/not-found/read-after-write are validated with synthetic data.
-- Proxy/CORS behavior is validated.
+- Sprint 12 Contact Management evidence is reviewed from P1 through S12-06.
+- Definition of Done is confirmed or residual risks are documented.
 - Productive Contact route remains unavailable.
+- DELETE and Lead conversion remain deferred.
+- Portal/Common DB remain disabled.
 - Existing backend/frontend tests remain green.
 - Guardrails pass.
