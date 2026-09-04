@@ -149,6 +149,49 @@ public sealed class ContactFoundationApiEndpointTests
         Assert.Equal("InvalidEmail", body.RootElement.GetProperty("errorCode").GetString());
     }
 
+    [Theory]
+    [InlineData("{\"firstName\":\"Ada\",\"lastName\":\"Lovelace\",\"preferredContactMethod\":\"Fax\"}")]
+    [InlineData("{\"firstName\":\"Ada\",\"lastName\":\"Lovelace\",\"phone\":\"1234567890123456789012345\"}")]
+    public async Task FoundationContactCreate_MalformedOrUnsafeInput_ReturnsSafeBadRequest(string payload)
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+
+        var response = await client.PostAsync(
+            "/api/crm/foundation/contacts",
+            new StringContent(payload, Encoding.UTF8, "application/json"));
+        var bodyText = await response.Content.ReadAsStringAsync();
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.DoesNotContain("System.", bodyText);
+        Assert.DoesNotContain("Exception", bodyText);
+        Assert.DoesNotContain("CRM.", bodyText);
+        Assert.DoesNotContain("ConnectionString", bodyText, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task FoundationContactUpdate_IgnoresRequestIdAndUsesRouteControlledId()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var routeId = await CreateContactAsync(client);
+        var otherId = Guid.NewGuid().ToString("D");
+
+        var response = await client.PutAsJsonAsync($"/api/crm/foundation/contacts/{routeId}", new
+        {
+            id = otherId,
+            firstName = "Ada",
+            lastName = "Route",
+            email = "route@example.test",
+            preferredContactMethod = "Email"
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(routeId, body.RootElement.GetProperty("id").GetString());
+        Assert.NotEqual(otherId, body.RootElement.GetProperty("id").GetString());
+    }
+
     [Fact]
     public async Task FoundationContactUpdate_SameData_ReturnsOkWithChangedFalse()
     {
@@ -172,18 +215,25 @@ public sealed class ContactFoundationApiEndpointTests
     }
 
     [Theory]
-    [InlineData("/api/crm/contacts")]
-    [InlineData("/api/crm/contacts/synthetic-contact")]
-    public async Task ProductiveContactWriteRoutes_RemainUnavailable(string route)
+    [InlineData("GET", "/api/crm/contacts")]
+    [InlineData("GET", "/api/crm/contacts/synthetic-contact")]
+    [InlineData("POST", "/api/crm/contacts")]
+    [InlineData("PUT", "/api/crm/contacts/synthetic-contact")]
+    [InlineData("DELETE", "/api/crm/contacts/synthetic-contact")]
+    public async Task ProductiveContactRoutes_RemainUnavailable(string method, string route)
     {
         using var factory = new WebApplicationFactory<Program>();
         using var client = factory.CreateClient();
 
-        var post = await client.PostAsJsonAsync(route, new { firstName = "Ada", lastName = "Lovelace" });
-        var put = await client.PutAsJsonAsync(route, new { firstName = "Ada", lastName = "Lovelace" });
+        using var request = new HttpRequestMessage(new HttpMethod(method), route);
+        if (method is "POST" or "PUT")
+        {
+            request.Content = JsonContent.Create(new { firstName = "Ada", lastName = "Lovelace" });
+        }
 
-        Assert.True(post.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.Locked);
-        Assert.True(put.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.Locked);
+        var response = await client.SendAsync(request);
+
+        Assert.True(response.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.Locked);
     }
 
     private static async Task<string> CreateContactAsync(HttpClient client)

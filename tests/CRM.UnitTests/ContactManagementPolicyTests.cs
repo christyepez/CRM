@@ -45,6 +45,39 @@ public sealed class ContactManagementPolicyTests
         Assert.Equal(ContactManagementErrorCode.InvalidEmail, result.ErrorCode);
     }
 
+    [Theory]
+    [InlineData(161, ContactManagementErrorCode.NameTooLong)]
+    [InlineData(255, ContactManagementErrorCode.EmailTooLong)]
+    public void Create_RejectsLengthViolations(int length, ContactManagementErrorCode expectedErrorCode)
+    {
+        var value = new string('a', length);
+
+        var result = expectedErrorCode == ContactManagementErrorCode.NameTooLong
+            ? EvaluateCreate(name: value)
+            : EvaluateCreate(email: $"{value}@example.test");
+
+        Assert.False(result.Success);
+        Assert.Equal(expectedErrorCode, result.ErrorCode);
+    }
+
+    [Fact]
+    public void Create_RejectsPhoneThatExceedsAllowedLength()
+    {
+        var result = EvaluateCreate(phone: new string('1', ContactManagementPolicy.MaxPhoneLength + 1));
+
+        Assert.False(result.Success);
+        Assert.Equal(ContactManagementErrorCode.PhoneTooLong, result.ErrorCode);
+    }
+
+    [Fact]
+    public void Create_RejectsRoleThatExceedsAllowedLength()
+    {
+        var result = EvaluateCreate(role: new string('R', ContactManagementPolicy.MaxRoleLength + 1));
+
+        Assert.False(result.Success);
+        Assert.Equal(ContactManagementErrorCode.RoleTooLong, result.ErrorCode);
+    }
+
     [Fact]
     public void Create_AllowsValidPhone()
     {
@@ -90,6 +123,15 @@ public sealed class ContactManagementPolicyTests
 
         Assert.False(result.Success);
         Assert.Equal(ContactManagementErrorCode.InvalidAccountReferenceFormat, result.ErrorCode);
+    }
+
+    [Fact]
+    public void Create_RejectsInvalidPreferredContactMethodEnum()
+    {
+        var result = EvaluateCreate(preferredContactMethod: (PreferredContactMethod)999);
+
+        Assert.False(result.Success);
+        Assert.Equal(ContactManagementErrorCode.InvalidPreferredContactMethod, result.ErrorCode);
     }
 
     [Fact]
