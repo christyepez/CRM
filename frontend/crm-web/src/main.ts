@@ -917,6 +917,510 @@ class LeadQualificationApiService {
   }
 }
 
+type PreferredContactMethod = 'NotSpecified' | 'Email' | 'Phone';
+
+const preferredContactMethodOptions: { value: PreferredContactMethod; label: string }[] = [
+  { value: 'NotSpecified', label: 'Not specified' },
+  { value: 'Email', label: 'Email' },
+  { value: 'Phone', label: 'Phone' }
+];
+
+interface FoundationContact {
+  id: string;
+  name?: string | null;
+  firstName?: string | null;
+  lastName?: string | null;
+  email?: string | null;
+  phone?: string | null;
+  title?: string | null;
+  accountId?: string | null;
+  preferredContactMethod?: PreferredContactMethod | null;
+  status: string;
+  allowed?: boolean;
+  changed?: boolean;
+  errorCode?: string;
+  message?: string;
+  foundationMode?: boolean;
+  persistenceMode?: string;
+  productiveCrudEnabled?: boolean;
+  portalRuntimeEnabled?: boolean;
+  commonDbRuntimeEnabled?: boolean;
+}
+
+interface FoundationContactListResponse {
+  data?: FoundationContact[];
+}
+
+interface FoundationContactCreateRequest {
+  firstName: string;
+  lastName: string;
+  email?: string | null;
+  phone?: string | null;
+  title?: string | null;
+  accountId?: string | null;
+  preferredContactMethod: PreferredContactMethod;
+}
+
+interface FoundationContactUpdateRequest extends FoundationContactCreateRequest {
+}
+
+interface ContactManagementApiResponse extends FoundationContact {
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  foundationMode: boolean;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+  portalRuntimeEnabled: boolean;
+  commonDbRuntimeEnabled: boolean;
+}
+
+@Injectable({ providedIn: 'root' })
+class ContactManagementApiService {
+  private readonly apiBaseUrl = '/api';
+  readonly foundationContactsRoute = '/api/crm/foundation/contacts';
+
+  constructor(private readonly http: FoundationApiClient) {
+  }
+
+  getContacts() {
+    return this.http.get<FoundationContactListResponse>(`${this.apiBaseUrl}/crm/foundation/contacts`);
+  }
+
+  getContact(id: string) {
+    return this.http.get<{ data?: FoundationContact }>(`${this.apiBaseUrl}/crm/foundation/contacts/${encodeURIComponent(id)}`);
+  }
+
+  createContact(request: FoundationContactCreateRequest) {
+    return this.http.post<ContactManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/contacts`, request);
+  }
+
+  updateContact(id: string, request: FoundationContactUpdateRequest) {
+    return this.http.put<ContactManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/contacts/${encodeURIComponent(id)}`, request);
+  }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-contact-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell contact-workflow" aria-labelledby="contactManagementTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="contactManagementTitle">Contact Management</h1>
+          <p class="lede">Create, review, and update synthetic foundation contacts through the safe CRM foundation API.</p>
+        </div>
+        <span class="scope-pill">Foundation only</span>
+      </div>
+
+      <div class="workflow-grid contact-grid">
+        <section class="panel" aria-labelledby="contactListTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="contactListTitle">Contacts</h2>
+              <p class="muted">Synthetic foundation records only. Productive Contact routes are not used.</p>
+            </div>
+            <button type="button" class="secondary-action" (click)="startCreate()">New contact</button>
+          </div>
+
+          <label for="contactSearch">Search contacts</label>
+          <input id="contactSearch" type="search" [value]="searchTerm()" (input)="updateSearch($event)" placeholder="Name, email, phone or role" />
+
+          @if (isLoading()) {
+            <p class="feedback neutral" aria-live="polite">Loading foundation contacts...</p>
+          } @else if (filteredContacts().length === 0) {
+            <div class="empty-state">
+              <p>No contacts available yet.</p>
+              <button type="button" class="secondary-action" (click)="startCreate()">Create the first contact</button>
+            </div>
+          } @else {
+            <div class="contact-list" aria-label="Foundation contact list">
+              @for (contact of filteredContacts(); track contact.id) {
+                <button type="button" class="contact-list-item" [class.selected]="selectedContactId() === contact.id" (click)="selectContact(contact.id)">
+                  <span class="contact-name">{{ contactLabel(contact) }}</span>
+                  <span class="contact-meta">{{ contact.email || contact.phone || 'No preferred channel yet' }}</span>
+                  <span class="contact-status">{{ contact.status }}</span>
+                </button>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="contactFormTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="contactFormTitle">{{ isCreateMode() ? 'New contact' : 'Contact details' }}</h2>
+              <p class="muted">{{ isCreateMode() ? 'Add a foundation contact.' : 'Edit the selected foundation contact.' }}</p>
+            </div>
+            @if (selectedContact(); as contact) {
+              <span class="scope-pill quiet">{{ contact.status }}</span>
+            }
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="submitContact()" novalidate>
+            <label for="contactName">Name</label>
+            <input id="contactName" type="text" formControlName="name" maxlength="160" aria-describedby="contactNameHelp" />
+            <small id="contactNameHelp">Required. Maximum 160 characters.</small>
+
+            <label for="contactEmail">Email</label>
+            <input id="contactEmail" type="email" formControlName="email" maxlength="254" aria-describedby="contactEmailHelp" />
+            <small id="contactEmailHelp">Optional unless preferred contact is Email.</small>
+
+            <label for="contactPhone">Phone</label>
+            <input id="contactPhone" type="tel" formControlName="phone" maxlength="24" aria-describedby="contactPhoneHelp" />
+            <small id="contactPhoneHelp">Optional unless preferred contact is Phone. No country-specific mask is applied.</small>
+
+            <label for="contactRole">Role</label>
+            <input id="contactRole" type="text" formControlName="role" maxlength="80" aria-describedby="contactRoleHelp" />
+            <small id="contactRoleHelp">Optional free-text role. Maximum 80 characters.</small>
+
+            <label for="preferredContactMethod">Preferred contact method</label>
+            <select id="preferredContactMethod" formControlName="preferredContactMethod" (change)="syncPreferredContactValidators()">
+              @for (option of preferredContactMethodOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+
+            @if (validationMessage(); as message) {
+              <p class="feedback validation" role="alert">{{ message }}</p>
+            }
+
+            <button type="submit" [disabled]="isSubmitting() || contactForm.invalid">
+              @if (isSubmitting()) {
+                Saving...
+              } @else if (isCreateMode()) {
+                Create contact
+              } @else {
+                Save contact
+              }
+            </button>
+          </form>
+        </section>
+      </div>
+
+      @if (selectedContact(); as contact) {
+        <section class="panel result-panel" aria-live="polite">
+          <h2>Selected contact</h2>
+          <dl class="result-grid">
+            <div>
+              <dt>Name</dt>
+              <dd>{{ contactLabel(contact) }}</dd>
+            </div>
+            <div>
+              <dt>Email</dt>
+              <dd>{{ contact.email || 'Not provided' }}</dd>
+            </div>
+            <div>
+              <dt>Phone</dt>
+              <dd>{{ contact.phone || 'Not provided' }}</dd>
+            </div>
+            <div>
+              <dt>Role</dt>
+              <dd>{{ contact.title || 'Not provided' }}</dd>
+            </div>
+          </dl>
+        </section>
+      }
+
+      @if (operationMessage(); as message) {
+        <section class="panel result-panel" aria-live="polite">
+          <h2>{{ message.title }}</h2>
+          <p>{{ message.message }}</p>
+        </section>
+      }
+
+      @if (safeError(); as error) {
+        <section class="panel error-panel" role="alert">
+          <h2>{{ error.title }}</h2>
+          <p>{{ error.message }}</p>
+        </section>
+      }
+    </section>
+  `
+})
+class ContactManagementPageComponent {
+  readonly preferredContactMethodOptions = preferredContactMethodOptions;
+  readonly contacts = signal<FoundationContact[]>([]);
+  readonly selectedContactId = signal<string | null>(null);
+  readonly searchTerm = signal('');
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+
+  readonly contactForm = this.formBuilder.nonNullable.group({
+    name: ['', [Validators.required, Validators.maxLength(160)]],
+    email: ['', [Validators.email, Validators.maxLength(254)]],
+    phone: ['', [Validators.maxLength(24)]],
+    role: ['', [Validators.maxLength(80)]],
+    preferredContactMethod: ['NotSpecified' as PreferredContactMethod, Validators.required]
+  });
+
+  constructor(
+    private readonly api: ContactManagementApiService,
+    private readonly formBuilder: FormBuilder) {
+    this.loadContacts();
+    this.syncPreferredContactValidators();
+  }
+
+  filteredContacts() {
+    const term = this.searchTerm().trim().toLowerCase();
+    if (term.length === 0) {
+      return this.contacts();
+    }
+
+    return this.contacts().filter(contact =>
+      [
+        this.contactLabel(contact),
+        contact.email ?? '',
+        contact.phone ?? '',
+        contact.title ?? '',
+        contact.status ?? ''
+      ].some(value => value.toLowerCase().includes(term)));
+  }
+
+  selectedContact() {
+    const id = this.selectedContactId();
+    return id ? this.contacts().find(contact => contact.id === id) ?? null : null;
+  }
+
+  contactLabel(contact: FoundationContact) {
+    const name = contact.name?.trim();
+    if (name) {
+      return name;
+    }
+
+    const fullName = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim();
+    return fullName.length > 0 ? fullName : contact.id;
+  }
+
+  updateSearch(event: Event) {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
+
+  selectContact(id: string) {
+    this.isCreateMode.set(false);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.selectedContactId.set(id);
+
+    this.api.getContact(id).subscribe({
+      next: response => {
+        const contact = response.data ?? this.selectedContact();
+        if (contact) {
+          this.upsertContact(contact);
+          this.populateForm(contact);
+        }
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.loadContacts();
+      }
+    });
+  }
+
+  startCreate() {
+    this.isCreateMode.set(true);
+    this.selectedContactId.set(null);
+    this.operationMessage.set(null);
+    this.safeError.set(null);
+    this.contactForm.reset({
+      name: '',
+      email: '',
+      phone: '',
+      role: '',
+      preferredContactMethod: 'NotSpecified'
+    });
+    this.syncPreferredContactValidators();
+  }
+
+  validationMessage() {
+    if (!this.contactForm.touched) {
+      return null;
+    }
+
+    const controls = this.contactForm.controls;
+    if (controls.name.invalid) {
+      return 'Enter a contact name with 160 characters or less.';
+    }
+
+    if (controls.email.invalid) {
+      return 'Enter a valid email address with 254 characters or less.';
+    }
+
+    if (controls.phone.invalid) {
+      return 'Phone must be 24 characters or less.';
+    }
+
+    if (controls.role.invalid) {
+      return 'Role must be 80 characters or less.';
+    }
+
+    if (controls.preferredContactMethod.value === 'Email' && !controls.email.value.trim()) {
+      return 'Preferred contact method Email requires an email.';
+    }
+
+    if (controls.preferredContactMethod.value === 'Phone' && !controls.phone.value.trim()) {
+      return 'Preferred contact method Phone requires a phone.';
+    }
+
+    return null;
+  }
+
+  syncPreferredContactValidators() {
+    const email = this.contactForm.controls.email;
+    const phone = this.contactForm.controls.phone;
+    const preferred = this.contactForm.controls.preferredContactMethod.value;
+
+    email.setValidators(preferred === 'Email'
+      ? [Validators.required, Validators.email, Validators.maxLength(254)]
+      : [Validators.email, Validators.maxLength(254)]);
+    phone.setValidators(preferred === 'Phone'
+      ? [Validators.required, Validators.maxLength(24)]
+      : [Validators.maxLength(24)]);
+
+    email.updateValueAndValidity({ emitEvent: false });
+    phone.updateValueAndValidity({ emitEvent: false });
+  }
+
+  submitContact() {
+    this.contactForm.markAllAsTouched();
+    this.syncPreferredContactValidators();
+
+    if (this.contactForm.invalid || this.isSubmitting()) {
+      return;
+    }
+
+    const request = this.toRequest();
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+
+    const operation = this.isCreateMode()
+      ? this.api.createContact(request)
+      : this.api.updateContact(this.selectedContactId() ?? '', request);
+
+    operation.subscribe({
+      next: response => {
+        this.upsertContact(response);
+        this.selectedContactId.set(response.id ?? null);
+        this.isCreateMode.set(false);
+        this.populateForm(response);
+        this.operationMessage.set({
+          title: response.changed ? 'Contact saved' : 'No changes were necessary',
+          message: response.message || 'The foundation contact workflow completed successfully.'
+        });
+        this.isSubmitting.set(false);
+        this.loadContacts(false);
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  private loadContacts(showLoading = true) {
+    if (showLoading) {
+      this.isLoading.set(true);
+    }
+
+    this.api.getContacts().subscribe({
+      next: response => {
+        const contacts = response.data ?? [];
+        this.contacts.set(contacts);
+        if (!this.selectedContactId() && contacts.length > 0) {
+          this.selectedContactId.set(contacts[0].id);
+          this.isCreateMode.set(false);
+          this.populateForm(contacts[0]);
+        }
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.safeError.set({
+          title: 'Contacts unavailable',
+          message: 'Foundation contacts could not be loaded. Try again after the CRM API is available.'
+        });
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private populateForm(contact: FoundationContact) {
+    this.contactForm.reset({
+      name: this.contactLabel(contact),
+      email: contact.email ?? '',
+      phone: contact.phone ?? '',
+      role: contact.title ?? '',
+      preferredContactMethod: 'NotSpecified'
+    });
+    this.syncPreferredContactValidators();
+  }
+
+  private toRequest(): FoundationContactCreateRequest {
+    const value = this.contactForm.getRawValue();
+    const normalizedName = value.name.trim();
+    const firstName = normalizedName.split(' ', 1)[0] ?? '';
+    return {
+      firstName,
+      lastName: normalizedName.slice(firstName.length).trim(),
+      email: value.email.trim() || null,
+      phone: value.phone.trim() || null,
+      title: value.role.trim() || null,
+      accountId: null,
+      preferredContactMethod: value.preferredContactMethod
+    };
+  }
+
+  private upsertContact(contact: FoundationContact) {
+    if (!contact.id) {
+      return;
+    }
+
+    this.contacts.update(contacts => {
+      const next = contacts.filter(existing => existing.id !== contact.id);
+      return [contact, ...next];
+    });
+  }
+
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      const code = typeof error.error?.errorCode === 'string' ? error.error.errorCode : '';
+      const mapped = this.mapErrorCode(code);
+      if (mapped) {
+        return mapped;
+      }
+
+      if (error.status === 400) {
+        return { title: 'Validation issue', message: 'Review the contact fields before saving.' };
+      }
+
+      if (error.status === 404) {
+        return { title: 'Contact not found', message: 'The selected contact was not found. Refresh the list and try again.' };
+      }
+    }
+
+    return { title: 'Contact workflow unavailable', message: 'The foundation Contact service could not process the request.' };
+  }
+
+  private mapErrorCode(code: string) {
+    const messages: Record<string, { title: string; message: string }> = {
+      NameRequired: { title: 'Name required', message: 'Enter a contact name before saving.' },
+      InvalidEmail: { title: 'Invalid email', message: 'Enter a valid email address or leave it blank.' },
+      InvalidPhone: { title: 'Invalid phone', message: 'Enter a valid phone number or leave it blank.' },
+      PreferredContactMethodRequiresEmail: { title: 'Email required', message: 'Preferred contact method Email requires an email.' },
+      PreferredContactMethodRequiresPhone: { title: 'Phone required', message: 'Preferred contact method Phone requires a phone.' },
+      ContactNotFound: { title: 'Contact not found', message: 'The selected contact was not found. Refresh the list and try again.' }
+    };
+
+    return messages[code] ?? null;
+  }
+}
+
 @Component({
   standalone: true,
   selector: 'crm-home',
@@ -2139,7 +2643,8 @@ class LeadQualificationPageComponent {
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
-  { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent }
+  { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent },
+  { path: 'foundation/contacts', component: ContactManagementPageComponent }
 ];
 
 @Component({

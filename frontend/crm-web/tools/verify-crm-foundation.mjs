@@ -909,14 +909,79 @@ if (leadQualificationSource.includes('/api/crm/leads')) {
   failures.push('Lead qualification frontend must not call productive lead API route.');
 }
 
+const sprint12ContactLabels = [
+  'Contact Management',
+  'foundation/contacts',
+  '/api/crm/foundation/contacts',
+  'ContactManagementPageComponent',
+  'ContactManagementApiService',
+  'getContacts()',
+  'getContact(id: string)',
+  'createContact(request: FoundationContactCreateRequest)',
+  'updateContact(id: string, request: FoundationContactUpdateRequest)',
+  'Preferred contact method',
+  'NotSpecified',
+  'Email',
+  'Phone',
+  'Search contacts',
+  'New contact',
+  'Create contact',
+  'Save contact',
+  'No changes were necessary',
+  'Loading foundation contacts',
+  'No contacts available yet',
+  'Contact not found',
+  'NameRequired',
+  'InvalidEmail',
+  'InvalidPhone',
+  'PreferredContactMethodRequiresEmail',
+  'PreferredContactMethodRequiresPhone',
+  'portalRuntimeEnabled',
+  'commonDbRuntimeEnabled'
+];
+
+for (const expected of sprint12ContactLabels) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing S12-04 Contact frontend marker '${expected}'`);
+  }
+}
+
+const contactSourceStart = main.indexOf('type PreferredContactMethod');
+const contactSourceEnd = main.indexOf("selector: 'crm-home'");
+const contactSource = contactSourceStart >= 0 && contactSourceEnd > contactSourceStart
+  ? main.slice(contactSourceStart, contactSourceEnd)
+  : '';
+
+if (!contactSource.includes("if (this.contactForm.invalid || this.isSubmitting())")) {
+  failures.push('Missing S12-04 duplicate submission protection before Contact foundation API call.');
+}
+
+for (const forbidden of ['innerHTML', 'bypassSecurityTrustHtml', 'document.querySelector', 'localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'Bearer ', '/api/crm/contacts']) {
+  if (contactSource.includes(forbidden)) {
+    failures.push(`Forbidden S12-04 Contact frontend marker '${forbidden}' found.`);
+  }
+}
+
 const styles = readFileSync(join(root, 'src/styles.css'), 'utf8');
 if (!styles.includes('@media (max-width: 760px)') || styles.includes('width: 1200px')) {
   failures.push('Missing responsive S11-05 source evidence for lead qualification page.');
 }
 
+for (const expected of ['.contact-grid', '.contact-list-item', '.empty-state', '.panel-heading']) {
+  if (!styles.includes(expected)) {
+    failures.push(`Missing S12-04 responsive Contact style marker '${expected}'`);
+  }
+}
+
 for (const expected of ['aria-labelledby', 'aria-live', '<label for=', 'type="submit"', '[disabled]="isSubmitting() || qualificationForm.invalid"']) {
   if (!leadQualificationSource.includes(expected)) {
     failures.push(`Missing S11-05 accessibility/workflow marker '${expected}'`);
+  }
+}
+
+for (const expected of ['aria-labelledby', 'aria-live', '<label for=', 'type="submit"', '[disabled]="isSubmitting() || contactForm.invalid"']) {
+  if (!contactSource.includes(expected)) {
+    failures.push(`Missing S12-04 accessibility/workflow marker '${expected}'`);
   }
 }
 

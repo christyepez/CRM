@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page
+CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening
 
 Base Main Commit:
-S12-03 merge commit required
+S12-04 merge commit required
 
 Branch:
-crm-sprint-12-s12-04-contact-management-frontend-foundation-page
+crm-sprint-12-s12-05-contact-management-test-guardrail-hardening
 
 Commit sugerido:
-feat(crm): add contact management foundation frontend
+test(crm): harden contact management guardrails
 
 PR title:
-CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page
+CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening
 
 Objetivo:
-Implementar la página Angular foundation de Contact Management consumiendo solo la API foundation.
+Endurecer pruebas y guardrails cross-layer de Contact Management después de S12-01 a S12-04.
 
 Guardrails:
 - No productive `/api/crm/contacts` unlock.
@@ -35,10 +35,10 @@ Guardrails:
 - Keep simulated Production baseline untouched.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-s12-04.md
+codex/prompts/sprint-12-contact-management-s12-05.md
 
 Acceptance Criteria:
-- Contact foundation frontend consumes only foundation API routes.
+- Contact Management cross-layer tests and guardrails are hardened.
 - Existing Contact foundation CRUD remains compatible.
 - Productive Contact route remains unavailable.
 - New domain tests pass.
