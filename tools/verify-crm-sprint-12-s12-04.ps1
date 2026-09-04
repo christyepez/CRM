@@ -65,12 +65,12 @@ foreach ($marker in @(
     }
 }
 
-if (-not $nextTask.Contains("CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening")) {
-    throw "codex/next-task.md must point to S12-05."
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening") -or $nextTask.Contains("CRM Sprint 12 S12-06 - Contact Management Local Integration Validation"))) {
+    throw "codex/next-task.md must point to S12-05 or a later Sprint 12 Contact Management task."
 }
 
-if (-not $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-05.md")) {
-    throw "codex/next-task.md must reference the S12-05 prompt."
+if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-05.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-06.md"))) {
+    throw "codex/next-task.md must reference the S12-05 prompt or a later Sprint 12 Contact Management prompt."
 }
 
 if (-not $tasks.Contains("S1204Decision: Implemented")) {

@@ -985,6 +985,51 @@ for (const expected of ['aria-labelledby', 'aria-live', '<label for=', 'type="su
   }
 }
 
+const sprint12ContactHardeningMarkers = [
+  "type PreferredContactMethod = 'NotSpecified' | 'Email' | 'Phone'",
+  "preferredContactMethodOptions",
+  "Validators.maxLength(160)",
+  "Validators.email",
+  "Validators.maxLength(254)",
+  "Validators.maxLength(24)",
+  "Validators.maxLength(80)",
+  "controls.preferredContactMethod.value === 'Email' && !controls.email.value.trim()",
+  "controls.preferredContactMethod.value === 'Phone' && !controls.phone.value.trim()",
+  "this.isSubmitting.set(true)",
+  "this.isSubmitting.set(false)",
+  "No changes were necessary",
+  "Validation issue",
+  "Contact not found",
+  "Contact workflow unavailable",
+  "selectedContactId.set(response.id ?? null)",
+  "this.api.createContact(request)",
+  "this.api.updateContact(this.selectedContactId() ?? '', request)"
+];
+
+for (const expected of sprint12ContactHardeningMarkers) {
+  if (!contactSource.includes(expected)) {
+    failures.push(`Missing S12-05 Contact frontend hardening marker '${expected}'`);
+  }
+}
+
+const preferredContactMethodMatches = contactSource.match(/value: '(NotSpecified|Email|Phone)'/g) ?? [];
+const preferredContactMethodValues = new Set(preferredContactMethodMatches.map(value => value.match(/'(.*)'/)?.[1]));
+for (const expected of ['NotSpecified', 'Email', 'Phone']) {
+  if (!preferredContactMethodValues.has(expected)) {
+    failures.push(`Missing S12-05 PreferredContactMethod enum value '${expected}'`);
+  }
+}
+
+if (preferredContactMethodValues.size !== 3) {
+  failures.push('PreferredContactMethod frontend enum must contain exactly NotSpecified, Email and Phone.');
+}
+
+for (const forbidden of ['deleteContact', 'Delete contact', 'trash', 'LeadId', 'ConvertLeadToContact', 'CreateContactFromLead']) {
+  if (contactSource.includes(forbidden)) {
+    failures.push(`Forbidden S12-05 Contact feature-expansion marker '${forbidden}' found.`);
+  }
+}
+
 if (failures.length > 0) {
   console.error(failures.join('\n'));
   process.exit(1);

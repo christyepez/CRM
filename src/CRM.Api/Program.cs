@@ -152,6 +152,29 @@ builder.Services.AddSingleton<CrmPortalAuthRuntimeContractStatusService>();
 
 var app = builder.Build();
 
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next(context);
+    }
+    catch (BadHttpRequestException)
+    {
+        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+        await context.Response.WriteAsJsonAsync(new
+        {
+            allowed = false,
+            changed = false,
+            errorCode = "InvalidRequest",
+            message = "The request payload is invalid.",
+            foundationMode = true,
+            productiveCrudEnabled = false,
+            portalRuntimeEnabled = false,
+            commonDbRuntimeEnabled = false
+        });
+    }
+});
+
 app.MapHealthChecks("/health");
 app.MapHealthChecks("/health/live");
 app.MapHealthChecks("/health/ready");
