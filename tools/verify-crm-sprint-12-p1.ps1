@@ -53,7 +53,7 @@ if ($program.Contains('"\/api\/crm\/contacts"') -or $program.Contains('"/api/crm
     throw "Productive Contact route must remain unavailable by default."
 }
 
-if (-not ($nextTask.Contains("CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules") -or $nextTask.Contains("CRM Sprint 12 S12-02 - Contact Application Service") -or $nextTask.Contains("CRM Sprint 12 S12-03 - Contact Foundation API Integration") -or $nextTask.Contains("CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page"))) {
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-01 - Contact Contracts and Domain Rules") -or $nextTask.Contains("CRM Sprint 12 S12-02 - Contact Application Service") -or $nextTask.Contains("CRM Sprint 12 S12-03 - Contact Foundation API Integration") -or $nextTask.Contains("CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page") -or $nextTask.Contains("CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening"))) {
     throw "codex/next-task.md must point to Sprint 12 S12-01 or an approved Sprint 12 follow-up."
 }
 

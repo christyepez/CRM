@@ -13,6 +13,8 @@ public sealed record ContactManagementApiResponse(
     string? Email,
     string? Phone,
     string? Title,
+    string? AccountId,
+    PreferredContactMethod PreferredContactMethod,
     string Status,
     bool Allowed,
     bool Changed,
@@ -33,8 +35,8 @@ public sealed record ContactManagementApiResponse(
             request.Email,
             request.Phone,
             request.Title,
-            AccountId: null,
-            PreferredContactMethod.NotSpecified);
+            request.AccountId,
+            request.PreferredContactMethod);
 
     public static ContactManagementUpdateApplicationRequest ToApplicationRequest(FoundationContactUpdateRequest request) =>
         new(
@@ -42,8 +44,8 @@ public sealed record ContactManagementApiResponse(
             request.Email,
             request.Phone,
             request.Title,
-            AccountId: null,
-            PreferredContactMethod.NotSpecified);
+            request.AccountId,
+            request.PreferredContactMethod);
 
     public static ContactManagementApiResponse From(ContactManagementApplicationResult result)
     {
@@ -56,6 +58,8 @@ public sealed record ContactManagementApiResponse(
             result.Contact?.Email,
             result.Contact?.Phone,
             result.Contact?.Role,
+            result.Contact?.AccountId,
+            result.Contact?.PreferredContactMethod ?? PreferredContactMethod.NotSpecified,
             result.Contact?.Status ?? "PreviewOnly",
             result.Allowed,
             result.Changed,

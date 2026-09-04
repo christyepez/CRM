@@ -45,11 +45,11 @@ foreach ($marker in @("PreferredContactMethodRequiresEmail", "PreferredContactMe
     }
 }
 
-if (-not ($nextTask.Contains("CRM Sprint 12 S12-02 - Contact Application Service") -or $nextTask.Contains("CRM Sprint 12 S12-03 - Contact Foundation API Integration") -or $nextTask.Contains("CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page"))) {
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-02 - Contact Application Service") -or $nextTask.Contains("CRM Sprint 12 S12-03 - Contact Foundation API Integration") -or $nextTask.Contains("CRM Sprint 12 S12-04 - Contact Management Frontend Foundation Page") -or $nextTask.Contains("CRM Sprint 12 S12-05 - Contact Management Test and Guardrail Hardening"))) {
     throw "codex/next-task.md must point to S12-02 or an approved Sprint 12 follow-up."
 }
 
-if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-02.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-03.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-04.md"))) {
+if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-02.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-03.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-04.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-05.md"))) {
     throw "codex/next-task.md must reference S12-02 or an approved Sprint 12 follow-up prompt."
 }
 

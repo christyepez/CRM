@@ -1,3 +1,5 @@
+using CRM.Domain.Enums;
+
 namespace CRM.Application.Foundation;
 
 public sealed record FoundationContactCreateRequest(
@@ -5,7 +7,9 @@ public sealed record FoundationContactCreateRequest(
     string? LastName,
     string? Email,
     string? Phone,
-    string? Title);
+    string? Title,
+    string? AccountId = null,
+    PreferredContactMethod PreferredContactMethod = PreferredContactMethod.NotSpecified);
 
 public sealed record FoundationContactUpdateRequest(
     string? FirstName,
@@ -13,7 +17,9 @@ public sealed record FoundationContactUpdateRequest(
     string? Email,
     string? Phone,
     string? Title,
-    string? Status);
+    string? Status,
+    string? AccountId = null,
+    PreferredContactMethod PreferredContactMethod = PreferredContactMethod.NotSpecified);
 
 public sealed record FoundationContactResponse(
     string Id,
@@ -22,6 +28,8 @@ public sealed record FoundationContactResponse(
     string? Email,
     string? Phone,
     string? Title,
+    string? AccountId,
+    PreferredContactMethod PreferredContactMethod,
     string Status,
     bool FoundationMode,
     string PersistenceMode,
