@@ -117,15 +117,15 @@ foreach ($marker in @("S1205Decision: Implemented", "ContactManagementCoverageMa
     }
 }
 
-if (-not ($nextTask.Contains("CRM Sprint 12 S12-06 - Contact Management Local Integration Validation") -or $nextTask.Contains("CRM Sprint 12 S12-07 - Contact Management Sprint Closure"))) {
-    throw "codex/next-task.md must point to S12-06 or a later approved Sprint 12 Contact Management task."
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-06 - Contact Management Local Integration Validation") -or $nextTask.Contains("CRM Sprint 12 S12-07 - Contact Management Sprint Closure") -or $nextTask.Contains("CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog"))) {
+    throw "codex/next-task.md must point to S12-06 or a later approved Contact Management handoff."
 }
 
-if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-06.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-07.md"))) {
-    throw "codex/next-task.md must reference S12-06 or a later approved Sprint 12 Contact Management prompt."
+if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-06.md") -or $nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-07.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-p1.md"))) {
+    throw "codex/next-task.md must reference S12-06 or a later approved Contact Management handoff prompt."
 }
 
-if (-not ($nextTask.Contains("S12-05 merge commit required") -or $nextTask.Contains("S12-06 merge commit required"))) {
+if (-not ($nextTask.Contains("S12-05 merge commit required") -or $nextTask.Contains("S12-06 merge commit required") -or $nextTask.Contains("S12-07 merge commit required"))) {
     throw "codex/next-task.md must avoid invented future SHA."
 }
 

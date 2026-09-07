@@ -123,10 +123,16 @@ if (-not $service.Contains('GetValueOrDefault("title") ?? item.Metadata.GetValue
     throw "Foundation Contact read path must preserve role/title metadata compatibility found during S12-06."
 }
 
-foreach ($marker in @("CRM Sprint 12 S12-07 - Contact Management Sprint Closure", "codex/prompts/sprint-12-contact-management-s12-07.md", "S12-06 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S12-07: $marker"
-    }
+if (-not ($nextTask.Contains("CRM Sprint 12 S12-07 - Contact Management Sprint Closure") -or $nextTask.Contains("CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog"))) {
+    throw "codex/next-task.md must point to S12-07 or the approved Sprint 13 handoff."
+}
+
+if (-not ($nextTask.Contains("codex/prompts/sprint-12-contact-management-s12-07.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-p1.md"))) {
+    throw "codex/next-task.md must reference S12-07 or the approved Sprint 13 prompt."
+}
+
+if (-not ($nextTask.Contains("S12-06 merge commit required") -or $nextTask.Contains("S12-07 merge commit required"))) {
+    throw "codex/next-task.md must avoid invented future SHA."
 }
 
 if (-not $tasks.Contains("S1206Decision: Implemented")) {
