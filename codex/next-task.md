@@ -4,27 +4,28 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 12 S12-07 - Contact Management Sprint Closure
+CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog
 
 Base Main Commit:
-S12-06 merge commit required
+S12-07 merge commit required
 
 Branch:
-crm-sprint-12-s12-07-contact-management-sprint-closure
+crm-sprint-13-p1-activity-follow-up-functional-baseline
 
 Commit sugerido:
-docs(crm): close contact management foundation sprint
+docs(crm): add activity follow-up functional baseline
 
 PR title:
-CRM Sprint 12 S12-07 - Contact Management Sprint Closure
+CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog
 
 Objetivo:
-Cerrar Sprint 12 Contact Management revisando P1 y S12-01..S12-06, confirmando Definition of Done, riesgos residuales y siguiente capacidad CRM.
+Definir la capacidad Activity / Follow-Up como siguiente slice foundation-only posterior al cierre de Sprint 12 Contact Management.
 
 Guardrails:
-- No productive `/api/crm/contacts` unlock.
+- No productive Activity API activation.
 - No DELETE.
 - No Lead conversion.
+- No Account Management activation.
 - No DB runtime productivo ni Common DB activation.
 - No EF runtime.
 - No migrations.
@@ -37,13 +38,12 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-12-contact-management-s12-07.md
+codex/prompts/sprint-13-activity-follow-up-p1.md
 
 Acceptance Criteria:
-- Sprint 12 Contact Management evidence is reviewed from P1 through S12-06.
-- Definition of Done is confirmed or residual risks are documented.
-- Productive Contact route remains unavailable.
-- DELETE and Lead conversion remain deferred.
+- Activity / Follow-Up baseline and backlog are documented.
+- Contracts, risks, guardrails and implementation sequence are defined.
+- Productive Activity routes remain unavailable.
 - Portal/Common DB remain disabled.
-- Existing backend/frontend tests remain green.
+- No runtime business functionality is activated.
 - Guardrails pass.
