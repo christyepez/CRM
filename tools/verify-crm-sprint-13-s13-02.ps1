@@ -125,22 +125,22 @@ foreach ($marker in @(
     }
 }
 
-foreach ($forbidden in @('"/api/crm/activities"', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/activities', 'MapDelete("/api/crm/activities', '"/api/crm/foundation/activities"', 'MapDelete("/api/crm/foundation/activities')) {
+foreach ($forbidden in @('"/api/crm/activities"', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/activities', 'MapDelete("/api/crm/activities', 'MapDelete("/api/crm/foundation/activities')) {
     if ($program.Contains($forbidden)) {
         throw "Forbidden Activity API/DELETE marker detected: $forbidden"
     }
 }
 
 foreach ($marker in @(
-    "CRM Sprint 13 S13-03 - Activity Foundation API",
-    "codex/prompts/sprint-13-activity-follow-up-s13-03.md",
-    "S13-02 merge commit required")) {
+    "CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page",
+    "codex/prompts/sprint-13-activity-follow-up-s13-04.md",
+    "S13-03 merge commit required")) {
     if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S13-03: $marker"
+        throw "codex/next-task.md must point to S13-04 after S13-03: $marker"
     }
 }
 
-foreach ($marker in @("S1302Decision: Implemented", "NextTaskPhase: CRM Sprint 13 S13-03 - Activity Foundation API")) {
+foreach ($marker in @("S1302Decision: Implemented")) {
     if (-not $tasks.Contains($marker)) {
         throw "codex/TASKS.md must record S13-02 marker: $marker"
     }

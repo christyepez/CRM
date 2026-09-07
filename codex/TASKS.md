@@ -1,5 +1,23 @@
 # TASKS.md
 
+## CRM Sprint 13 S13-03 - Activity Foundation API
+
+Status: Implemented in branch `crm-sprint-13-s13-03-activity-foundation-api`.
+
+- [x] Validate GitHub main contains S13-02 merge commit `41a0c1eff2d29002aafae3b1332cf71ca5d4dec8`.
+- [x] Expose foundation-only Activity routes under `/api/crm/foundation/activities`.
+- [x] Use explicit Activity API DTOs and safe HTTP status mapping.
+- [x] Route API through `IActivityManagementService`.
+- [x] Register `IActivityManagementService` and `IActivityFoundationStore` through DI.
+- [x] Preserve productive `/api/crm/activities` as unavailable.
+- [x] Preserve DELETE as unavailable.
+- [x] Keep Portal Auth runtime disabled.
+- [x] Keep Common DB/EF/runtime persistence disabled.
+- [x] Keep simulated Production baseline untouched.
+- [x] Add Activity foundation API tests and architecture guardrails.
+- [x] Set `S1303Decision: Implemented`.
+- [x] Set `NextTaskPhase: CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page`.
+
 ## CRM Sprint 11 P1 - Functional Slice Selection, Backlog Refresh and Implementation Baseline
 
 Status: Implemented in branch `crm-sprint-11-p1-functional-slice-selection-backlog-refresh`.

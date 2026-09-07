@@ -4,25 +4,25 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-03 - Activity Foundation API
+CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
 
 Base Main Commit:
-S13-02 merge commit required
+S13-03 merge commit required
 
 Branch:
-crm-sprint-13-s13-03-activity-foundation-api
+crm-sprint-13-s13-04-activity-follow-up-frontend-foundation-page
 
 Commit sugerido:
-feat(crm): add activity foundation api
+feat(crm): add activity follow-up frontend foundation page
 
 PR title:
-CRM Sprint 13 S13-03 - Activity Foundation API
+CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
 
 Objetivo:
-Exponer endpoints foundation para Activity / Follow-Up usando IActivityManagementService, sin activar rutas productivas.
+Agregar página frontend foundation para Activity / Follow-Up consumiendo solo el API foundation S13-03, sin activar rutas productivas.
 
 Guardrails:
-- No Angular Activity UI yet.
+- Activity UI must remain foundation-only.
 - No productive Activity API activation.
 - No DELETE.
 - No Lead conversion.
@@ -39,11 +39,11 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-03.md
+codex/prompts/sprint-13-activity-follow-up-s13-04.md
 
 Acceptance Criteria:
-- Foundation Activity routes are implemented under `/api/crm/foundation/activities`.
-- Explicit API DTO mapping and safe status mapping are implemented.
+- Foundation Activity frontend page is implemented using existing Angular conventions.
+- The page calls only `/api/crm/foundation/activities`.
 - Productive Activity routes remain unavailable.
 - DELETE is not added.
 - Portal/Common DB remain disabled.

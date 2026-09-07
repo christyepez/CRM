@@ -377,7 +377,11 @@ if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|Crea
     $allowedMutationsProgram = $apiProgram.
         Replace('MapPut("/api/crm/foundation/leads/{id}"', '').
         Replace('MapPut("/api/crm/foundation/accounts/{id}"', '').
-        Replace('MapPut("/api/crm/foundation/contacts/{id}"', '')
+        Replace('MapPut("/api/crm/foundation/contacts/{id}"', '').
+        Replace('MapPut("/api/crm/foundation/activities/{id}"', '').
+        Replace('MapPost("/api/crm/foundation/activities"', '').
+        Replace('MapPost("/api/crm/foundation/activities/{id}/complete"', '').
+        Replace('MapPost("/api/crm/foundation/activities/{id}/cancel"', '')
     if ($allowedMutationsProgram -notmatch "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
         $null = $true
     }
@@ -484,7 +488,7 @@ foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api
     }
 }
 
-foreach ($productiveRoute in @('MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts')) {
+foreach ($productiveRoute in @('MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts', 'MapPut("/api/crm/activities')) {
     if ($apiProgram -like "*$productiveRoute*") {
         $failures += "Productive CRM route registration found: $productiveRoute"
     }
@@ -883,7 +887,7 @@ if ($sprint6P6Program -match "Map(Post|Put|Patch|Delete)\(`"/api/crm/foundation/
     $failures += "Sprint 6 P6 gate decision endpoint must remain GET-only."
 }
 
-foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"', 'MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts')) {
+foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api/crm/contacts"', '"/api/crm/activities"', 'MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts', 'MapPut("/api/crm/activities')) {
     if ($sprint6P6Program -like "*$productiveRoute*") {
         $failures += "Productive CRM route is registered by default: $productiveRoute"
     }

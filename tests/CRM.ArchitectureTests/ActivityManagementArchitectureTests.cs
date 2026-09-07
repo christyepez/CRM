@@ -27,8 +27,12 @@ public sealed class ActivityManagementArchitectureTests
         Assert.DoesNotContain("MapPost(\"/api/crm/activities", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MapPut(\"/api/crm/activities", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MapDelete(\"/api/crm/activities", program, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("MapGet(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("MapPost(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapGet(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPost(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPut(\"/api/crm/foundation/activities/{id}", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPost(\"/api/crm/foundation/activities/{id}/complete", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPost(\"/api/crm/foundation/activities/{id}/cancel", program, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
