@@ -1,5 +1,24 @@
 # TASKS.md
 
+## CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
+
+Status: Implemented in branch `crm-sprint-13-s13-04-activity-follow-up-frontend-foundation-page`.
+
+- [x] Validate GitHub main contains S13-03 merge commit `cd3ff379de8dda88795f8a5964163265aa6756fa`.
+- [x] Add Angular route `/foundation/activities`.
+- [x] Add `ActivityManagementPageComponent` using existing standalone Angular pattern.
+- [x] Add `ActivityManagementApiService` with typed foundation-only methods.
+- [x] Implement Activity list, detail, create, edit, complete and cancel workflow.
+- [x] Add Lead/Contact target selector behavior and exactly-one-target payload mapping.
+- [x] Add type/status filters, search, loading, empty and success/error states.
+- [x] Convert `datetime-local` values to UTC ISO payloads and allow past historical schedules.
+- [x] Preserve productive `/api/crm/activities` as unavailable.
+- [x] Preserve DELETE as unavailable.
+- [x] Keep Portal Auth runtime, token storage, Common DB, EF and schema changes disabled.
+- [x] Keep simulated Production untouched.
+- [x] Set `S1304Decision: Implemented`.
+- [x] Set `NextTaskPhase: CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening`.
+
 ## CRM Sprint 13 S13-03 - Activity Foundation API
 
 Status: Implemented in branch `crm-sprint-13-s13-03-activity-foundation-api`.

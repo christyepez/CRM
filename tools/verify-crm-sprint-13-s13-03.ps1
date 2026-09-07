@@ -88,17 +88,16 @@ foreach ($marker in @(
 }
 
 foreach ($marker in @(
-    "CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page",
-    "codex/prompts/sprint-13-activity-follow-up-s13-04.md",
-    "S13-03 merge commit required")) {
+    "CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening",
+    "codex/prompts/sprint-13-activity-follow-up-s13-05.md",
+    "S13-04 merge commit required")) {
     if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S13-04: $marker"
+        throw "codex/next-task.md must point to S13-05 after S13-04: $marker"
     }
 }
 
 foreach ($marker in @(
-    "S1303Decision: Implemented",
-    "NextTaskPhase: CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page")) {
+    "S1303Decision: Implemented")) {
     if (-not $tasks.Contains($marker)) {
         throw "codex/TASKS.md missing S13-03 marker: $marker"
     }

@@ -947,7 +947,7 @@ for (const expected of sprint12ContactLabels) {
 }
 
 const contactSourceStart = main.indexOf('type PreferredContactMethod');
-const contactSourceEnd = main.indexOf("selector: 'crm-home'");
+const contactSourceEnd = main.indexOf('type ActivityType');
 const contactSource = contactSourceStart >= 0 && contactSourceEnd > contactSourceStart
   ? main.slice(contactSourceStart, contactSourceEnd)
   : '';

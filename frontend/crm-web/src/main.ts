@@ -1421,6 +1421,693 @@ class ContactManagementPageComponent {
   }
 }
 
+type ActivityType = 'Call' | 'Email' | 'Meeting' | 'Task';
+type ActivityStatus = 'Scheduled' | 'Completed' | 'Cancelled';
+type ActivityTargetType = 'Lead' | 'Contact';
+
+const activityTypeOptions: { value: ActivityType; label: string }[] = [
+  { value: 'Call', label: 'Call' },
+  { value: 'Email', label: 'Email' },
+  { value: 'Meeting', label: 'Meeting' },
+  { value: 'Task', label: 'Task' }
+];
+
+const activityStatusOptions: { value: 'All' | ActivityStatus; label: string }[] = [
+  { value: 'All', label: 'All statuses' },
+  { value: 'Scheduled', label: 'Scheduled' },
+  { value: 'Completed', label: 'Completed' },
+  { value: 'Cancelled', label: 'Cancelled' }
+];
+
+interface FoundationActivity {
+  id: string;
+  type: ActivityType;
+  subject: string;
+  scheduledAtUtc: string;
+  leadId?: string | null;
+  contactId?: string | null;
+  status: ActivityStatus;
+  completedAtUtc?: string | null;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+
+interface FoundationActivityCreateRequest {
+  type: ActivityType;
+  subject: string;
+  scheduledAtUtc: string;
+  leadId?: string | null;
+  contactId?: string | null;
+}
+
+interface FoundationActivityUpdateRequest extends FoundationActivityCreateRequest {
+}
+
+interface ActivityManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: ActivityStatus | null;
+  activity?: FoundationActivity | null;
+  foundationMode: boolean;
+  persistenceMode: string;
+  durablePersistence: boolean;
+  productiveCrudEnabled: boolean;
+  databaseConfigured: boolean;
+  portalRuntimeEnabled: boolean;
+  commonDbRuntimeEnabled: boolean;
+  warning: string;
+}
+
+@Injectable({ providedIn: 'root' })
+class ActivityManagementApiService {
+  private readonly apiBaseUrl = '/api';
+  readonly foundationActivitiesRoute = '/api/crm/foundation/activities';
+
+  constructor(private readonly http: FoundationApiClient) {
+  }
+
+  getActivities() {
+    return this.http.get<FoundationActivity[]>(`${this.apiBaseUrl}/crm/foundation/activities`);
+  }
+
+  getActivity(id: string) {
+    return this.http.get<FoundationActivity>(`${this.apiBaseUrl}/crm/foundation/activities/${encodeURIComponent(id)}`);
+  }
+
+  createActivity(request: FoundationActivityCreateRequest) {
+    return this.http.post<ActivityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/activities`, request);
+  }
+
+  updateActivity(id: string, request: FoundationActivityUpdateRequest) {
+    return this.http.put<ActivityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/activities/${encodeURIComponent(id)}`, request);
+  }
+
+  completeActivity(id: string) {
+    return this.http.post<ActivityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/activities/${encodeURIComponent(id)}/complete`, {});
+  }
+
+  cancelActivity(id: string) {
+    return this.http.post<ActivityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/activities/${encodeURIComponent(id)}/cancel`, {});
+  }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-activity-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell activity-workflow" aria-labelledby="activityManagementTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="activityManagementTitle">Activities & Follow-Up</h1>
+          <p class="lede">Plan calls, emails, meetings and tasks against foundation Leads or Contacts.</p>
+        </div>
+        <span class="scope-pill">Foundation only</span>
+      </div>
+
+      <div class="workflow-grid contact-grid">
+        <section class="panel" aria-labelledby="activityListTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="activityListTitle">Activity board</h2>
+              <p class="muted">Uses only the safe foundation Activity API. Productive Activity routes are not used.</p>
+            </div>
+            <button type="button" class="secondary-action" (click)="startCreate()">New activity</button>
+          </div>
+
+          <label for="activitySearch">Search activities</label>
+          <input id="activitySearch" type="search" [value]="searchTerm()" (input)="updateSearch($event)" placeholder="Subject, type, status or target" />
+
+          <label for="activityStatusFilter">Status</label>
+          <select id="activityStatusFilter" [value]="statusFilter()" (change)="updateStatusFilter($event)">
+            @for (option of activityStatusOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+
+          <label for="activityTypeFilter">Type</label>
+          <select id="activityTypeFilter" [value]="typeFilter()" (change)="updateTypeFilter($event)">
+            <option value="All">All types</option>
+            @for (option of activityTypeOptions; track option.value) {
+              <option [value]="option.value">{{ option.label }}</option>
+            }
+          </select>
+
+          @if (isLoading()) {
+            <p class="feedback neutral" aria-live="polite">Loading foundation activities...</p>
+          } @else if (filteredActivities().length === 0) {
+            <div class="empty-state">
+              <p>No activities scheduled yet.</p>
+              <button type="button" class="secondary-action" (click)="startCreate()">Create the first activity</button>
+            </div>
+          } @else {
+            <div class="contact-list" aria-label="Foundation activity list">
+              @for (activity of filteredActivities(); track activity.id) {
+                <button type="button" class="contact-list-item" [class.selected]="selectedActivityId() === activity.id" (click)="selectActivity(activity.id)">
+                  <span class="contact-name">{{ activity.subject }}</span>
+                  <span class="contact-meta">{{ activity.type }} · {{ targetLabel(activity) }} · {{ formatDate(activity.scheduledAtUtc) }}</span>
+                  <span class="contact-status">{{ statusLabel(activity) }}</span>
+                </button>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="activityFormTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="activityFormTitle">{{ isCreateMode() ? 'New activity' : 'Activity details' }}</h2>
+              <p class="muted">{{ selectedActivityReadonly() ? 'Completed and cancelled activities are read-only.' : 'Schedule or update a foundation follow-up.' }}</p>
+            </div>
+            @if (selectedActivity(); as activity) {
+              <span class="scope-pill quiet">{{ statusLabel(activity) }}</span>
+            }
+          </div>
+
+          <form [formGroup]="activityForm" (ngSubmit)="submitActivity()" novalidate>
+            <label for="activityType">Type</label>
+            <select id="activityType" formControlName="type">
+              @for (option of activityTypeOptions; track option.value) {
+                <option [value]="option.value">{{ option.label }}</option>
+              }
+            </select>
+
+            <label for="activitySubject">Subject</label>
+            <input id="activitySubject" type="text" formControlName="subject" maxlength="160" aria-describedby="activitySubjectHelp" />
+            <small id="activitySubjectHelp">Required. Maximum 160 characters.</small>
+
+            <label for="scheduledAt">Scheduled date and time</label>
+            <input id="scheduledAt" type="datetime-local" formControlName="scheduledAtLocal" aria-describedby="scheduledAtHelp" />
+            <small id="scheduledAtHelp">Saved as UTC. Past dates are allowed for historical recording.</small>
+
+            <label for="activityTargetType">Target</label>
+            <select id="activityTargetType" formControlName="targetType" (change)="targetTypeChanged()">
+              <option value="Lead">Lead</option>
+              <option value="Contact">Contact</option>
+            </select>
+
+            @if (activityForm.controls.targetType.value === 'Lead') {
+              <label for="leadTarget">Lead target</label>
+              <select id="leadTarget" formControlName="targetId">
+                <option value="">Select a foundation Lead</option>
+                @for (lead of leads(); track lead.id) {
+                  <option [value]="lead.id">{{ leadLabel(lead) }}</option>
+                }
+              </select>
+              @if (!referencesLoading() && leads().length === 0) {
+                <small>No foundation Leads are available yet.</small>
+              }
+            } @else {
+              <label for="contactTarget">Contact target</label>
+              <select id="contactTarget" formControlName="targetId">
+                <option value="">Select a foundation Contact</option>
+                @for (contact of contacts(); track contact.id) {
+                  <option [value]="contact.id">{{ contactLabel(contact) }}</option>
+                }
+              </select>
+              @if (!referencesLoading() && contacts().length === 0) {
+                <small>No foundation Contacts are available yet.</small>
+              }
+            }
+
+            @if (validationMessage(); as message) {
+              <p class="validation" aria-live="polite">{{ message }}</p>
+            }
+
+            @if (selectedActivityReadonly()) {
+              <p class="feedback neutral">This activity is {{ selectedActivity()?.status }} and cannot be edited.</p>
+            }
+
+            <button type="submit" [disabled]="isSubmitting() || selectedActivityReadonly() || activityForm.invalid">
+              @if (isSubmitting()) {
+                Saving...
+              } @else if (isCreateMode()) {
+                Create activity
+              } @else {
+                Save activity
+              }
+            </button>
+          </form>
+
+          @if (selectedActivity(); as activity) {
+            <div class="activity-actions" aria-label="Activity lifecycle actions">
+              @if (activity.status === 'Scheduled') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="completeSelected()">Complete</button>
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="cancelSelected()">Cancel activity</button>
+              }
+            </div>
+          }
+
+          @if (operationMessage(); as message) {
+            <section class="panel result-panel" aria-live="polite">
+              <h2>{{ message.title }}</h2>
+              <p>{{ message.message }}</p>
+            </section>
+          }
+
+          @if (safeError(); as error) {
+            <section class="panel error-panel" aria-live="assertive">
+              <h2>{{ error.title }}</h2>
+              <p>{{ error.message }}</p>
+            </section>
+          }
+        </section>
+      </div>
+
+      @if (selectedActivity(); as activity) {
+        <section class="panel result-panel" aria-live="polite">
+          <h2>Selected activity</h2>
+          <dl class="result-grid">
+            <div>
+              <dt>Subject</dt>
+              <dd>{{ activity.subject }}</dd>
+            </div>
+            <div>
+              <dt>Type</dt>
+              <dd>{{ activity.type }}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>{{ statusLabel(activity) }}</dd>
+            </div>
+            <div>
+              <dt>Scheduled</dt>
+              <dd>{{ formatDate(activity.scheduledAtUtc) }}</dd>
+            </div>
+            <div>
+              <dt>Target</dt>
+              <dd>{{ targetLabel(activity) }}</dd>
+            </div>
+            <div>
+              <dt>Completed</dt>
+              <dd>{{ activity.completedAtUtc ? formatDate(activity.completedAtUtc) : 'Not completed' }}</dd>
+            </div>
+          </dl>
+        </section>
+      }
+    </section>
+  `
+})
+class ActivityManagementPageComponent {
+  readonly activityTypeOptions = activityTypeOptions;
+  readonly activityStatusOptions = activityStatusOptions;
+  readonly activities = signal<FoundationActivity[]>([]);
+  readonly leads = signal<FoundationLead[]>([]);
+  readonly contacts = signal<FoundationContact[]>([]);
+  readonly selectedActivityId = signal<string | null>(null);
+  readonly searchTerm = signal('');
+  readonly statusFilter = signal<'All' | ActivityStatus>('All');
+  readonly typeFilter = signal<'All' | ActivityType>('All');
+  readonly isLoading = signal(true);
+  readonly referencesLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+
+  readonly activityForm = this.formBuilder.nonNullable.group({
+    type: ['Call' as ActivityType, Validators.required],
+    subject: ['', [Validators.required, Validators.maxLength(160)]],
+    scheduledAtLocal: ['', Validators.required],
+    targetType: ['Lead' as ActivityTargetType, Validators.required],
+    targetId: ['', Validators.required]
+  });
+
+  constructor(
+    private readonly api: ActivityManagementApiService,
+    private readonly leadApi: LeadQualificationApiService,
+    private readonly contactApi: ContactManagementApiService,
+    private readonly formBuilder: FormBuilder) {
+    this.loadReferenceData();
+    this.loadActivities();
+    this.startCreate();
+  }
+
+  filteredActivities() {
+    const term = this.searchTerm().trim().toLowerCase();
+    return this.activities().filter(activity => {
+      const matchesStatus = this.statusFilter() === 'All' || activity.status === this.statusFilter();
+      const matchesType = this.typeFilter() === 'All' || activity.type === this.typeFilter();
+      const matchesTerm = term.length === 0 || [
+        activity.subject,
+        activity.type,
+        activity.status,
+        this.targetLabel(activity)
+      ].some(value => value.toLowerCase().includes(term));
+
+      return matchesStatus && matchesType && matchesTerm;
+    });
+  }
+
+  selectedActivity() {
+    const id = this.selectedActivityId();
+    return id ? this.activities().find(activity => activity.id === id) ?? null : null;
+  }
+
+  selectedActivityReadonly() {
+    const activity = this.selectedActivity();
+    return !this.isCreateMode() && activity !== null && activity.status !== 'Scheduled';
+  }
+
+  updateSearch(event: Event) {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
+
+  updateStatusFilter(event: Event) {
+    this.statusFilter.set((event.target as HTMLSelectElement).value as 'All' | ActivityStatus);
+  }
+
+  updateTypeFilter(event: Event) {
+    this.typeFilter.set((event.target as HTMLSelectElement).value as 'All' | ActivityType);
+  }
+
+  targetTypeChanged() {
+    this.activityForm.controls.targetId.setValue('');
+  }
+
+  selectActivity(id: string) {
+    this.isCreateMode.set(false);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.selectedActivityId.set(id);
+
+    this.api.getActivity(id).subscribe({
+      next: activity => {
+        this.upsertActivity(activity);
+        this.populateForm(activity);
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.loadActivities(false);
+      }
+    });
+  }
+
+  startCreate() {
+    this.isCreateMode.set(true);
+    this.selectedActivityId.set(null);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.activityForm.reset({
+      type: 'Call',
+      subject: '',
+      scheduledAtLocal: this.toDateTimeLocal(new Date(Date.now() + 60 * 60 * 1000).toISOString()),
+      targetType: 'Lead',
+      targetId: ''
+    });
+  }
+
+  submitActivity() {
+    this.activityForm.markAllAsTouched();
+
+    if (this.activityForm.invalid || this.isSubmitting() || this.selectedActivityReadonly()) {
+      return;
+    }
+
+    const request = this.toRequest();
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+
+    const operation = this.isCreateMode()
+      ? this.api.createActivity(request)
+      : this.api.updateActivity(this.selectedActivityId() ?? '', request);
+
+    operation.subscribe({
+      next: response => this.applyOperationResponse(response, response.changed ? 'Activity saved' : 'No changes were necessary'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  completeSelected() {
+    const activity = this.selectedActivity();
+    if (!activity || activity.status !== 'Scheduled' || this.isSubmitting()) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.api.completeActivity(activity.id).subscribe({
+      next: response => this.applyOperationResponse(response, 'Activity completed'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  cancelSelected() {
+    const activity = this.selectedActivity();
+    if (!activity || activity.status !== 'Scheduled' || this.isSubmitting()) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.api.cancelActivity(activity.id).subscribe({
+      next: response => this.applyOperationResponse(response, 'Activity cancelled'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  validationMessage() {
+    if (!this.activityForm.touched) {
+      return null;
+    }
+
+    const controls = this.activityForm.controls;
+    if (controls.subject.invalid) {
+      return 'Enter an activity subject with 160 characters or less.';
+    }
+
+    if (controls.scheduledAtLocal.invalid) {
+      return 'Choose a schedule date and time.';
+    }
+
+    if (controls.targetId.invalid) {
+      return `Select exactly one foundation ${controls.targetType.value}.`;
+    }
+
+    return null;
+  }
+
+  statusLabel(activity: FoundationActivity) {
+    if (activity.status === 'Scheduled' && new Date(activity.scheduledAtUtc).getTime() < Date.now()) {
+      return 'Scheduled · overdue';
+    }
+
+    return activity.status;
+  }
+
+  targetLabel(activity: FoundationActivity) {
+    if (activity.leadId) {
+      return `Lead ${this.displayTargetName(activity.leadId, 'Lead')}`;
+    }
+
+    if (activity.contactId) {
+      return `Contact ${this.displayTargetName(activity.contactId, 'Contact')}`;
+    }
+
+    return 'No target';
+  }
+
+  leadLabel(lead: FoundationLead) {
+    const fullName = `${lead.firstName ?? ''} ${lead.lastName ?? ''}`.trim();
+    return fullName || lead.companyName || lead.email || lead.id;
+  }
+
+  contactLabel(contact: FoundationContact) {
+    const name = contact.name?.trim();
+    if (name) {
+      return name;
+    }
+
+    const fullName = `${contact.firstName ?? ''} ${contact.lastName ?? ''}`.trim();
+    return fullName.length > 0 ? fullName : contact.email || contact.id;
+  }
+
+  formatDate(value: string) {
+    return new Intl.DateTimeFormat(undefined, {
+      dateStyle: 'medium',
+      timeStyle: 'short'
+    }).format(new Date(value));
+  }
+
+  private loadActivities(showLoading = true) {
+    if (showLoading) {
+      this.isLoading.set(true);
+    }
+
+    this.api.getActivities().subscribe({
+      next: activities => {
+        this.activities.set(activities);
+        if (!this.selectedActivityId() && activities.length > 0) {
+          this.selectedActivityId.set(activities[0].id);
+          this.isCreateMode.set(false);
+          this.populateForm(activities[0]);
+        }
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.safeError.set({
+          title: 'Activities unavailable',
+          message: 'Foundation activities could not be loaded. Try again after the CRM API is available.'
+        });
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private loadReferenceData() {
+    this.referencesLoading.set(true);
+    let pending = 2;
+    const finish = () => {
+      pending -= 1;
+      if (pending === 0) {
+        this.referencesLoading.set(false);
+      }
+    };
+
+    this.leadApi.getFoundationLeads().subscribe({
+      next: response => {
+        this.leads.set(response.data ?? []);
+        finish();
+      },
+      error: () => {
+        this.leads.set([]);
+        finish();
+      }
+    });
+
+    this.contactApi.getContacts().subscribe({
+      next: response => {
+        this.contacts.set(response.data ?? []);
+        finish();
+      },
+      error: () => {
+        this.contacts.set([]);
+        finish();
+      }
+    });
+  }
+
+  private populateForm(activity: FoundationActivity) {
+    const targetType: ActivityTargetType = activity.leadId ? 'Lead' : 'Contact';
+    this.activityForm.reset({
+      type: activity.type,
+      subject: activity.subject,
+      scheduledAtLocal: this.toDateTimeLocal(activity.scheduledAtUtc),
+      targetType,
+      targetId: activity.leadId ?? activity.contactId ?? ''
+    });
+  }
+
+  private toRequest(): FoundationActivityCreateRequest {
+    const value = this.activityForm.getRawValue();
+    const targetId = value.targetId.trim();
+    return {
+      type: value.type,
+      subject: value.subject.trim(),
+      scheduledAtUtc: new Date(value.scheduledAtLocal).toISOString(),
+      leadId: value.targetType === 'Lead' ? targetId : null,
+      contactId: value.targetType === 'Contact' ? targetId : null
+    };
+  }
+
+  private applyOperationResponse(response: ActivityManagementApiResponse, fallbackTitle: string) {
+    if (response.activity) {
+      this.upsertActivity(response.activity);
+      this.selectedActivityId.set(response.activity.id);
+      this.isCreateMode.set(false);
+      this.populateForm(response.activity);
+    }
+
+    this.operationMessage.set({
+      title: response.changed ? fallbackTitle : 'No changes were necessary',
+      message: response.message || 'The foundation Activity workflow completed successfully.'
+    });
+    this.isSubmitting.set(false);
+    this.loadActivities(false);
+  }
+
+  private upsertActivity(activity: FoundationActivity) {
+    this.activities.update(activities => {
+      const next = activities.filter(existing => existing.id !== activity.id);
+      return [activity, ...next];
+    });
+  }
+
+  private displayTargetName(id: string, type: ActivityTargetType) {
+    if (type === 'Lead') {
+      return this.leads().find(lead => lead.id === id) ? `· ${this.leadLabel(this.leads().find(lead => lead.id === id)!)} ` : id;
+    }
+
+    return this.contacts().find(contact => contact.id === id) ? `· ${this.contactLabel(this.contacts().find(contact => contact.id === id)!)} ` : id;
+  }
+
+  private toDateTimeLocal(value: string) {
+    const date = new Date(value);
+    const offsetMs = date.getTimezoneOffset() * 60_000;
+    return new Date(date.getTime() - offsetMs).toISOString().slice(0, 16);
+  }
+
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      const code = typeof error.error?.errorCode === 'string' ? error.error.errorCode : '';
+      const mapped = this.mapErrorCode(code);
+      if (mapped) {
+        return mapped;
+      }
+
+      if (error.status === 400) {
+        return { title: 'Validation issue', message: 'Review the activity fields before saving.' };
+      }
+
+      if (error.status === 404) {
+        return { title: 'Activity not found', message: 'The selected activity or target was not found. Refresh and try again.' };
+      }
+
+      if (error.status === 409) {
+        return { title: 'Lifecycle conflict', message: 'This activity state no longer allows that action.' };
+      }
+    }
+
+    return { title: 'Activity workflow unavailable', message: 'The foundation Activity service could not process the request.' };
+  }
+
+  private mapErrorCode(code: string) {
+    const messages: Record<string, { title: string; message: string }> = {
+      SubjectRequired: { title: 'Subject required', message: 'Enter an activity subject before saving.' },
+      SubjectTooLong: { title: 'Subject too long', message: 'Use 160 characters or less for the subject.' },
+      ActivityTargetRequired: { title: 'Target required', message: 'Select exactly one Lead or Contact target.' },
+      MultipleActivityTargetsNotAllowed: { title: 'One target only', message: 'Choose either a Lead or a Contact, not both.' },
+      InvalidLeadId: { title: 'Invalid Lead target', message: 'Select a valid foundation Lead.' },
+      InvalidContactId: { title: 'Invalid Contact target', message: 'Select a valid foundation Contact.' },
+      InvalidActivityType: { title: 'Invalid type', message: 'Choose Call, Email, Meeting or Task.' },
+      ActivityNotFound: { title: 'Activity not found', message: 'The selected activity or target was not found. Refresh and try again.' },
+      CompletedActivityCannotBeModified: { title: 'Completed activity', message: 'Completed activities cannot be edited.' },
+      CancelledActivityCannotBeModified: { title: 'Cancelled activity', message: 'Cancelled activities cannot be edited.' },
+      CancelledActivityCannotBeCompleted: { title: 'Cancelled activity', message: 'Cancelled activities cannot be completed.' },
+      CompletedActivityCannotBeCancelled: { title: 'Completed activity', message: 'Completed activities cannot be cancelled.' }
+    };
+
+    return messages[code] ?? null;
+  }
+}
+
 @Component({
   standalone: true,
   selector: 'crm-home',
@@ -2644,7 +3331,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
   { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent },
-  { path: 'foundation/contacts', component: ContactManagementPageComponent }
+  { path: 'foundation/contacts', component: ContactManagementPageComponent },
+  { path: 'foundation/activities', component: ActivityManagementPageComponent }
 ];
 
 @Component({

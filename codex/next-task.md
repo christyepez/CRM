@@ -4,25 +4,25 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
+CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
 
 Base Main Commit:
-S13-03 merge commit required
+S13-04 merge commit required
 
 Branch:
-crm-sprint-13-s13-04-activity-follow-up-frontend-foundation-page
+crm-sprint-13-s13-05-activity-test-guardrail-hardening
 
 Commit sugerido:
-feat(crm): add activity follow-up frontend foundation page
+test(crm): harden activity follow-up guardrails
 
 PR title:
-CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
+CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
 
 Objetivo:
-Agregar página frontend foundation para Activity / Follow-Up consumiendo solo el API foundation S13-03, sin activar rutas productivas.
+Endurecer pruebas y guardrails cross-layer para Activity / Follow-Up, validando contrato frontend/backend y límites foundation.
 
 Guardrails:
-- Activity UI must remain foundation-only.
+- Activity UI and API must remain foundation-only.
 - No productive Activity API activation.
 - No DELETE.
 - No Lead conversion.
@@ -39,11 +39,12 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-04.md
+codex/prompts/sprint-13-activity-follow-up-s13-05.md
 
 Acceptance Criteria:
-- Foundation Activity frontend page is implemented using existing Angular conventions.
-- The page calls only `/api/crm/foundation/activities`.
+- Activity cross-layer tests and guardrails are hardened.
+- Frontend/backend Activity type and status parity is verified.
+- The frontend calls only `/api/crm/foundation/activities`.
 - Productive Activity routes remain unavailable.
 - DELETE is not added.
 - Portal/Common DB remain disabled.

@@ -10,6 +10,12 @@ S13-03 exposes foundation-only Activity / Follow-Up endpoints under `/api/crm/fo
 
 Next gate: `CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page`.
 
+## CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
+
+S13-04 adds a user-facing Angular foundation workflow at `/foundation/activities` for viewing, creating, editing scheduled items, completing and cancelling Activity / Follow-Up records. The frontend calls only `/api/crm/foundation/activities`; productive Activity routes and DELETE remain disabled.
+
+Next gate: `CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening`.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Sprint 9 is initiated with P1 as a decision-only gate. CRM is approved to plan controlled NonProduction trials for Secret Provider, Common DB, Portal Auth and Productive Route dry-run, but no runtime trial or production activation is enabled now.
