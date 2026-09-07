@@ -89,15 +89,15 @@ foreach ($marker in @(
     }
 }
 
-if (-not ($nextTask.Contains("CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules") -or $nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store"))) {
+if (-not ($nextTask.Contains("CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules") -or $nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store") -or $nextTask.Contains("CRM Sprint 13 S13-03 - Activity Foundation API"))) {
     throw "codex/next-task.md must point to Sprint 13 S13-01 or a later approved Sprint 13 Activity task."
 }
 
-if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-01.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md"))) {
+if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-01.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-03.md"))) {
     throw "codex/next-task.md must reference S13-01 or a later approved Sprint 13 Activity prompt."
 }
 
-if (-not ($nextTask.Contains("Sprint 13 P1 merge commit required") -or $nextTask.Contains("S13-01 merge commit required"))) {
+if (-not ($nextTask.Contains("Sprint 13 P1 merge commit required") -or $nextTask.Contains("S13-01 merge commit required") -or $nextTask.Contains("S13-02 merge commit required"))) {
     throw "codex/next-task.md must avoid invented future SHA."
 }
 

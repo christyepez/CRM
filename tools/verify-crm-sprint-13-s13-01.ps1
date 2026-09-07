@@ -92,30 +92,22 @@ foreach ($marker in @("ActivityManagementDomainRules_DoNotDependOnOuterLayers", 
     }
 }
 
-foreach ($forbidden in @(
-    "src/CRM.Application/ActivityManagement",
-    "IActivityManagementService",
-    "ActivityManagementService",
-    "IActivityFoundationStore",
-    "InMemoryActivityFoundationStore")) {
-    if (Test-Path $forbidden) {
-        throw "Premature S13-02 artifact detected: $forbidden"
-    }
-}
-
 foreach ($forbidden in @('"/api/crm/activities"', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/activities', 'MapDelete("/api/crm/activities', '"/api/crm/foundation/activities"', 'MapDelete("/api/crm/foundation/activities')) {
     if ($program.Contains($forbidden)) {
         throw "Forbidden Activity API/DELETE marker detected: $forbidden"
     }
 }
 
-foreach ($marker in @(
-    "CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store",
-    "codex/prompts/sprint-13-activity-follow-up-s13-02.md",
-    "S13-01 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S13-02: $marker"
-    }
+if (-not ($nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store") -or $nextTask.Contains("CRM Sprint 13 S13-03 - Activity Foundation API"))) {
+    throw "codex/next-task.md must point to S13-02 or a later approved Sprint 13 Activity task."
+}
+
+if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-03.md"))) {
+    throw "codex/next-task.md must reference S13-02 or a later approved Sprint 13 Activity prompt."
+}
+
+if (-not ($nextTask.Contains("S13-01 merge commit required") -or $nextTask.Contains("S13-02 merge commit required"))) {
+    throw "codex/next-task.md must avoid invented future SHA."
 }
 
 foreach ($marker in @("S1301Decision: Implemented", "NextTaskPhase: CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store")) {

@@ -31,9 +31,42 @@ public sealed class ActivityManagementArchitectureTests
         Assert.DoesNotContain("MapPost(\"/api/crm/foundation/activities", program, StringComparison.OrdinalIgnoreCase);
     }
 
+    [Fact]
+    public void ActivityApplicationService_DependsOnAbstractionsAndDomainPolicyOnly()
+    {
+        var source = ReadActivityApplicationSources();
+
+        Assert.Contains("IActivityFoundationStore", source, StringComparison.Ordinal);
+        Assert.Contains("ActivityManagementPolicy", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("CRM.Infrastructure", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("SqlConnection", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("Authorization", source, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public void ActivityFoundationStore_IsInfrastructureOnlyAndAvoidsCommonDb()
+    {
+        var source = File.ReadAllText(Path.Combine(FindRepositoryRoot(), "src", "CRM.Infrastructure", "Persistence", "Foundation", "InMemoryActivityFoundationStore.cs"));
+
+        Assert.Contains("IActivityFoundationStore", source, StringComparison.Ordinal);
+        Assert.DoesNotContain("DbContext", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("SqlConnection", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("UseSqlServer", source, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("ConnectionString", source, StringComparison.OrdinalIgnoreCase);
+    }
+
     private static string ReadActivityManagementSources()
     {
         var directory = Path.Combine(FindRepositoryRoot(), "src", "CRM.Domain", "ActivityManagement");
+        return string.Join(
+            Environment.NewLine,
+            Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories).Select(File.ReadAllText));
+    }
+
+    private static string ReadActivityApplicationSources()
+    {
+        var directory = Path.Combine(FindRepositoryRoot(), "src", "CRM.Application", "ActivityManagement");
         return string.Join(
             Environment.NewLine,
             Directory.EnumerateFiles(directory, "*.cs", SearchOption.AllDirectories).Select(File.ReadAllText));
