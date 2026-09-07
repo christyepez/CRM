@@ -89,13 +89,16 @@ foreach ($marker in @(
     }
 }
 
-foreach ($marker in @(
-    "CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules",
-    "codex/prompts/sprint-13-activity-follow-up-s13-01.md",
-    "Sprint 13 P1 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to Sprint 13 S13-01: $marker"
-    }
+if (-not ($nextTask.Contains("CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules") -or $nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store"))) {
+    throw "codex/next-task.md must point to Sprint 13 S13-01 or a later approved Sprint 13 Activity task."
+}
+
+if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-01.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md"))) {
+    throw "codex/next-task.md must reference S13-01 or a later approved Sprint 13 Activity prompt."
+}
+
+if (-not ($nextTask.Contains("Sprint 13 P1 merge commit required") -or $nextTask.Contains("S13-01 merge commit required"))) {
+    throw "codex/next-task.md must avoid invented future SHA."
 }
 
 foreach ($marker in @(

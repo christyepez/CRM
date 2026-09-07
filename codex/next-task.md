@@ -4,25 +4,24 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules
+CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
 
 Base Main Commit:
-Sprint 13 P1 merge commit required
+S13-01 merge commit required
 
 Branch:
-crm-sprint-13-s13-01-activity-contracts-domain-rules
+crm-sprint-13-s13-02-activity-application-service-foundation-store
 
 Commit sugerido:
-feat(crm): add activity contracts and domain rules
+feat(crm): add activity application service and foundation store
 
 PR title:
-CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules
+CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
 
 Objetivo:
-Implementar contratos y reglas determinísticas de dominio para Activity / Follow-Up foundation.
+Implementar orquestación Application y store foundation in-memory para Activity / Follow-Up usando la policy de dominio S13-01.
 
 Guardrails:
-- No Activity application service yet.
 - No Activity API routes yet.
 - No Angular Activity UI yet.
 - No productive Activity API activation.
@@ -41,13 +40,13 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-01.md
+codex/prompts/sprint-13-activity-follow-up-s13-02.md
 
 Acceptance Criteria:
-- ActivityManagement contracts and domain policy are implemented.
-- Activity requires one valid LeadId or ContactId target.
-- Subject/details are bounded and normalized.
-- Completion rules are deterministic.
+- IActivityManagementService and ActivityManagementService are implemented.
+- IActivityFoundationStore and InMemoryActivityFoundationStore are implemented.
+- Create, update, complete and cancel orchestration reuse ActivityManagementPolicy.
+- Changed=false suppresses writes.
 - Portal/Common DB remain disabled.
 - Productive Activity routes remain unavailable.
 - Guardrails pass.
