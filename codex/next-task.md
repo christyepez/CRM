@@ -4,25 +4,24 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
+CRM Sprint 13 S13-03 - Activity Foundation API
 
 Base Main Commit:
-S13-01 merge commit required
+S13-02 merge commit required
 
 Branch:
-crm-sprint-13-s13-02-activity-application-service-foundation-store
+crm-sprint-13-s13-03-activity-foundation-api
 
 Commit sugerido:
-feat(crm): add activity application service and foundation store
+feat(crm): add activity foundation api
 
 PR title:
-CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
+CRM Sprint 13 S13-03 - Activity Foundation API
 
 Objetivo:
-Implementar orquestación Application y store foundation in-memory para Activity / Follow-Up usando la policy de dominio S13-01.
+Exponer endpoints foundation para Activity / Follow-Up usando IActivityManagementService, sin activar rutas productivas.
 
 Guardrails:
-- No Activity API routes yet.
 - No Angular Activity UI yet.
 - No productive Activity API activation.
 - No DELETE.
@@ -40,13 +39,12 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-02.md
+codex/prompts/sprint-13-activity-follow-up-s13-03.md
 
 Acceptance Criteria:
-- IActivityManagementService and ActivityManagementService are implemented.
-- IActivityFoundationStore and InMemoryActivityFoundationStore are implemented.
-- Create, update, complete and cancel orchestration reuse ActivityManagementPolicy.
-- Changed=false suppresses writes.
-- Portal/Common DB remain disabled.
+- Foundation Activity routes are implemented under `/api/crm/foundation/activities`.
+- Explicit API DTO mapping and safe status mapping are implemented.
 - Productive Activity routes remain unavailable.
+- DELETE is not added.
+- Portal/Common DB remain disabled.
 - Guardrails pass.

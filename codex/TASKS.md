@@ -4517,3 +4517,32 @@ Summary:
 Next:
 
 - CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store.
+
+## CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
+
+Status: Implemented
+
+Branch: crm-sprint-13-s13-02-activity-application-service-foundation-store
+
+S1302Decision: Implemented
+
+NextTaskPhase: CRM Sprint 13 S13-03 - Activity Foundation API
+
+ActivityManagementImplementationStatus: ApplicationAndFoundationStoreImplemented
+
+Summary:
+
+- Added `IActivityManagementService` and `ActivityManagementService`.
+- Added `IActivityFoundationStore` and `InMemoryActivityFoundationStore`.
+- Reused `ActivityManagementPolicy` as the rule authority.
+- Implemented create, update, complete, cancel, list and detail application methods.
+- Implemented foundation-only Lead and Contact target existence checks through existing foundation seams.
+- Suppressed persistence when `Changed=false`.
+- Preserved zero-write behavior for invalid, not-found and lifecycle-rejected requests.
+- Added application/store unit tests and architecture boundary tests.
+- Kept Activity API routes, Angular UI, productive routes, DELETE, Portal Auth runtime, Common DB runtime, schema changes and simulated Production deferred.
+- Prepared S13-03 prompt for Activity Foundation API.
+
+Next:
+
+- CRM Sprint 13 S13-03 - Activity Foundation API.

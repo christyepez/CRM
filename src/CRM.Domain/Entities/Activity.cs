@@ -17,11 +17,11 @@ public sealed class Activity
     }
 
     public CrmId Id { get; }
-    public ActivityType Type { get; }
-    public string Subject { get; }
-    public DateTimeOffset ScheduledAtUtc { get; }
-    public CrmId? LeadId { get; }
-    public CrmId? ContactId { get; }
+    public ActivityType Type { get; private set; }
+    public string Subject { get; private set; }
+    public DateTimeOffset ScheduledAtUtc { get; private set; }
+    public CrmId? LeadId { get; private set; }
+    public CrmId? ContactId { get; private set; }
     public DateTimeOffset? CompletedAtUtc { get; private set; }
     public ActivityStatus Status { get; private set; }
 
@@ -47,6 +47,31 @@ public sealed class Activity
         return normalizedSubject.Length == 0
             ? throw new ArgumentException("Activity subject is required.", nameof(subject))
             : new Activity(id, type, normalizedSubject, scheduledAtUtc, contactId: contactId);
+    }
+
+    public static Activity Restore(CrmId id, ActivityType type, string subject, DateTimeOffset scheduledAtUtc, CrmId? leadId, CrmId? contactId, ActivityStatus status, DateTimeOffset? completedAtUtc = null)
+    {
+        var activity = new Activity(id, type, subject, scheduledAtUtc, leadId, contactId)
+        {
+            Status = status,
+            CompletedAtUtc = completedAtUtc
+        };
+
+        return activity;
+    }
+
+    public void UpdateSchedule(ActivityType type, string subject, DateTimeOffset scheduledAtUtc, CrmId? leadId, CrmId? contactId)
+    {
+        if (Status != ActivityStatus.Scheduled)
+        {
+            throw new InvalidOperationException("Only scheduled activities can be modified.");
+        }
+
+        Type = type;
+        Subject = subject;
+        ScheduledAtUtc = scheduledAtUtc;
+        LeadId = leadId;
+        ContactId = contactId;
     }
 
     public void Complete(DateTimeOffset completedAtUtc)
