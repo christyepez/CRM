@@ -1,5 +1,6 @@
 using CRM.Api.ProductiveRoutes;
 using CRM.Api.Foundation;
+using CRM.Application.ActivityManagement;
 using CRM.Application.Contracts;
 using CRM.Application.ContactManagement;
 using CRM.Application.Financial;
@@ -10,6 +11,7 @@ using CRM.Application.Ports.Portal;
 using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
+using CRM.Domain.ActivityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
 using CRM.Infrastructure.Data.CommonDb;
@@ -37,6 +39,7 @@ builder.Services.AddSingleton<ILeadQualificationService, LeadQualificationServic
 builder.Services.AddSingleton<FoundationAccountCrudService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
+builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
 builder.Services.AddSingleton<CrmSprint2ProductizationGateService>();
@@ -140,6 +143,7 @@ builder.Services.AddSingleton<CrmPersistenceReadinessService>();
 builder.Services.AddSingleton<ILeadFoundationStore, InMemoryLeadFoundationStore>();
 builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundationStore>();
 builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
+builder.Services.AddSingleton<IActivityFoundationStore, InMemoryActivityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
 builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
 builder.Services.AddSingleton<CrmPersistenceSeamStatusService>();
@@ -454,6 +458,56 @@ app.MapPut("/api/crm/foundation/contacts/{id}", async (string id, FoundationCont
     return Results.Json(ContactManagementApiResponse.From(result), statusCode: ContactManagementApiResponse.ToStatusCode(result));
 })
     .WithName("UpdateCrmFoundationContact");
+
+app.MapGet("/api/crm/foundation/activities", async (IActivityManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationActivities");
+
+app.MapGet("/api/crm/foundation/activities/{id}", async (string id, IActivityManagementService service, CancellationToken cancellationToken) =>
+{
+    var activity = await service.GetByIdAsync(id, cancellationToken);
+    return activity is null
+        ? Results.NotFound(new
+        {
+            allowed = false,
+            changed = false,
+            errorCode = nameof(ActivityManagementErrorCode.ActivityNotFound),
+            message = "Activity was not found.",
+            foundationMode = true,
+            productiveCrudEnabled = false,
+            portalRuntimeEnabled = false,
+            commonDbRuntimeEnabled = false
+        })
+        : Results.Ok(activity);
+})
+    .WithName("GetCrmFoundationActivityById");
+
+app.MapPost("/api/crm/foundation/activities", async (FoundationActivityCreateRequest request, IActivityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(ActivityManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(ActivityManagementApiResponse.From(result), statusCode: ActivityManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("CreateCrmFoundationActivity");
+
+app.MapPut("/api/crm/foundation/activities/{id}", async (string id, FoundationActivityUpdateRequest request, IActivityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, ActivityManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(ActivityManagementApiResponse.From(result), statusCode: ActivityManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("UpdateCrmFoundationActivity");
+
+app.MapPost("/api/crm/foundation/activities/{id}/complete", async (string id, IActivityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CompleteAsync(id, cancellationToken);
+    return Results.Json(ActivityManagementApiResponse.From(result), statusCode: ActivityManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("CompleteCrmFoundationActivity");
+
+app.MapPost("/api/crm/foundation/activities/{id}/cancel", async (string id, IActivityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CancelAsync(id, cancellationToken);
+    return Results.Json(ActivityManagementApiResponse.From(result), statusCode: ActivityManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("CancelCrmFoundationActivity");
 
 app.MapGet("/api/crm/foundation/leads/read-model-preview", (LeadReadModelPreviewService service, string? search, int page = 1, int pageSize = 25) => Results.Ok(service.Preview(new CrmReadModelQuery(search, page, pageSize))))
     .WithName("PreviewCrmFoundationLeadReadModel");

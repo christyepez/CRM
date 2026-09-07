@@ -4,6 +4,12 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 13 S13-03 - Activity Foundation API
+
+S13-03 exposes foundation-only Activity / Follow-Up endpoints under `/api/crm/foundation/activities` using `IActivityManagementService`. Productive `/api/crm/activities` routes, DELETE, Portal Auth runtime and Common DB runtime remain disabled.
+
+Next gate: `CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page`.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Sprint 9 is initiated with P1 as a decision-only gate. CRM is approved to plan controlled NonProduction trials for Secret Provider, Common DB, Portal Auth and Productive Route dry-run, but no runtime trial or production activation is enabled now.

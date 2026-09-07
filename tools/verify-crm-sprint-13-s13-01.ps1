@@ -92,21 +92,21 @@ foreach ($marker in @("ActivityManagementDomainRules_DoNotDependOnOuterLayers", 
     }
 }
 
-foreach ($forbidden in @('"/api/crm/activities"', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/activities', 'MapDelete("/api/crm/activities', '"/api/crm/foundation/activities"', 'MapDelete("/api/crm/foundation/activities')) {
+foreach ($forbidden in @('"/api/crm/activities"', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/activities', 'MapDelete("/api/crm/activities', 'MapDelete("/api/crm/foundation/activities')) {
     if ($program.Contains($forbidden)) {
         throw "Forbidden Activity API/DELETE marker detected: $forbidden"
     }
 }
 
-if (-not ($nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store") -or $nextTask.Contains("CRM Sprint 13 S13-03 - Activity Foundation API"))) {
+if (-not ($nextTask.Contains("CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store") -or $nextTask.Contains("CRM Sprint 13 S13-03 - Activity Foundation API") -or $nextTask.Contains("CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page"))) {
     throw "codex/next-task.md must point to S13-02 or a later approved Sprint 13 Activity task."
 }
 
-if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-03.md"))) {
+if (-not ($nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-02.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-03.md") -or $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-04.md"))) {
     throw "codex/next-task.md must reference S13-02 or a later approved Sprint 13 Activity prompt."
 }
 
-if (-not ($nextTask.Contains("S13-01 merge commit required") -or $nextTask.Contains("S13-02 merge commit required"))) {
+if (-not ($nextTask.Contains("S13-01 merge commit required") -or $nextTask.Contains("S13-02 merge commit required") -or $nextTask.Contains("S13-03 merge commit required"))) {
     throw "codex/next-task.md must avoid invented future SHA."
 }
 

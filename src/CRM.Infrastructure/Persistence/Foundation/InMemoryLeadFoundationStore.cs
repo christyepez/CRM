@@ -13,5 +13,10 @@ public sealed class InMemoryLeadFoundationStore : InMemoryFoundationStoreBase, I
             ["source"] = "FoundationSeed",
             ["warning"] = "NonProductionSeam"
         });
+        AddSeed("22222222-2222-2222-2222-222222222222", "Lead", "Activity Target Preview", "PreviewOnly", new Dictionary<string, string>
+        {
+            ["source"] = "ActivityFoundationSeed",
+            ["warning"] = "NonProductionSeam"
+        });
     }
 }
