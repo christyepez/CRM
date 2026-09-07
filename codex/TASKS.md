@@ -4490,3 +4490,30 @@ Sprint13StoryBacklog:
 Next:
 
 - CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules.
+
+## CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules
+
+Status: Implemented
+
+Branch: crm-sprint-13-s13-01-activity-contracts-domain-rules
+
+S1301Decision: Implemented
+
+NextTaskPhase: CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store
+
+Summary:
+
+- Reused and safely extended the existing Activity entity.
+- Added ActivityManagement domain contracts, snapshot, operation enum, result contract, error codes and authoritative policy.
+- Enforced exactly one LeadId or ContactId structural target for Activity / Follow-Up foundation.
+- Preserved canonical ActivityType values: Call, Email, Meeting and Task.
+- Preserved canonical ActivityStatus values: Scheduled, Completed and Cancelled.
+- Kept Follow-Up as Activity semantics with scheduled/due date, not a separate aggregate.
+- Added deterministic create, update, completion and cancellation rule evaluation.
+- Added domain and architecture tests.
+- Kept Application, Infrastructure, API, Angular, productive routes, DELETE, Portal Auth runtime and Common DB runtime deferred.
+- Prepared S13-02 prompt for Activity Application Service and Foundation Store.
+
+Next:
+
+- CRM Sprint 13 S13-02 - Activity Application Service and Foundation Store.
