@@ -4450,3 +4450,43 @@ Summary:
 Next:
 
 - CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog.
+
+## CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog
+
+Status: Implemented
+
+Branch: crm-sprint-13-p1-activity-follow-up-functional-baseline
+
+Sprint13P1Decision: ReadyForS1301ActivityContractsAndDomainRules
+
+RecommendedSliceId: S13-ACTIVITY
+
+CanonicalActivityTerm: Activity
+
+CanonicalFollowUpTerm: Follow-Up
+
+FirstImplementationStoryId: S13-01
+
+Summary:
+
+- Inventoried existing Activity / Follow-Up evidence from domain, application, infrastructure, API, frontend, tests and roadmap documents.
+- Classified Activity as FoundationOnly in domain and NotStarted for application, persistence, API and frontend.
+- Selected Activity + Follow-Up as the canonical terminology.
+- Decided Follow-Up is an Activity with a scheduled/due date and Lead or Contact target, not a separate aggregate.
+- Deferred Account Management, Opportunity Pipeline, Portal Auth runtime, Common DB runtime, DELETE, external notifications and simulated Production changes.
+- Created Sprint 13 Activity / Follow-Up roadmap and P1 functional baseline.
+- Prepared S13-01 Activity Contracts and Domain Rules as the first implementation story.
+
+Sprint13StoryBacklog:
+
+- S13-01 Activity Contracts and Domain Rules.
+- S13-02 Activity Application Service.
+- S13-03 Activity Foundation API.
+- S13-04 Activity / Follow-Up Frontend Foundation Page.
+- S13-05 Activity Test and Guardrail Hardening.
+- S13-06 Activity Local Integration Validation.
+- S13-07 Activity / Follow-Up Sprint Closure.
+
+Next:
+
+- CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules.

@@ -4,24 +4,27 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog
+CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules
 
 Base Main Commit:
-S12-07 merge commit required
+Sprint 13 P1 merge commit required
 
 Branch:
-crm-sprint-13-p1-activity-follow-up-functional-baseline
+crm-sprint-13-s13-01-activity-contracts-domain-rules
 
 Commit sugerido:
-docs(crm): add activity follow-up functional baseline
+feat(crm): add activity contracts and domain rules
 
 PR title:
-CRM Sprint 13 P1 - Activity / Follow-Up Functional Baseline and Backlog
+CRM Sprint 13 S13-01 - Activity Contracts and Domain Rules
 
 Objetivo:
-Definir la capacidad Activity / Follow-Up como siguiente slice foundation-only posterior al cierre de Sprint 12 Contact Management.
+Implementar contratos y reglas determinísticas de dominio para Activity / Follow-Up foundation.
 
 Guardrails:
+- No Activity application service yet.
+- No Activity API routes yet.
+- No Angular Activity UI yet.
 - No productive Activity API activation.
 - No DELETE.
 - No Lead conversion.
@@ -38,12 +41,13 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-p1.md
+codex/prompts/sprint-13-activity-follow-up-s13-01.md
 
 Acceptance Criteria:
-- Activity / Follow-Up baseline and backlog are documented.
-- Contracts, risks, guardrails and implementation sequence are defined.
-- Productive Activity routes remain unavailable.
+- ActivityManagement contracts and domain policy are implemented.
+- Activity requires one valid LeadId or ContactId target.
+- Subject/details are bounded and normalized.
+- Completion rules are deterministic.
 - Portal/Common DB remain disabled.
-- No runtime business functionality is activated.
+- Productive Activity routes remain unavailable.
 - Guardrails pass.
