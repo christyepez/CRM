@@ -5,6 +5,7 @@ using CRM.Application.Contracts;
 using CRM.Application.ContactManagement;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
+using CRM.Application.OpportunityManagement;
 using CRM.Application.Persistence;
 using CRM.Application.Ports.Persistence;
 using CRM.Application.Ports.Portal;
@@ -12,6 +13,7 @@ using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
+using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
 using CRM.Infrastructure.Data.CommonDb;
@@ -40,6 +42,7 @@ builder.Services.AddSingleton<FoundationAccountCrudService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
 builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
+builder.Services.AddSingleton<IOpportunityManagementService, OpportunityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
 builder.Services.AddSingleton<CrmSprint2ProductizationGateService>();
@@ -144,6 +147,7 @@ builder.Services.AddSingleton<ILeadFoundationStore, InMemoryLeadFoundationStore>
 builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundationStore>();
 builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
 builder.Services.AddSingleton<IActivityFoundationStore, InMemoryActivityFoundationStore>();
+builder.Services.AddSingleton<IOpportunityFoundationStore, InMemoryOpportunityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
 builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
 builder.Services.AddSingleton<CrmPersistenceSeamStatusService>();
@@ -459,6 +463,52 @@ app.MapPut("/api/crm/foundation/contacts/{id}", async (string id, FoundationCont
 })
     .WithName("UpdateCrmFoundationContact");
 
+app.MapGet("/api/crm/foundation/opportunities", async (IOpportunityManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationOpportunities");
+
+app.MapGet("/api/crm/foundation/opportunities/{id}", async (string id, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var opportunity = await service.GetByIdAsync(id, cancellationToken);
+    return opportunity is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(OpportunityPipelineErrorCode.OpportunityNotFound), message = "Opportunity was not found.", foundationMode = true, productiveCrudEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(opportunity);
+}).WithName("GetCrmFoundationOpportunityById");
+
+app.MapPost("/api/crm/foundation/opportunities", async (FoundationOpportunityCreateRequest request, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(OpportunityManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationOpportunity");
+
+app.MapPut("/api/crm/foundation/opportunities/{id}", async (string id, FoundationOpportunityUpdateRequest request, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, OpportunityManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationOpportunity");
+
+app.MapPost("/api/crm/foundation/opportunities/{id}/progress", async (string id, FoundationOpportunityProgressRequest request, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ProgressAsync(id, OpportunityManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("ProgressCrmFoundationOpportunity");
+
+app.MapPost("/api/crm/foundation/opportunities/{id}/win", async (string id, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.WinAsync(id, cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("WinCrmFoundationOpportunity");
+
+app.MapPost("/api/crm/foundation/opportunities/{id}/lose", async (string id, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.LoseAsync(id, cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("LoseCrmFoundationOpportunity");
+
+app.MapPost("/api/crm/foundation/opportunities/{id}/cancel", async (string id, IOpportunityManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CancelAsync(id, cancellationToken);
+    return Results.Json(OpportunityManagementApiResponse.From(result), statusCode: OpportunityManagementApiResponse.ToStatusCode(result));
+}).WithName("CancelCrmFoundationOpportunity");
 app.MapGet("/api/crm/foundation/activities", async (IActivityManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationActivities");
 

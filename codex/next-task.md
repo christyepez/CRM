@@ -4,31 +4,29 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 S14-03 - Opportunity Foundation API
+CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
 
 Base Main Commit:
-Sprint 14 S14-02 merge commit required
+Sprint 14 S14-03 merge commit required
 
 Branch:
-crm-sprint-14-s14-03-opportunity-foundation-api
+crm-sprint-14-s14-04-opportunity-pipeline-frontend-foundation-page
 
 Commit sugerido:
-feat(crm): add opportunity foundation api
+feat(crm): add opportunity pipeline frontend foundation page
 
 PR title:
-CRM Sprint 14 S14-03 - Opportunity Foundation API
+CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
 
 Objetivo:
-Exponer Opportunity Pipeline únicamente bajo `/api/crm/foundation/opportunities` mediante `IOpportunityManagementService`, con DTO mapping explícito y errores HTTP seguros.
+Implementar `/foundation/opportunities` consumiendo exclusivamente Opportunity foundation APIs para list/create/edit/progress/win/lose/cancel.
 
 Guardrails:
 - No productive `/api/crm/opportunities`.
 - No DELETE.
-- No Lead conversion / Account Management activation / assignment runtime.
-- No Portal Auth/token/header runtime.
-- No Common DB/EF/migrations/schema/SQL.
-- No real data/secrets.
+- No Portal Auth/Common DB/EF/schema/real data.
+- No Lead conversion, Account Management runtime or assignment.
 - Do not touch `crm-prod-sim`.
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-s14-03.md
+codex/prompts/sprint-14-opportunity-pipeline-s14-04.md

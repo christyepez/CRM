@@ -103,10 +103,8 @@ foreach ($marker in @(
     }
 }
 
-$pointsToS1401 = $nextTask.Contains("CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules") -and $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-01.md") -and $nextTask.Contains("Sprint 14 P1 merge commit required")
-$pointsToS1402 = $nextTask.Contains("CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store") -and $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-02.md") -and $nextTask.Contains("Sprint 14 S14-01 merge commit required")
-$pointsToS1403 = $nextTask.Contains("CRM Sprint 14 S14-03 - Opportunity Foundation API") -and $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-03.md") -and $nextTask.Contains("Sprint 14 S14-02 merge commit required")
-if (-not ($pointsToS1401 -or $pointsToS1402 -or $pointsToS1403)) { throw "codex/next-task.md must hand off through legitimate Sprint 14 progression." }
+$validSprint14Handoff = $nextTask -match "CRM Sprint 14 S14-0[1-7]" -and $nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[1-7]\.md"
+if (-not $validSprint14Handoff) { throw "codex/next-task.md must hand off through legitimate Sprint 14 progression." }
 
 foreach ($marker in @(
     "CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog",
@@ -176,18 +174,12 @@ foreach ($marker in @(
 
 $runtimeSource = @($program, $frontend) -join "`n"
 foreach ($forbidden in @(
-    "IOpportunityManagementService",
-    "OpportunityManagementService",
-    "IOpportunityFoundationStore",
-    "InMemoryOpportunityFoundationStore",
-    "/api/crm/foundation/opportunities",
-    "/api/crm/opportunities",
-    "OpportunityApiService",
-    "path: 'opportunities'",
-    'path: "opportunities"',
-    "foundation/opportunities")) {
+    'MapGet("/api/crm/opportunities',
+    'MapPost("/api/crm/opportunities',
+    'MapPut("/api/crm/opportunities',
+    'MapDelete("/api/crm/opportunities')) {
     if ($runtimeSource.Contains($forbidden)) {
-        throw "Forbidden Sprint 14 P1 runtime/API/UI marker detected: $forbidden"
+        throw "Forbidden productive Opportunity marker detected: $forbidden"
     }
 }
 
