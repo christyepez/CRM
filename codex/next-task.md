@@ -1,61 +1,37 @@
-# CRM Next Codex Task
+﻿# CRM Next Codex Task
 
 Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
+CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store
 
 Base Main Commit:
-Sprint 14 P1 merge commit required
+Sprint 14 S14-01 merge commit required
 
 Branch:
-crm-sprint-14-s14-01-opportunity-pipeline-contracts-domain-rules
+crm-sprint-14-s14-02-opportunity-application-service-foundation-store
 
 Commit sugerido:
-feat(crm): add opportunity pipeline contracts and domain rules
+feat(crm): add opportunity application service and foundation store
 
 PR title:
-CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
+CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store
 
 Objetivo:
-Implementar contratos y reglas deterministicas foundation-only para Opportunity Pipeline.
+Implement foundation-only Opportunity application orchestration and in-memory persistence seam through `OpportunityPipelinePolicy`.
 
 Guardrails:
-- Do not add Opportunity application service yet.
-- Do not add Opportunity foundation store yet.
-- Do not add Opportunity API routes yet.
-- Do not add Angular Opportunity UI yet.
-- No productive Opportunity API activation.
-- No `/api/crm/opportunities` route.
-- No `/api/crm/foundation/opportunities` route.
+- No Opportunity API routes yet.
+- No Angular Opportunity UI yet.
+- No productive `/api/crm/opportunities`.
 - No DELETE.
-- No Lead conversion.
-- No Account Management activation.
-- No assignment, owner or Portal user feature activation.
-- No DB runtime productivo ni Common DB activation.
-- No EF runtime.
-- No migrations.
-- No schema changes.
-- No Portal Auth runtime activation.
-- No Authorization header/token reads by default.
-- No CRM-owned Identity/login.
-- No secrets, `.env`, tokens, certificates or real data.
-- Keep simulated Production baseline untouched.
+- No Lead conversion or Account Management activation.
+- No assignment/owner runtime.
+- No Portal Auth runtime.
+- No Common DB/EF/migrations/schema/SQL.
+- No real data/secrets.
 - Do not touch `crm-prod-sim`.
-- Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-s14-01.md
-
-Acceptance Criteria:
-- Opportunity Pipeline domain contracts exist.
-- Deterministic stage ordering and transition policy exists.
-- Create, update, progress, win and loss rules are explicit.
-- Synthetic relationship references remain contract-only.
-- No Opportunity service, store, API route or UI is added.
-- Productive Opportunity routes remain unavailable.
-- DELETE is not added.
-- Portal/Common DB remain disabled.
-- Lead conversion, Account activation and assignment remain deferred.
-- Guardrails pass.
+codex/prompts/sprint-14-opportunity-pipeline-s14-02.md

@@ -103,14 +103,9 @@ foreach ($marker in @(
     }
 }
 
-foreach ($marker in @(
-    "CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules",
-    "codex/prompts/sprint-14-opportunity-pipeline-s14-01.md",
-    "Sprint 14 P1 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must hand off to S14-01: $marker"
-    }
-}
+$pointsToS1401 = $nextTask.Contains("CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules") -and $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-01.md") -and $nextTask.Contains("Sprint 14 P1 merge commit required")
+$pointsToS1402 = $nextTask.Contains("CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store") -and $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-02.md") -and $nextTask.Contains("Sprint 14 S14-01 merge commit required")
+if (-not ($pointsToS1401 -or $pointsToS1402)) { throw "codex/next-task.md must hand off to S14-01 or legitimate S14-02 forward handoff." }
 
 foreach ($marker in @(
     "CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog",
