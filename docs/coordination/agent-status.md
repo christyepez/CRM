@@ -10,5 +10,5 @@
 | Agent 05 - CRM Integration Hub | Pending | - | - |
 | Agent 06 - CRM Workers | Pending | - | - |
 | Agent 07 - DevOps CRM | Pending | - | - |
-| Agent 08 - QA CRM | Pending | - | - |
-| Agent 09 - Documentation | Pending | - | - |
+| Agent 08 - QA CRM | In Progress | S13-06 Activity / Follow-Up local integration runner and verifier added; foundation-only guardrails preserved. | - |
+| Agent 09 - Documentation | In Progress | S13-06 evidence and S13-07 handoff documented. | - |

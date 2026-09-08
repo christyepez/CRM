@@ -1,5 +1,27 @@
 # TASKS.md
 
+## CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation
+
+Status: Implemented in branch `crm-sprint-13-s13-06-activity-local-integration-validation`.
+
+- [x] Validate GitHub main contains S13-05 merge commit `e046553f45ce7a77844495181e9a9404fddab237`.
+- [x] Validate Activity / Follow-Up locally through `/foundation/activities` and `/api/crm/foundation/activities`.
+- [x] Validate create, read, update, no-change update, complete and cancel behavior.
+- [x] Validate Lead and Contact target seams with synthetic foundation targets only.
+- [x] Validate target-not-found and exactly-one-target behavior.
+- [x] Validate lifecycle conflicts for completed and cancelled activities.
+- [x] Validate UTC scheduling and source-level derived overdue display behavior.
+- [x] Validate negative productive Activity routes remain unavailable.
+- [x] Validate foundation and productive DELETE remain unavailable.
+- [x] Validate frontend proxy connectivity without broad CORS or production CORS changes.
+- [x] Validate logs and responses do not disclose secrets, tokens, Authorization headers or real data.
+- [x] Keep Portal Auth runtime, Common DB runtime, EF, schema changes and migrations disabled.
+- [x] Keep Account, Opportunity, assignment and Lead conversion dependencies inactive.
+- [x] Keep simulated Production untouched.
+- [x] Add repeatable S13-06 local integration runner and verifier.
+- [x] Set `S1306Decision: Implemented`.
+- [x] Set `NextTaskPhase: CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure`.
+
 ## CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
 
 Status: Implemented in branch `crm-sprint-13-s13-05-activity-test-guardrail-hardening`.
