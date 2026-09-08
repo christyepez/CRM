@@ -198,13 +198,16 @@ if (-not ($server.Contains("127.0.0.1") -and $server.Contains("4200") -and $serv
     throw "Local integration frontend server must bind loopback and proxy to CRM API."
 }
 
-foreach ($marker in @(
-    "CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure",
-    "codex/prompts/sprint-13-activity-follow-up-s13-07.md",
-    "S13-06 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S13-07: $marker"
-    }
+$pointsToS1307 = $nextTask.Contains("CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure") -and
+    $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-07.md") -and
+    $nextTask.Contains("S13-06 merge commit required")
+
+$pointsToForwardHandoff = $nextTask.Contains("CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog") -and
+    $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-p1.md") -and
+    $nextTask.Contains("S13-07 merge commit required")
+
+if (-not ($pointsToS1307 -or $pointsToForwardHandoff)) {
+    throw "codex/next-task.md must point to S13-07 or an approved post-S13-07 Sprint 14 handoff."
 }
 
 foreach ($marker in @(

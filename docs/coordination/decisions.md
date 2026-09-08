@@ -10,3 +10,4 @@
 | ADR-006 | Salesforce y Dynamics mediante Integration Hub. | Aprobada |
 | ADR-007 | Activity / Follow-Up S13-06 se valida solo en stack foundation-only con datos sinteticos. | Aprobada |
 | ADR-008 | Productive Activity API, DELETE, Portal Auth runtime y Common DB runtime permanecen deshabilitados para S13-06. | Aprobada |
+| ADR-009 | Sprint 13 Activity / Follow-Up se cierra como foundation-only y Sprint 14 continua con Opportunity Pipeline Foundation. | Aprobada |
