@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
+CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation
 
 Base Main Commit:
-S13-04 merge commit required
+S13-05 merge commit required
 
 Branch:
-crm-sprint-13-s13-05-activity-test-guardrail-hardening
+crm-sprint-13-s13-06-activity-local-integration-validation
 
 Commit sugerido:
-test(crm): harden activity follow-up guardrails
+test(crm): validate activity follow-up local integration
 
 PR title:
-CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
+CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation
 
 Objetivo:
-Endurecer pruebas y guardrails cross-layer para Activity / Follow-Up, validando contrato frontend/backend y límites foundation.
+Validar localmente Activity / Follow-Up de extremo a extremo dentro del stack foundation-only.
 
 Guardrails:
 - Activity UI and API must remain foundation-only.
@@ -39,12 +39,11 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-05.md
+codex/prompts/sprint-13-activity-follow-up-s13-06.md
 
 Acceptance Criteria:
-- Activity cross-layer tests and guardrails are hardened.
-- Frontend/backend Activity type and status parity is verified.
-- The frontend calls only `/api/crm/foundation/activities`.
+- Activity local integration is validated with synthetic data.
+- The frontend and API foundation Activity workflow remain aligned.
 - Productive Activity routes remain unavailable.
 - DELETE is not added.
 - Portal/Common DB remain disabled.

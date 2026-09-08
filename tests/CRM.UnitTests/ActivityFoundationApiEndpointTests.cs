@@ -71,6 +71,86 @@ public sealed class ActivityFoundationApiEndpointTests
     }
 
     [Fact]
+    public async Task FoundationActivityCreate_ContactTarget_ReturnsOkWithContactOnly()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        const string contactId = "33333333-3333-3333-3333-333333333333";
+
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/activities", new
+        {
+            type = "Email",
+            subject = "Contact follow up",
+            scheduledAtUtc = DateTimeOffset.UtcNow.AddHours(3),
+            contactId
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal(contactId, body.RootElement.GetProperty("activity").GetProperty("contactId").GetString());
+        Assert.Equal(JsonValueKind.Null, body.RootElement.GetProperty("activity").GetProperty("leadId").ValueKind);
+    }
+
+    [Fact]
+    public async Task FoundationActivityCreate_BothTargets_ReturnsBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        const string contactId = "33333333-3333-3333-3333-333333333333";
+
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/activities", new
+        {
+            type = "Meeting",
+            subject = "Ambiguous follow up",
+            scheduledAtUtc = DateTimeOffset.UtcNow.AddHours(3),
+            leadId = "22222222-2222-2222-2222-222222222222",
+            contactId
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("MultipleActivityTargetsNotAllowed", body.RootElement.GetProperty("errorCode").GetString());
+    }
+
+    [Fact]
+    public async Task FoundationActivityCreate_MissingContactTarget_ReturnsNotFound()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/activities", new
+        {
+            type = "Email",
+            subject = "Missing contact follow up",
+            scheduledAtUtc = DateTimeOffset.UtcNow.AddHours(3),
+            contactId = Guid.NewGuid().ToString("D")
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.NotFound, response.StatusCode);
+        Assert.Equal("ActivityNotFound", body.RootElement.GetProperty("errorCode").GetString());
+    }
+
+    [Fact]
+    public async Task FoundationActivityCreate_PastSchedule_IsAcceptedForHistoricalRecording()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/activities", new
+        {
+            type = "Task",
+            subject = "Historical note",
+            scheduledAtUtc = new DateTimeOffset(2020, 1, 1, 8, 0, 0, TimeSpan.Zero),
+            leadId = "22222222-2222-2222-2222-222222222222"
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.Equal("Scheduled", body.RootElement.GetProperty("status").GetString());
+    }
+
+    [Fact]
     public async Task FoundationActivityGetById_AfterCreate_ReturnsActivity()
     {
         using var factory = new WebApplicationFactory<Program>();
@@ -123,6 +203,10 @@ public sealed class ActivityFoundationApiEndpointTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("Completed", body.RootElement.GetProperty("status").GetString());
         Assert.True(body.RootElement.GetProperty("changed").GetBoolean());
+
+        var read = await client.GetAsync($"/api/crm/foundation/activities/{activityId}");
+        var readBody = await ReadJsonAsync(read);
+        Assert.Equal("Completed", readBody.RootElement.GetProperty("status").GetString());
     }
 
     [Fact]
@@ -138,6 +222,61 @@ public sealed class ActivityFoundationApiEndpointTests
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         Assert.Equal("Cancelled", body.RootElement.GetProperty("status").GetString());
         Assert.True(body.RootElement.GetProperty("changed").GetBoolean());
+
+        var read = await client.GetAsync($"/api/crm/foundation/activities/{activityId}");
+        var readBody = await ReadJsonAsync(read);
+        Assert.Equal("Cancelled", readBody.RootElement.GetProperty("status").GetString());
+    }
+
+    [Fact]
+    public async Task FoundationActivityUpdate_CompletedActivity_ReturnsBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var activityId = await CreateActivityForLeadAsync(client);
+        await client.PostAsync($"/api/crm/foundation/activities/{activityId}/complete", null);
+
+        var response = await client.PutAsJsonAsync($"/api/crm/foundation/activities/{activityId}", new
+        {
+            type = "Call",
+            subject = "Cannot update completed",
+            scheduledAtUtc = DateTimeOffset.UtcNow.AddDays(1),
+            leadId = "22222222-2222-2222-2222-222222222222"
+        });
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("CompletedActivityCannotBeModified", body.RootElement.GetProperty("errorCode").GetString());
+    }
+
+    [Fact]
+    public async Task FoundationActivityCancel_CompletedActivity_ReturnsBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var activityId = await CreateActivityForLeadAsync(client);
+        await client.PostAsync($"/api/crm/foundation/activities/{activityId}/complete", null);
+
+        var response = await client.PostAsync($"/api/crm/foundation/activities/{activityId}/cancel", null);
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("CompletedActivityCannotBeCancelled", body.RootElement.GetProperty("errorCode").GetString());
+    }
+
+    [Fact]
+    public async Task FoundationActivityComplete_CancelledActivity_ReturnsBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var activityId = await CreateActivityForLeadAsync(client);
+        await client.PostAsync($"/api/crm/foundation/activities/{activityId}/cancel", null);
+
+        var response = await client.PostAsync($"/api/crm/foundation/activities/{activityId}/complete", null);
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("CancelledActivityCannotBeCompleted", body.RootElement.GetProperty("errorCode").GetString());
     }
 
     [Theory]

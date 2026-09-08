@@ -16,6 +16,12 @@ S13-04 adds a user-facing Angular foundation workflow at `/foundation/activities
 
 Next gate: `CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening`.
 
+## CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
+
+S13-05 hardens Activity / Follow-Up tests and cross-layer guardrails. It verifies backend/frontend type and status parity, foundation-only route usage, Lead/Contact target validation, lifecycle conflicts, historical scheduling, no DELETE behavior and unavailable productive Activity routes.
+
+Next gate: `CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation`.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Sprint 9 is initiated with P1 as a decision-only gate. CRM is approved to plan controlled NonProduction trials for Secret Provider, Common DB, Portal Auth and Productive Route dry-run, but no runtime trial or production activation is enabled now.
