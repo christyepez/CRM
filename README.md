@@ -4,6 +4,12 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
+
+Sprint 14 P1 creates the Opportunity Pipeline foundation baseline and implementation backlog. It confirms `Opportunity` is currently a thin domain entity, Pipeline/PipelineStage are conceptual/catalog-level only, and no Opportunity service, foundation store, API route or Angular page is active.
+
+Next gate: `CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules`.
+
 ## CRM Sprint 13 S13-03 - Activity Foundation API
 
 S13-03 exposes foundation-only Activity / Follow-Up endpoints under `/api/crm/foundation/activities` using `IActivityManagementService`. Productive `/api/crm/activities` routes, DELETE, Portal Auth runtime and Common DB runtime remain disabled.
