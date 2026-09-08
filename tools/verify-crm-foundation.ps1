@@ -381,7 +381,13 @@ if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|Crea
         Replace('MapPut("/api/crm/foundation/activities/{id}"', '').
         Replace('MapPost("/api/crm/foundation/activities"', '').
         Replace('MapPost("/api/crm/foundation/activities/{id}/complete"', '').
-        Replace('MapPost("/api/crm/foundation/activities/{id}/cancel"', '')
+        Replace('MapPost("/api/crm/foundation/activities/{id}/cancel"', '').
+        Replace('MapPut("/api/crm/foundation/opportunities/{id}"', '').
+        Replace('MapPost("/api/crm/foundation/opportunities"', '').
+        Replace('MapPost("/api/crm/foundation/opportunities/{id}/progress"', '').
+        Replace('MapPost("/api/crm/foundation/opportunities/{id}/win"', '').
+        Replace('MapPost("/api/crm/foundation/opportunities/{id}/lose"', '').
+        Replace('MapPost("/api/crm/foundation/opportunities/{id}/cancel"', '')
     if ($allowedMutationsProgram -notmatch "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
         $null = $true
     }
@@ -488,7 +494,7 @@ foreach ($productiveRoute in @('"/api/crm/leads"', '"/api/crm/accounts"', '"/api
     }
 }
 
-foreach ($productiveRoute in @('MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts', 'MapPut("/api/crm/activities')) {
+foreach ($productiveRoute in @('MapGet("/api/crm/leads', 'MapGet("/api/crm/accounts', 'MapGet("/api/crm/contacts', 'MapGet("/api/crm/activities', 'MapPost("/api/crm/leads', 'MapPost("/api/crm/accounts', 'MapPost("/api/crm/contacts', 'MapPost("/api/crm/activities', 'MapPut("/api/crm/leads', 'MapPut("/api/crm/accounts', 'MapPut("/api/crm/contacts', 'MapPut("/api/crm/activities', 'MapGet("/api/crm/opportunities', 'MapPost("/api/crm/opportunities', 'MapPut("/api/crm/opportunities')) {
     if ($apiProgram -like "*$productiveRoute*") {
         $failures += "Productive CRM route registration found: $productiveRoute"
     }

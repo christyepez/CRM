@@ -138,10 +138,12 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/", program.Replace("MapPut(\"/api/crm/foundation/leads/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/accounts/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/contacts/{id}\"", string.Empty, StringComparison.Ordinal)
-            .Replace("MapPut(\"/api/crm/foundation/activities/{id}\"", string.Empty, StringComparison.Ordinal));
+            .Replace("MapPut(\"/api/crm/foundation/activities/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/opportunities/{id}\"", string.Empty, StringComparison.Ordinal));
         Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("Create" + "Lead", program);
@@ -169,6 +171,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
@@ -199,6 +202,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("/login", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("/logout", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
@@ -241,6 +245,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("/login", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("/logout", program, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
@@ -283,6 +288,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -335,6 +341,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -389,6 +396,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -428,6 +436,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
@@ -464,6 +473,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
@@ -501,6 +511,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
@@ -539,6 +550,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("Add" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authentication", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("Use" + "Authorization", source, StringComparison.OrdinalIgnoreCase);
@@ -831,6 +843,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("DbContext", StripAllowedEfPrototypeMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
@@ -855,6 +868,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("DbContext", StripAllowedEfPrototypeMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
@@ -881,6 +895,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("DbContext", StripAllowedEfPrototypeMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
@@ -911,6 +926,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("DbContext", StripAllowedEfPrototypeMarkers(source), StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
@@ -945,6 +961,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("DbContext", dbContextScanSource, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("DbSet<", source, StringComparison.OrdinalIgnoreCase);
         Assert.DoesNotContain("MigrationBuilder", source, StringComparison.OrdinalIgnoreCase);
@@ -1018,6 +1035,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1074,6 +1092,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1139,6 +1158,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1203,6 +1223,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1250,6 +1271,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1296,6 +1318,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1362,6 +1385,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1451,6 +1475,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1523,6 +1548,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1599,6 +1625,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1663,6 +1690,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1728,6 +1756,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1798,6 +1827,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1901,6 +1931,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);
@@ -1999,6 +2030,7 @@ public sealed class ArchitectureDependencyTests
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
+        Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/leads", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/accounts", program);
         Assert.DoesNotContain("MapGet(\"/api/crm/contacts", program);

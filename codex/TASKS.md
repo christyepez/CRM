@@ -4797,3 +4797,12 @@ Summary:
 Next:
 
 - CRM Sprint 13 S13-03 - Activity Foundation API.
+
+## CRM Sprint 14 S14-03 - Opportunity Foundation API
+Status: Implemented
+Base: 680db4b65b07e826385abf4acb74a2acaa114217
+ProductiveOpportunityRouteEnabled: false
+DeleteBehaviorAdded: false
+PortalRuntimeEnabled: false
+CommonDbRuntimeEnabled: false
+NextTaskPhase: CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page

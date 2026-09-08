@@ -692,3 +692,6 @@ Next gate: CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation
 S14-02 adds foundation-only Application orchestration and an in-memory Opportunity persistence seam. API/UI/productive routes remain unavailable.
 
 Next gate: CRM Sprint 14 S14-03 - Opportunity Foundation API.
+
+### Sprint 14 S14-03 — Opportunity Foundation API
+Foundation-only Opportunity list/detail/create/update/progress/win/lose/cancel is exposed through `IOpportunityManagementService`. Productive Opportunity routes and DELETE remain unavailable. Next gate: `CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page`.
