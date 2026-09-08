@@ -1,5 +1,67 @@
 # TASKS.md
 
+## CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
+
+Status: Implemented
+
+Branch: crm-sprint-14-p1-opportunity-pipeline-functional-baseline
+
+S1307PullRequest: #185
+S1307MergeCommit: b1a92f84016136ce2462a74ea2377245aec367d0
+Sprint14P1BaseMainCommit: b1a92f84016136ce2462a74ea2377245aec367d0
+
+SelectedSliceId: S14-OPPORTUNITY-PIPELINE
+SelectedSliceName: Opportunity Pipeline Foundation
+
+OpportunityDomainStatus: ThinExistingEntity
+PipelineImplementationStatus: CatalogAndConceptualOnly
+PipelineStageImplementationStatus: CatalogAndConceptualOnly
+PipelineDomainStatus: CatalogOnly
+PipelineStageDomainStatus: CatalogOnly
+OpportunityApplicationStatus: NotStarted
+OpportunityFoundationStoreStatus: NotStarted
+OpportunityApiStatus: NotStarted
+OpportunityFrontendStatus: NotStarted
+
+ClosedFoundationDependencies: LeadQualification, ContactManagement, ActivityFollowUp
+DependencyRuntimeMode: SyntheticFoundationOnly
+
+ProductiveOpportunityRouteEnabled: false
+DeleteBehaviorAdded: false
+LeadConversionImplemented: false
+AccountManagementActivatedBySprint14P1: false
+AssignmentRuntimeActivatedBySprint14P1: false
+PortalRuntimeEnabled: false
+CommonDbRuntimeEnabled: false
+EfRuntimeEnabled: false
+MigrationsCreated: false
+SchemaChangesDetected: false
+RealDataDetected: false
+SimulatedProductionTouched: false
+CrmProdSimTouched: false
+
+Sprint14StoryBacklog:
+
+- S14-01 Opportunity Pipeline Contracts and Domain Rules.
+- S14-02 Opportunity Application Service and Foundation Store.
+- S14-03 Opportunity Foundation API.
+- S14-04 Opportunity Pipeline Frontend Foundation Page.
+- S14-05 Opportunity Pipeline Test and Guardrail Hardening.
+- S14-06 Opportunity Pipeline Local Integration Validation.
+- S14-07 Opportunity Pipeline Sprint Closure.
+
+FirstImplementationStoryId: S14-01
+FirstImplementationStoryName: Opportunity Pipeline Contracts and Domain Rules
+FirstImplementationStoryRationale: The repo has only a thin `Opportunity` entity and catalog/conceptual Pipeline/PipelineStage concepts. There is no authoritative Opportunity Pipeline policy, stage transition model, application service, foundation store, API or UI, so deterministic domain contracts and rules must be created first.
+
+FirstImplementationPrompt: codex/prompts/sprint-14-opportunity-pipeline-s14-01.md
+NextTaskUpdated: true
+NextTaskPhase: CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
+NextTaskPromptFile: codex/prompts/sprint-14-opportunity-pipeline-s14-01.md
+
+Sprint14P1Decision: ReadyForS1401OpportunityPipelineContractsAndDomainRules
+NextGate: CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
+
 ## CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure
 
 Status: Implemented

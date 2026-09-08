@@ -4,29 +4,34 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
+CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
 
 Base Main Commit:
-S13-07 merge commit required
+Sprint 14 P1 merge commit required
 
 Branch:
-crm-sprint-14-p1-opportunity-pipeline-functional-baseline
+crm-sprint-14-s14-01-opportunity-pipeline-contracts-domain-rules
 
 Commit sugerido:
-docs(crm): baseline opportunity pipeline foundation sprint
+feat(crm): add opportunity pipeline contracts and domain rules
 
 PR title:
-CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
+CRM Sprint 14 S14-01 - Opportunity Pipeline Contracts and Domain Rules
 
 Objetivo:
-Crear la linea base funcional y backlog de Sprint 14 para Opportunity Pipeline despues del cierre S13-07.
+Implementar contratos y reglas deterministicas foundation-only para Opportunity Pipeline.
 
 Guardrails:
-- Opportunity UI and API must remain foundation-only until explicitly implemented in later Sprint 14 stories.
+- Do not add Opportunity application service yet.
+- Do not add Opportunity foundation store yet.
+- Do not add Opportunity API routes yet.
+- Do not add Angular Opportunity UI yet.
 - No productive Opportunity API activation.
+- No `/api/crm/opportunities` route.
+- No `/api/crm/foundation/opportunities` route.
 - No DELETE.
 - No Lead conversion.
-- No Account Management activation as part of Sprint 14 P1.
+- No Account Management activation.
 - No assignment, owner or Portal user feature activation.
 - No DB runtime productivo ni Common DB activation.
 - No EF runtime.
@@ -37,18 +42,20 @@ Guardrails:
 - No CRM-owned Identity/login.
 - No secrets, `.env`, tokens, certificates or real data.
 - Keep simulated Production baseline untouched.
+- Do not touch `crm-prod-sim`.
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-p1.md
+codex/prompts/sprint-14-opportunity-pipeline-s14-01.md
 
 Acceptance Criteria:
-- Existing Opportunity, Lead, Contact and Activity evidence is inventoried.
-- Opportunity Pipeline foundation terminology, lifecycle and backlog are defined.
-- Exactly one first Sprint 14 implementation story is selected.
+- Opportunity Pipeline domain contracts exist.
+- Deterministic stage ordering and transition policy exists.
+- Create, update, progress, win and loss rules are explicit.
+- Synthetic relationship references remain contract-only.
+- No Opportunity service, store, API route or UI is added.
 - Productive Opportunity routes remain unavailable.
 - DELETE is not added.
 - Portal/Common DB remain disabled.
 - Lead conversion, Account activation and assignment remain deferred.
-- Residual risks and dependencies are recorded.
 - Guardrails pass.
