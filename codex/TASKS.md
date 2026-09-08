@@ -1,5 +1,22 @@
 # TASKS.md
 
+## CRM Sprint 13 S13-05 - Activity / Follow-Up Test and Guardrail Hardening
+
+Status: Implemented in branch `crm-sprint-13-s13-05-activity-test-guardrail-hardening`.
+
+- [x] Validate GitHub main contains S13-04 merge commit `85e4380fb8d192816a36c8c846c7e43abb57e6fe`.
+- [x] Harden Activity foundation API endpoint tests for Lead and Contact target paths.
+- [x] Validate exactly-one target, target-not-found and route-id authority.
+- [x] Validate lifecycle conflicts for completed/cancelled activities.
+- [x] Validate historical schedules remain accepted as records.
+- [x] Add cross-layer Activity type/status parity guardrails.
+- [x] Verify frontend uses only `/api/crm/foundation/activities`.
+- [x] Verify productive `/api/crm/activities` routes remain unavailable.
+- [x] Verify DELETE remains unavailable.
+- [x] Keep Portal Auth runtime, token storage, Common DB, EF, schema changes and simulated Production untouched.
+- [x] Set `S1305Decision: Implemented`.
+- [x] Set `NextTaskPhase: CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation`.
+
 ## CRM Sprint 13 S13-04 - Activity / Follow-Up Frontend Foundation Page
 
 Status: Implemented in branch `crm-sprint-13-s13-04-activity-follow-up-frontend-foundation-page`.
