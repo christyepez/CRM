@@ -1,5 +1,77 @@
 # TASKS.md
 
+## CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure
+
+Status: Implemented
+
+Branch: crm-sprint-13-s13-07-activity-follow-up-sprint-closure
+
+S1306PullRequest: #183
+S1306MergeCommit: 9a530b999a97be066374c5be4299583f90b14bf8
+S1307BaseMainCommit: 9a530b999a97be066374c5be4299583f90b14bf8
+
+S1307Decision: ClosedSuccessfully
+
+Sprint13ActivityFollowUpClosed: true
+
+ActivityFollowUpFoundationSliceStatus: ClosedSuccessfully
+
+ActivityFollowUpFoundationOperationalState: ValidatedLocally
+
+ActivityFollowUpProductiveStatus: NotActivated
+
+DefinitionOfDone: PASS
+
+CriticalClosureBlockers: 0
+
+ProductiveActivityRouteEnabled: false
+
+ProductiveActivityRouteStatus: LockedOrUnavailable
+
+DeleteBehaviorAdded: false
+
+LeadConversionImplemented: false
+
+AccountManagementActivatedBySprint13: false
+
+OpportunityRuntimeActivatedBySprint13: false
+
+AssignmentRuntimeActivatedBySprint13: false
+
+PortalRuntimeEnabled: false
+
+CommonDbRuntimeEnabled: false
+
+SchemaChangesDetected: false
+
+SimulatedProductionTouchedBySprint13: false
+
+RecommendedNextSliceId: S14-OPPORTUNITY-PIPELINE
+
+RecommendedNextSliceName: Opportunity Pipeline Foundation
+
+RecommendedNextSprint: Sprint14
+
+NextTaskUpdated: true
+
+NextTaskPhase: CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
+
+NextTaskPromptFile: codex/prompts/sprint-14-opportunity-pipeline-p1.md
+
+Summary:
+
+- Reviewed Sprint 13 Activity / Follow-Up evidence from P1 through S13-06.
+- Confirmed Activity domain, application, foundation store, API, frontend, test hardening and local integration closure.
+- Confirmed foundation-only Activity routes remain under `/api/crm/foundation/activities`.
+- Kept productive `/api/crm/activities`, DELETE, Lead conversion, Account Management, Opportunity runtime, assignment, Portal Auth runtime, Common DB runtime, schema changes and simulated Production untouched.
+- Recorded residual risks for in-memory Activity data, synthetic Lead/Contact seams, deferred assignment/notifications and deferred Account/Opportunity relationships.
+- Scored viable next business capabilities and selected Opportunity Pipeline Foundation for Sprint 14.
+- Prepared Sprint 14 P1 prompt and next-task handoff.
+
+Next:
+
+- CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog.
+
 ## CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation
 
 Status: Implemented in branch `crm-sprint-13-s13-06-activity-local-integration-validation`.

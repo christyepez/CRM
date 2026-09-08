@@ -28,6 +28,12 @@ S13-06 validates Activity / Follow-Up locally through the Angular foundation rou
 
 Next gate: `CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure`.
 
+## CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure
+
+S13-07 closes Activity / Follow-Up foundation as `ClosedSuccessfully`. Activity remains foundation-only under `/api/crm/foundation/activities` and `/foundation/activities`; productive `/api/crm/activities`, DELETE, Lead conversion, Account/Opportunity/assignment runtime, Portal Auth runtime, Common DB runtime, schema changes, migrations, secrets, real data and simulated Production changes remain unavailable.
+
+Next gate: `CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog`.
+
 ## CRM Sprint 9 P1 - Controlled Runtime Activation Decision
 
 Sprint 9 is initiated with P1 as a decision-only gate. CRM is approved to plan controlled NonProduction trials for Secret Provider, Common DB, Portal Auth and Productive Route dry-run, but no runtime trial or production activation is enabled now.

@@ -4,30 +4,30 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure
+CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
 
 Base Main Commit:
-S13-06 merge commit required
+S13-07 merge commit required
 
 Branch:
-crm-sprint-13-s13-07-activity-follow-up-sprint-closure
+crm-sprint-14-p1-opportunity-pipeline-functional-baseline
 
 Commit sugerido:
-docs(crm): close activity follow-up foundation sprint
+docs(crm): baseline opportunity pipeline foundation sprint
 
 PR title:
-CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure
+CRM Sprint 14 P1 - Opportunity Pipeline Functional Baseline and Backlog
 
 Objetivo:
-Cerrar Sprint 13 Activity / Follow-Up despues de la validacion local S13-06.
+Crear la linea base funcional y backlog de Sprint 14 para Opportunity Pipeline despues del cierre S13-07.
 
 Guardrails:
-- Activity UI and API must remain foundation-only.
-- No productive Activity API activation.
+- Opportunity UI and API must remain foundation-only until explicitly implemented in later Sprint 14 stories.
+- No productive Opportunity API activation.
 - No DELETE.
 - No Lead conversion.
-- No Account Management activation.
-- No Opportunity or assignment feature activation.
+- No Account Management activation as part of Sprint 14 P1.
+- No assignment, owner or Portal user feature activation.
 - No DB runtime productivo ni Common DB activation.
 - No EF runtime.
 - No migrations.
@@ -40,13 +40,15 @@ Guardrails:
 - Do not reopen Sprint 10 Production gates.
 
 Prompt File:
-codex/prompts/sprint-13-activity-follow-up-s13-07.md
+codex/prompts/sprint-14-opportunity-pipeline-p1.md
 
 Acceptance Criteria:
-- Sprint 13 Activity / Follow-Up foundation Definition of Done is reviewed.
-- S13-01 through S13-06 evidence is summarized.
-- Productive Activity routes remain unavailable.
+- Existing Opportunity, Lead, Contact and Activity evidence is inventoried.
+- Opportunity Pipeline foundation terminology, lifecycle and backlog are defined.
+- Exactly one first Sprint 14 implementation story is selected.
+- Productive Opportunity routes remain unavailable.
 - DELETE is not added.
 - Portal/Common DB remain disabled.
-- Residual risks and next CRM business capability options are recorded.
+- Lead conversion, Account activation and assignment remain deferred.
+- Residual risks and dependencies are recorded.
 - Guardrails pass.
