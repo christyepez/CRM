@@ -365,11 +365,11 @@ Readiness returns `module=CRM`, `status=ReadyForFoundationOnly`, `portalIntegrat
 - No hardcoded integration with Financiero.
 - Portal Auth/Menu/permissions/Audit/Notification/Configuration remain planned reuse points.
 
-MÃ³dulo CRM corporativo integrado a `PortalCorporativo`.
+MÃƒÆ’Ã‚Â³dulo CRM corporativo integrado a `PortalCorporativo`.
 
 ## Objetivo
 
-Implementar capacidades de gestiÃ³n comercial y relaciÃ³n con clientes reutilizando las APIs transversales del portal y evitando duplicaciÃ³n de seguridad, auditorÃ­a, notificaciones, menÃºs, configuraciÃ³n visual, catÃ¡logos y reporting.
+Implementar capacidades de gestiÃƒÆ’Ã‚Â³n comercial y relaciÃƒÆ’Ã‚Â³n con clientes reutilizando las APIs transversales del portal y evitando duplicaciÃƒÆ’Ã‚Â³n de seguridad, auditorÃƒÆ’Ã‚Â­a, notificaciones, menÃƒÆ’Ã‚Âºs, configuraciÃƒÆ’Ã‚Â³n visual, catÃƒÆ’Ã‚Â¡logos y reporting.
 
 ## Repos relacionados
 
@@ -393,7 +393,7 @@ Este repositorio puede crear componentes propios para:
 - Interactions.
 - CRM Integration Hub.
 - Salesforce/Dynamics/Generic REST connectors.
-- Mapeos y transacciones de integraciÃ³n.
+- Mapeos y transacciones de integraciÃƒÆ’Ã‚Â³n.
 
 ## Capacidades reutilizadas del portal
 
@@ -422,21 +422,21 @@ Codex debe leer primero:
 5. `codex/PORTAL_INTEGRATION_CONTRACTS.md`.
 6. `codex/TASKS.md`.
 
-## ClasificaciÃ³n obligatoria
+## ClasificaciÃƒÆ’Ã‚Â³n obligatoria
 
 Toda tarea debe clasificar sus componentes como:
 
 ```text
 REUSE   = usar componente del portal.
-EXTEND  = extender configuraciÃ³n, permisos, catÃ¡logos, menÃºs o contratos del portal.
+EXTEND  = extender configuraciÃƒÆ’Ã‚Â³n, permisos, catÃƒÆ’Ã‚Â¡logos, menÃƒÆ’Ã‚Âºs o contratos del portal.
 ADAPT   = crear adaptador hacia API/servicio del portal.
 CREATE  = crear componente propio del dominio CRM.
 BLOCKED = no implementar hasta revisar portal.
 ```
 
-## Principio de integraciÃ³n
+## Principio de integraciÃƒÆ’Ã‚Â³n
 
-CRM Core no debe acoplarse directamente a Salesforce, Dynamics u otro CRM externo. Toda integraciÃ³n externa debe pasar por `CRM Integration Hub`.
+CRM Core no debe acoplarse directamente a Salesforce, Dynamics u otro CRM externo. Toda integraciÃƒÆ’Ã‚Â³n externa debe pasar por `CRM Integration Hub`.
 
 ## Modo bajo consumo de tokens
 
@@ -686,3 +686,9 @@ Sprint 8 is closed with `GET /api/crm/foundation/sprint-8/gate-decision`. The de
 S14-01 adds deterministic foundation-only Opportunity Pipeline contracts and policy for create/update/progress/win/loss/cancel. Productive routes, DELETE, Portal Auth and Common DB remain disabled.
 
 Next gate: CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store.
+
+## CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store
+
+S14-02 adds foundation-only Application orchestration and an in-memory Opportunity persistence seam. API/UI/productive routes remain unavailable.
+
+Next gate: CRM Sprint 14 S14-03 - Opportunity Foundation API.
