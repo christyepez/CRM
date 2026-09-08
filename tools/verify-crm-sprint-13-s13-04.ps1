@@ -85,13 +85,14 @@ foreach ($marker in @(
     }
 }
 
-foreach ($marker in @(
-    "CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation",
-    "codex/prompts/sprint-13-activity-follow-up-s13-06.md",
-    "S13-05 merge commit required")) {
-    if (-not $nextTask.Contains($marker)) {
-        throw "codex/next-task.md must point to S13-06 after S13-05: $marker"
-    }
+if (-not (
+    ($nextTask.Contains("CRM Sprint 13 S13-06 - Activity / Follow-Up Local Integration Validation") -and
+        $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-06.md") -and
+        $nextTask.Contains("S13-05 merge commit required")) -or
+    ($nextTask.Contains("CRM Sprint 13 S13-07 - Activity / Follow-Up Sprint Closure") -and
+        $nextTask.Contains("codex/prompts/sprint-13-activity-follow-up-s13-07.md") -and
+        $nextTask.Contains("S13-06 merge commit required")))) {
+    throw "codex/next-task.md must point to S13-06 or the approved S13-07 handoff."
 }
 
 foreach ($marker in @(
