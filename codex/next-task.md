@@ -1,22 +1,22 @@
-﻿# CRM Next Codex Task
+# CRM Next Codex Task
 
 Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store
+CRM Sprint 15 S15-03 - Campaign Foundation API
 
 Base Main Commit:
-S15-01 merge commit required
+S15-02 merge commit required
 
 Branch:
-crm-sprint-15-s15-02-campaign-application-service-foundation-store
+crm-sprint-15-s15-03-campaign-foundation-api
 
 Commit sugerido:
-feat(crm): add campaign application service and foundation store
+feat(crm): add campaign foundation api
 
 PR title:
-CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store
+CRM Sprint 15 S15-03 - Campaign Foundation API
 
 Prompt File:
-codex/prompts/sprint-15-campaign-management-s15-02.md
+codex/prompts/sprint-15-campaign-management-s15-03.md

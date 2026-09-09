@@ -726,3 +726,10 @@ Next gate: `CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules`.
 S15-01 adds authoritative Campaign domain contracts and deterministic Draft/Active/Completed/Cancelled lifecycle rules. The story is domain-only: no Campaign service/store/API/UI, productive routes, DELETE, Portal Auth, Common DB, external connectors or simulated Production changes are activated.
 
 Next gate: `CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store`.
+
+
+## CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store
+
+S15-02 adds Campaign application orchestration and a synthetic in-memory Foundation store. Mutations delegate to CampaignManagementPolicy and suppress writes for invalid/no-change/not-found outcomes. No Campaign API/UI, DELETE, Portal runtime, Common DB or external connectors are enabled.
+
+Next gate: `CRM Sprint 15 S15-03 - Campaign Foundation API`.
