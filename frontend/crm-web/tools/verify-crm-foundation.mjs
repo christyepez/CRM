@@ -1072,7 +1072,7 @@ for (const expected of sprint14OpportunityLabels) {
 }
 
 const opportunitySourceStart = main.indexOf('type OpportunityStatus');
-const opportunitySourceEnd = main.indexOf('type ActivityType');
+const opportunitySourceEnd = main.indexOf('type AccountStatus');
 const opportunitySource = opportunitySourceStart >= 0 && opportunitySourceEnd > opportunitySourceStart
   ? main.slice(opportunitySourceStart, opportunitySourceEnd)
   : '';
@@ -1165,6 +1165,32 @@ for (const expected of ['.foundation-nav', '.opportunity-grid', '.opportunity-li
   }
 }
 
+const accountSourceStart = main.indexOf('type AccountStatus');
+const accountSourceEnd = main.indexOf('type CampaignStatus');
+const accountSource = accountSourceStart >= 0 && accountSourceEnd > accountSourceStart
+  ? main.slice(accountSourceStart, accountSourceEnd)
+  : '';
+
+for (const expected of [
+  "private readonly apiBaseUrl = '/api/crm/foundation/accounts'",
+  "selector: 'crm-account-management-page'",
+  "<h1 id=\"accountTitle\">Account Management</h1>",
+  "formControlName=\"name\"",
+  "formControlName=\"taxId\"",
+  "formControlName=\"industry\"",
+  "formControlName=\"segment\"",
+  'Activate account',
+  'Deactivate account',
+  "path: 'foundation/accounts', component: AccountManagementPageComponent"
+]) {
+  if (!main.includes(expected)) failures.push(`Missing S16-04 Account frontend marker '${expected}'`);
+}
+if (!accountSource.includes('this.accountForm.invalid || this.validationMessage() || this.isSubmitting()')) {
+  failures.push('Missing S16-04 Account duplicate submission protection.');
+}
+for (const forbidden of ['/api/crm/accounts', 'deleteAccount', 'Delete account', '.delete<']) {
+  if (accountSource.includes(forbidden)) failures.push(`Forbidden S16-04 Account marker '${forbidden}' found.`);
+}
 if (failures.length > 0) {
   console.error(failures.join('\n'));
   process.exit(1);

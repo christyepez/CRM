@@ -2076,6 +2076,277 @@ class OpportunityPipelinePageComponent {
   }
 }
 
+type AccountStatus = 'Draft' | 'Active' | 'Inactive';
+
+interface FoundationAccount {
+  id: string;
+  name: string;
+  taxId?: string | null;
+  industry?: string | null;
+  segment?: string | null;
+  status: AccountStatus;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+
+interface FoundationAccountRequest {
+  name: string;
+  taxId?: string | null;
+  industry?: string | null;
+  segment?: string | null;
+}
+
+interface AccountManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: AccountStatus | null;
+  account?: FoundationAccount | null;
+}
+
+@Injectable({ providedIn: 'root' })class AccountManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/accounts';
+  constructor(private readonly http: FoundationApiClient) {}
+  getAccounts() { return this.http.get<FoundationAccount[]>(this.apiBaseUrl); }
+  getAccount(id: string) { return this.http.get<FoundationAccount>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createAccount(request: FoundationAccountRequest) { return this.http.post<AccountManagementApiResponse>(this.apiBaseUrl, request); }
+  updateAccount(id: string, request: FoundationAccountRequest) { return this.http.put<AccountManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  activateAccount(id: string) { return this.http.post<AccountManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/activate`, {}); }
+  deactivateAccount(id: string) { return this.http.post<AccountManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/deactivate`, {}); }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-account-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="accountTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="accountTitle">Account Management</h1>
+          <p class="lede">Create and manage synthetic foundation Accounts through the safe CRM Account API.</p>
+        </div>
+        <span class="scope-pill">Foundation only</span>
+      </div>
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="accountListTitle">          <div class="panel-heading">
+            <div><h2 id="accountListTitle">Accounts</h2><p class="muted">Synthetic foundation records only.</p></div>
+            <button type="button" class="secondary-action" (click)="startCreate()">New account</button>
+          </div>
+          @if (isLoading()) {
+            <p class="feedback neutral" aria-live="polite">Loading foundation accounts...</p>
+          } @else if (accounts().length === 0) {
+            <div class="empty-state"><p>No accounts available yet.</p></div>
+          } @else {
+            <div class="contact-list" aria-label="Foundation account list">
+              @for (account of accounts(); track account.id) {
+                <button type="button" class="contact-list-item" [class.selected]="selectedAccountId() === account.id" (click)="selectAccount(account.id)">
+                  <span class="contact-name">{{ account.name }}</span>
+                  <span class="contact-meta">{{ account.taxId || 'No TaxId' }} · {{ account.industry || 'No industry' }}</span>
+                  <span class="contact-status">{{ account.status }}</span>
+                </button>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="accountFormTitle">
+          <div class="panel-heading">
+            <div><h2 id="accountFormTitle">{{ isCreateMode() ? 'New account' : 'Account details' }}</h2></div>
+            @if (selectedAccount(); as account) { <span class="scope-pill quiet">{{ account.status }}</span> }
+          </div>
+          <form [formGroup]="accountForm" (ngSubmit)="submitAccount()" novalidate>            <label for="accountName">Name</label>
+            <input id="accountName" type="text" maxlength="160" formControlName="name" />
+            <label for="accountTaxId">TaxId</label>
+            <input id="accountTaxId" type="text" maxlength="64" formControlName="taxId" />
+            <div class="form-row">
+              <div><label for="accountIndustry">Industry</label><input id="accountIndustry" type="text" maxlength="120" formControlName="industry" /></div>
+              <div><label for="accountSegment">Segment</label><input id="accountSegment" type="text" maxlength="80" formControlName="segment" /></div>
+            </div>
+            @if (validationMessage(); as message) { <p class="validation" aria-live="polite">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || accountForm.invalid">
+              {{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create account' : 'Save account') }}
+            </button>
+          </form>
+
+          @if (selectedAccount(); as account) {
+            <div class="opportunity-actions" aria-label="Account lifecycle actions">
+              @if (account.status === 'Draft' || account.status === 'Inactive') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="activateSelected()">Activate account</button>
+              }
+              @if (account.status === 'Active') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="deactivateSelected()">Deactivate account</button>
+              }
+            </div>
+          }
+
+          @if (operationMessage(); as message) { <section class="result-panel compact-result" aria-live="polite"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})class AccountManagementPageComponent {
+  readonly accounts = signal<FoundationAccount[]>([]);
+  readonly selectedAccountId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+
+  readonly accountForm = this.formBuilder.nonNullable.group({
+    name: ['', [Validators.required, Validators.maxLength(160)]],
+    taxId: ['', Validators.maxLength(64)],
+    industry: ['', Validators.maxLength(120)],
+    segment: ['', Validators.maxLength(80)]
+  });
+
+  constructor(private readonly api: AccountManagementApiService, private readonly formBuilder: FormBuilder) {
+    this.loadAccounts();
+    this.startCreate();
+  }
+
+  selectedAccount() {
+    const id = this.selectedAccountId();
+    return id ? this.accounts().find(account => account.id === id) ?? null : null;
+  }
+
+  startCreate() {
+    this.isCreateMode.set(true);
+    this.selectedAccountId.set(null);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.accountForm.reset({ name: '', taxId: '', industry: '', segment: '' });
+  }
+  selectAccount(id: string) {
+    this.isCreateMode.set(false);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.selectedAccountId.set(id);
+    this.api.getAccount(id).subscribe({
+      next: account => { this.upsertAccount(account); this.populateForm(account); },
+      error: error => { this.safeError.set(this.toSafeError(error)); this.loadAccounts(false); }
+    });
+  }
+
+  validationMessage() {
+    if (!this.accountForm.touched) return null;
+    const c = this.accountForm.controls;
+    if (c.name.invalid) return 'Enter an Account name with 160 characters or less.';
+    if (c.taxId.invalid) return 'Use 64 characters or less for TaxId.';
+    if (c.industry.invalid) return 'Use 120 characters or less for Industry.';
+    if (c.segment.invalid) return 'Use 80 characters or less for Segment.';
+    return null;
+  }
+
+  submitAccount() {
+    this.accountForm.markAllAsTouched();
+    if (this.accountForm.invalid || this.validationMessage() || this.isSubmitting()) return;
+    const value = this.accountForm.getRawValue();
+    const request: FoundationAccountRequest = {
+      name: value.name.trim(), taxId: value.taxId.trim() || null,
+      industry: value.industry.trim() || null, segment: value.segment.trim() || null
+    };    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    const op = this.isCreateMode()
+      ? this.api.createAccount(request)
+      : this.api.updateAccount(this.selectedAccountId() ?? '', request);
+    op.subscribe({
+      next: response => this.applyOperationResponse(response, response.changed ? 'Account saved' : 'No changes were necessary'),
+      error: error => { this.safeError.set(this.toSafeError(error)); this.isSubmitting.set(false); }
+    });
+  }
+
+  activateSelected() { this.runLifecycle('Active', account => this.api.activateAccount(account.id), 'Account activated'); }
+  deactivateSelected() { this.runLifecycle('Inactive', account => this.api.deactivateAccount(account.id), 'Account deactivated'); }
+
+  private loadAccounts(showLoading = true) {
+    if (showLoading) this.isLoading.set(true);
+    this.api.getAccounts().subscribe({
+      next: accounts => {
+        this.accounts.set(accounts);
+        const selected = this.selectedAccountId();
+        const refreshed = selected ? accounts.find(account => account.id === selected) ?? null : null;
+        if (refreshed) this.populateForm(refreshed);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.safeError.set({ title: 'Account workflow unavailable', message: 'Foundation accounts could not be loaded. Try again after the CRM API is available.' });
+        this.isLoading.set(false);
+      }
+    });
+  }
+  private populateForm(account: FoundationAccount) {
+    this.accountForm.reset({
+      name: account.name,
+      taxId: account.taxId ?? '',
+      industry: account.industry ?? '',
+      segment: account.segment ?? ''
+    });
+  }
+
+  private applyOperationResponse(response: AccountManagementApiResponse, fallbackTitle: string) {
+    if (response.account) {
+      this.upsertAccount(response.account);
+      this.selectedAccountId.set(response.account.id);
+      this.isCreateMode.set(false);
+      this.populateForm(response.account);
+    }
+    this.operationMessage.set({
+      title: response.changed ? fallbackTitle : 'No changes were necessary',
+      message: response.message || 'The foundation Account workflow completed successfully.'
+    });
+    this.isSubmitting.set(false);
+    this.loadAccounts(false);
+  }
+
+  private upsertAccount(account: FoundationAccount) {
+    this.accounts.update(accounts => [account, ...accounts.filter(existing => existing.id !== account.id)]);
+  }
+
+  private runLifecycle(expectedStatus: AccountStatus, action: (account: FoundationAccount) => ReturnType<AccountManagementApiService['activateAccount']>, title: string) {
+    const account = this.selectedAccount();
+    if (!account || this.isSubmitting()) return;
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    action(account).subscribe({
+      next: response => this.applyOperationResponse(response, response.status === expectedStatus ? title : 'Account updated'),
+      error: error => { this.safeError.set(this.toSafeError(error)); this.isSubmitting.set(false); }
+    });
+  }
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      const code = typeof error.error?.errorCode === 'string' ? error.error.errorCode : '';
+      const mapped = this.mapErrorCode(code);
+      if (mapped) return mapped;
+      if (error.status === 400) return { title: 'Validation issue', message: 'Review the Account fields before saving.' };
+      if (error.status === 404) return { title: 'Account not found', message: 'The selected Account was not found. Refresh the list and try again.' };
+      if (error.status === 409) return { title: 'Transition not permitted', message: 'The Account cannot move to that lifecycle state.' };
+    }
+    return { title: 'Account workflow unavailable', message: 'The foundation Account service could not process the request.' };
+  }
+
+  private mapErrorCode(code: string) {
+    const messages: Record<string, { title: string; message: string }> = {
+      NameRequired: { title: 'Name required', message: 'Enter an Account name before saving.' },
+      NameTooLong: { title: 'Name too long', message: 'Use 160 characters or less for the Account name.' },
+      TaxIdTooLong: { title: 'TaxId too long', message: 'Use 64 characters or less for TaxId.' },
+      IndustryTooLong: { title: 'Industry too long', message: 'Use 120 characters or less for Industry.' },
+      SegmentTooLong: { title: 'Segment too long', message: 'Use 80 characters or less for Segment.' },
+      AccountNotFound: { title: 'Account not found', message: 'The selected Account was not found. Refresh the list and try again.' },
+      InvalidStatusTransition: { title: 'Transition not permitted', message: 'The Account cannot move to that lifecycle state.' }
+    };
+    return messages[code] ?? null;
+  }
+}
+
 type CampaignStatus = 'Draft' | 'Active' | 'Completed' | 'Cancelled';
 
 interface FoundationCampaign {
@@ -4290,7 +4561,8 @@ const routes: Routes = [
   { path: 'foundation/contacts', component: ContactManagementPageComponent },
   { path: 'foundation/activities', component: ActivityManagementPageComponent },
   { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
-  { path: 'foundation/campaigns', component: CampaignManagementPageComponent }
+  { path: 'foundation/campaigns', component: CampaignManagementPageComponent },
+  { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
 @Component({
