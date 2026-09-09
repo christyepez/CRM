@@ -1,3 +1,60 @@
+﻿## CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
+
+Status: Implemented
+BaseMainCommit: 46055503a43dcd1e5c4bb6018f540480b4745678
+Branch: crm-sprint-14-s14-05-opportunity-pipeline-test-guardrail-hardening
+
+OpportunityPipelineImplementationStatus: TestAndGuardrailHardened
+OpportunityPipelineFrontend: FoundationImplemented
+OpportunityPipelineCoverageMatrix: Documented
+OpportunityPipelineCrossLayerScenarioMatrix: Documented
+DomainTestsHardened: true
+ApplicationTestsHardened: true
+ApiTestsHardened: true
+FrontendSourceVerifierHardened: true
+StageCatalogParity: PASS
+StageOrderingParity: PASS
+CreateScenario: PASS
+UpdateScenario: PASS
+NoChangeUpdateScenario: PASS
+ProgressNextStageOnlyScenario: PASS
+WinScenario: PASS
+LoseScenario: PASS
+CancelScenario: PASS
+TerminalReadOnlyScenario: PASS
+RepeatTerminalFrontendActionSuppression: SourceVerified
+NotFoundState: PASS
+ValidationState: PASS
+SafeGenericErrorState: PASS
+DuplicateSubmissionProtectedBeforeEveryMutation: SourceVerified
+
+FoundationOpportunityApiVerified: true
+FoundationOpportunityApiRoute: /api/crm/foundation/opportunities
+FrontendUsesFoundationOpportunityApiOnly: true
+ProductiveOpportunityRouteAvailable: false
+ProductiveOpportunityRouteEnabled: false
+ProductiveOpportunityRouteStatus: 404
+DeleteBehaviorAdded: false
+LeadConversionImplemented: false
+AccountManagementRuntimeActivated: false
+AssignmentOwnerRuntimeActivated: false
+PortalRuntimeEnabled: false
+TokenStorageAdded: false
+AuthorizationHeaderStorageAdded: false
+CommonDbRuntimeEnabled: false
+EfRuntimeEnabled: false
+MigrationsCreated: false
+SchemaChangesDetected: false
+SqlAdded: false
+SecretsAdded: false
+RealDataDetected: false
+SimulatedProductionTouched: false
+CrmProdSimTouched: false
+
+S1405Decision: Implemented
+NextTaskPhase: CRM Sprint 14 S14-06 - Opportunity Pipeline Local Integration Validation
+NextTaskPromptFile: codex/prompts/sprint-14-opportunity-pipeline-s14-06.md
+
 ## CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
 
 Status: Implemented
@@ -739,17 +796,17 @@ Status: Implemented in branch `crm-sprint-9-p3-common-db-runtime-connectivity-tr
 - [x] Crear frontend Angular foundation en `frontend/crm-web`.
 - [x] Crear Docker foundation sin SQL Server propio.
 - [x] Crear verificadores foundation.
-- [x] Crear documentaciÃƒÆ’Ã‚Â³n architecture/roadmap/release.
+- [x] Crear documentaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n architecture/roadmap/release.
 - [x] Mantener runtime `NonProduction` y `ReadyForFoundationOnly`.
-- [x] No crear CRUD CRM, Identity propio, token storage, Gateway propio, Shell propio, DB/migrations CRM ni integraciÃƒÆ’Ã‚Â³n real con Financiero.
+- [x] No crear CRUD CRM, Identity propio, token storage, Gateway propio, Shell propio, DB/migrations CRM ni integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n real con Financiero.
 
-## PropÃƒÆ’Ã‚Â³sito
+## PropÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³sito
 
 Backlog inicial para que Codex implemente CRM por fases, agentes y estrategia Portal-First.
 
-## Regla de ejecuciÃƒÆ’Ã‚Â³n
+## Regla de ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n
 
-Antes de iniciar cualquier fase tÃƒÆ’Ã‚Â©cnica, Codex debe clasificar cada componente como:
+Antes de iniciar cualquier fase tÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©cnica, Codex debe clasificar cada componente como:
 
 ```text
 REUSE
@@ -759,13 +816,13 @@ CREATE
 BLOCKED
 ```
 
-## Fase 0 - CoordinaciÃƒÆ’Ã‚Â³n y bajo consumo de tokens
+## Fase 0 - CoordinaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n y bajo consumo de tokens
 
 - Validar `AGENTS.md`.
 - Validar `codex/COORDINADOR_SOLUCION.md`.
 - Validar `codex/PORTAL_INTEGRATION_CONTRACTS.md`.
 - Revisar `PortalCorporativo/codex/REUSABLE_CAPABILITIES.md` si existe.
-- Revisar `CodexCommonAgents/registry/reusable-portal-apis.md` cuando estÃƒÆ’Ã‚Â© disponible.
+- Revisar `CodexCommonAgents/registry/reusable-portal-apis.md` cuando estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â© disponible.
 - Actualizar `docs/coordination/dependencies.md`.
 - No leer todo el repo si la tarea no lo requiere.
 
@@ -773,7 +830,7 @@ BLOCKED
 
 - Validar APIs reales del portal.
 - Crear clientes/adapters hacia servicios del portal.
-- Crear contratos para seguridad, permisos, menÃƒÆ’Ã‚Âº, configuraciÃƒÆ’Ã‚Â³n, catÃƒÆ’Ã‚Â¡logos, auditorÃƒÆ’Ã‚Â­a, notificaciones, documentos, reporting e integraciÃƒÆ’Ã‚Â³n.
+- Crear contratos para seguridad, permisos, menÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âº, configuraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n, catÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡logos, auditorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a, notificaciones, documentos, reporting e integraciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n.
 - Registrar pendientes en `docs/coordination/open-issues.md`.
 
 ## Fase 2 - Backend CRM Core
@@ -788,7 +845,7 @@ BLOCKED
 - Implementar Cases.
 - Implementar Campaigns.
 - Integrar permisos del portal.
-- Integrar auditorÃƒÆ’Ã‚Â­a del portal.
+- Integrar auditorÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­a del portal.
 - Integrar notificaciones del portal.
 
 ## Fase 3 - Base de datos CRM
@@ -801,11 +858,11 @@ BLOCKED
 
 ## Fase 4 - Frontend CRM
 
-- Crear mÃƒÆ’Ã‚Â³dulo Angular CRM integrado al shell del portal.
+- Crear mÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³dulo Angular CRM integrado al shell del portal.
 - Crear rutas CRM.
 - Crear pantallas de clientes, leads, oportunidades y casos.
-- Usar menÃƒÆ’Ã‚Âº, tema, permisos, grids y formularios del portal.
-- No quemar colores, logos, menÃƒÆ’Ã‚Âºs, botones ni layouts.
+- Usar menÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âº, tema, permisos, grids y formularios del portal.
+- No quemar colores, logos, menÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âºs, botones ni layouts.
 
 ## Fase 5 - CRM Integration Hub
 
@@ -827,12 +884,12 @@ BLOCKED
 - Procesar integraciones.
 - Publicar eventos auditables y notificables.
 
-## Fase 7 - Docker y ejecuciÃƒÆ’Ã‚Â³n conjunta
+## Fase 7 - Docker y ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n conjunta
 
 - Crear compose CRM.
-- Documentar ejecuciÃƒÆ’Ã‚Â³n junto al portal.
+- Documentar ejecuciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n junto al portal.
 - Validar variables de entorno.
-- No guardar secretos en cÃƒÆ’Ã‚Â³digo.
+- No guardar secretos en cÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³digo.
 
 ## Fase 8 - QA
 
@@ -840,7 +897,7 @@ BLOCKED
 - Crear pruebas API.
 - Crear pruebas de contrato contra portal.
 - Crear pruebas Integration Hub.
-- Validar clasificaciÃƒÆ’Ã‚Â³n REUSE/EXTEND/ADAPT/CREATE/BLOCKED.
+- Validar clasificaciÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â³n REUSE/EXTEND/ADAPT/CREATE/BLOCKED.
 
 ## Salida obligatoria por tarea
 

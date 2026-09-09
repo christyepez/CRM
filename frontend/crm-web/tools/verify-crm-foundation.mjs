@@ -1106,6 +1106,59 @@ for (const forbidden of ['deleteOpportunity', 'Delete opportunity', 'localStorag
   }
 }
 
+const sprint14OpportunityHardeningMarkers = [
+  "type OpportunityStatus = 'Open' | 'Won' | 'Lost' | 'Cancelled'",
+  "readonly statusOptions: ('All' | OpportunityStatus)[] = ['All', 'Open', 'Won', 'Lost', 'Cancelled']",
+  "[disabled]=\"isSubmitting() || selectedOpportunityReadonly() || opportunityForm.invalid\"",
+  "@if (opportunity.status === 'Open')",
+  "if (!opportunity || !stage || opportunity.status !== 'Open' || this.isSubmitting())",
+  "if (!opportunity || opportunity.status !== 'Open' || this.isSubmitting())",
+  "this.api.createOpportunity(request)",
+  "this.api.updateOpportunity(this.selectedOpportunityId() ?? '', request)",
+  "this.api.progressOpportunity(opportunity.id, { stageId: stage.stageId, stages: opportunityPipelineStages })",
+  "this.api.winOpportunity(opportunity.id)",
+  "this.api.loseOpportunity(opportunity.id)",
+  "this.api.cancelOpportunity(opportunity.id)",
+  "Validation issue",
+  "Opportunity not found",
+  "Opportunity workflow unavailable",
+  "Read-only Opportunity",
+  "Terminal Opportunities cannot be modified.",
+  "Won Opportunities cannot be marked lost.",
+  "Lost Opportunities cannot be marked won.",
+  "Cancelled Opportunities cannot be changed."
+];
+
+for (const expected of sprint14OpportunityHardeningMarkers) {
+  if (!opportunitySource.includes(expected)) {
+    failures.push(`Missing S14-05 Opportunity frontend hardening marker '${expected}'`);
+  }
+}
+
+const opportunityStageMatches = opportunitySource.match(/\{\s*stageId:\s*'[^']+',\s*name:\s*'[^']+',\s*order:\s*\d+\s*\}/g) ?? [];
+const expectedOpportunityStages = [
+  "{ stageId: 'cccccccc-cccc-cccc-cccc-cccccccccccc', name: 'Qualification', order: 1 }",
+  "{ stageId: 'dddddddd-dddd-dddd-dddd-dddddddddddd', name: 'Proposal', order: 2 }",
+  "{ stageId: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', name: 'Negotiation', order: 3 }",
+  "{ stageId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', name: 'Commit', order: 4 }"
+];
+
+if (opportunityStageMatches.length !== expectedOpportunityStages.length) {
+  failures.push('S14-05 Opportunity frontend stage catalog must contain exactly four deterministic stages.');
+}
+
+for (const expected of expectedOpportunityStages) {
+  if (!opportunityStageMatches.includes(expected)) {
+    failures.push(`Missing S14-05 Opportunity stage parity marker '${expected}'`);
+  }
+}
+
+for (const forbidden of ['deleteOpportunity', 'Delete opportunity', '.delete<', 'DeleteOpportunity', "path: 'opportunities'", 'path: "opportunities"', 'ownerId', 'OwnerId', 'assignedUserId', 'AssignedUserId', 'assignee', 'Assignee', 'ConvertLead', 'LeadConversion', 'CreateAccount', 'UpdateAccount', 'AccountManagement']) {
+  if (opportunitySource.includes(forbidden)) {
+    failures.push(`Forbidden S14-05 Opportunity feature-expansion marker '${forbidden}' found.`);
+  }
+}
+
 for (const expected of ['.foundation-nav', '.opportunity-grid', '.opportunity-list-item', '.opportunity-actions', '.form-row']) {
   if (!styles.includes(expected)) {
     failures.push(`Missing S14-04 responsive Opportunity style marker '${expected}'`);

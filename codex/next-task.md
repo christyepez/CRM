@@ -4,29 +4,19 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
+CRM Sprint 14 S14-06 - Opportunity Pipeline Local Integration Validation
 
 Base Main Commit:
-Sprint 14 S14-04 merge commit required
+S14-05 merge commit required
 
 Branch:
-crm-sprint-14-s14-05-opportunity-pipeline-test-guardrail-hardening
+crm-sprint-14-s14-06-opportunity-pipeline-local-integration-validation
 
 Commit sugerido:
-test(crm): harden opportunity pipeline foundation guardrails
+test(crm): validate opportunity pipeline local integration
 
 PR title:
-CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
-
-Objetivo:
-Endurecer pruebas y guardrails cross-layer para Opportunity Pipeline foundation en `/foundation/opportunities` y `/api/crm/foundation/opportunities`.
-
-Guardrails:
-- No productive `/api/crm/opportunities`.
-- No DELETE.
-- No Portal Auth/Common DB/EF/schema/real data.
-- No Lead conversion, Account Management runtime or assignment.
-- Do not touch `crm-prod-sim`.
+CRM Sprint 14 S14-06 - Opportunity Pipeline Local Integration Validation
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-s14-05.md
+codex/prompts/sprint-14-opportunity-pipeline-s14-06.md

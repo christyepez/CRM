@@ -1,4 +1,4 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
@@ -153,12 +153,12 @@ foreach ($marker in @(
     }
 }
 
-if (-not $nextTask.Contains("CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening")) {
-    throw "next-task must point to S14-05."
+if (-not ($nextTask -match "CRM Sprint 14 S14-0[5-7]")) {
+    throw "next-task must point to S14-05 or a later legitimate Sprint 14 phase."
 }
 
-if (-not $nextTask.Contains("codex/prompts/sprint-14-opportunity-pipeline-s14-05.md")) {
-    throw "next-task must reference the S14-05 prompt."
+if (-not ($nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[5-7]\.md")) {
+    throw "next-task must reference S14-05 or a later legitimate Sprint 14 prompt."
 }
 
 Write-Host "CRM Sprint 14 S14-04 verification passed."
