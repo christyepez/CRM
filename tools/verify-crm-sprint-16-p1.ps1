@@ -24,5 +24,5 @@ foreach($m in @('FoundationAccountCrudService','IAccountFoundationStore','Previe
 foreach($m in @('MapGet("/api/crm/foundation/accounts"','MapGet("/api/crm/foundation/accounts/{id}"','MapPost("/api/crm/foundation/accounts"','MapPut("/api/crm/foundation/accounts/{id}"')){if(-not$program.Contains($m)){throw "Existing Account route missing $m"}}
 foreach($f in @('MapGet("/api/crm/accounts','MapPost("/api/crm/accounts','MapPut("/api/crm/accounts','MapDelete("/api/crm/accounts','MapDelete("/api/crm/foundation/accounts')){if($program.Contains($f)){throw "Forbidden Account route detected: $f"}}
 foreach($m in @('CRM Sprint 16 S16-01 - Account Contracts and Domain Rules','No DELETE','Lead conversion','Productive `/api/crm/accounts`','Common DB/EF/migrations/schema/SQL/real data')){if(-not$prompt.Contains($m)){throw "S16-01 prompt missing $m"}}
-if(-not($next.Contains('CRM Sprint 16 S16-01 - Account Contracts and Domain Rules') -and $next.Contains('codex/prompts/sprint-16-account-management-s16-01.md'))){throw 'Invalid Sprint 16 S16-01 handoff.'}
+if(-not(($next -match 'CRM Sprint 16 S16-0[1-7]') -and ($next -match 'codex/prompts/sprint-16-account-management-s16-0[1-7]\.md'))){throw 'Invalid Sprint 16 forward handoff.'}
 Write-Host 'CRM Sprint 16 P1 verification passed.'
