@@ -5059,3 +5059,14 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CommonDbRuntimeEnabled: false
 - ExternalConnectorRuntimeEnabled: false
 - SimulatedProductionTouched: false
+
+## Sprint 15 S15-05 — Campaign Test and Guardrail Hardening
+- S1505Decision: Implemented
+- CampaignManagementHardening: Completed
+- ProductiveCampaignRouteEnabled: false
+- DeleteBehaviorAdded: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S15-06 Campaign Local Integration Validation
