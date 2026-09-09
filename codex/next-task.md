@@ -1,16 +1,19 @@
 # Next Task
 
-CRM Sprint 16 P1 - Account Management Functional Baseline and Backlog
+CRM Sprint 16 S16-01 - Account Contracts and Domain Rules
 
-Base Main Commit: Sprint 15 S15-07 merge commit required
-Branch: crm-sprint-16-p1-account-management-functional-baseline
-Prompt: codex/prompts/sprint-16-account-management-p1.md
+Base Main Commit: Sprint 16 P1 merge commit required
+Branch: crm-sprint-16-s16-01-account-contracts-domain-rules
+Prompt: codex/prompts/sprint-16-account-management-s16-01.md
+Suggested commit: feat(crm): add account management domain rules
+PR title: CRM Sprint 16 S16-01 - Account Contracts and Domain Rules
 
 ## Intent
-Inventory the existing Account foundation implementation and define the smallest coherent Account Management business slice and S16-01..S16-07 backlog.
+Create dedicated Account Management contracts and deterministic domain policy for profile validation and Draft/Active/Inactive lifecycle without changing the existing foundation API yet.
 
 ## Guardrails
-- Foundation-only synthetic data.
-- Existing foundation Account routes may be inventoried/refined only after P1 evidence.
 - Productive `/api/crm/accounts` remains unavailable.
-- No DELETE, Lead conversion, Portal user assignment, Common DB, real data or Production changes.
+- No DELETE or Lead conversion.
+- No automatic Account creation from Lead/Contact/Opportunity.
+- No Portal user assignment, Common DB, EF, migrations, schema, SQL or real data.
+- No SimulatedProduction or real Production changes.
