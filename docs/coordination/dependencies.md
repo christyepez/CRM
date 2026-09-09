@@ -1,4 +1,4 @@
-# Dependencias
+﻿# Dependencias
 
 ## PortalCorporativo
 
@@ -39,3 +39,17 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Account Management | Diferido; no activar en S14 P1 ni S14-01. |
 | Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado. |
 | Common DB runtime | Deshabilitado; sin EF, migraciones ni schema changes. |
+
+## Sprint 14 S14-04
+
+| Dependencia | Estado |
+|---|---|
+| Portal Menu API | EXTEND diferido; se agrega entrada local foundation mientras el menu runtime del portal sigue pendiente. |
+| Portal Configuration API | EXTEND diferido; catalogo sintetico de etapas definido en frontend foundation sin consumir catalogos reales. |
+| Opportunity Foundation API | CREATE usado exclusivamente por `/foundation/opportunities` mediante `/api/crm/foundation/opportunities`. |
+| Productive Opportunity API | No activado; sin referencias frontend a `/api/crm/opportunities`. |
+| Lead conversion | Diferido; no implementado ni invocado por la pagina Opportunity Pipeline. |
+| Account Management runtime | Diferido; `AccountName` se captura como valor foundation sin activar cuentas productivas. |
+| Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado; no owner runtime. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| Simulated Production | No tocado por S14-04; `crm-prod-sim` permanece fuera de alcance. |

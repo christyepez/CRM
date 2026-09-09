@@ -4,22 +4,22 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
+CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
 
 Base Main Commit:
-Sprint 14 S14-03 merge commit required
+Sprint 14 S14-04 merge commit required
 
 Branch:
-crm-sprint-14-s14-04-opportunity-pipeline-frontend-foundation-page
+crm-sprint-14-s14-05-opportunity-pipeline-test-guardrail-hardening
 
 Commit sugerido:
-feat(crm): add opportunity pipeline frontend foundation page
+test(crm): harden opportunity pipeline foundation guardrails
 
 PR title:
-CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
+CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
 
 Objetivo:
-Implementar `/foundation/opportunities` consumiendo exclusivamente Opportunity foundation APIs para list/create/edit/progress/win/lose/cancel.
+Endurecer pruebas y guardrails cross-layer para Opportunity Pipeline foundation en `/foundation/opportunities` y `/api/crm/foundation/opportunities`.
 
 Guardrails:
 - No productive `/api/crm/opportunities`.
@@ -29,4 +29,4 @@ Guardrails:
 - Do not touch `crm-prod-sim`.
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-s14-04.md
+codex/prompts/sprint-14-opportunity-pipeline-s14-05.md
