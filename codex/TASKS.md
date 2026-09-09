@@ -5141,3 +5141,17 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CommonDbRuntimeEnabled: false
 - SimulatedProductionTouched: false
 - Next: S16-03 Account Foundation API Modernization
+
+## Sprint 16 S16-03 - Account Foundation API Modernization
+- S1603Decision: Implemented
+- Account foundation GET/POST/PUT now use IAccountManagementService.
+- Added explicit API contracts and lifecycle activate/deactivate actions.
+- ProductiveAccountRouteEnabled: false
+- DeleteBehaviorAdded: false
+- LeadConversionEnabled: false
+- AutomaticAccountCreationEnabled: false
+- ContactRelationshipMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S16-04 Account Management Frontend Foundation Page
