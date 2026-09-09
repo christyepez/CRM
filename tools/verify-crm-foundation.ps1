@@ -387,7 +387,12 @@ if ($apiProgram -match "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|Crea
         Replace('MapPost("/api/crm/foundation/opportunities/{id}/progress"', '').
         Replace('MapPost("/api/crm/foundation/opportunities/{id}/win"', '').
         Replace('MapPost("/api/crm/foundation/opportunities/{id}/lose"', '').
-        Replace('MapPost("/api/crm/foundation/opportunities/{id}/cancel"', '')
+        Replace('MapPost("/api/crm/foundation/opportunities/{id}/cancel"', '').
+        Replace('MapPut("/api/crm/foundation/campaigns/{id}"', '').
+        Replace('MapPost("/api/crm/foundation/campaigns"', '').
+        Replace('MapPost("/api/crm/foundation/campaigns/{id}/activate"', '').
+        Replace('MapPost("/api/crm/foundation/campaigns/{id}/complete"', '').
+        Replace('MapPost("/api/crm/foundation/campaigns/{id}/cancel"', '')
     if ($allowedMutationsProgram -notmatch "MapPut|MapPatch|MapDelete|CreateLead|CreateCustomer|CreateOpportunity") {
         $null = $true
     }
