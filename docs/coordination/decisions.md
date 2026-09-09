@@ -13,3 +13,5 @@
 | ADR-009 | Sprint 13 Activity / Follow-Up se cierra como foundation-only y Sprint 14 continua con Opportunity Pipeline Foundation. | Aprobada |
 | ADR-010 | Sprint 14 P1 selecciona S14-01 Opportunity Pipeline Contracts and Domain Rules como primer story; API, UI, store, Lead conversion, Account activation, assignment, Portal Auth y Common DB permanecen diferidos. | Aprobada |
 | ADR-011 | S14-04 implementa Opportunity Pipeline UI foundation-only con catalogo sintetico deterministico y sin rutas productivas, DELETE, Portal Auth, Common DB, Lead conversion, Account runtime ni assignment. | Aprobada |
+| ADR-012 | S14-06 valida Opportunity Pipeline localmente solo en foundation, con datos sinteticos y sin tocar rutas productivas, DELETE, Portal runtime, Common DB ni `crm-prod-sim`. | Aprobada |
+| ADR-013 | Sprint 14 Opportunity Pipeline se cierra como foundation-only; Sprint 15 inicia Campaign Management Foundation por existir concepto Campaign y permitir valor comercial sin activar Productive/Portal/CommonDB. | Aprobada |

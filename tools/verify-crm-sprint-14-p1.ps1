@@ -103,7 +103,7 @@ foreach ($marker in @(
     }
 }
 
-$validSprint14Handoff = $nextTask -match "CRM Sprint 14 S14-0[1-7]" -and $nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[1-7]\.md"
+$validSprint14Handoff = ($nextTask -match "CRM Sprint 14 S14-0[1-7]" -and $nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[1-7]\.md") -or ($nextTask.Contains("CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog") -and $nextTask.Contains("codex/prompts/sprint-15-campaign-management-p1.md") -and $nextTask.Contains("S14-07 merge commit required"))
 if (-not $validSprint14Handoff) { throw "codex/next-task.md must hand off through legitimate Sprint 14 progression." }
 
 foreach ($marker in @(

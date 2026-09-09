@@ -4911,16 +4911,65 @@ Branch: crm-sprint-14-s14-06-opportunity-pipeline-local-integration-validation
 S1406Decision: Implemented
 OpportunityPipelineImplementationStatus: LocalIntegrationValidated
 OpportunityPipelineLocalIntegration: Validated
+LocalBackendUrl: http://localhost:8093
+LocalFrontendUrl: http://127.0.0.1:4200
+FrontendRoute: /foundation/opportunities
+FoundationOpportunityApiRoute: /api/crm/foundation/opportunities
+FrontendApiRoutingMode: Proxy
+BackendHealth: PASS
+FrontendOpportunityRouteStatus: 200
+FrontendToOpportunityApiConnectivity: PASS
+CreateScenario: PASS
+ReadAfterCreate: PASS
+UpdateScenario: PASS
+NoChangeScenario: PASS
+ProgressNextStage: PASS
+SameStageRejected: PASS
+SkipStageRejected: PASS
+WinScenario: PASS
+RepeatWin: PASS
+LoseScenario: PASS
+RepeatLose: PASS
+CancelScenario: PASS
+RepeatCancel: PASS
+TerminalUpdateRejected: PASS
+TerminalProgressRejected: PASS
+NotFoundScenario: PASS
+ValidationScenario: PASS
 RuntimePersistenceClassification: FoundationOnly
 ReadAfterWriteConsistent: true
+ProductiveOpportunityRouteAvailable: false
 ProductiveOpportunityRouteEnabled: false
+DeleteRouteAvailable: false
 DeleteBehaviorAdded: false
+PortalRuntimeEnabled: false
 PortalRuntimeObserved: false
+TokenRuntimeObserved: false
+CommonDbRuntimeEnabled: false
 CommonDbRuntimeObserved: false
 RealDataDetected: false
 SimulatedProductionTouched: false
+CrmProdSimTouched: false
 IntegrationLatencySamples: 23
+LatencyMinMs: 1
 LatencyAverageMs: 18.78
 LatencyP95Ms: 56
 NextTaskPhase: CRM Sprint 14 S14-07 - Opportunity Pipeline Sprint Closure
 NextTaskPromptFile: codex/prompts/sprint-14-opportunity-pipeline-s14-07.md
+
+## CRM Sprint 14 S14-07 - Opportunity Pipeline Sprint Closure
+
+Status: ClosedSuccessfully
+BaseMainCommit: 05b39bf2a65c1b7ad6d3aad715cdacecdb8ca3c1
+Branch: crm-sprint-14-s14-07-opportunity-pipeline-sprint-closure
+S1407Decision: ClosedSuccessfully
+Sprint14OpportunityPipelineClosed: true
+ProductiveOpportunityRouteEnabled: false
+DeleteBehaviorAdded: false
+PortalRuntimeEnabled: false
+CommonDbRuntimeEnabled: false
+SimulatedProductionTouched: false
+RecommendedNextSliceId: S15-CAMPAIGN
+RecommendedNextSlice: Campaign Management Foundation
+NextTaskPhase: CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
+NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-p1.md

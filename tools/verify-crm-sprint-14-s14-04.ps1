@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference = "Stop"
+$ErrorActionPreference = "Stop"
 
 $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
@@ -153,12 +153,11 @@ foreach ($marker in @(
     }
 }
 
-if (-not ($nextTask -match "CRM Sprint 14 S14-0[5-7]")) {
-    throw "next-task must point to S14-05 or a later legitimate Sprint 14 phase."
+$approvedPostClosureHandoff = $nextTask.Contains("CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog") -and $nextTask.Contains("codex/prompts/sprint-15-campaign-management-p1.md") -and $nextTask.Contains("S14-07 merge commit required")
+if (-not (($nextTask -match "CRM Sprint 14 S14-0[5-7]") -or $approvedPostClosureHandoff)) {
+    throw "next-task must point to legitimate Sprint 14 progression or approved Sprint 15 handoff."
 }
-
-if (-not ($nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[5-7]\.md")) {
-    throw "next-task must reference S14-05 or a later legitimate Sprint 14 prompt."
+if (-not (($nextTask -match "codex/prompts/sprint-14-opportunity-pipeline-s14-0[5-7]\.md") -or $approvedPostClosureHandoff)) {
+    throw "next-task must reference legitimate Sprint 14 prompt or approved Sprint 15 handoff."
 }
-
 Write-Host "CRM Sprint 14 S14-04 verification passed."
