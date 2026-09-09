@@ -12,3 +12,4 @@
 | ADR-008 | Productive Activity API, DELETE, Portal Auth runtime y Common DB runtime permanecen deshabilitados para S13-06. | Aprobada |
 | ADR-009 | Sprint 13 Activity / Follow-Up se cierra como foundation-only y Sprint 14 continua con Opportunity Pipeline Foundation. | Aprobada |
 | ADR-010 | Sprint 14 P1 selecciona S14-01 Opportunity Pipeline Contracts and Domain Rules como primer story; API, UI, store, Lead conversion, Account activation, assignment, Portal Auth y Common DB permanecen diferidos. | Aprobada |
+| ADR-011 | S14-04 implementa Opportunity Pipeline UI foundation-only con catalogo sintetico deterministico y sin rutas productivas, DELETE, Portal Auth, Common DB, Lead conversion, Account runtime ni assignment. | Aprobada |

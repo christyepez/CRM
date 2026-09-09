@@ -1421,6 +1421,661 @@ class ContactManagementPageComponent {
   }
 }
 
+type OpportunityStatus = 'Open' | 'Won' | 'Lost' | 'Cancelled';
+
+interface OpportunityPipelineStage {
+  stageId: string;
+  name: string;
+  order: number;
+}
+
+const opportunityPipelineId = 'bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb';
+const opportunityPipelineName = 'Foundation Sales Pipeline';
+const opportunityPipelineStages: OpportunityPipelineStage[] = [
+  { stageId: 'cccccccc-cccc-cccc-cccc-cccccccccccc', name: 'Qualification', order: 1 },
+  { stageId: 'dddddddd-dddd-dddd-dddd-dddddddddddd', name: 'Proposal', order: 2 },
+  { stageId: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', name: 'Negotiation', order: 3 },
+  { stageId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', name: 'Commit', order: 4 }
+];
+
+interface FoundationOpportunity {
+  id: string;
+  accountName: string;
+  expectedValue: number;
+  currency: string;
+  probability: number;
+  pipelineId: string;
+  stageId: string;
+  status: OpportunityStatus;
+  leadId?: string | null;
+  contactId?: string | null;
+  accountId?: string | null;
+  activityId?: string | null;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+
+interface FoundationOpportunityCreateRequest {
+  accountName: string;
+  expectedValue: number;
+  currency: string;
+  probability: number;
+  pipelineId: string;
+  stageId: string;
+  stages: OpportunityPipelineStage[];
+  leadId?: string | null;
+  contactId?: string | null;
+  accountId?: string | null;
+  activityId?: string | null;
+}
+
+interface FoundationOpportunityUpdateRequest extends FoundationOpportunityCreateRequest {
+}
+
+interface FoundationOpportunityProgressRequest {
+  stageId: string;
+  stages: OpportunityPipelineStage[];
+}
+
+interface OpportunityManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: OpportunityStatus | null;
+  opportunity?: FoundationOpportunity | null;
+  foundationMode: boolean;
+  persistenceMode: string;
+  durablePersistence: boolean;
+  productiveCrudEnabled: boolean;
+  databaseConfigured: boolean;
+  portalRuntimeEnabled: boolean;
+  commonDbRuntimeEnabled: boolean;
+  warning: string;
+}
+
+@Injectable({ providedIn: 'root' })
+class OpportunityPipelineApiService {
+  private readonly apiBaseUrl = '/api';
+  readonly foundationOpportunitiesRoute = '/api/crm/foundation/opportunities';
+
+  constructor(private readonly http: FoundationApiClient) {
+  }
+
+  getOpportunities() {
+    return this.http.get<FoundationOpportunity[]>(`${this.apiBaseUrl}/crm/foundation/opportunities`);
+  }
+
+  getOpportunity(id: string) {
+    return this.http.get<FoundationOpportunity>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}`);
+  }
+
+  createOpportunity(request: FoundationOpportunityCreateRequest) {
+    return this.http.post<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities`, request);
+  }
+
+  updateOpportunity(id: string, request: FoundationOpportunityUpdateRequest) {
+    return this.http.put<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}`, request);
+  }
+
+  progressOpportunity(id: string, request: FoundationOpportunityProgressRequest) {
+    return this.http.post<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}/progress`, request);
+  }
+
+  winOpportunity(id: string) {
+    return this.http.post<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}/win`, {});
+  }
+
+  loseOpportunity(id: string) {
+    return this.http.post<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}/lose`, {});
+  }
+
+  cancelOpportunity(id: string) {
+    return this.http.post<OpportunityManagementApiResponse>(`${this.apiBaseUrl}/crm/foundation/opportunities/${encodeURIComponent(id)}/cancel`, {});
+  }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-opportunity-pipeline-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell opportunity-workflow" aria-labelledby="opportunityPipelineTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="opportunityPipelineTitle">Opportunity Pipeline</h1>
+          <p class="lede">Create, review, progress and close foundation Opportunities through the safe CRM pipeline API.</p>
+        </div>
+        <span class="scope-pill">Foundation only</span>
+      </div>
+
+      <div class="workflow-grid opportunity-grid">
+        <section class="panel" aria-labelledby="opportunityListTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="opportunityListTitle">Opportunities</h2>
+              <p class="muted">Synthetic foundation records only. Productive Opportunity routes are not used.</p>
+            </div>
+            <button type="button" class="secondary-action" (click)="startCreate()">New opportunity</button>
+          </div>
+
+          <label for="opportunitySearch">Search opportunities</label>
+          <input id="opportunitySearch" type="search" [value]="searchTerm()" (input)="updateSearch($event)" placeholder="Account, currency, stage or status" />
+
+          <label for="opportunityStatusFilter">Status</label>
+          <select id="opportunityStatusFilter" [value]="statusFilter()" (change)="updateStatusFilter($event)">
+            @for (option of statusOptions; track option) {
+              <option [value]="option">{{ option === 'All' ? 'All statuses' : option }}</option>
+            }
+          </select>
+
+          @if (isLoading()) {
+            <p class="feedback neutral" aria-live="polite">Loading foundation opportunities...</p>
+          } @else if (filteredOpportunities().length === 0) {
+            <div class="empty-state">
+              <p>No opportunities available yet.</p>
+              <button type="button" class="secondary-action" (click)="startCreate()">Create the first opportunity</button>
+            </div>
+          } @else {
+            <div class="contact-list opportunity-list" aria-label="Foundation opportunity list">
+              @for (opportunity of filteredOpportunities(); track opportunity.id) {
+                <button type="button" class="contact-list-item opportunity-list-item" [class.selected]="selectedOpportunityId() === opportunity.id" (click)="selectOpportunity(opportunity.id)">
+                  <span class="contact-name">{{ opportunity.accountName }}</span>
+                  <span class="contact-meta">{{ formatMoney(opportunity) }} · {{ stageName(opportunity.stageId) }} · {{ opportunity.probability }}%</span>
+                  <span class="contact-status">{{ opportunity.status }}</span>
+                </button>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="opportunityFormTitle">
+          <div class="panel-heading">
+            <div>
+              <h2 id="opportunityFormTitle">{{ isCreateMode() ? 'New opportunity' : 'Opportunity details' }}</h2>
+              <p class="muted">{{ selectedOpportunityReadonly() ? 'Terminal opportunities are read-only.' : 'Create or update an Open foundation Opportunity.' }}</p>
+            </div>
+            @if (selectedOpportunity(); as opportunity) {
+              <span class="scope-pill quiet">{{ opportunity.status }}</span>
+            }
+          </div>
+
+          <form [formGroup]="opportunityForm" (ngSubmit)="submitOpportunity()" novalidate>
+            <label for="opportunityAccountName">AccountName</label>
+            <input id="opportunityAccountName" type="text" formControlName="accountName" maxlength="160" aria-describedby="opportunityAccountNameHelp" />
+            <small id="opportunityAccountNameHelp">Required. Maximum 160 characters.</small>
+
+            <div class="form-row">
+              <div>
+                <label for="opportunityExpectedValue">ExpectedValue</label>
+                <input id="opportunityExpectedValue" type="number" min="0" step="0.01" formControlName="expectedValue" />
+              </div>
+              <div>
+                <label for="opportunityCurrency">Currency</label>
+                <input id="opportunityCurrency" type="text" maxlength="3" formControlName="currency" aria-describedby="opportunityCurrencyHelp" />
+                <small id="opportunityCurrencyHelp">Three-letter code. Saved normalized by the backend.</small>
+              </div>
+            </div>
+
+            <label for="opportunityProbability">Probability</label>
+            <input id="opportunityProbability" type="number" min="0" max="100" step="1" formControlName="probability" />
+
+            <label for="opportunityPipeline">Pipeline</label>
+            <input id="opportunityPipeline" type="text" [value]="opportunityPipelineName" readonly />
+
+            <label for="opportunityStage">Stage</label>
+            <select id="opportunityStage" formControlName="stageId">
+              @for (stage of opportunityPipelineStages; track stage.stageId) {
+                <option [value]="stage.stageId">{{ stage.order }}. {{ stage.name }}</option>
+              }
+            </select>
+
+            @if (validationMessage(); as message) {
+              <p class="validation" aria-live="polite">{{ message }}</p>
+            }
+
+            @if (selectedOpportunityReadonly()) {
+              <p class="feedback neutral">This Opportunity is {{ selectedOpportunity()?.status }} and cannot be edited.</p>
+            }
+
+            <button type="submit" [disabled]="isSubmitting() || selectedOpportunityReadonly() || opportunityForm.invalid">
+              @if (isSubmitting()) {
+                Saving...
+              } @else if (isCreateMode()) {
+                Create opportunity
+              } @else {
+                Save opportunity
+              }
+            </button>
+          </form>
+
+          @if (selectedOpportunity(); as opportunity) {
+            @if (opportunity.status === 'Open') {
+              <div class="opportunity-actions" aria-label="Opportunity lifecycle actions">
+                @if (nextStage(opportunity); as stage) {
+                  <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="progressSelected()">Progress to {{ stage.name }}</button>
+                }
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="winSelected()">Mark won</button>
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="loseSelected()">Mark lost</button>
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="cancelSelectedOpportunity()">Cancel opportunity</button>
+              </div>
+            }
+          }
+
+          @if (operationMessage(); as message) {
+            <section class="result-panel compact-result" aria-live="polite">
+              <h2>{{ message.title }}</h2>
+              <p>{{ message.message }}</p>
+            </section>
+          }
+
+          @if (safeError(); as error) {
+            <section class="error-panel compact-result" role="alert">
+              <h2>{{ error.title }}</h2>
+              <p>{{ error.message }}</p>
+            </section>
+          }
+        </section>
+      </div>
+
+      @if (selectedOpportunity(); as opportunity) {
+        <section class="panel result-panel opportunity-summary" aria-live="polite">
+          <h2>Selected Opportunity</h2>
+          <dl class="result-grid opportunity-result-grid">
+            <div>
+              <dt>AccountName</dt>
+              <dd>{{ opportunity.accountName }}</dd>
+            </div>
+            <div>
+              <dt>ExpectedValue</dt>
+              <dd>{{ formatMoney(opportunity) }}</dd>
+            </div>
+            <div>
+              <dt>Currency</dt>
+              <dd>{{ opportunity.currency }}</dd>
+            </div>
+            <div>
+              <dt>Probability</dt>
+              <dd>{{ opportunity.probability }}%</dd>
+            </div>
+            <div>
+              <dt>Pipeline</dt>
+              <dd>{{ pipelineName(opportunity.pipelineId) }}</dd>
+            </div>
+            <div>
+              <dt>Stage</dt>
+              <dd>{{ stageName(opportunity.stageId) }}</dd>
+            </div>
+            <div>
+              <dt>Status</dt>
+              <dd>{{ opportunity.status }}</dd>
+            </div>
+          </dl>
+        </section>
+      }
+    </section>
+  `
+})
+class OpportunityPipelinePageComponent {
+  readonly opportunityPipelineName = opportunityPipelineName;
+  readonly opportunityPipelineStages = opportunityPipelineStages;
+  readonly statusOptions: ('All' | OpportunityStatus)[] = ['All', 'Open', 'Won', 'Lost', 'Cancelled'];
+  readonly opportunities = signal<FoundationOpportunity[]>([]);
+  readonly selectedOpportunityId = signal<string | null>(null);
+  readonly searchTerm = signal('');
+  readonly statusFilter = signal<'All' | OpportunityStatus>('All');
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+
+  readonly opportunityForm = this.formBuilder.nonNullable.group({
+    accountName: ['', [Validators.required, Validators.maxLength(160)]],
+    expectedValue: [0, [Validators.required, Validators.min(0)]],
+    currency: ['USD', [Validators.required, Validators.pattern(/^[A-Za-z]{3}$/)]],
+    probability: [25, [Validators.required, Validators.min(0), Validators.max(100)]],
+    stageId: [opportunityPipelineStages[0].stageId, Validators.required]
+  });
+
+  constructor(
+    private readonly api: OpportunityPipelineApiService,
+    private readonly formBuilder: FormBuilder) {
+    this.loadOpportunities();
+    this.startCreate();
+  }
+
+  filteredOpportunities() {
+    const term = this.searchTerm().trim().toLowerCase();
+    return this.opportunities().filter(opportunity => {
+      const matchesStatus = this.statusFilter() === 'All' || opportunity.status === this.statusFilter();
+      const matchesTerm = term.length === 0 || [
+        opportunity.accountName,
+        opportunity.currency,
+        opportunity.status,
+        this.pipelineName(opportunity.pipelineId),
+        this.stageName(opportunity.stageId)
+      ].some(value => value.toLowerCase().includes(term));
+
+      return matchesStatus && matchesTerm;
+    });
+  }
+
+  selectedOpportunity() {
+    const id = this.selectedOpportunityId();
+    return id ? this.opportunities().find(opportunity => opportunity.id === id) ?? null : null;
+  }
+
+  selectedOpportunityReadonly() {
+    const opportunity = this.selectedOpportunity();
+    return !this.isCreateMode() && opportunity !== null && opportunity.status !== 'Open';
+  }
+
+  updateSearch(event: Event) {
+    this.searchTerm.set((event.target as HTMLInputElement).value);
+  }
+
+  updateStatusFilter(event: Event) {
+    this.statusFilter.set((event.target as HTMLSelectElement).value as 'All' | OpportunityStatus);
+  }
+
+  selectOpportunity(id: string) {
+    this.isCreateMode.set(false);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.selectedOpportunityId.set(id);
+
+    this.api.getOpportunity(id).subscribe({
+      next: opportunity => {
+        this.upsertOpportunity(opportunity);
+        this.populateForm(opportunity);
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.loadOpportunities(false);
+      }
+    });
+  }
+
+  startCreate() {
+    this.isCreateMode.set(true);
+    this.selectedOpportunityId.set(null);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.opportunityForm.enable({ emitEvent: false });
+    this.opportunityForm.reset({
+      accountName: '',
+      expectedValue: 0,
+      currency: 'USD',
+      probability: 25,
+      stageId: opportunityPipelineStages[0].stageId
+    });
+  }
+
+  submitOpportunity() {
+    this.opportunityForm.markAllAsTouched();
+
+    if (this.opportunityForm.invalid || this.isSubmitting() || this.selectedOpportunityReadonly()) {
+      return;
+    }
+
+    const request = this.toRequest();
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+
+    const operation = this.isCreateMode()
+      ? this.api.createOpportunity(request)
+      : this.api.updateOpportunity(this.selectedOpportunityId() ?? '', request);
+
+    operation.subscribe({
+      next: response => this.applyOperationResponse(response, response.changed ? 'Opportunity saved' : 'No changes were necessary'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  progressSelected() {
+    const opportunity = this.selectedOpportunity();
+    const stage = opportunity ? this.nextStage(opportunity) : null;
+    if (!opportunity || !stage || opportunity.status !== 'Open' || this.isSubmitting()) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.api.progressOpportunity(opportunity.id, { stageId: stage.stageId, stages: opportunityPipelineStages }).subscribe({
+      next: response => this.applyOperationResponse(response, `Progressed to ${stage.name}`),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  winSelected() {
+    this.runTerminalAction('Won', opportunity => this.api.winOpportunity(opportunity.id), 'Opportunity marked Won');
+  }
+
+  loseSelected() {
+    this.runTerminalAction('Lost', opportunity => this.api.loseOpportunity(opportunity.id), 'Opportunity marked Lost');
+  }
+
+  cancelSelectedOpportunity() {
+    this.runTerminalAction('Cancelled', opportunity => this.api.cancelOpportunity(opportunity.id), 'Opportunity marked Cancelled');
+  }
+
+  validationMessage() {
+    if (!this.opportunityForm.touched) {
+      return null;
+    }
+
+    const controls = this.opportunityForm.controls;
+    if (controls.accountName.invalid) {
+      return 'Enter an AccountName with 160 characters or less.';
+    }
+
+    if (controls.expectedValue.invalid) {
+      return 'ExpectedValue must be zero or greater.';
+    }
+
+    if (controls.currency.invalid) {
+      return 'Currency must be a three-letter code.';
+    }
+
+    if (controls.probability.invalid) {
+      return 'Probability must be between 0 and 100.';
+    }
+
+    if (controls.stageId.invalid) {
+      return 'Choose a valid pipeline stage.';
+    }
+
+    return null;
+  }
+
+  pipelineName(pipelineId: string) {
+    return pipelineId.toLowerCase() === opportunityPipelineId.toLowerCase() ? opportunityPipelineName : pipelineId;
+  }
+
+  stageName(stageId: string) {
+    return opportunityPipelineStages.find(stage => stage.stageId.toLowerCase() === stageId.toLowerCase())?.name ?? stageId;
+  }
+
+  nextStage(opportunity: FoundationOpportunity) {
+    const current = opportunityPipelineStages.find(stage => stage.stageId.toLowerCase() === opportunity.stageId.toLowerCase());
+    return current
+      ? opportunityPipelineStages.find(stage => stage.order === current.order + 1) ?? null
+      : null;
+  }
+
+  formatMoney(opportunity: FoundationOpportunity) {
+    return new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: opportunity.currency || 'USD',
+      maximumFractionDigits: 2
+    }).format(opportunity.expectedValue);
+  }
+
+  private loadOpportunities(showLoading = true) {
+    if (showLoading) {
+      this.isLoading.set(true);
+    }
+
+    this.api.getOpportunities().subscribe({
+      next: opportunities => {
+        this.opportunities.set(opportunities);
+        const selected = this.selectedOpportunityId();
+        const refreshed = selected ? opportunities.find(opportunity => opportunity.id === selected) ?? null : null;
+        if (refreshed) {
+          this.populateForm(refreshed);
+        } else if (!this.isCreateMode() && opportunities.length > 0) {
+          this.selectedOpportunityId.set(opportunities[0].id);
+          this.populateForm(opportunities[0]);
+        } else if (!this.isCreateMode()) {
+          this.startCreate();
+        }
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.safeError.set({
+          title: 'Opportunity workflow unavailable',
+          message: 'Foundation opportunities could not be loaded. Try again after the CRM API is available.'
+        });
+        this.isLoading.set(false);
+      }
+    });
+  }
+
+  private populateForm(opportunity: FoundationOpportunity) {
+    this.opportunityForm.reset({
+      accountName: opportunity.accountName,
+      expectedValue: opportunity.expectedValue,
+      currency: opportunity.currency,
+      probability: opportunity.probability,
+      stageId: opportunity.stageId
+    });
+
+    if (opportunity.status === 'Open') {
+      this.opportunityForm.enable({ emitEvent: false });
+    } else {
+      this.opportunityForm.disable({ emitEvent: false });
+    }
+  }
+
+  private toRequest(): FoundationOpportunityCreateRequest {
+    const value = this.opportunityForm.getRawValue();
+    return {
+      accountName: value.accountName.trim(),
+      expectedValue: Number(value.expectedValue),
+      currency: value.currency.trim().toUpperCase(),
+      probability: Number(value.probability),
+      pipelineId: opportunityPipelineId,
+      stageId: value.stageId,
+      stages: opportunityPipelineStages,
+      leadId: null,
+      contactId: null,
+      accountId: null,
+      activityId: null
+    };
+  }
+
+  private applyOperationResponse(response: OpportunityManagementApiResponse, fallbackTitle: string) {
+    if (response.opportunity) {
+      this.upsertOpportunity(response.opportunity);
+      this.selectedOpportunityId.set(response.opportunity.id);
+      this.isCreateMode.set(false);
+      this.populateForm(response.opportunity);
+    }
+
+    this.operationMessage.set({
+      title: response.changed ? fallbackTitle : 'No changes were necessary',
+      message: response.message || 'The foundation Opportunity workflow completed successfully.'
+    });
+    this.isSubmitting.set(false);
+    this.loadOpportunities(false);
+  }
+
+  private upsertOpportunity(opportunity: FoundationOpportunity) {
+    this.opportunities.update(opportunities => {
+      const next = opportunities.filter(existing => existing.id !== opportunity.id);
+      return [opportunity, ...next];
+    });
+  }
+
+  private runTerminalAction(
+    expectedStatus: Exclude<OpportunityStatus, 'Open'>,
+    action: (opportunity: FoundationOpportunity) => ReturnType<OpportunityPipelineApiService['winOpportunity']>,
+    successTitle: string) {
+    const opportunity = this.selectedOpportunity();
+    if (!opportunity || opportunity.status !== 'Open' || this.isSubmitting()) {
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    action(opportunity).subscribe({
+      next: response => this.applyOperationResponse(response, response.status === expectedStatus ? successTitle : 'Opportunity updated'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      const code = typeof error.error?.errorCode === 'string' ? error.error.errorCode : '';
+      const mapped = this.mapErrorCode(code);
+      if (mapped) {
+        return mapped;
+      }
+
+      if (error.status === 400) {
+        return { title: 'Validation issue', message: 'Review the Opportunity fields before saving.' };
+      }
+
+      if (error.status === 404) {
+        return { title: 'Opportunity not found', message: 'The selected Opportunity was not found. Refresh the list and try again.' };
+      }
+    }
+
+    return { title: 'Opportunity workflow unavailable', message: 'The foundation Opportunity service could not process the request.' };
+  }
+
+  private mapErrorCode(code: string) {
+    const messages: Record<string, { title: string; message: string }> = {
+      AccountNameRequired: { title: 'AccountName required', message: 'Enter an AccountName before saving.' },
+      AccountNameTooLong: { title: 'AccountName too long', message: 'Use 160 characters or less for AccountName.' },
+      InvalidExpectedValue: { title: 'Invalid ExpectedValue', message: 'ExpectedValue must be zero or greater.' },
+      InvalidCurrency: { title: 'Invalid Currency', message: 'Currency must contain exactly three letters.' },
+      InvalidProbability: { title: 'Invalid Probability', message: 'Probability must be between 0 and 100.' },
+      InvalidPipelineId: { title: 'Invalid Pipeline', message: 'Use the foundation pipeline catalog.' },
+      InvalidStageId: { title: 'Invalid Stage', message: 'Choose a valid pipeline stage.' },
+      PipelineStagesRequired: { title: 'Pipeline stages required', message: 'The foundation stage catalog must be sent with the request.' },
+      InvalidStageOrder: { title: 'Invalid Stage order', message: 'The stage catalog must use valid ids, names and positive order values.' },
+      DuplicateStageOrder: { title: 'Duplicate Stage order', message: 'Pipeline stage order values must be unique.' },
+      DuplicateStageName: { title: 'Duplicate Stage name', message: 'Pipeline stage names must be unique.' },
+      CurrentStageNotInPipeline: { title: 'Stage mismatch', message: 'The selected Stage must belong to the foundation Pipeline.' },
+      InvalidStageProgression: { title: 'Progression blocked', message: 'Opportunities can progress only to the next stage.' },
+      OpportunityNotFound: { title: 'Opportunity not found', message: 'The selected Opportunity was not found. Refresh the list and try again.' },
+      TerminalOpportunityCannotBeModified: { title: 'Read-only Opportunity', message: 'Terminal Opportunities cannot be modified.' },
+      WonOpportunityCannotBeLost: { title: 'Read-only Opportunity', message: 'Won Opportunities cannot be marked lost.' },
+      LostOpportunityCannotBeWon: { title: 'Read-only Opportunity', message: 'Lost Opportunities cannot be marked won.' },
+      CancelledOpportunityCannotBeChanged: { title: 'Read-only Opportunity', message: 'Cancelled Opportunities cannot be changed.' }
+    };
+
+    return messages[code] ?? null;
+  }
+}
+
 type ActivityType = 'Call' | 'Email' | 'Meeting' | 'Task';
 type ActivityStatus = 'Scheduled' | 'Completed' | 'Cancelled';
 type ActivityTargetType = 'Lead' | 'Contact';
@@ -2114,6 +2769,12 @@ class ActivityManagementPageComponent {
   template: `
     <section class="card">
       <h1>CRM Foundation</h1>
+      <nav class="foundation-nav" aria-label="Foundation workflows">
+        <a href="/foundation/leads/qualification">Lead Qualification</a>
+        <a href="/foundation/contacts">Contact Management</a>
+        <a href="/foundation/activities">Activities & Follow-Up</a>
+        <a href="/foundation/opportunities">Opportunity Pipeline</a>
+      </nav>
       <p>CRM Domain Catalog: Draft</p>
       <p>Leads Foundation: PreviewOnly</p>
       <p>Accounts Foundation: PreviewOnly</p>
@@ -3332,7 +3993,8 @@ const routes: Routes = [
   { path: 'readiness', component: ReadinessComponent },
   { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent },
   { path: 'foundation/contacts', component: ContactManagementPageComponent },
-  { path: 'foundation/activities', component: ActivityManagementPageComponent }
+  { path: 'foundation/activities', component: ActivityManagementPageComponent },
+  { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent }
 ];
 
 @Component({

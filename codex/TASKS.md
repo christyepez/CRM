@@ -1,3 +1,42 @@
+## CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
+
+Status: Implemented
+BaseMainCommit: Sprint 14 S14-03 merge commit required
+Branch: crm-sprint-14-s14-04-opportunity-pipeline-frontend-foundation-page
+
+OpportunityPipelineImplementationStatus: FrontendFoundationImplemented
+OpportunityPipelineFrontend: FoundationImplemented
+FrontendRoute: /foundation/opportunities
+FrontendOpportunityRoute: /foundation/opportunities
+FrontendApiRouteUsed: /api/crm/foundation/opportunities
+FoundationOpportunityApiRouteUsed: /api/crm/foundation/opportunities
+FrontendUsesProductiveOpportunityRoute: false
+DeterministicSyntheticPipelineCatalog: true
+NextStageOnlyProgression: true
+TerminalOpportunityReadOnly: true
+DuplicateSubmissionProtected: true
+SafeErrorStatesImplemented: true
+ResponsiveBasics: SourceVerified
+AccessibleBasics: SourceVerified
+
+ProductiveOpportunityRouteEnabled: false
+DeleteBehaviorAdded: false
+LeadConversionImplemented: false
+AccountManagementRuntimeActivated: false
+AssignmentOwnerRuntimeActivated: false
+PortalRuntimeEnabled: false
+TokenStorageAdded: false
+CommonDbRuntimeEnabled: false
+EfRuntimeEnabled: false
+MigrationsCreated: false
+SchemaChangesDetected: false
+SimulatedProductionTouched: false
+CrmProdSimTouched: false
+
+S1404Decision: Implemented
+NextTaskPhase: CRM Sprint 14 S14-05 - Opportunity Pipeline Test and Guardrail Hardening
+NextTaskPromptFile: codex/prompts/sprint-14-opportunity-pipeline-s14-05.md
+
 ## CRM Sprint 14 S14-02 - Opportunity Application Service and Foundation Store
 
 Status: Implemented

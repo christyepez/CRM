@@ -12,3 +12,5 @@
 | Activity foundation permanece in-memory y sintetico tras cierre S13 | Medio | Registrar cierre foundation-only y mantener Common DB runtime separado hasta aprobacion futura. |
 | Opportunity Pipeline podria intentar activar Account, assignment o Lead conversion prematuramente | Alto | Sprint 14 P1 debe iniciar como baseline/backlog y conservar esas dependencias diferidas. |
 | PipelineStage solo existe como concepto/catalogo y puede generar reglas inconsistentes | Medio | S14-01 debe definir orden, unicidad y transiciones antes de servicios, API o UI. |
+| Catalogo sintetico de stages puede divergir del dominio si S14-05 no endurece paridad | Medio | S14-04 usa IDs/orden/nombres deterministas y S14-05 debe agregar guardrails cross-layer. |
+| UI foundation podria presentar acciones terminales repetidas | Medio | S14-04 oculta acciones para Won/Lost/Cancelled y deshabilita edicion; S14-05 debe cubrirlo. |

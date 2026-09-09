@@ -947,7 +947,7 @@ for (const expected of sprint12ContactLabels) {
 }
 
 const contactSourceStart = main.indexOf('type PreferredContactMethod');
-const contactSourceEnd = main.indexOf('type ActivityType');
+const contactSourceEnd = main.indexOf('type OpportunityStatus');
 const contactSource = contactSourceStart >= 0 && contactSourceEnd > contactSourceStart
   ? main.slice(contactSourceStart, contactSourceEnd)
   : '';
@@ -1027,6 +1027,88 @@ if (preferredContactMethodValues.size !== 3) {
 for (const forbidden of ['deleteContact', 'Delete contact', 'trash', 'LeadId', 'ConvertLeadToContact', 'CreateContactFromLead']) {
   if (contactSource.includes(forbidden)) {
     failures.push(`Forbidden S12-05 Contact feature-expansion marker '${forbidden}' found.`);
+  }
+}
+
+const sprint14OpportunityLabels = [
+  'Opportunity Pipeline',
+  'foundation/opportunities',
+  '/api/crm/foundation/opportunities',
+  'OpportunityPipelinePageComponent',
+  'OpportunityPipelineApiService',
+  'getOpportunities()',
+  'getOpportunity(id: string)',
+  'createOpportunity(request: FoundationOpportunityCreateRequest)',
+  'updateOpportunity(id: string, request: FoundationOpportunityUpdateRequest)',
+  'progressOpportunity(id: string, request: FoundationOpportunityProgressRequest)',
+  'winOpportunity(id: string)',
+  'loseOpportunity(id: string)',
+  'cancelOpportunity(id: string)',
+  'AccountName',
+  'ExpectedValue',
+  'Currency',
+  'Probability',
+  'Pipeline',
+  'Stage',
+  'Status',
+  'Loading foundation opportunities',
+  'No opportunities available yet',
+  'Terminal opportunities are read-only',
+  'Progressed to',
+  'Mark won',
+  'Mark lost',
+  'Cancel opportunity',
+  'No changes were necessary',
+  'Opportunity not found',
+  'Opportunity workflow unavailable',
+  'portalRuntimeEnabled',
+  'commonDbRuntimeEnabled'
+];
+
+for (const expected of sprint14OpportunityLabels) {
+  if (!main.includes(expected)) {
+    failures.push(`Missing S14-04 Opportunity frontend marker '${expected}'`);
+  }
+}
+
+const opportunitySourceStart = main.indexOf('type OpportunityStatus');
+const opportunitySourceEnd = main.indexOf('type ActivityType');
+const opportunitySource = opportunitySourceStart >= 0 && opportunitySourceEnd > opportunitySourceStart
+  ? main.slice(opportunitySourceStart, opportunitySourceEnd)
+  : '';
+
+if (!opportunitySource.includes("if (this.opportunityForm.invalid || this.isSubmitting() || this.selectedOpportunityReadonly())")) {
+  failures.push('Missing S14-04 duplicate submission protection before Opportunity foundation API call.');
+}
+
+if (!opportunitySource.includes("opportunity.status !== 'Open' || this.isSubmitting()")) {
+  failures.push('Missing S14-04 Open-only lifecycle action protection.');
+}
+
+if (!opportunitySource.includes('stage.order === current.order + 1')) {
+  failures.push('Missing S14-04 next-stage-only progression logic.');
+}
+
+for (const expected of [
+  "{ stageId: 'cccccccc-cccc-cccc-cccc-cccccccccccc', name: 'Qualification', order: 1 }",
+  "{ stageId: 'dddddddd-dddd-dddd-dddd-dddddddddddd', name: 'Proposal', order: 2 }",
+  "{ stageId: 'eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee', name: 'Negotiation', order: 3 }",
+  "{ stageId: 'ffffffff-ffff-ffff-ffff-ffffffffffff', name: 'Commit', order: 4 }"
+]) {
+  if (!opportunitySource.includes(expected)) {
+    failures.push(`Missing S14-04 deterministic Opportunity stage marker '${expected}'`);
+  }
+}
+
+for (const forbidden of ['deleteOpportunity', 'Delete opportunity', 'localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'Bearer ', '/api/crm/opportunities', 'ownerId', 'assignee', 'ConvertLead', 'CreateAccount', 'UpdateAccount']) {
+  if (opportunitySource.includes(forbidden)) {
+    failures.push(`Forbidden S14-04 Opportunity frontend marker '${forbidden}' found.`);
+  }
+}
+
+for (const expected of ['.foundation-nav', '.opportunity-grid', '.opportunity-list-item', '.opportunity-actions', '.form-row']) {
+  if (!styles.includes(expected)) {
+    failures.push(`Missing S14-04 responsive Opportunity style marker '${expected}'`);
   }
 }
 
