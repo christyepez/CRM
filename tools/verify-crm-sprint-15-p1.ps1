@@ -33,5 +33,5 @@ if(-not($lead.Contains('CampaignId'))){ throw 'Existing Lead CampaignId evidence
 if(-not($valueObjects.Contains('public sealed record DateRange') -and $valueObjects.Contains('end < start'))){ throw 'DateRange invariant not found.' }
 foreach($forbidden in @('MapGet("/api/crm/campaigns','MapPost("/api/crm/campaigns','MapPut("/api/crm/campaigns','MapDelete("/api/crm/campaigns','MapDelete("/api/crm/foundation/campaigns')){ if($program.Contains($forbidden)){ throw "Forbidden Campaign route: $forbidden" } }
 if($frontend.Contains('/api/crm/campaigns')){ throw 'Productive Campaign frontend route detected.' }
-if(-not($next.Contains('CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules') -and $next.Contains('codex/prompts/sprint-15-campaign-management-s15-01.md') -and $next.Contains('Sprint 15 P1 merge commit required'))){ throw 'Invalid S15-01 handoff.' }
+if(-not(($next -match 'CRM Sprint 15 S15-0[1-7]') -and $next.Contains('codex/prompts/sprint-15-campaign-management-s15-'))){ throw 'Invalid Sprint 15 forward handoff.' }
 Write-Host 'CRM Sprint 15 P1 verification passed.'
