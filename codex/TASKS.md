@@ -5126,3 +5126,18 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CommonDbRuntimeEnabled: false
 - SimulatedProductionTouched: false
 - Next: S16-02 Account Application Service and Foundation Store Modernization
+
+## Sprint 16 S16-02 - Account Application Service and Foundation Store Modernization
+- S1602Decision: Implemented
+- Dedicated Account Application service introduced over AccountManagementPolicy.
+- Typed Account foundation record/store introduced; generic preview methods retained temporarily for compatibility.
+- Synthetic deterministic seed and list/detail/create/update/activate/deactivate implemented.
+- Invalid/not-found/no-change writes suppressed.
+- ProductiveAccountRouteEnabled: false
+- DeleteBehaviorAdded: false
+- LeadConversionEnabled: false
+- AutomaticAccountCreationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S16-03 Account Foundation API Modernization
