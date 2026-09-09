@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using System.Text;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
@@ -135,6 +136,29 @@ public sealed class OpportunityFoundationApiEndpointTests
         Assert.Equal(Stage2, body.RootElement.GetProperty("opportunity").GetProperty("stageId").GetString());
     }
 
+    [Fact]
+    public async Task FoundationOpportunity_ProgressRejectsSameOrSkippedStage()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var id = await CreateAsync(client, "Progress Guardrail Deal");
+
+        var same = await client.PostAsJsonAsync($"/api/crm/foundation/opportunities/{id}/progress", new { stageId = Stage1, stages = Stages });
+        var skipped = await client.PostAsJsonAsync($"/api/crm/foundation/opportunities/{id}/progress", new
+        {
+            stageId = "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
+            stages = new object[]
+            {
+                new { stageId = Stage1, name = "Qualification", order = 1 },
+                new { stageId = Stage2, name = "Proposal", order = 2 },
+                new { stageId = "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee", name = "Negotiation", order = 3 }
+            }
+        });
+
+        Assert.Equal(HttpStatusCode.BadRequest, same.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, skipped.StatusCode);
+    }
+
     [Theory]
     [InlineData("win", "Won")]
     [InlineData("lose", "Lost")]
@@ -155,6 +179,43 @@ public sealed class OpportunityFoundationApiEndpointTests
         Assert.True(firstBody.RootElement.GetProperty("changed").GetBoolean());
         Assert.Equal(HttpStatusCode.OK, repeat.StatusCode);
         Assert.False(repeatBody.RootElement.GetProperty("changed").GetBoolean());
+    }
+
+    [Fact]
+    public async Task FoundationOpportunity_TerminalOpportunities_AreReadOnlyForUpdateAndProgress()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var id = await CreateAsync(client, "Terminal Readonly Deal");
+        var won = await client.PostAsync($"/api/crm/foundation/opportunities/{id}/win", null);
+        Assert.Equal(HttpStatusCode.OK, won.StatusCode);
+
+        var update = await client.PutAsJsonAsync($"/api/crm/foundation/opportunities/{id}", CreatePayload("Changed After Won"));
+        var progress = await client.PostAsJsonAsync($"/api/crm/foundation/opportunities/{id}/progress", new { stageId = Stage2, stages = Stages });
+        var repeatLose = await client.PostAsync($"/api/crm/foundation/opportunities/{id}/lose", null);
+
+        Assert.Equal(HttpStatusCode.BadRequest, update.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, progress.StatusCode);
+        Assert.Equal(HttpStatusCode.BadRequest, repeatLose.StatusCode);
+    }
+
+    [Fact]
+    public async Task FoundationOpportunity_MalformedPayload_ReturnsSafeGenericBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        using var content = new StringContent("{", Encoding.UTF8, "application/json");
+
+        var response = await client.PostAsync("/api/crm/foundation/opportunities", content);
+        var body = await ReadJsonAsync(response);
+
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.False(body.RootElement.GetProperty("allowed").GetBoolean());
+        Assert.False(body.RootElement.GetProperty("changed").GetBoolean());
+        Assert.Equal("InvalidRequest", body.RootElement.GetProperty("errorCode").GetString());
+        Assert.False(body.RootElement.GetProperty("productiveCrudEnabled").GetBoolean());
+        Assert.False(body.RootElement.GetProperty("portalRuntimeEnabled").GetBoolean());
+        Assert.False(body.RootElement.GetProperty("commonDbRuntimeEnabled").GetBoolean());
     }
 
     [Fact]

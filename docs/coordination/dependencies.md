@@ -53,3 +53,18 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado; no owner runtime. |
 | Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
 | Simulated Production | No tocado por S14-04; `crm-prod-sim` permanece fuera de alcance. |
+
+## Sprint 14 S14-05
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | No disponible en el workspace local; guardrail registrado y sin activacion runtime. |
+| CodexCommonAgents playbook | No disponible en el workspace local; se aplican instrucciones locales de `AGENTS.md`. |
+| Portal Catalog API | EXTEND diferido; paridad validada contra catalogo sintetico foundation de Opportunity Pipeline. |
+| Opportunity Foundation API | CREATE validado mediante pruebas de dominio, aplicacion, API y verificadores frontend. |
+| Productive Opportunity API | No activado; `/api/crm/opportunities` permanece 404/no disponible. |
+| Lead conversion | Diferido; no implementado ni invocado. |
+| Account Management runtime | Diferido; no activado. |
+| Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado; no owner runtime. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| Simulated Production | No tocado por S14-05; `crm-prod-sim` permanece fuera de alcance. |
