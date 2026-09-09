@@ -738,3 +738,6 @@ Campaign Management now exposes a FoundationOnly API under `/api/crm/foundation/
 
 ### Sprint 15 S15-04 Campaign frontend foundation
 Campaign Management now has a foundation-only Angular page at `/foundation/campaigns` consuming only `/api/crm/foundation/campaigns`. Productive Campaign routes, DELETE, Portal runtime, Common DB and external connectors remain disabled.
+
+### Sprint 15 closure
+Campaign Management foundation is closed successfully through S15-07. Domain, Application, in-memory foundation persistence, foundation API, Angular UI, cross-layer hardening and local HTTP integration are complete. Productive Campaign routes, DELETE, Portal runtime, Common DB, external connectors, real data and Production remain disabled. Sprint 16 P1 selects Account Management Foundation as the next business capability.
