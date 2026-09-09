@@ -5097,3 +5097,17 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - SimulatedProductionTouched: false
 - SelectedNextCapability: Account Management Foundation
 - Next: CRM Sprint 16 P1 - Account Management Functional Baseline and Backlog
+
+## Sprint 16 P1 - Account Management Functional Baseline and Backlog
+- Sprint16P1Decision: ReadyForS1601AccountContractsAndDomainRules
+- SelectedSliceId: S16-ACCOUNT-MGMT
+- Existing foundation Account CRUD inventoried; modernization required, not duplication.
+- ProductiveAccountRouteEnabled: false
+- DeleteBehaviorAdded: false
+- LeadConversionEnabled: false
+- AutomaticAccountCreationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S16-01 Account Contracts and Domain Rules
