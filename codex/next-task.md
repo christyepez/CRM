@@ -4,19 +4,19 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
+CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
 
 Base Main Commit:
-S14-07 merge commit required
+Sprint 15 P1 merge commit required
 
 Branch:
-crm-sprint-15-p1-campaign-management-functional-baseline
+crm-sprint-15-s15-01-campaign-contracts-domain-rules
 
 Commit sugerido:
-docs(crm): define campaign management functional baseline
+feat(crm): add campaign contracts and domain rules
 
 PR title:
-CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
+CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
 
 Prompt File:
-codex/prompts/sprint-15-campaign-management-p1.md
+codex/prompts/sprint-15-campaign-management-s15-01.md
