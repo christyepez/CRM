@@ -1584,7 +1584,7 @@ class OpportunityPipelineApiService {
               @for (opportunity of filteredOpportunities(); track opportunity.id) {
                 <button type="button" class="contact-list-item opportunity-list-item" [class.selected]="selectedOpportunityId() === opportunity.id" (click)="selectOpportunity(opportunity.id)">
                   <span class="contact-name">{{ opportunity.accountName }}</span>
-                  <span class="contact-meta">{{ formatMoney(opportunity) }} · {{ stageName(opportunity.stageId) }} · {{ opportunity.probability }}%</span>
+                  <span class="contact-meta">{{ formatMoney(opportunity) }} Â· {{ stageName(opportunity.stageId) }} Â· {{ opportunity.probability }}%</span>
                   <span class="contact-status">{{ opportunity.status }}</span>
                 </button>
               }
@@ -2076,6 +2076,301 @@ class OpportunityPipelinePageComponent {
   }
 }
 
+type CampaignStatus = 'Draft' | 'Active' | 'Completed' | 'Cancelled';
+
+interface FoundationCampaign {
+  id: string;
+  name: string;
+  startDate: string;
+  endDate: string;
+  status: CampaignStatus;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+
+interface FoundationCampaignRequest {
+  name: string;
+  startDate: string;
+  endDate: string;
+}
+
+interface CampaignManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: CampaignStatus | null;
+  campaign?: FoundationCampaign | null;
+}
+
+@Injectable({ providedIn: 'root' })
+class CampaignManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/campaigns';
+
+  constructor(private readonly http: FoundationApiClient) {}
+
+  getCampaigns() { return this.http.get<FoundationCampaign[]>(this.apiBaseUrl); }
+  getCampaign(id: string) { return this.http.get<FoundationCampaign>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createCampaign(request: FoundationCampaignRequest) { return this.http.post<CampaignManagementApiResponse>(this.apiBaseUrl, request); }
+  updateCampaign(id: string, request: FoundationCampaignRequest) { return this.http.put<CampaignManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  activateCampaign(id: string) { return this.http.post<CampaignManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/activate`, {}); }
+  completeCampaign(id: string) { return this.http.post<CampaignManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/complete`, {}); }
+  cancelCampaign(id: string) { return this.http.post<CampaignManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/cancel`, {}); }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-campaign-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="campaignTitle">
+      <div class="workflow-hero">
+        <div>
+          <p class="eyebrow">Development / Foundation</p>
+          <h1 id="campaignTitle">Campaign Management</h1>
+          <p class="lede">Create and manage synthetic foundation Campaigns through the safe CRM Campaign API.</p>
+        </div>
+        <span class="scope-pill">Foundation only</span>
+      </div>
+
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="campaignListTitle">
+          <div class="panel-heading">
+            <div><h2 id="campaignListTitle">Campaigns</h2><p class="muted">Synthetic foundation records only.</p></div>
+            <button type="button" class="secondary-action" (click)="startCreate()">New campaign</button>
+          </div>
+          @if (isLoading()) {
+            <p class="feedback neutral" aria-live="polite">Loading foundation campaigns...</p>
+          } @else if (campaigns().length === 0) {
+            <div class="empty-state"><p>No campaigns available yet.</p></div>
+          } @else {
+            <div class="contact-list" aria-label="Foundation campaign list">
+              @for (campaign of campaigns(); track campaign.id) {
+                <button type="button" class="contact-list-item" [class.selected]="selectedCampaignId() === campaign.id" (click)="selectCampaign(campaign.id)">
+                  <span class="contact-name">{{ campaign.name }}</span>
+                  <span class="contact-meta">{{ campaign.startDate }} â†’ {{ campaign.endDate }}</span>
+                  <span class="contact-status">{{ campaign.status }}</span>
+                </button>
+              }
+            </div>
+          }
+        </section>
+
+        <section class="panel" aria-labelledby="campaignFormTitle">
+          <div class="panel-heading">
+            <div><h2 id="campaignFormTitle">{{ isCreateMode() ? 'New campaign' : 'Campaign details' }}</h2></div>
+            @if (selectedCampaign(); as campaign) { <span class="scope-pill quiet">{{ campaign.status }}</span> }
+          </div>
+
+          <form [formGroup]="campaignForm" (ngSubmit)="submitCampaign()" novalidate>
+            <label for="campaignName">Name</label>
+            <input id="campaignName" type="text" maxlength="160" formControlName="name" />
+            <div class="form-row">
+              <div><label for="campaignStart">Start date</label><input id="campaignStart" type="date" formControlName="startDate" /></div>
+              <div><label for="campaignEnd">End date</label><input id="campaignEnd" type="date" formControlName="endDate" /></div>
+            </div>
+            @if (validationMessage(); as message) { <p class="validation" aria-live="polite">{{ message }}</p> }
+            @if (selectedCampaignReadonly()) { <p class="feedback neutral">Terminal Campaigns are read-only.</p> }
+            <button type="submit" [disabled]="isSubmitting() || selectedCampaignReadonly() || campaignForm.invalid">
+              {{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create campaign' : 'Save campaign') }}
+            </button>
+          </form>
+
+          @if (selectedCampaign(); as campaign) {
+            <div class="opportunity-actions" aria-label="Campaign lifecycle actions">
+              @if (campaign.status === 'Draft') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="activateSelected()">Activate campaign</button>
+              }
+              @if (campaign.status === 'Active') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="completeSelected()">Complete campaign</button>
+              }
+              @if (campaign.status === 'Draft' || campaign.status === 'Active') {
+                <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="cancelSelected()">Cancel campaign</button>
+              }
+            </div>
+          }
+
+          @if (operationMessage(); as message) { <section class="result-panel compact-result" aria-live="polite"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class CampaignManagementPageComponent {
+  readonly campaigns = signal<FoundationCampaign[]>([]);
+  readonly selectedCampaignId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+
+  readonly campaignForm = this.formBuilder.nonNullable.group({
+    name: ['', [Validators.required, Validators.maxLength(160)]],
+    startDate: ['', Validators.required],
+    endDate: ['', Validators.required]
+  });
+
+  constructor(
+    private readonly api: CampaignManagementApiService,
+    private readonly formBuilder: FormBuilder) {
+    this.loadCampaigns();
+    this.startCreate();
+  }
+
+  selectedCampaign() {
+    const id = this.selectedCampaignId();
+    return id ? this.campaigns().find(campaign => campaign.id === id) ?? null : null;
+  }
+
+  selectedCampaignReadonly() {
+    const campaign = this.selectedCampaign();
+    return !this.isCreateMode() && campaign !== null && campaign.status !== 'Draft';
+  }
+  startCreate() {
+    this.isCreateMode.set(true);
+    this.selectedCampaignId.set(null);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.campaignForm.enable({ emitEvent: false });
+    this.campaignForm.reset({ name: '', startDate: '', endDate: '' });
+  }
+
+  selectCampaign(id: string) {
+    this.isCreateMode.set(false);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    this.selectedCampaignId.set(id);
+    this.api.getCampaign(id).subscribe({
+      next: campaign => {
+        this.upsertCampaign(campaign);
+        this.populateForm(campaign);
+      },
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.loadCampaigns(false);
+      }
+    });
+  }
+
+  validationMessage() {
+    if (!this.campaignForm.touched) return null;
+    const controls = this.campaignForm.controls;
+    if (controls.name.invalid) return 'Enter a Campaign name with 160 characters or less.';
+    if (controls.startDate.invalid) return 'Choose a start date.';
+    if (controls.endDate.invalid) return 'Choose an end date.';
+    if (controls.startDate.value && controls.endDate.value && controls.endDate.value < controls.startDate.value) return 'End date cannot be before start date.';
+    return null;
+  }
+  submitCampaign() {
+    this.campaignForm.markAllAsTouched();
+    if (this.campaignForm.invalid || this.validationMessage() || this.isSubmitting() || this.selectedCampaignReadonly()) return;
+    const value = this.campaignForm.getRawValue();
+    const request: FoundationCampaignRequest = { name: value.name.trim(), startDate: value.startDate, endDate: value.endDate };
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    const operation = this.isCreateMode()
+      ? this.api.createCampaign(request)
+      : this.api.updateCampaign(this.selectedCampaignId() ?? '', request);
+    operation.subscribe({
+      next: response => this.applyOperationResponse(response, response.changed ? 'Campaign saved' : 'No changes were necessary'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+
+  activateSelected() { this.runLifecycle('Active', campaign => this.api.activateCampaign(campaign.id), 'Campaign activated'); }
+  completeSelected() { this.runLifecycle('Completed', campaign => this.api.completeCampaign(campaign.id), 'Campaign completed'); }
+  cancelSelected() { this.runLifecycle('Cancelled', campaign => this.api.cancelCampaign(campaign.id), 'Campaign cancelled'); }
+
+  private loadCampaigns(showLoading = true) {
+    if (showLoading) this.isLoading.set(true);
+    this.api.getCampaigns().subscribe({
+      next: campaigns => {
+        this.campaigns.set(campaigns);
+        const selected = this.selectedCampaignId();
+        const refreshed = selected ? campaigns.find(campaign => campaign.id === selected) ?? null : null;
+        if (refreshed) this.populateForm(refreshed);
+        this.isLoading.set(false);
+      },
+      error: () => {
+        this.safeError.set({ title: 'Campaign workflow unavailable', message: 'Foundation campaigns could not be loaded. Try again after the CRM API is available.' });
+        this.isLoading.set(false);
+      }
+    });
+  }
+  private populateForm(campaign: FoundationCampaign) {
+    this.campaignForm.reset({ name: campaign.name, startDate: campaign.startDate, endDate: campaign.endDate });
+    if (campaign.status === 'Draft') this.campaignForm.enable({ emitEvent: false });
+    else this.campaignForm.disable({ emitEvent: false });
+  }
+
+  private applyOperationResponse(response: CampaignManagementApiResponse, fallbackTitle: string) {
+    if (response.campaign) {
+      this.upsertCampaign(response.campaign);
+      this.selectedCampaignId.set(response.campaign.id);
+      this.isCreateMode.set(false);
+      this.populateForm(response.campaign);
+    }
+    this.operationMessage.set({ title: response.changed ? fallbackTitle : 'No changes were necessary', message: response.message || 'The foundation Campaign workflow completed successfully.' });
+    this.isSubmitting.set(false);
+    this.loadCampaigns(false);
+  }
+
+  private upsertCampaign(campaign: FoundationCampaign) {
+    this.campaigns.update(campaigns => [campaign, ...campaigns.filter(existing => existing.id !== campaign.id)]);
+  }
+
+  private runLifecycle(expectedStatus: CampaignStatus, action: (campaign: FoundationCampaign) => ReturnType<CampaignManagementApiService['activateCampaign']>, title: string) {
+    const campaign = this.selectedCampaign();
+    if (!campaign || this.isSubmitting()) return;
+    this.isSubmitting.set(true);
+    this.safeError.set(null);
+    this.operationMessage.set(null);
+    action(campaign).subscribe({
+      next: response => this.applyOperationResponse(response, response.status === expectedStatus ? title : 'Campaign updated'),
+      error: error => {
+        this.safeError.set(this.toSafeError(error));
+        this.isSubmitting.set(false);
+      }
+    });
+  }
+  private toSafeError(error: unknown) {
+    if (error instanceof FoundationApiErrorResponse) {
+      const code = typeof error.error?.errorCode === 'string' ? error.error.errorCode : '';
+      const mapped = this.mapErrorCode(code);
+      if (mapped) return mapped;
+      if (error.status === 400) return { title: 'Validation issue', message: 'Review the Campaign fields before saving.' };
+      if (error.status === 404) return { title: 'Campaign not found', message: 'The selected Campaign was not found. Refresh the list and try again.' };
+      if (error.status === 409) return { title: 'Transition not permitted', message: 'The Campaign cannot move to that lifecycle state.' };
+    }
+    return { title: 'Campaign workflow unavailable', message: 'The foundation Campaign service could not process the request.' };
+  }
+
+  private mapErrorCode(code: string) {
+    const messages: Record<string, { title: string; message: string }> = {
+      NameRequired: { title: 'Name required', message: 'Enter a Campaign name before saving.' },
+      NameTooLong: { title: 'Name too long', message: 'Use 160 characters or less for the Campaign name.' },
+      StartDateRequired: { title: 'Start date required', message: 'Choose a Campaign start date.' },
+      EndDateRequired: { title: 'End date required', message: 'Choose a Campaign end date.' },
+      InvalidDateRange: { title: 'Invalid date range', message: 'Campaign end date cannot be before start date.' },
+      CampaignNotFound: { title: 'Campaign not found', message: 'The selected Campaign was not found. Refresh the list and try again.' },
+      DraftCampaignRequired: { title: 'Draft required', message: 'Only Draft Campaigns can be edited or activated.' },
+      ActiveCampaignRequired: { title: 'Active required', message: 'Only Active Campaigns can be completed.' },
+      CompletedCampaignCannotBeModified: { title: 'Read-only Campaign', message: 'Completed Campaigns cannot be modified.' },
+      CancelledCampaignCannotBeModified: { title: 'Read-only Campaign', message: 'Cancelled Campaigns cannot be modified.' },
+      TerminalCampaignCannotBeModified: { title: 'Read-only Campaign', message: 'Terminal Campaigns cannot be modified.' }
+    };
+    return messages[code] ?? null;
+  }
+}
+
 type ActivityType = 'Call' | 'Email' | 'Meeting' | 'Task';
 type ActivityStatus = 'Scheduled' | 'Completed' | 'Cancelled';
 type ActivityTargetType = 'Lead' | 'Contact';
@@ -2225,7 +2520,7 @@ class ActivityManagementApiService {
               @for (activity of filteredActivities(); track activity.id) {
                 <button type="button" class="contact-list-item" [class.selected]="selectedActivityId() === activity.id" (click)="selectActivity(activity.id)">
                   <span class="contact-name">{{ activity.subject }}</span>
-                  <span class="contact-meta">{{ activity.type }} · {{ targetLabel(activity) }} · {{ formatDate(activity.scheduledAtUtc) }}</span>
+                  <span class="contact-meta">{{ activity.type }} Â· {{ targetLabel(activity) }} Â· {{ formatDate(activity.scheduledAtUtc) }}</span>
                   <span class="contact-status">{{ statusLabel(activity) }}</span>
                 </button>
               }
@@ -2561,7 +2856,7 @@ class ActivityManagementPageComponent {
 
   statusLabel(activity: FoundationActivity) {
     if (activity.status === 'Scheduled' && new Date(activity.scheduledAtUtc).getTime() < Date.now()) {
-      return 'Scheduled · overdue';
+      return 'Scheduled Â· overdue';
     }
 
     return activity.status;
@@ -2707,10 +3002,10 @@ class ActivityManagementPageComponent {
 
   private displayTargetName(id: string, type: ActivityTargetType) {
     if (type === 'Lead') {
-      return this.leads().find(lead => lead.id === id) ? `· ${this.leadLabel(this.leads().find(lead => lead.id === id)!)} ` : id;
+      return this.leads().find(lead => lead.id === id) ? `Â· ${this.leadLabel(this.leads().find(lead => lead.id === id)!)} ` : id;
     }
 
-    return this.contacts().find(contact => contact.id === id) ? `· ${this.contactLabel(this.contacts().find(contact => contact.id === id)!)} ` : id;
+    return this.contacts().find(contact => contact.id === id) ? `Â· ${this.contactLabel(this.contacts().find(contact => contact.id === id)!)} ` : id;
   }
 
   private toDateTimeLocal(value: string) {
@@ -3994,7 +4289,8 @@ const routes: Routes = [
   { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent },
   { path: 'foundation/contacts', component: ContactManagementPageComponent },
   { path: 'foundation/activities', component: ActivityManagementPageComponent },
-  { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent }
+  { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
+  { path: 'foundation/campaigns', component: CampaignManagementPageComponent }
 ];
 
 @Component({
