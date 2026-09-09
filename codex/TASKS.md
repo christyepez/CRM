@@ -5004,3 +5004,26 @@ FirstImplementationStoryId: S15-01
 FirstImplementationStoryName: Campaign Contracts and Domain Rules
 NextTaskPhase: CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
 NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-01.md
+
+## CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
+Status: Implemented
+BaseMainCommit: 8875629ecaac2fa4efc5356386dcb01d47ca487a
+Branch: crm-sprint-15-s15-01-campaign-contracts-domain-rules
+CampaignManagementDomain: Implemented
+CampaignManagementPolicy: Implemented
+CampaignApplicationService: NotImplemented
+CampaignFoundationStore: NotImplemented
+CampaignApi: NotImplemented
+CampaignFrontend: NotImplemented
+ProductiveCampaignRouteEnabled: false
+FoundationCampaignRouteEnabled: false
+DeleteBehaviorAdded: false
+PortalRuntimeEnabled: false
+CommonDbRuntimeEnabled: false
+ExternalConnectorRuntimeEnabled: false
+SimulatedProductionTouched: false
+UnitTestsAfter: 409
+ArchitectureTestsAfter: 122
+S1501Decision: Implemented
+NextTaskPhase: CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store
+NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-02.md

@@ -721,3 +721,8 @@ Canonical foundation proposal: Name + StartDate + EndDate + Status with `DateOnl
 Validation: 383 Unit + 120 Architecture = 503 .NET tests PASS; frontend build/test, guardrails, foundation verification and Sprint 15 P1 verifier PASS.
 
 Next gate: `CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules`.
+
+## CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
+S15-01 adds authoritative Campaign domain contracts and deterministic Draft/Active/Completed/Cancelled lifecycle rules. The story is domain-only: no Campaign service/store/API/UI, productive routes, DELETE, Portal Auth, Common DB, external connectors or simulated Production changes are activated.
+
+Next gate: `CRM Sprint 15 S15-02 - Campaign Application Service and Foundation Store`.
