@@ -1,5 +1,6 @@
 using CRM.Api.ProductiveRoutes;
 using CRM.Api.Foundation;
+using CRM.Application.AccountManagement;
 using CRM.Application.ActivityManagement;
 using CRM.Application.CampaignManagement;
 using CRM.Application.Contracts;
@@ -41,6 +42,7 @@ builder.Services.AddSingleton<ContactFoundationService>();
 builder.Services.AddSingleton<FoundationLeadCrudService>();
 builder.Services.AddSingleton<ILeadQualificationService, LeadQualificationService>();
 builder.Services.AddSingleton<FoundationAccountCrudService>();
+builder.Services.AddSingleton<IAccountManagementService, AccountManagementService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
 builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
@@ -435,17 +437,43 @@ app.MapPost("/api/crm/foundation/leads/{leadId}/qualification", async (string le
 })
     .WithName("QualifyCrmFoundationLead");
 
-app.MapGet("/api/crm/foundation/accounts", async (FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+app.MapGet("/api/crm/foundation/accounts", async (IAccountManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationAccounts");
 
-app.MapGet("/api/crm/foundation/accounts/{id}", async (string id, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetByIdAsync(id, cancellationToken)))
+app.MapGet("/api/crm/foundation/accounts/{id}", async (string id, IAccountManagementService service, CancellationToken cancellationToken) =>
+{
+    var account = await service.GetByIdAsync(id, cancellationToken);
+    return account is null ? Results.NotFound() : Results.Ok(account);
+})
     .WithName("GetCrmFoundationAccountById");
 
-app.MapPost("/api/crm/foundation/accounts", async (FoundationAccountCreateRequest request, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.CreateAsync(request, cancellationToken)))
+app.MapPost("/api/crm/foundation/accounts", async (FoundationAccountManagementCreateRequest request, IAccountManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(AccountManagementApiResponse.ToApplication(request), cancellationToken);
+    return Results.Json(AccountManagementApiResponse.From(result), statusCode: AccountManagementApiResponse.ToStatusCode(result));
+})
     .WithName("CreateCrmFoundationAccount");
 
-app.MapPut("/api/crm/foundation/accounts/{id}", async (string id, FoundationAccountUpdateRequest request, FoundationAccountCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.UpdateAsync(id, request, cancellationToken)))
+app.MapPut("/api/crm/foundation/accounts/{id}", async (string id, FoundationAccountManagementUpdateRequest request, IAccountManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, AccountManagementApiResponse.ToApplication(request), cancellationToken);
+    return Results.Json(AccountManagementApiResponse.From(result), statusCode: AccountManagementApiResponse.ToStatusCode(result));
+})
     .WithName("UpdateCrmFoundationAccount");
+
+app.MapPost("/api/crm/foundation/accounts/{id}/activate", async (string id, IAccountManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ActivateAsync(id, cancellationToken);
+    return Results.Json(AccountManagementApiResponse.From(result), statusCode: AccountManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("ActivateCrmFoundationAccount");
+
+app.MapPost("/api/crm/foundation/accounts/{id}/deactivate", async (string id, IAccountManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.DeactivateAsync(id, cancellationToken);
+    return Results.Json(AccountManagementApiResponse.From(result), statusCode: AccountManagementApiResponse.ToStatusCode(result));
+})
+    .WithName("DeactivateCrmFoundationAccount");
 
 app.MapGet("/api/crm/foundation/contacts", async (FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationContacts");
