@@ -4973,3 +4973,34 @@ RecommendedNextSliceId: S15-CAMPAIGN
 RecommendedNextSlice: Campaign Management Foundation
 NextTaskPhase: CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
 NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-p1.md
+
+## CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
+
+Status: Implemented
+BaseMainCommit: e0bad427f0cb482bd784399345b6f45e4f230d9d
+Branch: crm-sprint-15-p1-campaign-management-functional-baseline
+SelectedSliceId: S15-CAMPAIGN
+SelectedSliceName: Campaign Management Foundation
+CampaignDomainStatus: ConceptualRecordOnly
+CampaignApplicationStatus: NotStarted
+CampaignPersistenceStatus: NotStarted
+CampaignApiStatus: NotStarted
+CampaignFrontendStatus: NotStarted
+LeadCampaignAttributionStatus: StructuralFieldOnly
+ProductiveCampaignRouteEnabled: false
+FoundationCampaignRouteEnabledByP1: false
+DeleteBehaviorAdded: false
+PortalRuntimeEnabled: false
+CommonDbRuntimeEnabled: false
+ExternalConnectorRuntimeEnabled: false
+SimulatedProductionTouched: false
+UnitTests: 383 PASS
+ArchitectureTests: 120 PASS
+FullTests: 503 PASS
+FrontendBuild: PASS
+FrontendTests: PASS
+Sprint15P1Decision: ReadyForS1501CampaignContractsAndDomainRules
+FirstImplementationStoryId: S15-01
+FirstImplementationStoryName: Campaign Contracts and Domain Rules
+NextTaskPhase: CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules
+NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-01.md

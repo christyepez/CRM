@@ -711,3 +711,13 @@ Next gate: CRM Sprint 14 S14-03 - Opportunity Foundation API.
 
 ### Sprint 14 S14-03 � Opportunity Foundation API
 Foundation-only Opportunity list/detail/create/update/progress/win/lose/cancel is exposed through `IOpportunityManagementService`. Productive Opportunity routes and DELETE remain unavailable. Next gate: `CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page`.
+
+## CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
+
+Sprint 15 starts Campaign Management as a foundation-only business slice. P1 inventories the existing conceptual `Campaign` and `DateRange`, keeps existing `Lead.CampaignId` as a deferred structural reference, and defines the first executable story without activating runtime Campaign routes, DELETE, Portal Auth, Common DB, external connectors or simulated Production.
+
+Canonical foundation proposal: Name + StartDate + EndDate + Status with `DateOnly` semantics and explicit Draft/Active/Completed/Cancelled lifecycle.
+
+Validation: 383 Unit + 120 Architecture = 503 .NET tests PASS; frontend build/test, guardrails, foundation verification and Sprint 15 P1 verifier PASS.
+
+Next gate: `CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules`.

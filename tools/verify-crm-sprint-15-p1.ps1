@@ -31,7 +31,7 @@ foreach($m in @('CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules','Ca
 if(-not($concept.Contains('public sealed record Campaign') -and $concept.Contains('DateRange ActiveRange'))){ throw 'Existing Campaign concept not found.' }
 if(-not($lead.Contains('CampaignId'))){ throw 'Existing Lead CampaignId evidence not found.' }
 if(-not($valueObjects.Contains('public sealed record DateRange') -and $valueObjects.Contains('end < start'))){ throw 'DateRange invariant not found.' }
-foreach($forbidden in @('MapGet("/api/crm/campaigns','MapPost("/api/crm/campaigns','MapPut("/api/crm/campaigns','MapDelete("/api/crm/campaigns','MapDelete("/api/crm/foundation/campaigns'))){ if($program.Contains($forbidden)){ throw "Forbidden Campaign route: $forbidden" } }
+foreach($forbidden in @('MapGet("/api/crm/campaigns','MapPost("/api/crm/campaigns','MapPut("/api/crm/campaigns','MapDelete("/api/crm/campaigns','MapDelete("/api/crm/foundation/campaigns')){ if($program.Contains($forbidden)){ throw "Forbidden Campaign route: $forbidden" } }
 if($frontend.Contains('/api/crm/campaigns')){ throw 'Productive Campaign frontend route detected.' }
 if(-not($next.Contains('CRM Sprint 15 S15-01 - Campaign Contracts and Domain Rules') -and $next.Contains('codex/prompts/sprint-15-campaign-management-s15-01.md') -and $next.Contains('Sprint 15 P1 merge commit required'))){ throw 'Invalid S15-01 handoff.' }
 Write-Host 'CRM Sprint 15 P1 verification passed.'
