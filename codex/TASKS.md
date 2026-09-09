@@ -5111,3 +5111,18 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - ExternalConnectorRuntimeEnabled: false
 - SimulatedProductionTouched: false
 - Next: S16-01 Account Contracts and Domain Rules
+
+## Sprint 16 S16-01 - Account Contracts and Domain Rules
+- S1601Decision: Implemented
+- Dedicated Account domain policy and contracts added.
+- Name/TaxId/Industry/Segment normalization and bounds enforced.
+- Draft/Active/Inactive lifecycle and idempotency defined.
+- Profile update no-change detection implemented.
+- ProductiveAccountRouteEnabled: false
+- DeleteBehaviorAdded: false
+- LeadConversionEnabled: false
+- AutomaticAccountCreationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S16-02 Account Application Service and Foundation Store Modernization
