@@ -1,16 +1,13 @@
-# Next CRM Task
+# Next Task
 
-Task: CRM Sprint 15 S15-05 - Campaign Test and Guardrail Hardening
-Phase: Sprint 15 S15-05
-Base Main Commit: S15-04 merge commit required
-Prompt: codex/prompts/sprint-15-campaign-management-s15-05.md
+CRM Sprint 15 S15-06 - Campaign Local Integration Validation
 
-Guardrails:
-- Campaign remains FoundationOnly
-- no productive /api/crm/campaigns
-- no DELETE
-- no Portal runtime
-- no Common DB/EF/SQL
-- no external marketing connectors
-- no real data
-- do not touch crm-prod-sim
+Base Main Commit: S15-05 merge commit required
+
+Branch:
+`crm-sprint-15-s15-06-campaign-local-integration-validation`
+
+Prompt:
+`codex/prompts/sprint-15-campaign-management-s15-06.md`
+
+Do not activate Productive, Portal, Common DB, external connectors or simulated Production.
