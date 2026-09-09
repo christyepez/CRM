@@ -733,3 +733,5 @@ Next gate: `CRM Sprint 15 S15-02 - Campaign Application Service and Foundation S
 S15-02 adds Campaign application orchestration and a synthetic in-memory Foundation store. Mutations delegate to CampaignManagementPolicy and suppress writes for invalid/no-change/not-found outcomes. No Campaign API/UI, DELETE, Portal runtime, Common DB or external connectors are enabled.
 
 Next gate: `CRM Sprint 15 S15-03 - Campaign Foundation API`.
+### Sprint 15 S15-03
+Campaign Management now exposes a FoundationOnly API under `/api/crm/foundation/campaigns`; productive Campaign routes and DELETE remain disabled.

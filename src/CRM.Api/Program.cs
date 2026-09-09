@@ -1,6 +1,7 @@
 using CRM.Api.ProductiveRoutes;
 using CRM.Api.Foundation;
 using CRM.Application.ActivityManagement;
+using CRM.Application.CampaignManagement;
 using CRM.Application.Contracts;
 using CRM.Application.ContactManagement;
 using CRM.Application.Financial;
@@ -13,6 +14,7 @@ using CRM.Application.Portal;
 using CRM.Application.Reporting;
 using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
+using CRM.Domain.CampaignManagement;
 using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
@@ -42,6 +44,7 @@ builder.Services.AddSingleton<FoundationAccountCrudService>();
 builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
 builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
+builder.Services.AddSingleton<ICampaignManagementService, CampaignManagementService>();
 builder.Services.AddSingleton<IOpportunityManagementService, OpportunityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
@@ -147,6 +150,7 @@ builder.Services.AddSingleton<ILeadFoundationStore, InMemoryLeadFoundationStore>
 builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundationStore>();
 builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
 builder.Services.AddSingleton<IActivityFoundationStore, InMemoryActivityFoundationStore>();
+builder.Services.AddSingleton<ICampaignFoundationStore, InMemoryCampaignFoundationStore>();
 builder.Services.AddSingleton<IOpportunityFoundationStore, InMemoryOpportunityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
 builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
@@ -650,6 +654,46 @@ app.MapGet("/api/crm/foundation/portal-authorization/sample-user-context", async
 app.MapPost("/api/crm/foundation/portal-authorization/check-permission", async (CrmPortalPermissionCheckRequest request, CrmPortalAuthorizationSimulationService service, CancellationToken cancellationToken) => Results.Ok(await service.CheckPermissionAsync(request.RequiredPermission, cancellationToken)))
     .WithName("CheckCrmFoundationPortalAuthorizationPermission");
 
+app.MapGet("/api/crm/foundation/campaigns", async (ICampaignManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.ListAsync(cancellationToken))).WithName("GetCrmFoundationCampaigns");
+
+app.MapGet("/api/crm/foundation/campaigns/{id}", async (string id, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var campaign = await service.GetAsync(id, cancellationToken);
+    return campaign is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(CampaignManagementErrorCode.CampaignNotFound), message = "Campaign was not found.", foundationMode = true, productiveCrudEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(campaign);
+}).WithName("GetCrmFoundationCampaignById");
+
+app.MapPost("/api/crm/foundation/campaigns", async (FoundationCampaignCreateRequest request, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(new CampaignManagementCreateRequest(request.Name, request.StartDate, request.EndDate), cancellationToken);
+    return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationCampaign");
+
+app.MapPut("/api/crm/foundation/campaigns/{id}", async (string id, FoundationCampaignUpdateRequest request, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, new CampaignManagementUpdateRequest(request.Name, request.StartDate, request.EndDate), cancellationToken);
+    return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationCampaign");
+
+app.MapPost("/api/crm/foundation/campaigns/{id}/activate", async (string id, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ActivateAsync(id, cancellationToken);
+    return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
+}).WithName("ActivateCrmFoundationCampaign");
+
+app.MapPost("/api/crm/foundation/campaigns/{id}/complete", async (string id, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CompleteAsync(id, cancellationToken);
+    return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
+}).WithName("CompleteCrmFoundationCampaign");
+
+app.MapPost("/api/crm/foundation/campaigns/{id}/cancel", async (string id, ICampaignManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CancelAsync(id, cancellationToken);
+    return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
+}).WithName("CancelCrmFoundationCampaign");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();
