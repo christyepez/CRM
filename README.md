@@ -3,6 +3,18 @@
 ## Codex task automation
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
+
+## CRM Sprint 14 Closure - Opportunity Pipeline
+
+Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.
+
+Next business slice: CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog.
+
+## CRM Sprint 14 S14-06 - Opportunity Pipeline Local Integration Validation
+
+S14-06 validates Opportunity Pipeline locally through Angular `/foundation/opportunities`, frontend proxy and `/api/crm/foundation/opportunities`. Health, frontend route, create/read/update/no-change, next-stage progress, same/skip-stage rejections, win/lose/cancel repeat behavior, terminal rejections, not-found, validation and read-after-write all passed with synthetic data. Productive `/api/crm/opportunities`, DELETE, Portal/token runtime, Common DB runtime, real data and simulated Production remained unavailable/untouched.
+
+Next gate: `CRM Sprint 14 S14-07 - Opportunity Pipeline Sprint Closure`.
 ## CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page
 
 S14-04 adds the Angular foundation Opportunity Pipeline workflow at `/foundation/opportunities`. The page uses only `/api/crm/foundation/opportunities` for list/detail/create/update/progress/win/lose/cancel, includes a deterministic synthetic stage catalog, progresses only to the next stage, keeps terminal opportunities read-only, and preserves productive routes, DELETE, Portal Auth, Common DB, schema, real data and simulated Production guardrails.
@@ -697,5 +709,5 @@ S14-02 adds foundation-only Application orchestration and an in-memory Opportuni
 
 Next gate: CRM Sprint 14 S14-03 - Opportunity Foundation API.
 
-### Sprint 14 S14-03 — Opportunity Foundation API
+### Sprint 14 S14-03 ï¿½ Opportunity Foundation API
 Foundation-only Opportunity list/detail/create/update/progress/win/lose/cancel is exposed through `IOpportunityManagementService`. Productive Opportunity routes and DELETE remain unavailable. Next gate: `CRM Sprint 14 S14-04 - Opportunity Pipeline Frontend Foundation Page`.

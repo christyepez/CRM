@@ -68,3 +68,28 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado; no owner runtime. |
 | Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
 | Simulated Production | No tocado por S14-05; `crm-prod-sim` permanece fuera de alcance. |
+
+## Sprint 14 S14-06
+
+| Dependencia | Estado |
+|---|---|
+| Opportunity Foundation API | CREATE validado localmente por HTTP real bajo `/api/crm/foundation/opportunities`. |
+| Opportunity Frontend Foundation | CREATE validado localmente en `/foundation/opportunities` mediante proxy a `http://localhost:8093`. |
+| Productive Opportunity API | No activado; `/api/crm/opportunities` permanece no disponible. |
+| DELETE | No activado; rutas DELETE productivas y foundation permanecen no disponibles. |
+| Portal Auth runtime | REUSE diferido; no se observo token, header Authorization ni runtime Portal. |
+| Common DB runtime | Deshabilitado; FoundationOnly con store in-memory, sin EF, migraciones, schema changes ni SQL. |
+| Lead conversion | Diferido; no implementado ni invocado por S14-06. |
+| Account Management runtime | Diferido; no activado por S14-06. |
+| Assignment / Portal users | Diferido hasta Portal Auth runtime aprobado. |
+| Simulated Production | No tocado por S14-06; `crm-prod-sim` en `8094` permanecio fuera de alcance. |
+
+## Sprint 15 P1 - Campaign Management
+
+| Dependencia | Estado |
+|---|---|
+| Campaign domain concept | Existe como record conceptual `Campaign(Id, Name, ActiveRange)`; debe inventariarse antes de ampliar. |
+| Portal Catalog/Menu/Security | REUSE/EXTEND diferido; no activar runtime en P1. |
+| Lead/Opportunity attribution | Potencial valor futuro; P1 debe decidir incluir o diferir sin acoplamiento productivo. |
+| Common DB / Productive API | Deshabilitado; mantener FoundationOnly / NonProductionSeam. |
+| Simulated Production | Fuera de alcance; no tocar `crm-prod-sim`. |

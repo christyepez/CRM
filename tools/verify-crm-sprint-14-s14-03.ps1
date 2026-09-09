@@ -1,4 +1,4 @@
-﻿$ErrorActionPreference="Stop"
+$ErrorActionPreference="Stop"
 $root=Split-Path -Parent $PSScriptRoot
 Set-Location $root
 $required=@("src/CRM.Api/Foundation/OpportunityManagementApiContracts.cs","tests/CRM.UnitTests/OpportunityFoundationApiEndpointTests.cs","tests/CRM.ArchitectureTests/OpportunityApiArchitectureTests.cs","docs/roadmap/crm-sprint-14-s14-03-opportunity-foundation-api.md","codex/prompts/sprint-14-opportunity-pipeline-s14-04.md")
@@ -11,5 +11,5 @@ foreach($route in @("/api/crm/foundation/opportunities","/api/crm/foundation/opp
 foreach($m in @("IOpportunityManagementService","FoundationOpportunityCreateRequest","FoundationOpportunityUpdateRequest","FoundationOpportunityProgressRequest")){if(-not($program+$contracts).Contains($m)){throw "Missing S14-03 API marker $m"}}
 foreach($m in @("S1403Decision: Implemented","ProductiveOpportunityRouteEnabled: false","DeleteBehaviorAdded: false","PortalRuntimeEnabled: false","CommonDbRuntimeEnabled: false","SimulatedProductionTouched: false")){if(-not$doc.Contains($m)){throw "Missing S14-03 doc marker $m"}}
 foreach($m in @('MapGet("/api/crm/opportunities','MapPost("/api/crm/opportunities','MapPut("/api/crm/opportunities','MapDelete("/api/crm/opportunities','MapDelete("/api/crm/foundation/opportunities')){if($program.Contains($m)){throw "Forbidden Opportunity route marker $m"}}
-if(-not($n -match "CRM Sprint 14 S14-0[4-7]")){throw "next-task must point to S14-04 or later legitimate Sprint 14 phase"}
+if(-not(($n -match "CRM Sprint 14 S14-0[4-7]") -or ($n.Contains("CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog") -and $n.Contains("codex/prompts/sprint-15-campaign-management-p1.md") -and $n.Contains("S14-07 merge commit required")))){throw "next-task must point to legitimate Sprint 14 progression or approved Sprint 15 handoff"}
 Write-Host "CRM Sprint 14 S14-03 verification passed."

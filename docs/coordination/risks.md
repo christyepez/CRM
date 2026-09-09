@@ -14,3 +14,6 @@
 | PipelineStage solo existe como concepto/catalogo y puede generar reglas inconsistentes | Medio | S14-01 debe definir orden, unicidad y transiciones antes de servicios, API o UI. |
 | Catalogo sintetico de stages puede divergir del dominio si S14-05 no endurece paridad | Medio | S14-04 usa IDs/orden/nombres deterministas y S14-05 debe agregar guardrails cross-layer. |
 | UI foundation podria presentar acciones terminales repetidas | Medio | S14-04 oculta acciones para Won/Lost/Cancelled y deshabilita edicion; S14-05 debe cubrirlo. |
+| Opportunity Pipeline permanece FoundationOnly e in-memory tras S14-06 | Medio | Cerrar Sprint 14 como foundation-only en S14-07 y mantener Common DB/productive activation como gates separados. |
+| Validacion local S14-06 podria confundirse con disponibilidad productiva | Alto | Verificador S14-06 y docs preservan productive route false, DELETE false, Portal/CommonDB false y `crm-prod-sim` untouched. |
+| Campaign conceptual puede crecer sin reglas claras de lifecycle/fechas | Medio | Sprint 15 P1 debe fijar baseline y S15-01 reglas deterministas antes de servicio/API/UI. |

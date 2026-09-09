@@ -4,19 +4,19 @@ Repository:
 christyepez/CRM
 
 Phase:
-CRM Sprint 14 S14-07 - Opportunity Pipeline Sprint Closure
+CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
 
 Base Main Commit:
-S14-06 merge commit required
+S14-07 merge commit required
 
 Branch:
-crm-sprint-14-s14-07-opportunity-pipeline-sprint-closure
+crm-sprint-15-p1-campaign-management-functional-baseline
 
 Commit sugerido:
-docs(crm): close opportunity pipeline sprint
+docs(crm): define campaign management functional baseline
 
 PR title:
-CRM Sprint 14 S14-07 - Opportunity Pipeline Sprint Closure
+CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog
 
 Prompt File:
-codex/prompts/sprint-14-opportunity-pipeline-s14-07.md
+codex/prompts/sprint-15-campaign-management-p1.md

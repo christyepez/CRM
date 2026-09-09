@@ -6,6 +6,26 @@ Branch: crm-sprint-14-s14-06-opportunity-pipeline-local-integration-validation
 S1406Decision: Implemented
 OpportunityPipelineImplementationStatus: LocalIntegrationValidated
 OpportunityPipelineLocalIntegration: Validated
+BackendHealth: PASS
+FrontendOpportunityRouteStatus: 200
+FrontendToOpportunityApiConnectivity: PASS
+CreateScenario: PASS
+ReadAfterCreate: PASS
+UpdateScenario: PASS
+NoChangeScenario: PASS
+ProgressNextStage: PASS
+SameStageRejected: PASS
+SkipStageRejected: PASS
+WinScenario: PASS
+RepeatWin: PASS
+LoseScenario: PASS
+RepeatLose: PASS
+CancelScenario: PASS
+RepeatCancel: PASS
+TerminalUpdateRejected: PASS
+TerminalProgressRejected: PASS
+NotFoundScenario: PASS
+ValidationScenario: PASS
 
 ## Runtime topology
 LocalBackendUrl: http://localhost:8093
@@ -14,6 +34,8 @@ FrontendApiRoutingMode: Proxy
 RuntimePersistenceClassification: FoundationOnly
 ReadAfterWriteConsistent: true
 SyntheticDataOnly: true
+ProductiveOpportunityRouteAvailable: false
+DeleteRouteAvailable: false
 
 ## Executed scenarios
 - Backend health/live/ready: PASS
@@ -24,6 +46,10 @@ SyntheticDataOnly: true
 - Progress exactly one ordered stage: PASS
 - Same-stage and skipped-stage progression rejected: PASS
 - Win/repeat-win, lose/repeat-lose, cancel/repeat-cancel: PASS
+- POST `/progress`: PASS
+- POST `/win`: PASS
+- POST `/lose`: PASS
+- POST `/cancel`: PASS
 - Terminal update and terminal progression rejected: PASS
 - Not-found and validation safety: PASS
 - Read-after-write/list consistency: PASS
@@ -39,9 +65,13 @@ These values are local smoke evidence only and are not a production SLA.
 
 ## Guardrails
 ProductiveOpportunityRouteEnabled: false
+ProductiveOpportunityRouteAvailable: false
 DeleteBehaviorAdded: false
+DeleteRouteAvailable: false
+PortalRuntimeEnabled: false
 PortalRuntimeObserved: false
 TokenRuntimeObserved: false
+CommonDbRuntimeEnabled: false
 CommonDbRuntimeObserved: false
 EfRuntimeObserved: false
 SqlRuntimeObserved: false
