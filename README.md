@@ -735,3 +735,6 @@ S15-02 adds Campaign application orchestration and a synthetic in-memory Foundat
 Next gate: `CRM Sprint 15 S15-03 - Campaign Foundation API`.
 ### Sprint 15 S15-03
 Campaign Management now exposes a FoundationOnly API under `/api/crm/foundation/campaigns`; productive Campaign routes and DELETE remain disabled.
+
+### Sprint 15 S15-04 Campaign frontend foundation
+Campaign Management now has a foundation-only Angular page at `/foundation/campaigns` consuming only `/api/crm/foundation/campaigns`. Productive Campaign routes, DELETE, Portal runtime, Common DB and external connectors remain disabled.

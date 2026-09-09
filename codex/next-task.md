@@ -1,18 +1,16 @@
-# Next Task
+# Next CRM Task
 
-Task: CRM Sprint 15 S15-04 - Campaign Frontend Foundation Page
-Phase: Sprint 15 S15-04
-Repository: https://github.com/christyepez/CRM
-Base Main Commit: S15-03 merge commit required
-Branch: crm-sprint-15-s15-04-campaign-frontend-foundation-page
-Prompt: codex/prompts/sprint-15-campaign-management-s15-04.md
+Task: CRM Sprint 15 S15-05 - Campaign Test and Guardrail Hardening
+Phase: Sprint 15 S15-05
+Base Main Commit: S15-04 merge commit required
+Prompt: codex/prompts/sprint-15-campaign-management-s15-05.md
 
 Guardrails:
-- Foundation Campaign API only
-- no `/api/crm/campaigns`
+- Campaign remains FoundationOnly
+- no productive /api/crm/campaigns
 - no DELETE
-- no Portal Auth/token runtime
+- no Portal runtime
 - no Common DB/EF/SQL
 - no external marketing connectors
-- no Lead/Opportunity attribution mutation
-- do not touch `crm-prod-sim`
+- no real data
+- do not touch crm-prod-sim
