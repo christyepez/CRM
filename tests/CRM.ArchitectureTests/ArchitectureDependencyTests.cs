@@ -136,6 +136,7 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/contacts", program);
         Assert.Contains("/api/crm/foundation/activities", program);
         Assert.Contains("/api/crm/foundation/campaigns", program);
+        Assert.Contains("/api/crm/foundation/segments", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
@@ -145,7 +146,8 @@ public sealed class ArchitectureDependencyTests
             .Replace("MapPut(\"/api/crm/foundation/contacts/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/activities/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/opportunities/{id}\"", string.Empty, StringComparison.Ordinal)
-            .Replace("MapPut(\"/api/crm/foundation/campaigns/{id}\"", string.Empty, StringComparison.Ordinal));
+            .Replace("MapPut(\"/api/crm/foundation/campaigns/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/segments/{id}\"", string.Empty, StringComparison.Ordinal));
         Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("Create" + "Lead", program);

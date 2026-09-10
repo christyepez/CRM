@@ -5228,3 +5228,13 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Lifecycle activate/deactivate remains idempotent.
 - Productive Segment routes, DELETE, criteria execution, targeting, Portal/Common DB/real data/Production remain disabled.
 - Handoff: S17-03 Segment Foundation API.
+
+## Sprint 17 S17-03 - Segment Foundation API
+- Base: `3db119b395fe95486ee353ff4903e6f85e0ac819`.
+- Added explicit foundation Segment API DTOs and result/status mapping.
+- Added list/detail/create/update/activate/deactivate endpoints.
+- Registered typed Segment service and in-memory store in DI.
+- Added API and architecture tests for foundation-only routing.
+- Productive Segment routes and DELETE remain unavailable.
+- Criteria execution, targeting, auto-classification, Portal/Common DB/real data/Production remain disabled.
+- Handoff: S17-04 Segment Frontend Foundation Page.
