@@ -15,5 +15,5 @@ foreach($m in @('/api/crm/foundation/accounts','/api/crm/accounts','/foundation/
 if($result.BackendHealth -ne 'PASS' -or $result.FrontendToAccountApiConnectivity -ne 'PASS'){throw 'S16-06 runtime connectivity evidence failed.'}
 if(-not$result.ReadAfterWriteConsistent){throw 'S16-06 read-after-write evidence failed.'}
 if($result.ProductiveAccountRouteAvailable -or $result.DeleteRouteAvailable -or $result.PortalRuntimeObserved -or $result.CommonDbRuntimeObserved -or $result.ExternalConnectorRuntimeObserved -or $result.RealDataDetected -or $result.SimulatedProductionTouched){throw 'S16-06 safety evidence failed.'}
-if(-not($next.Contains('CRM Sprint 16 S16-07 - Account Management Sprint Closure') -and $next.Contains('codex/prompts/sprint-16-account-management-s16-07.md'))){throw 'Invalid S16-07 handoff.'}
+$s16=$next.Contains('CRM Sprint 16 S16-07 - Account Management Sprint Closure') -and $next.Contains('codex/prompts/sprint-16-account-management-s16-07.md'); $s17=$next.Contains('CRM Sprint 17 P1 - Segment Management Functional Baseline and Backlog') -and $next.Contains('codex/prompts/sprint-17-segment-management-p1.md'); if(-not($s16 -or $s17)){throw 'Invalid S16-07 handoff.'}
 Write-Host 'CRM Sprint 16 S16-06 verification passed.'
