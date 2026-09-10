@@ -15,5 +15,5 @@ if(-not($concept.Contains('public sealed record Segment') -and $concept.Contains
 if(-not($catalog.Contains('new("Segment"'))){throw 'Segment catalog evidence missing.'}
 foreach($f in @('MapGet("/api/crm/segments','MapPost("/api/crm/segments','MapPut("/api/crm/segments','MapDelete("/api/crm/segments','MapDelete("/api/crm/foundation/segments')){if($program.Contains($f)){throw "Forbidden Segment route detected: $f"}}
 foreach($m in @('CRM Sprint 17 S17-01 - Segment Contracts and Domain Rules','No DELETE','arbitrary criteria','/api/crm/segments','Common DB')){if(-not$prompt.Contains($m)){throw "S17-01 prompt missing $m"}}
-if(-not($next.Contains('CRM Sprint 17 S17-01 - Segment Contracts and Domain Rules') -and $next.Contains('codex/prompts/sprint-17-segment-management-s17-01.md'))){throw 'Invalid Sprint 17 S17-01 handoff.'}
+if(-not(($next -match 'CRM Sprint 17 S17-0[1-7]') -and ($next -match 'codex/prompts/sprint-17-segment-management-s17-0[1-7]\.md'))){throw 'Invalid Sprint 17 forward handoff.'}
 Write-Host 'CRM Sprint 17 P1 verification passed.'

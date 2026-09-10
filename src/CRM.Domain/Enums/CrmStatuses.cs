@@ -1,4 +1,4 @@
-﻿namespace CRM.Domain.Enums;
+namespace CRM.Domain.Enums;
 
 public enum LeadStatus
 {
@@ -66,4 +66,11 @@ public enum CampaignStatus
     Active = 1,
     Completed = 2,
     Cancelled = 3
+}
+
+public enum SegmentStatus
+{
+    Draft = 0,
+    Active = 1,
+    Inactive = 2
 }
