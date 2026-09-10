@@ -5171,3 +5171,21 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CommonDbRuntimeEnabled: false
 - SimulatedProductionTouched: false
 - Next: S16-05 Account Test and Guardrail Hardening
+
+## Sprint 16 S16-06 - Account Local Integration Validation
+- S1606Decision: Implemented
+- AccountManagementLocalIntegration: Validated
+- Angular 4200 -> proxy -> API 8093 -> Application -> Domain -> InMemoryAccountFoundationStore PASS.
+- Create/update/no-change/activate/deactivate/idempotency/error/negative routes PASS.
+- IntegrationLatencySamples: 15
+- LatencyAverageMs: 18.6
+- LatencyP95Ms: 72
+- ProductiveAccountRouteEnabled: false
+- DeleteBehaviorAdded: false
+- LeadConversionEnabled: false
+- AutomaticAccountCreationEnabled: false
+- ContactRelationshipMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Next: S16-07 Account Management Sprint Closure
