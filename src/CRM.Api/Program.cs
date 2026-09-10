@@ -13,6 +13,7 @@ using CRM.Application.Ports.Persistence;
 using CRM.Application.Ports.Portal;
 using CRM.Application.Portal;
 using CRM.Application.Reporting;
+using CRM.Application.SegmentManagement;
 using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
 using CRM.Domain.CampaignManagement;
@@ -47,6 +48,7 @@ builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
 builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
 builder.Services.AddSingleton<ICampaignManagementService, CampaignManagementService>();
+builder.Services.AddSingleton<ISegmentManagementService, SegmentManagementService>();
 builder.Services.AddSingleton<IOpportunityManagementService, OpportunityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
 builder.Services.AddSingleton<CrmSprint2IntegrationReadinessService>();
@@ -153,6 +155,7 @@ builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundation
 builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
 builder.Services.AddSingleton<IActivityFoundationStore, InMemoryActivityFoundationStore>();
 builder.Services.AddSingleton<ICampaignFoundationStore, InMemoryCampaignFoundationStore>();
+builder.Services.AddSingleton<ISegmentFoundationStore, InMemorySegmentFoundationStore>();
 builder.Services.AddSingleton<IOpportunityFoundationStore, InMemoryOpportunityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
 builder.Services.AddSingleton<ICrmPersistenceFeatureFlagProvider, StaticCrmPersistenceFeatureFlagProvider>();
@@ -475,6 +478,38 @@ app.MapPost("/api/crm/foundation/accounts/{id}/deactivate", async (string id, IA
 })
     .WithName("DeactivateCrmFoundationAccount");
 
+app.MapGet("/api/crm/foundation/segments", async (ISegmentManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
+    .WithName("GetCrmFoundationSegments");
+
+app.MapGet("/api/crm/foundation/segments/{id}", async (string id, ISegmentManagementService service, CancellationToken cancellationToken) =>
+{
+    var segment = await service.GetByIdAsync(id, cancellationToken);
+    return segment is null ? Results.NotFound() : Results.Ok(segment);
+}).WithName("GetCrmFoundationSegmentById");
+
+app.MapPost("/api/crm/foundation/segments", async (FoundationSegmentManagementCreateRequest request, ISegmentManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(SegmentManagementApiResponse.ToApplication(request), cancellationToken);
+    return Results.Json(SegmentManagementApiResponse.From(result), statusCode: SegmentManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationSegment");
+
+app.MapPut("/api/crm/foundation/segments/{id}", async (string id, FoundationSegmentManagementUpdateRequest request, ISegmentManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, SegmentManagementApiResponse.ToApplication(request), cancellationToken);
+    return Results.Json(SegmentManagementApiResponse.From(result), statusCode: SegmentManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationSegment");
+
+app.MapPost("/api/crm/foundation/segments/{id}/activate", async (string id, ISegmentManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ActivateAsync(id, cancellationToken);
+    return Results.Json(SegmentManagementApiResponse.From(result), statusCode: SegmentManagementApiResponse.ToStatusCode(result));
+}).WithName("ActivateCrmFoundationSegment");
+
+app.MapPost("/api/crm/foundation/segments/{id}/deactivate", async (string id, ISegmentManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.DeactivateAsync(id, cancellationToken);
+    return Results.Json(SegmentManagementApiResponse.From(result), statusCode: SegmentManagementApiResponse.ToStatusCode(result));
+}).WithName("DeactivateCrmFoundationSegment");
 app.MapGet("/api/crm/foundation/contacts", async (FoundationContactCrudService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken)))
     .WithName("GetCrmFoundationContacts");
 
