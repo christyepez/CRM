@@ -5206,3 +5206,16 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - RecommendedNextSliceId: S17-SEGMENT
 - RecommendedNextSlice: Segment Management Foundation
 - Next: Sprint 17 P1 Segment Management Functional Baseline and Backlog
+
+## CRM Sprint 17 P1 - Segment Management Functional Baseline
+- Base: `6340f0e724efee9d35ecd661215e86a46960a814`
+- SelectedSliceId: S17-SEGMENT
+- Decision: ReadyForS1701SegmentContractsAndDomainRules
+- Canonical fields: Id, Name, CriteriaSummary, Status
+- Lifecycle: Draft -> Active <-> Inactive
+- Productive Segment route: disabled
+- DELETE: disabled
+- Arbitrary criteria execution: disabled
+- Campaign targeting / Account auto-classification: deferred
+- Portal/Common DB/real data/Production: disabled
+- Next: S17-01 Segment Contracts and Domain Rules

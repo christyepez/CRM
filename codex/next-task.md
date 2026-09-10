@@ -1,17 +1,17 @@
 # Next Task
 
-CRM Sprint 17 P1 - Segment Management Functional Baseline and Backlog
+CRM Sprint 17 S17-01 - Segment Contracts and Domain Rules
 
-Base Main Commit: Sprint 16 S16-07 merge commit required
-Branch: crm-sprint-17-p1-segment-management-functional-baseline
-Prompt: codex/prompts/sprint-17-segment-management-p1.md
-Suggested commit: docs(crm): define segment management functional baseline
-PR title: CRM Sprint 17 P1 - Segment Management Functional Baseline and Backlog
+Base Main Commit: Sprint 17 P1 merge commit required
+Branch: crm-sprint-17-s17-01-segment-contracts-domain-rules
+Prompt: codex/prompts/sprint-17-segment-management-s17-01.md
+Suggested commit: feat(crm): add segment contracts and domain rules
+PR title: CRM Sprint 17 S17-01 - Segment Contracts and Domain Rules
 
 ## Intent
-Define the bounded Segment Management functional baseline, inventory the current conceptual Segment contract and prepare S17-01 contracts/domain rules without enabling runtime behavior.
+Implement only the Segment domain contracts and policy established by Sprint 17 P1.
 
 ## Guardrails
+- No Segment Application service/store/API/frontend yet.
 - No productive Segment route and no DELETE.
-- No Campaign targeting/linking, arbitrary criteria execution or Account auto-classification.
-- No Portal runtime, Common DB/EF/schema/SQL/real data, external connectors or Production changes.
+- No criteria execution, targeting, auto-classification, Portal/Common DB/real data/Production.
