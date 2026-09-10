@@ -5238,3 +5238,12 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Productive Segment routes and DELETE remain unavailable.
 - Criteria execution, targeting, auto-classification, Portal/Common DB/real data/Production remain disabled.
 - Handoff: S17-04 Segment Frontend Foundation Page.
+
+## Sprint 17 S17-04 - Segment Frontend Foundation Page
+- Status: Implemented locally; regression pending before PR.
+- Base: `6804a60cc2778c7f6b29e8a75d30b83c4a290018`.
+- Added Angular `/foundation/segments` route and typed foundation API service.
+- Added list/detail/create/update and activate/deactivate workflow.
+- Added Name 160 and CriteriaSummary 1000 validation.
+- Productive Segment route, DELETE, criteria execution, targeting, Account auto-classification, Portal/Common DB/real data/Production remain disabled.
+- Next: S17-05 Segment Test and Guardrail Hardening.

@@ -1,14 +1,14 @@
 # Next Task
 
-CRM Sprint 17 S17-04 - Segment Frontend Foundation Page
+CRM Sprint 17 S17-05 - Segment Test and Guardrail Hardening
 
-Base Main Commit: Sprint 17 S17-03 merge commit required
-Branch: crm-sprint-17-s17-04-segment-frontend-foundation-page
-Prompt: codex/prompts/sprint-17-segment-management-s17-04.md
-Suggested commit: feat(crm): add segment frontend foundation page
-PR title: CRM Sprint 17 S17-04 - Segment Frontend Foundation Page
+Base Main Commit: Sprint 17 S17-04 merge commit required
+Branch: crm-sprint-17-s17-05-segment-test-guardrail-hardening
+Prompt: codex/prompts/sprint-17-segment-management-s17-05.md
+Suggested commit: test(crm): harden segment management guardrails
+PR title: CRM Sprint 17 S17-05 - Segment Test and Guardrail Hardening
 
 ## Guardrails
-- Foundation Segment route/API only; no productive `/api/crm/segments`.
-- No DELETE, criteria execution, targeting or auto-classification.
-- No Portal runtime, Common DB, real data, connectors or Production changes.
+- Foundation-only Segment runtime.
+- No Productive Segment route and no DELETE.
+- No criteria execution, targeting, Account auto-classification, Portal/Common DB/real data/Production changes.

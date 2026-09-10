@@ -1584,7 +1584,7 @@ class OpportunityPipelineApiService {
               @for (opportunity of filteredOpportunities(); track opportunity.id) {
                 <button type="button" class="contact-list-item opportunity-list-item" [class.selected]="selectedOpportunityId() === opportunity.id" (click)="selectOpportunity(opportunity.id)">
                   <span class="contact-name">{{ opportunity.accountName }}</span>
-                  <span class="contact-meta">{{ formatMoney(opportunity) }} Â· {{ stageName(opportunity.stageId) }} Â· {{ opportunity.probability }}%</span>
+                  <span class="contact-meta">{{ formatMoney(opportunity) }} Ã‚Â· {{ stageName(opportunity.stageId) }} Ã‚Â· {{ opportunity.probability }}%</span>
                   <span class="contact-status">{{ opportunity.status }}</span>
                 </button>
               }
@@ -2076,6 +2076,118 @@ class OpportunityPipelinePageComponent {
   }
 }
 
+type SegmentStatus = 'Draft' | 'Active' | 'Inactive';
+interface FoundationSegment {
+  id: string;
+  name: string;
+  criteriaSummary: string;
+  status: SegmentStatus;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+interface FoundationSegmentRequest { name: string; criteriaSummary: string; }
+interface SegmentManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: SegmentStatus | null;
+  segment?: FoundationSegment | null;
+}
+@Injectable({ providedIn: 'root' })
+class SegmentManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/segments';
+  constructor(private readonly http: FoundationApiClient) {}
+  getSegments() { return this.http.get<FoundationSegment[]>(this.apiBaseUrl); }
+  getSegment(id: string) { return this.http.get<FoundationSegment>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createSegment(request: FoundationSegmentRequest) { return this.http.post<SegmentManagementApiResponse>(this.apiBaseUrl, request); }
+  updateSegment(id: string, request: FoundationSegmentRequest) { return this.http.put<SegmentManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  activateSegment(id: string) { return this.http.post<SegmentManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/activate`, {}); }
+  deactivateSegment(id: string) { return this.http.post<SegmentManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/deactivate`, {}); }
+}
+@Component({
+  standalone: true,
+  selector: 'crm-segment-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="segmentTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="segmentTitle">Segment Management</h1><p class="lede">Manage descriptive synthetic CRM Segments without executing criteria or assigning audiences.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="segmentListTitle">
+          <div class="panel-heading"><div><h2 id="segmentListTitle">Segments</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New segment</button></div>
+          @if (isLoading()) { <p class="feedback neutral">Loading foundation segments...</p> }
+          @else if (segments().length === 0) { <div class="empty-state"><p>No segments available yet.</p></div> }
+          @else { <div class="contact-list" aria-label="Foundation segment list">
+            @for (segment of segments(); track segment.id) {
+              <button type="button" class="contact-list-item" [class.selected]="selectedSegmentId() === segment.id" (click)="selectSegment(segment.id)">
+                <span class="contact-name">{{ segment.name }}</span><span class="contact-meta">{{ segment.criteriaSummary }}</span><span class="contact-status">{{ segment.status }}</span>
+              </button>
+            }
+          </div> }
+        </section>
+        <section class="panel" aria-labelledby="segmentFormTitle">
+          <div class="panel-heading"><div><h2 id="segmentFormTitle">{{ isCreateMode() ? 'New segment' : 'Segment details' }}</h2></div>@if (selectedSegment(); as segment) { <span class="scope-pill quiet">{{ segment.status }}</span> }</div>
+          <form [formGroup]="segmentForm" (ngSubmit)="submitSegment()" novalidate>
+            <label for="segmentName">Name</label><input id="segmentName" type="text" maxlength="160" formControlName="name" />
+            <label for="segmentCriteria">Criteria summary</label><textarea id="segmentCriteria" maxlength="1000" rows="6" formControlName="criteriaSummary"></textarea>
+            @if (validationMessage(); as message) { <p class="validation" aria-live="polite">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || segmentForm.invalid">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create segment' : 'Save segment') }}</button>
+          </form>
+          @if (selectedSegment(); as segment) {
+            <div class="opportunity-actions" aria-label="Segment lifecycle actions">
+              @if (segment.status === 'Draft' || segment.status === 'Inactive') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="activateSelected()">Activate segment</button> }
+              @if (segment.status === 'Active') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="deactivateSelected()">Deactivate segment</button> }
+            </div>
+          }
+          @if (operationMessage(); as message) { <section class="result-panel compact-result" aria-live="polite"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class SegmentManagementPageComponent {
+  readonly segments = signal<FoundationSegment[]>([]);
+  readonly selectedSegmentId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+  readonly segmentForm = this.formBuilder.nonNullable.group({
+    name: ['', [Validators.required, Validators.maxLength(160)]],
+    criteriaSummary: ['', [Validators.required, Validators.maxLength(1000)]]
+  });
+  constructor(private readonly api: SegmentManagementApiService, private readonly formBuilder: FormBuilder) { this.loadSegments(); this.startCreate(); }
+  selectedSegment() { const id=this.selectedSegmentId(); return id ? this.segments().find(x=>x.id===id) ?? null : null; }
+  startCreate() { this.isCreateMode.set(true); this.selectedSegmentId.set(null); this.safeError.set(null); this.operationMessage.set(null); this.segmentForm.reset({name:'',criteriaSummary:''}); }
+  selectSegment(id: string) { this.isCreateMode.set(false); this.selectedSegmentId.set(id); this.safeError.set(null); this.operationMessage.set(null); this.api.getSegment(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))}); }
+  validationMessage() {
+    if(!this.segmentForm.touched) return null;
+    const c=this.segmentForm.controls;
+    if(c.name.invalid) return 'Enter a Segment name with 160 characters or less.';
+    if(c.criteriaSummary.invalid) return 'Enter descriptive criteria with 1000 characters or less.';
+    return null;
+  }
+  submitSegment() {
+    this.segmentForm.markAllAsTouched(); if(this.segmentForm.invalid || this.isSubmitting()) return;
+    const value=this.segmentForm.getRawValue(); const request: FoundationSegmentRequest={name:value.name.trim(),criteriaSummary:value.criteriaSummary.trim()};
+    this.isSubmitting.set(true); this.safeError.set(null); this.operationMessage.set(null);
+    const op=this.isCreateMode()?this.api.createSegment(request):this.api.updateSegment(this.selectedSegmentId()??'',request);
+    op.subscribe({next:r=>this.apply(r,r.changed?'Segment saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});
+  }
+  activateSelected(){this.runLifecycle('Active',x=>this.api.activateSegment(x.id),'Segment activated');}
+  deactivateSelected(){this.runLifecycle('Inactive',x=>this.api.deactivateSegment(x.id),'Segment deactivated');}
+  private loadSegments(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getSegments().subscribe({next:x=>{this.segments.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Segment workflow unavailable',message:'Foundation segments could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(segment: FoundationSegment){this.segmentForm.reset({name:segment.name,criteriaSummary:segment.criteriaSummary});}
+  private upsert(segment: FoundationSegment){this.segments.update(xs=>[segment,...xs.filter(x=>x.id!==segment.id)]);}
+  private apply(response: SegmentManagementApiResponse,title:string){if(response.segment){this.upsert(response.segment);this.selectedSegmentId.set(response.segment.id);this.isCreateMode.set(false);this.populate(response.segment);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Segment workflow completed successfully.'});this.isSubmitting.set(false);this.loadSegments(false);}
+  private runLifecycle(expected: SegmentStatus,action:(segment:FoundationSegment)=>ReturnType<SegmentManagementApiService['activateSegment']>,title:string){const segment=this.selectedSegment();if(!segment||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);action(segment).subscribe({next:r=>this.apply(r,r.status===expected?title:'Segment updated'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Segment fields before saving.'};if(error.status===404)return{title:'Segment not found',message:'The selected Segment was not found.'};if(error.status===409)return{title:'Transition not permitted',message:'The Segment cannot move to that lifecycle state.'};}return{title:'Segment workflow unavailable',message:'The foundation Segment service could not process the request.'};}
+}
+
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -2146,7 +2258,7 @@ interface AccountManagementApiResponse {
               @for (account of accounts(); track account.id) {
                 <button type="button" class="contact-list-item" [class.selected]="selectedAccountId() === account.id" (click)="selectAccount(account.id)">
                   <span class="contact-name">{{ account.name }}</span>
-                  <span class="contact-meta">{{ account.taxId || 'No TaxId' }} · {{ account.industry || 'No industry' }}</span>
+                  <span class="contact-meta">{{ account.taxId || 'No TaxId' }} Â· {{ account.industry || 'No industry' }}</span>
                   <span class="contact-status">{{ account.status }}</span>
                 </button>
               }
@@ -2421,7 +2533,7 @@ class CampaignManagementApiService {
               @for (campaign of campaigns(); track campaign.id) {
                 <button type="button" class="contact-list-item" [class.selected]="selectedCampaignId() === campaign.id" (click)="selectCampaign(campaign.id)">
                   <span class="contact-name">{{ campaign.name }}</span>
-                  <span class="contact-meta">{{ campaign.startDate }} â†’ {{ campaign.endDate }}</span>
+                  <span class="contact-meta">{{ campaign.startDate }} Ã¢â€ â€™ {{ campaign.endDate }}</span>
                   <span class="contact-status">{{ campaign.status }}</span>
                 </button>
               }
@@ -2791,7 +2903,7 @@ class ActivityManagementApiService {
               @for (activity of filteredActivities(); track activity.id) {
                 <button type="button" class="contact-list-item" [class.selected]="selectedActivityId() === activity.id" (click)="selectActivity(activity.id)">
                   <span class="contact-name">{{ activity.subject }}</span>
-                  <span class="contact-meta">{{ activity.type }} Â· {{ targetLabel(activity) }} Â· {{ formatDate(activity.scheduledAtUtc) }}</span>
+                  <span class="contact-meta">{{ activity.type }} Ã‚Â· {{ targetLabel(activity) }} Ã‚Â· {{ formatDate(activity.scheduledAtUtc) }}</span>
                   <span class="contact-status">{{ statusLabel(activity) }}</span>
                 </button>
               }
@@ -3127,7 +3239,7 @@ class ActivityManagementPageComponent {
 
   statusLabel(activity: FoundationActivity) {
     if (activity.status === 'Scheduled' && new Date(activity.scheduledAtUtc).getTime() < Date.now()) {
-      return 'Scheduled Â· overdue';
+      return 'Scheduled Ã‚Â· overdue';
     }
 
     return activity.status;
@@ -3273,10 +3385,10 @@ class ActivityManagementPageComponent {
 
   private displayTargetName(id: string, type: ActivityTargetType) {
     if (type === 'Lead') {
-      return this.leads().find(lead => lead.id === id) ? `Â· ${this.leadLabel(this.leads().find(lead => lead.id === id)!)} ` : id;
+      return this.leads().find(lead => lead.id === id) ? `Ã‚Â· ${this.leadLabel(this.leads().find(lead => lead.id === id)!)} ` : id;
     }
 
-    return this.contacts().find(contact => contact.id === id) ? `Â· ${this.contactLabel(this.contacts().find(contact => contact.id === id)!)} ` : id;
+    return this.contacts().find(contact => contact.id === id) ? `Ã‚Â· ${this.contactLabel(this.contacts().find(contact => contact.id === id)!)} ` : id;
   }
 
   private toDateTimeLocal(value: string) {
@@ -4562,6 +4674,7 @@ const routes: Routes = [
   { path: 'foundation/activities', component: ActivityManagementPageComponent },
   { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
   { path: 'foundation/campaigns', component: CampaignManagementPageComponent },
+  { path: 'foundation/segments', component: SegmentManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
