@@ -1,12 +1,14 @@
 # Next Task
 
-CRM Sprint 17 S17-02 - Segment Application Service and Foundation Store
+CRM Sprint 17 S17-03 - Segment Foundation API
 
-Base Main Commit: Sprint 17 S17-01 merge commit required
-Branch: crm-sprint-17-s17-02-segment-application-foundation-store
-Prompt: codex/prompts/sprint-17-segment-management-s17-02.md
-Suggested commit: feat(crm): add segment application service and foundation store
-PR title: CRM Sprint 17 S17-02 - Segment Application Service and Foundation Store
+Base Main Commit: Sprint 17 S17-02 merge commit required
+Branch: crm-sprint-17-s17-03-segment-foundation-api
+Prompt: codex/prompts/sprint-17-segment-management-s17-03.md
+Suggested commit: feat(crm): add segment foundation api
+PR title: CRM Sprint 17 S17-03 - Segment Foundation API
 
-## Intent
-Add typed Segment Application orchestration and foundation-only in-memory persistence while preserving all Sprint 17 guardrails.
+## Guardrails
+- Foundation Segment routes only; no `/api/crm/segments`.
+- No DELETE, criteria execution, targeting or automatic classification.
+- No Portal runtime, Common DB, real data, connectors or Production changes.
