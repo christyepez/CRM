@@ -1,15 +1,17 @@
 # Next Task
 
-CRM Sprint 17 S17-07 - Segment Management Sprint Closure
+CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog
 
-Base Main Commit: Sprint 17 S17-06 merge commit required
-Branch: crm-sprint-17-s17-07-segment-management-sprint-closure
-Prompt: codex/prompts/sprint-17-segment-management-s17-07.md
-Suggested commit: docs(crm): close segment management sprint
-PR title: CRM Sprint 17 S17-07 - Segment Management Sprint Closure
+Base Main Commit: Sprint 17 S17-07 merge commit required
+Branch: crm-sprint-18-p1-case-management-functional-baseline
+Prompt: codex/prompts/sprint-18-case-management-p1.md
+Suggested commit: docs(crm): define case management functional baseline
+PR title: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog
 
 ## Guardrails
-- Foundation-only Segment runtime.
-- No productive Segment route and no DELETE.
-- Criteria execution, Campaign targeting and Account auto-classification remain disabled.
-- Portal runtime, Common DB, real data, connectors and production activation remain disabled.
+- Foundation-only Case planning in P1; no Case runtime activation.
+- No productive Case route and no DELETE.
+- No automatic Customer conversion or mutation.
+- Portal Auth/users/assignment runtime remains disabled.
+- Common DB/EF/migrations/schema/SQL/real data remain disabled.
+- External connectors, `crm-prod-sim`, port 8094 and real Production remain disabled.
