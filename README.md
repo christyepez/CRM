@@ -4,6 +4,12 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 17 Closure - Segment Management
+
+Sprint 17 Segment Management is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local HTTP integration are complete for Segment create/update/activate/deactivate with Name, CriteriaSummary and Draft/Active/Inactive lifecycle semantics. Productive Segment routes, DELETE, criteria execution, Campaign targeting, Account auto-classification, Portal Auth runtime, Common DB/EF/SQL, real data, connectors and Production remain disabled/untouched.
+
+Next business slice: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.
