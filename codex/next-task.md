@@ -1,17 +1,17 @@
 # Next Task
 
-CRM Sprint 16 S16-07 - Account Management Sprint Closure
+CRM Sprint 17 P1 - Segment Management Functional Baseline and Backlog
 
-Base Main Commit: Sprint 16 S16-06 merge commit required
-Branch: crm-sprint-16-s16-07-account-management-sprint-closure
-Prompt: codex/prompts/sprint-16-account-management-s16-07.md
-Suggested commit: docs(crm): close account management sprint
-PR title: CRM Sprint 16 S16-07 - Account Management Sprint Closure
+Base Main Commit: Sprint 16 S16-07 merge commit required
+Branch: crm-sprint-17-p1-segment-management-functional-baseline
+Prompt: codex/prompts/sprint-17-segment-management-p1.md
+Suggested commit: docs(crm): define segment management functional baseline
+PR title: CRM Sprint 17 P1 - Segment Management Functional Baseline and Backlog
 
 ## Intent
-Close the Account Management foundation slice after integrated regression and local HTTP evidence, then select the next bounded business capability.
+Define the bounded Segment Management functional baseline, inventory the current conceptual Segment contract and prepare S17-01 contracts/domain rules without enabling runtime behavior.
 
 ## Guardrails
-- Productive `/api/crm/accounts` and DELETE remain unavailable.
-- No Lead conversion, automatic Account creation or Contact relationship mutation.
-- No Portal runtime, Common DB/EF/schema/SQL/real data, connectors or Production changes.
+- No productive Segment route and no DELETE.
+- No Campaign targeting/linking, arbitrary criteria execution or Account auto-classification.
+- No Portal runtime, Common DB/EF/schema/SQL/real data, external connectors or Production changes.
