@@ -5219,3 +5219,12 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Campaign targeting / Account auto-classification: deferred
 - Portal/Common DB/real data/Production: disabled
 - Next: S17-01 Segment Contracts and Domain Rules
+## Sprint 17 S17-02 - Segment Application Service and Foundation Store
+- Base: `4fd461e7852b79fd5add14dd9d83141c07138bc0`
+- Added typed `ISegmentManagementService` and application contracts.
+- Added `ISegmentFoundationStore` with deterministic in-memory seed.
+- Added `SegmentManagementService` orchestration through `SegmentManagementPolicy`.
+- Invalid/not-found/no-change paths do not persist unintended writes.
+- Lifecycle activate/deactivate remains idempotent.
+- Productive Segment routes, DELETE, criteria execution, targeting, Portal/Common DB/real data/Production remain disabled.
+- Handoff: S17-03 Segment Foundation API.
