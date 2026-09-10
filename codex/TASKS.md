@@ -5247,3 +5247,21 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Added Name 160 and CriteriaSummary 1000 validation.
 - Productive Segment route, DELETE, criteria execution, targeting, Account auto-classification, Portal/Common DB/real data/Production remain disabled.
 - Next: S17-05 Segment Test and Guardrail Hardening.
+
+## Sprint 17 S17-05 - Segment Test and Guardrail Hardening
+- Status: Implemented
+- Base: `6b15324f4d98c254a9af0fa971fc61a7b14039f8`
+- Added Segment API hardening tests for no-change, lifecycle idempotency, lifecycle conflict and missing update.
+- Added cross-layer Segment guardrails for frontend/API/Application alignment.
+- Productive Segment routes and DELETE remain unavailable.
+- Criteria execution, targeting, Account auto-classification, Portal/Common DB/real data/connectors/Production remain disabled.
+- Next: S17-06 Segment Local Integration Validation.
+
+## Sprint 17 S17-05 — Segment Test and Guardrail Hardening
+- Status: Implemented; validation pending final regression before merge.
+- Base: `6b15324f4d98c254a9af0fa971fc61a7b14039f8`.
+- Added Segment cross-layer guardrails and API hardening coverage.
+- Explicitly validates no-change, lifecycle idempotency, Draft deactivation conflict and missing update 404.
+- Productive Segment, DELETE, criteria execution, Campaign targeting and Account auto-classification remain disabled.
+- Portal/Common DB/real data/connectors/Production remain disabled.
+- Next: S17-06 Segment Local Integration Validation.
