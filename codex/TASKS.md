@@ -5284,3 +5284,19 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - RecommendedNextSliceId: S18-CASE
 - RecommendedNextSlice: Case Management Foundation
 - Next: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
+
+## CRM Sprint 18 P1 - Case Management Functional Baseline
+- Base: `7be7140`
+- SelectedSliceId: S18-CASE
+- Decision: ReadyForS1801CaseContractsAndDomainRules
+- Repository evidence lists Case/Cases in CRM model, README capabilities and backlog.
+- No dedicated Case domain policy, Application service, typed foundation store, foundation API or Angular workflow found.
+- Canonical fields: Id, CustomerId, Title, Summary, Priority, Status
+- Priority: Low, Medium, High, Critical
+- Lifecycle: Open -> InProgress -> Resolved -> Closed
+- Productive Case route: disabled
+- Foundation Case route by P1: disabled
+- DELETE: disabled
+- Customer conversion/mutation, assignment, SLA and notification runtime: disabled
+- Portal/Common DB/real data/connectors/port 8094/Production: disabled
+- Next: S18-01 Case Contracts and Domain Rules

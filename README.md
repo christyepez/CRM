@@ -10,6 +10,14 @@ Sprint 17 Segment Management is closed successfully as a foundation-only busines
 
 Next business slice: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
 
+## CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog
+
+Sprint 18 starts Case Management as a foundation-only business slice. P1 inventories Case as a documented CRM capability with no dedicated domain policy, Application service, foundation store, API or Angular workflow, and defines the first executable story without activating runtime Case routes, DELETE, Portal Auth, Common DB/EF/schema/SQL, real data, external connectors, port 8094 or Production.
+
+Canonical foundation proposal: CustomerId + Title + Summary + Priority + Status with Low/Medium/High/Critical priority and Open/InProgress/Resolved/Closed lifecycle.
+
+Next gate: `CRM Sprint 18 S18-01 - Case Contracts and Domain Rules`.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.
