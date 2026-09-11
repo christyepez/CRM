@@ -8,3 +8,4 @@
 | OI-004 | Confirmar rutas reales de auditoria y notificaciones. | Agent 01 | Open |
 | OI-005 | Definir en Sprint 14 si Opportunity Pipeline foundation referencia Lead/Contact sinteticos por IDs o solo captura cuenta/nombre comercial hasta activar dependencias reales. | Agent 00 | Closed in P1: referencias sinteticas opcionales y cuenta/nombre comercial hasta aprobaciones futuras. |
 | OI-006 | Activar Case API foundation despues de validar S18-02 service/store merge. | Agent 02 | Closed in S18-03: `/api/crm/foundation/cases` added foundation-only |
+| OI-007 | Activar Interaction API foundation despues de validar S19-02 service/store merge. | Agent 02 | Open |

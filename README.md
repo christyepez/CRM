@@ -4,6 +4,18 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
+
+S19-01 adds authoritative Interaction Management domain contracts and deterministic create/update/void lifecycle rules. Interactions capture `RelatedEntityType` + related GUID, Channel, Direction, Subject, Summary and UTC OccurredAt; create records as `Recorded`, update is allowed only while `Recorded`, void changes `Recorded` to `Voided`, and repeated void is idempotent with `Changed=false`.
+
+The story is domain-only: no Interaction Application service/store, API, Angular page, productive route, DELETE, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+## CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+
+S19-02 adds Interaction Management application orchestration and a deterministic in-memory Foundation store over the S19-01 domain policy. The service supports list/detail/create/update/void, suppresses writes for invalid, missing, rejected and `Changed=false` outcomes, and seeds only synthetic Interaction records. No Interaction API/frontend route, productive route, DELETE, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 19 S19-03 - Interaction Foundation API`.
+
 ## CRM Sprint 17 Closure - Segment Management
 
 Sprint 17 Segment Management is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local HTTP integration are complete for Segment create/update/activate/deactivate with Name, CriteriaSummary and Draft/Active/Inactive lifecycle semantics. Productive Segment routes, DELETE, criteria execution, Campaign targeting, Account auto-classification, Portal Auth runtime, Common DB/EF/SQL, real data, connectors and Production remain disabled/untouched.

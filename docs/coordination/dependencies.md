@@ -121,3 +121,32 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
 | External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
 | Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
+
+## Sprint 19 S19-01 - Interaction Management
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | REUSE/EXTEND/ADAPT revisado; Security, Menu, Configuration, Audit, Notification y Content/File runtime quedan diferidos. |
+| Interaction Management domain | CREATE propio de CRM; contratos y `InteractionManagementPolicy` son autoridad de reglas. |
+| Related CRM entities | Referencia por `RelatedEntityType` + GUID solamente; sin lectura, validacion externa ni mutacion de Customers/Contacts/Leads/Opportunities/Cases. |
+| Activity scheduling | Fuera de alcance; Interactions registran ocurrencia historica y no crean Activities. |
+| Interaction Application/store/API/Angular | Diferido a historias posteriores; no activado por S19-01. |
+| Productive route / DELETE | Deshabilitado; no se agregaron rutas ni comportamiento DELETE. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
+| Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
+
+## Sprint 19 S19-02 - Interaction Management
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | REUSE/EXTEND/ADAPT revisado; Security, Menu, Configuration, Audit, Notification y Content/File runtime quedan diferidos. |
+| Interaction Management domain | CREATE propio de CRM; `InteractionManagementPolicy` permanece como autoridad de reglas. |
+| Interaction Application service/store | CREATE foundation-only con `IInteractionManagementService`, `IInteractionFoundationStore` e in-memory synthetic seed. |
+| Related CRM entities | Referencia por `RelatedEntityType` + GUID solamente; sin lectura, validacion externa ni mutacion de Customers/Contacts/Leads/Opportunities/Cases. |
+| Activity scheduling | Fuera de alcance; no se crean ni modifican Activities. |
+| Interaction API / Angular | Diferido a historias posteriores; no activado por S19-02. |
+| Productive route / DELETE | Deshabilitado; no se agregaron rutas ni comportamiento DELETE. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
+| Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |

@@ -5379,3 +5379,68 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CrmProdSimTouched: false
 - Port8094Touched: false
 - Next: S18-04 Case Frontend Foundation Page
+
+## CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
+- S1901Decision: Implemented
+- InteractionManagementDomain: Implemented
+- InteractionManagementPolicy: Implemented
+- Enums: RelatedEntityType, Channel, Direction, Status, Operation
+- Validation: Subject max 160, Summary max 2000, related GUID non-empty, UTC occurred timestamp required and not future
+- Lifecycle: Create -> Recorded; Update only Recorded; Void Recorded -> Voided; repeated Void Changed=false
+- DeterministicTimePolicy: command-supplied `EvaluatedAtUtc`
+- InteractionApplicationService: NotImplemented
+- InteractionFoundationStore: NotImplemented
+- InteractionApi: NotImplemented
+- InteractionFrontend: NotImplemented
+- ProductiveInteractionRouteEnabled: false
+- DeleteBehaviorAdded: false
+- ActivitySchedulingEnabled: false
+- CrossEntityMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- UnitTestsAfter: 566
+- ArchitectureTestsAfter: 152
+- S1901FocusedInteractionTests: 38 PASS
+- NextTaskPhase: CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+- NextTaskPromptFile: codex/prompts/sprint-19-interaction-management-s19-02.md
+
+## CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+- S1902Decision: Implemented
+- InteractionApplicationService: Implemented
+- InteractionFoundationStore: Implemented
+- Added explicit `IInteractionManagementService` and create/update result contracts.
+- Added `IInteractionFoundationStore` and `InMemoryInteractionFoundationStore` with deterministic synthetic seed data only.
+- Added `InteractionManagementService` orchestration for list/detail/create/update/void through `InteractionManagementPolicy`.
+- Invalid, missing, rejected and `Changed=false` evaluations suppress persistence.
+- Interaction service/store registered in DI for later foundation API use.
+- InteractionApi: NotImplemented
+- InteractionFrontend: NotImplemented
+- ProductiveInteractionRouteEnabled: false
+- FoundationInteractionRouteEnabled: false
+- DeleteBehaviorAdded: false
+- ActivitySchedulingEnabled: false
+- CrossEntityMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- S1902FocusedInteractionUnitTests: 43 PASS
+- S1902FocusedInteractionArchitectureTests: 4 PASS
+- ReleaseBuild: PASS
+- NextTaskPhase: CRM Sprint 19 S19-03 - Interaction Foundation API
