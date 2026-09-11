@@ -1,14 +1,14 @@
-﻿# Next Task
+# Next Task
 
-CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
+CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
 
-Branch: crm-sprint-19-s19-01-interaction-contracts-domain-rules
-Prompt: codex/prompts/sprint-19-interaction-management-s19-01.md
-Suggested commit: feat(crm): add interaction contracts and domain rules
+Branch: crm-sprint-19-s19-02-interaction-application-foundation-store
+Prompt: codex/prompts/sprint-19-interaction-management-s19-02.md
+Suggested commit: feat(crm): add interaction application service and foundation store
 
 ## Guardrails
-- Domain-only Interaction slice.
+- Foundation-only Application/store slice.
+- No Interaction API/frontend route yet.
 - No productive Interaction route or DELETE.
-- Do not duplicate Activity scheduling/follow-up semantics.
-- Related CRM ids are structural references only; no cross-entity mutation.
+- No Activity scheduling or cross-entity mutation.
 - Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 and Production remain disabled.
