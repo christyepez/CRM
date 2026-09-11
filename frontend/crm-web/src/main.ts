@@ -2313,6 +2313,107 @@ class CaseManagementPageComponent {
   private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review CustomerId, Title, Summary and Priority before saving.'};if(error.status===404)return{title:'Case not found',message:'The selected Case was not found. Refresh the list.'};if(error.status===409)return{title:'Transition not permitted',message:'The Case cannot be modified or moved to that lifecycle state.'};}return{title:'Case workflow unavailable',message:'The foundation Case service could not process the request.'};}
 }
 
+type InteractionStatus = 'Recorded' | 'Voided';
+type InteractionRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+type InteractionChannel = 'Email' | 'Phone' | 'Meeting' | 'Chat' | 'Other';
+type InteractionDirection = 'Inbound' | 'Outbound';
+interface FoundationInteraction {
+  id: string; relatedEntityType: InteractionRelatedEntityType; relatedEntityId: string;
+  channel: InteractionChannel; direction: InteractionDirection; subject: string; summary: string;
+  occurredAtUtc: string; status: InteractionStatus; persistenceMode: string; productiveCrudEnabled: boolean;
+}
+interface FoundationInteractionRequest {
+  relatedEntityType: InteractionRelatedEntityType; relatedEntityId: string; channel: InteractionChannel;
+  direction: InteractionDirection; subject: string; summary: string; occurredAtUtc: string;
+}
+interface InteractionManagementApiResponse {
+  id?: string | null; operation: string; allowed: boolean; changed: boolean; errorCode: string; message: string;
+  status?: InteractionStatus | null; interaction?: FoundationInteraction | null;
+}
+@Injectable({ providedIn: 'root' })
+class InteractionManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/interactions';
+  constructor(private readonly http: FoundationApiClient) {}
+  getInteractions() { return this.http.get<FoundationInteraction[]>(this.apiBaseUrl); }
+  getInteraction(id: string) { return this.http.get<FoundationInteraction>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createInteraction(request: FoundationInteractionRequest) { return this.http.post<InteractionManagementApiResponse>(this.apiBaseUrl, request); }
+  updateInteraction(id: string, request: FoundationInteractionRequest) { return this.http.put<InteractionManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  voidInteraction(id: string) { return this.http.post<InteractionManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/void`, {}); }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-interaction-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="interactionTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="interactionTitle">Interaction Management</h1><p class="lede">Record synthetic CRM touchpoints without scheduling Activities or mutating related entities.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Interactions</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New interaction</button></div>
+          @if (isLoading()) { <p class="feedback neutral">Loading foundation interactions...</p> }
+          @else if (interactions().length === 0) { <div class="empty-state"><p>No interactions available yet.</p></div> }
+          @else { <div class="contact-list">@for (item of interactions(); track item.id) {<button type="button" class="contact-list-item" [class.selected]="selectedInteractionId() === item.id" (click)="selectInteraction(item.id)"><span class="contact-name">{{ item.subject }}</span><span class="contact-meta">{{ item.channel }} Â· {{ item.direction }} Â· {{ item.relatedEntityType }}</span><span class="contact-status">{{ item.status }}</span></button>}</div> }
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New interaction' : 'Interaction details' }}</h2></div>@if (selectedInteraction(); as item) { <span class="scope-pill quiet">{{ item.status }}</span> }</div>
+          <form [formGroup]="interactionForm" (ngSubmit)="submitInteraction()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>Channel</label><select formControlName="channel"><option>Email</option><option>Phone</option><option>Meeting</option><option>Chat</option><option>Other</option></select>
+            <label>Direction</label><select formControlName="direction"><option>Inbound</option><option>Outbound</option></select>
+            <label>Subject</label><input type="text" maxlength="160" formControlName="subject" />
+            <label>Summary</label><textarea maxlength="2000" rows="5" formControlName="summary"></textarea>
+            <label>Occurred at UTC</label><input type="datetime-local" formControlName="occurredAtUtc" />
+            @if (validationMessage(); as message) { <p class="validation">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || interactionForm.invalid">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create interaction' : 'Save interaction') }}</button>
+          </form>
+          @if (selectedInteraction(); as item) {@if (item.status === 'Recorded') { <div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="voidSelected()">Void interaction</button></div> }}
+          @if (operationMessage(); as message) { <section class="result-panel compact-result"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class InteractionManagementPageComponent {
+  readonly interactions = signal<FoundationInteraction[]>([]);
+  readonly selectedInteractionId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+  readonly interactionForm = this.formBuilder.nonNullable.group({
+    relatedEntityType: ['Contact' as InteractionRelatedEntityType, Validators.required],
+    relatedEntityId: ['', Validators.required],
+    channel: ['Email' as InteractionChannel, Validators.required],
+    direction: ['Outbound' as InteractionDirection, Validators.required],
+    subject: ['', [Validators.required, Validators.maxLength(160)]],
+    summary: ['', [Validators.required, Validators.maxLength(2000)]],
+    occurredAtUtc: ['', Validators.required]
+  });
+  constructor(private readonly api: InteractionManagementApiService, private readonly formBuilder: FormBuilder) { this.loadInteractions(); this.startCreate(); }
+  selectedInteraction() { const id=this.selectedInteractionId(); return id ? this.interactions().find(x=>x.id===id) ?? null : null; }
+  startCreate() { this.isCreateMode.set(true); this.selectedInteractionId.set(null); this.safeError.set(null); this.operationMessage.set(null); this.interactionForm.reset({relatedEntityType:'Contact',relatedEntityId:'',channel:'Email',direction:'Outbound',subject:'',summary:'',occurredAtUtc:''}); }
+  selectInteraction(id:string){this.isCreateMode.set(false);this.selectedInteractionId.set(id);this.safeError.set(null);this.operationMessage.set(null);this.api.getInteraction(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))});}
+  validationMessage(){if(!this.interactionForm.touched)return null;const c=this.interactionForm.controls;if(c.relatedEntityId.invalid)return 'Enter a valid related entity id.';if(c.subject.invalid)return 'Enter a subject with 160 characters or less.';if(c.summary.invalid)return 'Enter a summary with 2000 characters or less.';if(c.occurredAtUtc.invalid)return 'Enter the interaction timestamp.';return null;}
+  submitInteraction(){
+    this.interactionForm.markAllAsTouched(); if(this.interactionForm.invalid||this.isSubmitting())return;
+    const v=this.interactionForm.getRawValue(); const request:FoundationInteractionRequest={
+      relatedEntityType:v.relatedEntityType, relatedEntityId:v.relatedEntityId.trim(), channel:v.channel, direction:v.direction,
+      subject:v.subject.trim(), summary:v.summary.trim(), occurredAtUtc:new Date(v.occurredAtUtc).toISOString()
+    };
+    this.isSubmitting.set(true); this.safeError.set(null); this.operationMessage.set(null);
+    const op=this.isCreateMode()?this.api.createInteraction(request):this.api.updateInteraction(this.selectedInteractionId()??'',request);
+    op.subscribe({next:r=>this.apply(r,r.changed?'Interaction saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});
+  }
+  voidSelected(){const item=this.selectedInteraction();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);this.api.voidInteraction(item.id).subscribe({next:r=>this.apply(r,r.changed?'Interaction voided':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private loadInteractions(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getInteractions().subscribe({next:x=>{this.interactions.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Interaction workflow unavailable',message:'Foundation interactions could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item:FoundationInteraction){this.interactionForm.reset({relatedEntityType:item.relatedEntityType,relatedEntityId:item.relatedEntityId,channel:item.channel,direction:item.direction,subject:item.subject,summary:item.summary,occurredAtUtc:item.occurredAtUtc.substring(0,16)});}
+  private upsert(item:FoundationInteraction){this.interactions.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response:InteractionManagementApiResponse,title:string){if(response.interaction){this.upsert(response.interaction);this.selectedInteractionId.set(response.interaction.id);this.isCreateMode.set(false);this.populate(response.interaction);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Interaction workflow completed successfully.'});this.isSubmitting.set(false);this.loadInteractions(false);}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Interaction fields before saving.'};if(error.status===404)return{title:'Interaction not found',message:'The selected Interaction was not found.'};if(error.status===409)return{title:'Interaction is read-only',message:'Voided Interactions cannot be modified.'};}return{title:'Interaction workflow unavailable',message:'The foundation Interaction service could not process the request.'};}
+}
+
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -4801,6 +4902,7 @@ const routes: Routes = [
   { path: 'foundation/campaigns', component: CampaignManagementPageComponent },
   { path: 'foundation/segments', component: SegmentManagementPageComponent },
   { path: 'foundation/cases', component: CaseManagementPageComponent },
+  { path: 'foundation/interactions', component: InteractionManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
