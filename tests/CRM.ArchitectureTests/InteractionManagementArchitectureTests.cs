@@ -50,25 +50,42 @@ public sealed class InteractionManagementArchitectureTests
     }
 
     [Fact]
-    public void InteractionServiceAndStore_AreRegisteredWithoutRoutes()
+    public void InteractionRoutes_AreFoundationOnlyAndNoDelete()
     {
         var root = Root();
         var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
-        Assert.Contains("IInteractionManagementService, InteractionManagementService", program, StringComparison.Ordinal);
-        Assert.Contains("IInteractionFoundationStore, InMemoryInteractionFoundationStore", program, StringComparison.Ordinal);
         foreach (var marker in new[]
         {
             "MapGet(\"/api/crm/foundation/interactions",
             "MapPost(\"/api/crm/foundation/interactions",
             "MapPut(\"/api/crm/foundation/interactions",
-            "MapDelete(\"/api/crm/foundation/interactions",
+            "/void"
+        })
+        {
+            Assert.Contains(marker, program, StringComparison.OrdinalIgnoreCase);
+        }
+
+        foreach (var marker in new[]
+        {
             "MapGet(\"/api/crm/interactions",
             "MapPost(\"/api/crm/interactions",
             "MapPut(\"/api/crm/interactions",
-            "MapDelete(\"/api/crm/interactions"
+            "MapDelete(\"/api/crm/interactions",
+            "MapDelete(\"/api/crm/foundation/interactions"
         })
         {
             Assert.DoesNotContain(marker, program, StringComparison.OrdinalIgnoreCase);
         }
+    }
+
+    [Fact]
+    public void InteractionServiceAndStore_AreRegisteredAndApiUsesThem()
+    {
+        var root = Root();
+        var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
+        Assert.Contains("IInteractionManagementService, InteractionManagementService", program, StringComparison.Ordinal);
+        Assert.Contains("IInteractionFoundationStore, InMemoryInteractionFoundationStore", program, StringComparison.Ordinal);
+        Assert.Contains("IInteractionManagementService service", program, StringComparison.Ordinal);
+        Assert.Contains("InteractionManagementApiResponse.ToApplicationRequest", program, StringComparison.Ordinal);
     }
 }

@@ -20,6 +20,7 @@ using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
 using CRM.Domain.CampaignManagement;
 using CRM.Domain.CaseManagement;
+using CRM.Domain.InteractionManagement;
 using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
@@ -805,6 +806,35 @@ app.MapPost("/api/crm/foundation/cases/{id}/close", async (string id, ICaseManag
     var result = await service.CloseAsync(id, cancellationToken);
     return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
 }).WithName("CloseCrmFoundationCase");
+
+app.MapGet("/api/crm/foundation/interactions", async (IInteractionManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationInteractions");
+
+app.MapGet("/api/crm/foundation/interactions/{id}", async (string id, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var interaction = await service.GetByIdAsync(id, cancellationToken);
+    return interaction is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(InteractionManagementErrorCode.InteractionNotFound), message = "Interaction was not found.", foundationMode = true, productiveCrudEnabled = false, activitySchedulingEnabled = false, crossEntityMutationEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(interaction);
+}).WithName("GetCrmFoundationInteractionById");
+
+app.MapPost("/api/crm/foundation/interactions", async (FoundationInteractionCreateRequest request, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(InteractionManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationInteraction");
+
+app.MapPut("/api/crm/foundation/interactions/{id}", async (string id, FoundationInteractionUpdateRequest request, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, InteractionManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationInteraction");
+
+app.MapPost("/api/crm/foundation/interactions/{id}/void", async (string id, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.VoidAsync(id, cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("VoidCrmFoundationInteraction");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();

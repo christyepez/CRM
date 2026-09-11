@@ -4,6 +4,12 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 19 S19-03 - Interaction Foundation API
+
+S19-03 exposes Interaction Management through foundation-only HTTP endpoints under `/api/crm/foundation/interactions` using `IInteractionManagementService` and explicit API DTOs. Validation failures map to 400, missing Interaction to 404, voided-update conflicts to 409, and idempotent `Changed=false` update/void successes remain 200. No productive Interaction route, DELETE, Angular page, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 19 S19-04 - Interaction Frontend Foundation Page`.
+
 ## CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
 
 S19-01 adds authoritative Interaction Management domain contracts and deterministic create/update/void lifecycle rules. Interactions capture `RelatedEntityType` + related GUID, Channel, Direction, Subject, Summary and UTC OccurredAt; create records as `Recorded`, update is allowed only while `Recorded`, void changes `Recorded` to `Voided`, and repeated void is idempotent with `Changed=false`.

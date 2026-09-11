@@ -150,3 +150,18 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
 | External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
 | Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
+
+## Sprint 19 S19-03 - Interaction Management
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | REUSE/EXTEND/ADAPT revisado; Security, Menu, Configuration, Audit, Notification y Content/File runtime quedan diferidos. |
+| Interaction Management domain/application | CREATE propio de CRM; API invoca exclusivamente `IInteractionManagementService`. |
+| Interaction Foundation API | CREATE foundation-only bajo `/api/crm/foundation/interactions` con DTOs explicitos y status mapping seguro. |
+| Interaction Angular page | Diferido a S19-04; no agregado por S19-03. |
+| Related CRM entities | Referencia por `RelatedEntityType` + GUID solamente; sin lectura, validacion externa ni mutacion de Customers/Contacts/Leads/Opportunities/Cases. |
+| Activity scheduling | Fuera de alcance; no se crean ni modifican Activities. |
+| Productive route / DELETE | Deshabilitado; no se agregaron rutas productivas ni comportamiento DELETE. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
+| Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |

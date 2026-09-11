@@ -1,14 +1,14 @@
 # Next Task
 
-CRM Sprint 19 S19-03 - Interaction Foundation API
+CRM Sprint 19 S19-04 - Interaction Frontend Foundation Page
 
-Branch: crm-sprint-19-s19-03-interaction-foundation-api
-Prompt: codex/prompts/sprint-19-interaction-management-s19-03.md
-Suggested commit: feat(crm): add interaction foundation api
+Branch: crm-sprint-19-s19-04-interaction-frontend-foundation-page
+Prompt: pending
+Suggested commit: feat(crm): add interaction foundation page
 
 ## Guardrails
-- Foundation-only Interaction API slice.
+- Foundation-only Interaction frontend slice.
+- Consume only `/api/crm/foundation/interactions`.
 - No productive Interaction route or DELETE.
-- No Angular page yet.
 - No Activity scheduling or cross-entity mutation.
 - Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 and Production remain disabled.
