@@ -18,6 +18,12 @@ Canonical foundation proposal: CustomerId + Title + Summary + Priority + Status 
 
 Next gate: `CRM Sprint 18 S18-01 - Case Contracts and Domain Rules`.
 
+## CRM Sprint 18 S18-01 - Case Contracts and Domain Rules
+
+S18-01 adds authoritative Case Management domain contracts and deterministic lifecycle rules for New, InProgress, Resolved and Closed cases. The story is domain-only: no Case Application service/store, API, Angular page, productive routes, DELETE, customer mutation, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 18 S18-02 - Case Application Service and Foundation Store`.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.

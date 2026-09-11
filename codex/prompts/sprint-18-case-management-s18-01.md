@@ -36,7 +36,7 @@ Implement only the Case Management domain contracts and deterministic policy def
 - Domain-only story: no Application service/store implementation, API or frontend.
 - No `/api/crm/cases` and no foundation Case route yet.
 - No DELETE.
-- No automatic Customer conversion, creation or mutation.
+- No automatic Customer conversion. No Customer creation or mutation.
 - No Portal Auth/users/assignment runtime, Common DB/EF/migrations/schema/SQL/real data.
 - No external connectors, `crm-prod-sim`, port 8094 or real Production changes.
 

@@ -5300,3 +5300,25 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Customer conversion/mutation, assignment, SLA and notification runtime: disabled
 - Portal/Common DB/real data/connectors/port 8094/Production: disabled
 - Next: S18-01 Case Contracts and Domain Rules
+
+## CRM Sprint 18 S18-01 - Case Contracts and Domain Rules
+- S1801Decision: Implemented
+- Dedicated Case domain policy and contracts added.
+- Title/CustomerName normalization and bounds enforced.
+- Priority: Low, Medium, High, Critical
+- Lifecycle: New -> InProgress -> Resolved -> Closed
+- Repeated Start/Resolve/Close lifecycle actions are idempotent no-change success.
+- Closed cases are terminal except repeated close no-change success.
+- ProductiveCaseRouteEnabled: false
+- FoundationCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- CustomerConversionEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Port8094Touched: false
+- Next: S18-02 Case Application Service and Foundation Store
