@@ -175,6 +175,21 @@ public sealed class CaseFoundationApiEndpointTests
         Assert.True(productiveDelete.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.MethodNotAllowed);
     }
 
+    [Fact]
+    public async Task ResolvedAndClosedUpdates_ReturnConflict()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var create = await client.PostAsJsonAsync("/api/crm/foundation/cases", new { customerId = SeedCustomerId, title = "Hardening case", summary = "Synthetic hardening case.", priority = "High" });
+        using var createdBody = JsonDocument.Parse(await create.Content.ReadAsStringAsync());
+        var id = createdBody.RootElement.GetProperty("id").GetString();
+        await client.PostAsync($"/api/crm/foundation/cases/{id}/resolve", null);
+        var resolvedUpdate = await client.PutAsJsonAsync($"/api/crm/foundation/cases/{id}", new { customerId = SeedCustomerId, title = "Changed", summary = "Changed summary", priority = "Low" });
+        await client.PostAsync($"/api/crm/foundation/cases/{id}/close", null);
+        var closedUpdate = await client.PutAsJsonAsync($"/api/crm/foundation/cases/{id}", new { customerId = SeedCustomerId, title = "Changed", summary = "Changed summary", priority = "Low" });
+        Assert.Equal(HttpStatusCode.Conflict, resolvedUpdate.StatusCode);
+        Assert.Equal(HttpStatusCode.Conflict, closedUpdate.StatusCode);
+    }
     private static async Task AssertChangedAsync(HttpResponseMessage response, bool changed, string status)
     {
         using var body = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
