@@ -1,17 +1,15 @@
 # Next Task
 
-CRM Sprint 20 P1 - Note Management Functional Baseline and Backlog
+CRM Sprint 20 S20-01 - Note Contracts and Domain Rules
 
-Base Main Commit: Sprint 19 S19-07 merge commit required
-Branch: crm-sprint-20-p1-note-management-functional-baseline
-Prompt: codex/prompts/sprint-20-note-management-p1.md
-Suggested commit: docs(crm): define note management functional baseline
-PR title: CRM Sprint 20 P1 - Note Management Functional Baseline and Backlog
+Branch: crm-sprint-20-s20-01-note-contracts-domain-rules
+Prompt: codex/prompts/sprint-20-note-management-s20-01.md
+Suggested commit: feat(crm): add note contracts and domain rules
 
 ## Guardrails
-- Planning-only Note baseline.
+- Domain-only Note slice.
 - Related entity ids are structural references only.
-- Audit, notifications, files, users/roles and configuration remain Portal-owned.
 - No productive Note route or DELETE.
-- No Portal runtime, Common DB/EF/schema/SQL, real data or external connectors.
-- crm-prod-sim, port 8094 and Production remain untouched.
+- No cross-entity mutation or Activity scheduling.
+- Portal-owned audit, notifications, files/content, users/roles and configuration are not duplicated.
+- No Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 or Production.
