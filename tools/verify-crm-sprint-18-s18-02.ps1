@@ -26,11 +26,11 @@ foreach($m in @('55555555-5555-5555-5555-555555555555','11111111-1111-1111-1111-
 foreach($m in @('ICaseManagementService, CaseManagementService','ICaseFoundationStore, InMemoryCaseFoundationStore')){
     if(-not$program.Contains($m)){throw "Missing S18-02 DI marker: $m"}
 }
-foreach($route in @('MapGet("/api/crm/cases','MapPost("/api/crm/cases','MapPut("/api/crm/cases','MapDelete("/api/crm/cases','MapGet("/api/crm/foundation/cases','MapPost("/api/crm/foundation/cases','MapPut("/api/crm/foundation/cases','MapDelete("/api/crm/foundation/cases')){
+foreach($route in @('MapGet("/api/crm/cases','MapPost("/api/crm/cases','MapPut("/api/crm/cases','MapDelete("/api/crm/cases','MapDelete("/api/crm/foundation/cases')){
     if($program.Contains($route)){throw "Forbidden S18-02 Case route detected: $route"}
 }
 foreach($m in @('S1802Decision: Implemented','CaseManagementImplementationStatus: ApplicationAndFoundationStoreImplemented','ProductiveCaseRouteEnabled: false','FoundationCaseRouteEnabled: false','DeleteBehaviorAdded: false','CustomerMutationEnabled: false','PortalRuntimeEnabled: false','CommonDbRuntimeEnabled: false','SimulatedProductionTouched: false','Port8094Touched: false')){
     if(-not$doc.Contains($m)){throw "Missing S18-02 doc marker: $m"}
 }
-if(-not($next.Contains('CRM Sprint 18 S18-03 - Case Foundation API') -and $next.Contains('codex/prompts/sprint-18-case-management-s18-03.md'))){throw 'Invalid S18-03 handoff.'}
+if(-not(($next -match 'CRM Sprint 18 S18-0[3-7]') -and ($next -match 'codex/prompts/sprint-18-case-management-s18-0[3-7]\.md'))){throw 'Invalid S18 forward handoff.'}
 Write-Host 'CRM Sprint 18 S18-02 verification passed.'

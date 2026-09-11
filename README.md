@@ -32,6 +32,12 @@ Validation: 519 Unit + 149 Architecture = 668 .NET tests PASS; Angular build/tes
 
 Next gate: `CRM Sprint 18 S18-03 - Case Foundation API`.
 
+## CRM Sprint 18 S18-03 - Case Foundation API
+
+S18-03 exposes Case Management through foundation-only HTTP endpoints under `/api/crm/foundation/cases` using `ICaseManagementService` and explicit API DTOs. Validation failures map to 400, missing Case to 404, invalid lifecycle transitions to 409, and idempotent `Changed=false` successes remain 200. No productive Case route, DELETE, Angular page, Customer mutation, assignment, SLA, notification runtime, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 18 S18-04 - Case Frontend Foundation Page`.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.

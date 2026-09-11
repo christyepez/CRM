@@ -16,3 +16,4 @@
 | ADR-012 | S14-06 valida Opportunity Pipeline localmente solo en foundation, con datos sinteticos y sin tocar rutas productivas, DELETE, Portal runtime, Common DB ni `crm-prod-sim`. | Aprobada |
 | ADR-013 | Sprint 14 Opportunity Pipeline se cierra como foundation-only; Sprint 15 inicia Campaign Management Foundation por existir concepto Campaign y permitir valor comercial sin activar Productive/Portal/CommonDB. | Aprobada |
 | ADR-014 | S18-02 implementa Case Management Application/store como CREATE de dominio CRM foundation-only; API, Angular, Productive, DELETE, Portal runtime, Common DB, conectores y Production permanecen diferidos. | Aprobada |
+| ADR-015 | S18-03 expone Case Management solo mediante API foundation `/api/crm/foundation/cases` usando `ICaseManagementService`; rutas productivas, DELETE, Angular, Customer mutation, assignment, SLA, notifications, Portal runtime, Common DB y Production permanecen diferidos. | Aprobada |

@@ -37,11 +37,13 @@ public sealed class CaseManagementArchitectureTests
     }
 
     [Fact]
-    public void CaseRoutes_RemainUnavailableInDomainStory()
+    public void CaseRoutes_RemainFoundationOnly()
     {
         var root = Root();
         var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
-        foreach (var marker in new[] { "MapGet(\"/api/crm/cases", "MapPost(\"/api/crm/cases", "MapPut(\"/api/crm/cases", "MapDelete(\"/api/crm/cases", "MapGet(\"/api/crm/foundation/cases", "MapPost(\"/api/crm/foundation/cases", "MapPut(\"/api/crm/foundation/cases", "MapDelete(\"/api/crm/foundation/cases" })
+        foreach (var marker in new[] { "MapGet(\"/api/crm/foundation/cases", "MapPost(\"/api/crm/foundation/cases", "MapPut(\"/api/crm/foundation/cases", "/start", "/resolve", "/close" })
+            Assert.Contains(marker, program, StringComparison.OrdinalIgnoreCase);
+        foreach (var marker in new[] { "MapGet(\"/api/crm/cases", "MapPost(\"/api/crm/cases", "MapPut(\"/api/crm/cases", "MapDelete(\"/api/crm/cases", "MapDelete(\"/api/crm/foundation/cases" })
             Assert.DoesNotContain(marker, program, StringComparison.OrdinalIgnoreCase);
     }
 
@@ -57,13 +59,14 @@ public sealed class CaseManagementArchitectureTests
     }
 
     [Fact]
-    public void CaseApplicationService_IsRegisteredWithoutRoutes()
+    public void CaseApplicationService_IsRegisteredAndApiUsesIt()
     {
         var root = Root();
         var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
         Assert.Contains("ICaseManagementService, CaseManagementService", program, StringComparison.Ordinal);
         Assert.Contains("ICaseFoundationStore, InMemoryCaseFoundationStore", program, StringComparison.Ordinal);
-        foreach (var marker in new[] { "MapGet(\"/api/crm/cases", "MapPost(\"/api/crm/cases", "MapPut(\"/api/crm/cases", "MapDelete(\"/api/crm/cases", "MapGet(\"/api/crm/foundation/cases", "MapPost(\"/api/crm/foundation/cases", "MapPut(\"/api/crm/foundation/cases", "MapDelete(\"/api/crm/foundation/cases" })
+        Assert.Contains("ICaseManagementService service", program, StringComparison.Ordinal);
+        foreach (var marker in new[] { "MapGet(\"/api/crm/cases", "MapPost(\"/api/crm/cases", "MapPut(\"/api/crm/cases", "MapDelete(\"/api/crm/cases", "MapDelete(\"/api/crm/foundation/cases" })
             Assert.DoesNotContain(marker, program, StringComparison.OrdinalIgnoreCase);
     }
 }

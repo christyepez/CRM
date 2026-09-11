@@ -19,3 +19,4 @@
 | Campaign conceptual puede crecer sin reglas claras de lifecycle/fechas | Medio | Sprint 15 P1 debe fijar baseline y S15-01 reglas deterministas antes de servicio/API/UI. |
 | Case Management foundation permanece in-memory y sintetico tras S18-02 | Medio | Mantener S18-03/S18-04 como foundation-only y diferir Common DB/productive activation a gates separados. |
 | Case API podria activarse productivamente por error en S18-03 | Alto | Verificadores S18-02/S18-03 deben validar ausencia de `/api/crm/cases`, DELETE, Portal runtime, Common DB y `crm-prod-sim`. |
+| Case frontend S18-04 podria introducir Customer lookup, assignment, SLA o notifications runtime antes de aprobacion | Alto | S18-04 prompt limita UI a `/foundation/cases` y `CustomerId` sintetico; verificador debe revisar ausencia de runtimes diferidos. |

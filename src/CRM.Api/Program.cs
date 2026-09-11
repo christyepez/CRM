@@ -18,6 +18,7 @@ using CRM.Application.SegmentManagement;
 using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
 using CRM.Domain.CampaignManagement;
+using CRM.Domain.CaseManagement;
 using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
@@ -760,6 +761,47 @@ app.MapPost("/api/crm/foundation/campaigns/{id}/cancel", async (string id, ICamp
     var result = await service.CancelAsync(id, cancellationToken);
     return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
 }).WithName("CancelCrmFoundationCampaign");
+
+app.MapGet("/api/crm/foundation/cases", async (ICaseManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationCases");
+
+app.MapGet("/api/crm/foundation/cases/{id}", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var crmCase = await service.GetByIdAsync(id, cancellationToken);
+    return crmCase is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(CaseManagementErrorCode.CaseNotFound), message = "Case was not found.", foundationMode = true, productiveCrudEnabled = false, customerMutationEnabled = false, assignmentRuntimeEnabled = false, slaRuntimeEnabled = false, notificationRuntimeEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(crmCase);
+}).WithName("GetCrmFoundationCaseById");
+
+app.MapPost("/api/crm/foundation/cases", async (FoundationCaseCreateRequest request, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(CaseManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationCase");
+
+app.MapPut("/api/crm/foundation/cases/{id}", async (string id, FoundationCaseUpdateRequest request, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, CaseManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/start", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.StartAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("StartCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/resolve", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ResolveAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("ResolveCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/close", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CloseAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("CloseCrmFoundationCase");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();

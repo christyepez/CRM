@@ -5354,3 +5354,28 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - CrmProdSimTouched: false
 - Port8094Touched: false
 - Next: S18-03 Case Foundation API
+
+## CRM Sprint 18 S18-03 - Case Foundation API
+- S1803Decision: Implemented
+- Base: `ddeffe7`
+- Added explicit Case foundation API DTOs and response contract.
+- Added list/detail/create/update/start/resolve/close endpoints under `/api/crm/foundation/cases`.
+- Routed all behavior through `ICaseManagementService`.
+- Validation failures map to 400, missing Case to 404 and invalid lifecycle transition to 409.
+- Changed=false idempotent lifecycle/update success remains 200.
+- Added Case foundation API endpoint tests and architecture guardrails.
+- ProductiveCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- AngularCasePageAdded: false
+- CustomerCreationEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- Next: S18-04 Case Frontend Foundation Page

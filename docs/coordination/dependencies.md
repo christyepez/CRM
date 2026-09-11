@@ -107,3 +107,17 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
 | External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
 | Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
+
+## Sprint 18 S18-03 - Case Management
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | REUSE/EXTEND/ADAPT revisado; runtime diferido para Security, Menu, Configuration, Audit, Notification y usuarios. |
+| Case Management domain/application | CREATE propio de CRM; API invoca exclusivamente `ICaseManagementService`. |
+| Case Foundation API | CREATE foundation-only bajo `/api/crm/foundation/cases` con DTOs explicitos y status mapping. |
+| Case Angular page | Diferido a S18-04; no agregado por S18-03. |
+| Customer creation/mutation | Diferido; API acepta `CustomerId` sintetico sin crear ni modificar Customers. |
+| Assignment / SLA / Notification runtime | Diferido; no activado por S18-03. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
+| Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
