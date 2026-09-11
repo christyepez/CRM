@@ -1,14 +1,14 @@
 # Next Task
 
-CRM Sprint 20 S20-02 - Note Application Service and Foundation Store
+CRM Sprint 20 S20-03 - Note Foundation API
 
-Branch: crm-sprint-20-s20-02-note-application-foundation-store
-Prompt: codex/prompts/sprint-20-note-management-s20-02.md
-Suggested commit: feat(crm): add note application service and foundation store
+Branch: crm-sprint-20-s20-03-note-foundation-api
+Prompt: codex/prompts/sprint-20-note-management-s20-03.md
+Suggested commit: feat(crm): add note foundation api
 
 ## Guardrails
-- Foundation-only Application/store slice.
-- No Note API/frontend/productive route or DELETE.
+- Foundation-only Note API under `/api/crm/foundation/notes`.
+- No productive Note route or DELETE.
 - No cross-entity mutation or Activity scheduling.
 - Portal-owned audit, notifications, files/content, users/roles and configuration are not duplicated.
-- No Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 or Production.
+- No Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, port 8094 or Production.
