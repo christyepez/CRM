@@ -314,6 +314,22 @@ public sealed class InteractionManagementPolicyTests
         Assert.Equal(InteractionManagementErrorCode.InvalidStatus, result.ErrorCode);
     }
 
+    [Fact]
+    public void Create_AcceptsExactTextBoundaries()
+    {
+        var result = InteractionManagementPolicy.Evaluate(Command(
+            subject: new string('S', InteractionManagementPolicy.MaxSubjectLength),
+            summary: new string('X', InteractionManagementPolicy.MaxSummaryLength)));
+        Assert.True(result.Success);
+    }
+
+    [Fact]
+    public void Create_AllowsOccurrenceExactlyAtEvaluationTimestamp()
+    {
+        var result = InteractionManagementPolicy.Evaluate(Command(occurredAtUtc: EvaluatedAt));
+        Assert.True(result.Success);
+        Assert.Equal(EvaluatedAt, result.OccurredAtUtc);
+    }
     private static InteractionManagementCommand Command(
         InteractionManagementOperation operation = InteractionManagementOperation.Create,
         string? interactionId = null,

@@ -169,6 +169,25 @@ public sealed class InteractionFoundationApiEndpointTests
     }
 
     [Fact]
+    public async Task Create_FutureOccurrence_ReturnsBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/interactions", new
+        {
+            relatedEntityType = "Contact",
+            relatedEntityId = SeedRelatedEntityId,
+            channel = "Phone",
+            direction = "Outbound",
+            subject = "Future interaction",
+            summary = "Must be rejected.",
+            occurredAtUtc = DateTimeOffset.UtcNow.AddDays(1)
+        });
+        using var body = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("OccurredAtUtcInFuture", body.RootElement.GetProperty("errorCode").GetString());
+    }
+    [Fact]
     public async Task ProductiveAndDeleteRoutes_RemainUnavailable()
     {
         using var factory = new WebApplicationFactory<Program>();
