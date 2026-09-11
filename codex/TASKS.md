@@ -5322,3 +5322,35 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - SimulatedProductionTouched: false
 - Port8094Touched: false
 - Next: S18-02 Case Application Service and Foundation Store
+
+## CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+- S1802Decision: Implemented
+- Base: `d756147`
+- Added explicit `ICaseManagementService` and Case application contracts.
+- Added `ICaseFoundationStore` and `InMemoryCaseFoundationStore` with deterministic synthetic seed data.
+- Added `CaseManagementService` orchestration for list/detail/create/update/start/resolve/close through `CaseManagementPolicy`.
+- Invalid, not-found, no-change and rejected lifecycle outcomes suppress persistence.
+- Case service/store registered in DI; no Case API or Angular page added.
+- Focused Case tests: 32 Unit + 5 Architecture PASS.
+- Release regression: 519 Unit + 149 Architecture = 668 .NET tests PASS.
+- Angular build/test, CRM foundation verifier, CRM guardrails, S18 P1, S18-01 and S18-02 verifiers PASS.
+- ProductiveCaseRouteEnabled: false
+- FoundationCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- CustomerConversionEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- Next: S18-03 Case Foundation API

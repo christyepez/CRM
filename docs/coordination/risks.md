@@ -17,3 +17,5 @@
 | Opportunity Pipeline permanece FoundationOnly e in-memory tras S14-06 | Medio | Cerrar Sprint 14 como foundation-only en S14-07 y mantener Common DB/productive activation como gates separados. |
 | Validacion local S14-06 podria confundirse con disponibilidad productiva | Alto | Verificador S14-06 y docs preservan productive route false, DELETE false, Portal/CommonDB false y `crm-prod-sim` untouched. |
 | Campaign conceptual puede crecer sin reglas claras de lifecycle/fechas | Medio | Sprint 15 P1 debe fijar baseline y S15-01 reglas deterministas antes de servicio/API/UI. |
+| Case Management foundation permanece in-memory y sintetico tras S18-02 | Medio | Mantener S18-03/S18-04 como foundation-only y diferir Common DB/productive activation a gates separados. |
+| Case API podria activarse productivamente por error en S18-03 | Alto | Verificadores S18-02/S18-03 deben validar ausencia de `/api/crm/cases`, DELETE, Portal runtime, Common DB y `crm-prod-sim`. |

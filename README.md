@@ -24,6 +24,14 @@ S18-01 adds authoritative Case Management domain contracts and deterministic lif
 
 Next gate: `CRM Sprint 18 S18-02 - Case Application Service and Foundation Store`.
 
+## CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+
+S18-02 adds Case Management application orchestration and a deterministic in-memory Foundation store over the S18-01 domain policy. The service supports list/detail/create/update/start/resolve/close, suppresses writes for invalid, not-found, no-change and rejected lifecycle outcomes, and seeds only synthetic Case records. No Case API/frontend route, productive route, DELETE, customer mutation, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Validation: 519 Unit + 149 Architecture = 668 .NET tests PASS; Angular build/test, foundation verifier, guardrails and Sprint 18 S18-02 verifier PASS.
+
+Next gate: `CRM Sprint 18 S18-03 - Case Foundation API`.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.

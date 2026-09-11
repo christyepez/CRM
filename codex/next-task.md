@@ -1,15 +1,16 @@
 # Next Task
 
-CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+CRM Sprint 18 S18-03 - Case Foundation API
 
-Base Main Commit: Sprint 18 S18-01 merge commit required
-Branch: crm-sprint-18-s18-02-case-application-service-foundation-store
-Prompt: codex/prompts/sprint-18-case-management-s18-02.md
-Suggested commit: feat(crm): add case application service and foundation store
-PR title: CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+Base Main Commit: Sprint 18 S18-02 merge commit required
+Branch: crm-sprint-18-s18-03-case-foundation-api
+Prompt: codex/prompts/sprint-18-case-management-s18-03.md
+Suggested commit: feat(crm): add case foundation api
+PR title: CRM Sprint 18 S18-03 - Case Foundation API
 
 ## Guardrails
-- No Case API route or Angular page yet.
+- Foundation Case API may be added only under `/api/crm/foundation/cases`.
+- No Angular Case page yet.
 - No productive Case route and no DELETE.
 - No Customer conversion or mutation.
 - Portal Auth/users/assignment runtime remains disabled.

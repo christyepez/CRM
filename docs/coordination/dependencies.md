@@ -93,3 +93,17 @@ Cuando una dependencia del portal no este lista, crear adapter o stub y registra
 | Lead/Opportunity attribution | Potencial valor futuro; P1 debe decidir incluir o diferir sin acoplamiento productivo. |
 | Common DB / Productive API | Deshabilitado; mantener FoundationOnly / NonProductionSeam. |
 | Simulated Production | Fuera de alcance; no tocar `crm-prod-sim`. |
+
+## Sprint 18 S18-02 - Case Management
+
+| Dependencia | Estado |
+|---|---|
+| PortalCorporativo reusable capabilities | REUSE/EXTEND/ADAPT revisado; runtime diferido para Security, Menu, Configuration, Audit y Notification. |
+| Case Management domain | CREATE propio de CRM; `CaseManagementPolicy` permanece como autoridad de reglas. |
+| Case Application service/store | CREATE foundation-only con `ICaseManagementService`, `ICaseFoundationStore` e in-memory synthetic seed. |
+| Case API / Angular | Diferido a S18-03/S18-04; no activado por S18-02. |
+| Customer creation/mutation | Diferido; S18-02 usa `CustomerId` sintetico sin modificar Customers. |
+| Assignment / SLA / Notification runtime | Diferido hasta Portal/runtime approvals; no activado. |
+| Common DB runtime | Deshabilitado; sin EF, migraciones, schema changes, SQL ni datos reales. |
+| External connectors | Deshabilitado; sin Salesforce/Dynamics/Generic REST runtime. |
+| Simulated Production | No tocado; `crm-prod-sim` y puerto 8094 permanecen fuera de alcance. |
