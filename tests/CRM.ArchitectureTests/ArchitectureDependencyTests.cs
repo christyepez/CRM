@@ -139,11 +139,13 @@ public sealed class ArchitectureDependencyTests
         Assert.Contains("/api/crm/foundation/segments", program);
         Assert.Contains("/api/crm/foundation/cases", program);
         Assert.Contains("/api/crm/foundation/interactions", program);
+        Assert.Contains("/api/crm/foundation/notes", program);
         Assert.DoesNotContain("\"/api/crm/leads\"", program);
         Assert.DoesNotContain("\"/api/crm/accounts\"", program);
         Assert.DoesNotContain("\"/api/crm/contacts\"", program);
         Assert.DoesNotContain("\"/api/crm/opportunities\"", program);
         Assert.DoesNotContain("\"/api/crm/interactions\"", program);
+        Assert.DoesNotContain("\"/api/crm/notes\"", program);
         Assert.DoesNotContain("MapPut(\"/api/crm/", program.Replace("MapPut(\"/api/crm/foundation/leads/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/accounts/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/contacts/{id}\"", string.Empty, StringComparison.Ordinal)
@@ -152,7 +154,8 @@ public sealed class ArchitectureDependencyTests
             .Replace("MapPut(\"/api/crm/foundation/campaigns/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/segments/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/cases/{id}\"", string.Empty, StringComparison.Ordinal)
-            .Replace("MapPut(\"/api/crm/foundation/interactions/{id}\"", string.Empty, StringComparison.Ordinal));
+            .Replace("MapPut(\"/api/crm/foundation/interactions/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/notes/{id}\"", string.Empty, StringComparison.Ordinal));
         Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("Create" + "Lead", program);

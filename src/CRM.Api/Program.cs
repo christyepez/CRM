@@ -839,6 +839,32 @@ app.MapPost("/api/crm/foundation/interactions/{id}/void", async (string id, IInt
     var result = await service.VoidAsync(id, cancellationToken);
     return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
 }).WithName("VoidCrmFoundationInteraction");
+app.MapGet("/api/crm/foundation/notes", async (INoteManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationNotes");
+
+app.MapGet("/api/crm/foundation/notes/{id}", async (string id, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var note = await service.GetByIdAsync(id, cancellationToken);
+    return note is null ? Results.NotFound() : Results.Ok(note);
+}).WithName("GetCrmFoundationNote");
+
+app.MapPost("/api/crm/foundation/notes", async (FoundationNoteCreateRequest request, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(NoteManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationNote");
+
+app.MapPut("/api/crm/foundation/notes/{id}", async (string id, FoundationNoteUpdateRequest request, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, NoteManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationNote");
+
+app.MapPost("/api/crm/foundation/notes/{id}/archive", async (string id, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ArchiveAsync(id, cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("ArchiveCrmFoundationNote");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();

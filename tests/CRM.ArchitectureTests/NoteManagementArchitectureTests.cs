@@ -9,19 +9,24 @@ public sealed class NoteManagementArchitectureTests
     [Fact]
     public void Application_UsesPolicyAndFoundationStoreOnly()
     {
-        var r=Root(); var s=File.ReadAllText(Path.Combine(r,"src","CRM.Application","NoteManagement","NoteManagementService.cs"));
+        var s=File.ReadAllText(Path.Combine(Root(),"src","CRM.Application","NoteManagement","NoteManagementService.cs"));
         Assert.Contains("NoteManagementPolicy.Evaluate",s,StringComparison.Ordinal);
         Assert.Contains("INoteFoundationStore",s,StringComparison.Ordinal);
         foreach(var x in new[]{"DbContext","SqlConnection","HttpClient","Authorization"}) Assert.DoesNotContain(x,s,StringComparison.OrdinalIgnoreCase);
     }
 
     [Fact]
-    public void S2002_RegistersServiceAndStoreWithoutNoteRoutes()
+    public void FoundationApi_IsRegisteredWithoutProductiveOrDeleteRoutes()
     {
-        var r=Root(); var p=File.ReadAllText(Path.Combine(r,"src","CRM.Api","Program.cs"));
+        var p=File.ReadAllText(Path.Combine(Root(),"src","CRM.Api","Program.cs"));
         Assert.Contains("INoteManagementService, NoteManagementService",p,StringComparison.Ordinal);
         Assert.Contains("INoteFoundationStore, InMemoryNoteFoundationStore",p,StringComparison.Ordinal);
-        Assert.DoesNotContain("MapGet(\"/api/crm/foundation/notes",p,StringComparison.OrdinalIgnoreCase);
-        Assert.DoesNotContain("MapDelete(\"/api/crm",p,StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapGet(\"/api/crm/foundation/notes",p,StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPost(\"/api/crm/foundation/notes",p,StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("MapPut(\"/api/crm/foundation/notes/{id}\"",p,StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("/archive",p,StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MapGet(\"/api/crm/notes",p,StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/notes",p,StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/notes",p,StringComparison.OrdinalIgnoreCase);
     }
 }
