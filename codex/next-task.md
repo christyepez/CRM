@@ -1,16 +1,15 @@
 # Next Task
 
-CRM Sprint 18 S18-04 - Case Frontend Foundation Page
+CRM Sprint 18 S18-05 - Case Test and Guardrail Hardening
 
-Base Main Commit: Sprint 18 S18-03 merge commit required
-Branch: crm-sprint-18-s18-04-case-frontend-foundation-page
-Prompt: codex/prompts/sprint-18-case-management-s18-04.md
-Suggested commit: feat(crm): add case foundation page
-PR title: CRM Sprint 18 S18-04 - Case Frontend Foundation Page
+Base Main Commit: Sprint 18 S18-04 merge commit required
+Branch: crm-sprint-18-s18-05-case-test-guardrail-hardening
+Prompt: codex/prompts/sprint-18-case-management-s18-05.md
+Suggested commit: test(crm): harden case foundation guardrails
+PR title: CRM Sprint 18 S18-05 - Case Test and Guardrail Hardening
 
 ## Guardrails
-- Angular Case page may be added only at `/foundation/cases`.
-- Frontend must use only `/api/crm/foundation/cases`.
+- Keep Case runtime foundation-only and synthetic.
 - No productive Case route and no DELETE.
 - No Customer creation/mutation, assignment runtime, SLA runtime or notifications runtime.
 - Portal Auth/users runtime, token/header reads and token storage remain disabled.

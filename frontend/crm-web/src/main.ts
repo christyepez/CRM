@@ -2188,6 +2188,131 @@ class SegmentManagementPageComponent {
   private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Segment fields before saving.'};if(error.status===404)return{title:'Segment not found',message:'The selected Segment was not found.'};if(error.status===409)return{title:'Transition not permitted',message:'The Segment cannot move to that lifecycle state.'};}return{title:'Segment workflow unavailable',message:'The foundation Segment service could not process the request.'};}
 }
 
+type CaseStatus = 'Open' | 'InProgress' | 'Resolved' | 'Closed';
+type CasePriority = 'Low' | 'Medium' | 'High' | 'Critical';
+interface FoundationCase {
+  id: string;
+  customerId: string;
+  title: string;
+  summary: string;
+  priority: CasePriority;
+  status: CaseStatus;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+interface FoundationCaseRequest { customerId: string; title: string; summary: string; priority: CasePriority; }
+interface CaseManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: CaseStatus | null;
+  case?: FoundationCase | null;
+}
+@Injectable({ providedIn: 'root' })
+class CaseManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/cases';
+  constructor(private readonly http: FoundationApiClient) {}
+  getCases() { return this.http.get<FoundationCase[]>(this.apiBaseUrl); }
+  getCase(id: string) { return this.http.get<FoundationCase>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createCase(request: FoundationCaseRequest) { return this.http.post<CaseManagementApiResponse>(this.apiBaseUrl, request); }
+  updateCase(id: string, request: FoundationCaseRequest) { return this.http.put<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  startCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/start`, {}); }
+  resolveCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/resolve`, {}); }
+  closeCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/close`, {}); }
+}
+@Component({
+  standalone: true,
+  selector: 'crm-case-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="caseTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="caseTitle">Case Management</h1><p class="lede">Manage synthetic CRM Cases through the foundation-only API.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="caseListTitle">
+          <div class="panel-heading"><div><h2 id="caseListTitle">Cases</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New case</button></div>
+          @if (isLoading()) { <p class="feedback neutral">Loading foundation cases...</p> }
+          @else if (cases().length === 0) { <div class="empty-state"><p>No cases available yet.</p></div> }
+          @else { <div class="contact-list" aria-label="Foundation case list">
+            @for (item of cases(); track item.id) {
+              <button type="button" class="contact-list-item" [class.selected]="selectedCaseId() === item.id" (click)="selectCase(item.id)">
+                <span class="contact-name">{{ item.title }}</span><span class="contact-meta">{{ item.priority }} · {{ item.customerId }}</span><span class="contact-status">{{ item.status }}</span>
+              </button>
+            }
+          </div> }
+        </section>
+        <section class="panel" aria-labelledby="caseFormTitle">
+          <div class="panel-heading"><div><h2 id="caseFormTitle">{{ isCreateMode() ? 'New case' : 'Case details' }}</h2></div>@if (selectedCase(); as item) { <span class="scope-pill quiet">{{ item.status }}</span> }</div>
+          <form [formGroup]="caseForm" (ngSubmit)="submitCase()" novalidate>
+            <label for="caseCustomerId">CustomerId</label><input id="caseCustomerId" type="text" formControlName="customerId" />
+            <label for="caseTitleInput">Title</label><input id="caseTitleInput" type="text" maxlength="160" formControlName="title" />
+            <label for="caseSummary">Summary</label><textarea id="caseSummary" maxlength="1000" rows="6" formControlName="summary"></textarea>
+            <label for="casePriority">Priority</label><select id="casePriority" formControlName="priority"><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option><option value="Critical">Critical</option></select>
+            @if (validationMessage(); as message) { <p class="validation" aria-live="polite">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || caseForm.invalid || isReadOnly()">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create case' : 'Save case') }}</button>
+          </form>
+          @if (selectedCase(); as item) {
+            <div class="opportunity-actions" aria-label="Case lifecycle actions">
+              @if (item.status === 'Open') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="startSelected()">Start case</button> }
+              @if (item.status === 'Open' || item.status === 'InProgress') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="resolveSelected()">Resolve case</button> }
+              @if (item.status === 'Resolved') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="closeSelected()">Close case</button> }
+            </div>
+          }
+          @if (operationMessage(); as message) { <section class="result-panel compact-result" aria-live="polite"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class CaseManagementPageComponent {
+  readonly cases = signal<FoundationCase[]>([]);
+  readonly selectedCaseId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+  readonly caseForm = this.formBuilder.nonNullable.group({
+    customerId: ['', [Validators.required]],
+    title: ['', [Validators.required, Validators.maxLength(160)]],
+    summary: ['', [Validators.required, Validators.maxLength(1000)]],
+    priority: ['Medium' as CasePriority, [Validators.required]]
+  });
+  constructor(private readonly api: CaseManagementApiService, private readonly formBuilder: FormBuilder) { this.loadCases(); this.startCreate(); }
+  selectedCase() { const id=this.selectedCaseId(); return id ? this.cases().find(x=>x.id===id) ?? null : null; }
+  isReadOnly() { const item=this.selectedCase(); return !this.isCreateMode() && (item?.status === 'Resolved' || item?.status === 'Closed'); }
+  startCreate() { this.isCreateMode.set(true); this.selectedCaseId.set(null); this.safeError.set(null); this.operationMessage.set(null); this.caseForm.reset({customerId:'',title:'',summary:'',priority:'Medium'}); }
+  selectCase(id: string) { this.isCreateMode.set(false); this.selectedCaseId.set(id); this.safeError.set(null); this.operationMessage.set(null); this.api.getCase(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))}); }
+  validationMessage() {
+    if(!this.caseForm.touched) return null;
+    const c=this.caseForm.controls;
+    if(c.customerId.invalid) return 'Enter a valid CustomerId.';
+    if(c.title.invalid) return 'Enter a Case title with 160 characters or less.';
+    if(c.summary.invalid) return 'Enter a Summary with 1000 characters or less.';
+    if(c.priority.invalid) return 'Choose a valid Case priority.';
+    return null;
+  }
+  submitCase() {
+    this.caseForm.markAllAsTouched(); if(this.caseForm.invalid || this.isSubmitting() || this.isReadOnly()) return;
+    const value=this.caseForm.getRawValue(); const request: FoundationCaseRequest={customerId:value.customerId.trim(),title:value.title.trim(),summary:value.summary.trim(),priority:value.priority};
+    this.isSubmitting.set(true); this.safeError.set(null); this.operationMessage.set(null);
+    const op=this.isCreateMode()?this.api.createCase(request):this.api.updateCase(this.selectedCaseId()??'',request);
+    op.subscribe({next:r=>this.apply(r,r.changed?'Case saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});
+  }
+  startSelected(){this.runLifecycle(x=>this.api.startCase(x.id),'Case started');}
+  resolveSelected(){this.runLifecycle(x=>this.api.resolveCase(x.id),'Case resolved');}
+  closeSelected(){this.runLifecycle(x=>this.api.closeCase(x.id),'Case closed');}
+  private loadCases(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getCases().subscribe({next:x=>{this.cases.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Case workflow unavailable',message:'Foundation cases could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item: FoundationCase){this.caseForm.reset({customerId:item.customerId,title:item.title,summary:item.summary,priority:item.priority});}
+  private upsert(item: FoundationCase){this.cases.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response: CaseManagementApiResponse,title:string){if(response.case){this.upsert(response.case);this.selectedCaseId.set(response.case.id);this.isCreateMode.set(false);this.populate(response.case);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Case workflow completed successfully.'});this.isSubmitting.set(false);this.loadCases(false);}
+  private runLifecycle(action:(item:FoundationCase)=>ReturnType<CaseManagementApiService['startCase']>,title:string){const item=this.selectedCase();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);action(item).subscribe({next:r=>this.apply(r,title),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review CustomerId, Title, Summary and Priority before saving.'};if(error.status===404)return{title:'Case not found',message:'The selected Case was not found. Refresh the list.'};if(error.status===409)return{title:'Transition not permitted',message:'The Case cannot be modified or moved to that lifecycle state.'};}return{title:'Case workflow unavailable',message:'The foundation Case service could not process the request.'};}
+}
+
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -4675,6 +4800,7 @@ const routes: Routes = [
   { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
   { path: 'foundation/campaigns', component: CampaignManagementPageComponent },
   { path: 'foundation/segments', component: SegmentManagementPageComponent },
+  { path: 'foundation/cases', component: CaseManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
