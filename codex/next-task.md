@@ -1,14 +1,17 @@
 # Next Task
 
-CRM Sprint 19 S19-07 - Interaction Management Sprint Closure
+CRM Sprint 20 P1 - Note Management Functional Baseline and Backlog
 
-Branch: crm-sprint-19-s19-07-interaction-management-sprint-closure
-Prompt: codex/prompts/sprint-19-interaction-management-s19-07.md
-Suggested commit: docs(crm): close interaction management sprint
+Base Main Commit: Sprint 19 S19-07 merge commit required
+Branch: crm-sprint-20-p1-note-management-functional-baseline
+Prompt: codex/prompts/sprint-20-note-management-p1.md
+Suggested commit: docs(crm): define note management functional baseline
+PR title: CRM Sprint 20 P1 - Note Management Functional Baseline and Backlog
 
 ## Guardrails
-- Closure/evidence only; no new Interaction runtime scope.
-- Productive Interaction route and DELETE remain disabled.
-- Activity scheduling and cross-entity mutation remain disabled.
-- Portal runtime, Common DB/EF/SQL, real data and connectors remain disabled.
+- Planning-only Note baseline.
+- Related entity ids are structural references only.
+- Audit, notifications, files, users/roles and configuration remain Portal-owned.
+- No productive Note route or DELETE.
+- No Portal runtime, Common DB/EF/schema/SQL, real data or external connectors.
 - crm-prod-sim, port 8094 and Production remain untouched.
