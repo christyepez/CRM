@@ -4,13 +4,13 @@ using CRM.Domain.Enums;
 
 namespace CRM.Api.Foundation;
 
-public sealed record FoundationCaseManagementCreateRequest(
+public sealed record FoundationCaseCreateRequest(
     string? CustomerId,
     string? Title,
     string? Summary,
     CasePriority Priority);
 
-public sealed record FoundationCaseManagementUpdateRequest(
+public sealed record FoundationCaseUpdateRequest(
     string? CustomerId,
     string? Title,
     string? Summary,
@@ -41,13 +41,17 @@ public sealed record CaseManagementApiResponse(
     bool ProductiveCrudEnabled,
     bool PortalRuntimeEnabled,
     bool CommonDbRuntimeEnabled,
+    bool CustomerMutationEnabled,
+    bool AssignmentRuntimeEnabled,
+    bool SlaRuntimeEnabled,
+    bool NotificationRuntimeEnabled,
     string Warning)
 {
     public static CaseManagementApiResponse From(CaseManagementApplicationResult result) =>
         new(result.CaseId, result.Operation, result.Allowed, result.Changed, result.ErrorCode, result.Message,
             result.Status, result.Case is null ? null : new(result.Case.Id, result.Case.CustomerId, result.Case.Title,
             result.Case.Summary, result.Case.Priority, result.Case.Status, result.Case.PersistenceMode, result.Case.ProductiveCrudEnabled),
-            true, result.Case?.PersistenceMode ?? "NonProductionSeam", false, false, false, false,
+            FoundationMode: true, PersistenceMode: result.Case?.PersistenceMode ?? "NonProductionSeam", DurablePersistence: false, ProductiveCrudEnabled: false, PortalRuntimeEnabled: false, CommonDbRuntimeEnabled: false, CustomerMutationEnabled: false, AssignmentRuntimeEnabled: false, SlaRuntimeEnabled: false, NotificationRuntimeEnabled: false,
             "Foundation Case API only; productive route remains locked");
 
     public static int ToStatusCode(CaseManagementApplicationResult result) => result.ErrorCode switch
@@ -60,9 +64,9 @@ public sealed record CaseManagementApiResponse(
         _ => StatusCodes.Status400BadRequest
     };
 
-    public static CaseManagementCreateRequest ToApplication(FoundationCaseManagementCreateRequest request) =>
+    public static CaseManagementCreateRequest ToApplicationRequest(FoundationCaseCreateRequest request) =>
         new(request.CustomerId, request.Title, request.Summary, request.Priority);
 
-    public static CaseManagementUpdateRequest ToApplication(FoundationCaseManagementUpdateRequest request) =>
+    public static CaseManagementUpdateRequest ToApplicationRequest(FoundationCaseUpdateRequest request) =>
         new(request.CustomerId, request.Title, request.Summary, request.Priority);
 }

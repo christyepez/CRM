@@ -29,7 +29,13 @@ foreach($marker in @('ICaseManagementService service','CaseManagementApiResponse
 foreach($route in @('MapGet("/api/crm/cases','MapPost("/api/crm/cases','MapPut("/api/crm/cases','MapDelete("/api/crm/cases','MapDelete("/api/crm/foundation/cases')){
     if($program.Contains($route)){throw "Forbidden S18-03 Case route detected: $route"}
 }
-foreach($marker in @('FoundationCaseCreateRequest','FoundationCaseUpdateRequest','CaseManagementApiResponse','CaseNotFound) => StatusCodes.Status404NotFound','InvalidStatusTransition) or','StatusCodes.Status409Conflict','StatusCodes.Status400BadRequest','CustomerMutationEnabled: false','AssignmentRuntimeEnabled: false','SlaRuntimeEnabled: false','NotificationRuntimeEnabled: false')){
+foreach($marker in @(
+ 'FoundationCaseCreateRequest','FoundationCaseUpdateRequest','CaseManagementApiResponse',
+ 'CaseNotFound) => StatusCodes.Status404NotFound',
+ 'InvalidStatusTransition) => StatusCodes.Status409Conflict',
+ 'ResolvedCaseCannotBeModified) => StatusCodes.Status409Conflict',
+ 'ClosedCaseCannotBeModified) => StatusCodes.Status409Conflict',
+ 'StatusCodes.Status400BadRequest','CustomerMutationEnabled','AssignmentRuntimeEnabled','SlaRuntimeEnabled','NotificationRuntimeEnabled')){
     if(-not$contracts.Contains($marker)){throw "Missing S18-03 contract marker: $marker"}
 }
 foreach($marker in @('Create_ValidRequest_ReturnsExplicitApiContract','Update_NoChange_PreservesIdempotentSuccessAsOk','MissingCases_ReturnNotFound','InvalidLifecycleTransition_ReturnsConflict','ProductiveAndDeleteRoutes_RemainUnavailable')){
