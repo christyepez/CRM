@@ -2475,6 +2475,43 @@ class NoteManagementPageComponent {
   private apply(response:NoteManagementApiResponse,title:string){if(response.note){this.upsert(response.note);this.selectedNoteId.set(response.note.id);this.isCreateMode.set(false);this.populate(response.note);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Note workflow completed successfully.'});this.isSubmitting.set(false);this.loadNotes(false);}
   private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review RelatedEntityId and Text before saving.'};if(error.status===404)return{title:'Note not found',message:'The selected Note was not found.'};if(error.status===409)return{title:'Note is read-only',message:'Archived Notes cannot be modified.'};}return{title:'Note workflow unavailable',message:'The foundation Note service could not process the request.'};}
 }
+type PipelineStageView = { id:string; name:string; order:number };
+interface FoundationPipelineCatalog { id:string; name:string; stages:PipelineStageView[]; sourceMode:string; mutable:boolean; portalCatalogRuntimeEnabled:boolean; foundationMode:boolean; }
+@Injectable({providedIn:'root'})
+class PipelineCatalogApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/pipelines';
+  constructor(private readonly http:FoundationApiClient){}
+  getPipelines(){return this.http.get<FoundationPipelineCatalog[]>(this.apiBaseUrl);}
+  getPipeline(id:string){return this.http.get<FoundationPipelineCatalog>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-pipeline-catalog-page',
+  template:`
+    <section class="workflow-shell" aria-labelledby="pipelineCatalogTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="pipelineCatalogTitle">Pipeline Catalog</h1><p class="lede">Read-only deterministic pipeline catalog. Portal Catalog runtime is not active.</p></div><span class="scope-pill">Read only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Pipelines</h2><p class="muted">Synthetic foundation catalog only.</p></div></div>
+          @if(isLoading()){<p class="feedback neutral">Loading pipeline catalog...</p>}
+          @else if(pipelines().length===0){<div class="empty-state"><p>No pipelines available.</p></div>}
+          @else{<div class="contact-list">@for(item of pipelines();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{ item.name }}</span><span class="contact-meta">{{ item.stages.length }} stages · {{ item.sourceMode }}</span><span class="contact-status">Read only</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>Ordered stages</h2><p class="muted">No create, edit, reorder or delete actions are available.</p></div></div>
+          @if(selected();as item){<ol>@for(stage of item.stages;track stage.id){<li><strong>{{ stage.order }}. {{ stage.name }}</strong></li>}</ol><p class="feedback neutral">Portal Catalog runtime enabled: {{ item.portalCatalogRuntimeEnabled ? 'Yes' : 'No' }}</p>}
+          @else{<div class="empty-state"><p>Select a pipeline to inspect its stages.</p></div>}
+          @if(errorMessage()){<section class="error-panel compact-result" role="alert"><h2>Pipeline catalog unavailable</h2><p>{{ errorMessage() }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class PipelineCatalogPageComponent {
+  readonly pipelines=signal<FoundationPipelineCatalog[]>([]); readonly selectedId=signal<string|null>(null); readonly isLoading=signal(true); readonly errorMessage=signal<string|null>(null);
+  constructor(private readonly api:PipelineCatalogApiService){this.load();}
+  selected(){const id=this.selectedId();return id?this.pipelines().find(x=>x.id===id)??null:null;}
+  select(id:string){this.selectedId.set(id);this.errorMessage.set(null);this.api.getPipeline(id).subscribe({next:item=>this.pipelines.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]),error:()=>this.errorMessage.set('The selected foundation pipeline could not be loaded.')});}
+  private load(){this.api.getPipelines().subscribe({next:items=>{this.pipelines.set(items);this.selectedId.set(items[0]?.id??null);this.isLoading.set(false);},error:()=>{this.errorMessage.set('Foundation pipeline catalog could not be loaded.');this.isLoading.set(false);}});}
+}
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -4965,6 +5002,7 @@ const routes: Routes = [
   { path: 'foundation/cases', component: CaseManagementPageComponent },
   { path: 'foundation/interactions', component: InteractionManagementPageComponent },
   { path: 'foundation/notes', component: NoteManagementPageComponent },
+  { path: 'foundation/pipelines', component: PipelineCatalogPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 

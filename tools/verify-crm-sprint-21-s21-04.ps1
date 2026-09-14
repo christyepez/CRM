@@ -1,0 +1,1 @@
+﻿$ErrorActionPreference='Stop';$root=Split-Path $PSScriptRoot -Parent;$s=Get-Content (Join-Path $root 'frontend/crm-web/src/main.ts') -Raw;if(-not $s.Contains("path: 'foundation/pipelines'")){throw 'Route missing'};if(-not $s.Contains('/api/crm/foundation/pipelines')){throw 'API route missing'};Write-Host 'CRM Sprint 21 S21-04 verification passed.'
