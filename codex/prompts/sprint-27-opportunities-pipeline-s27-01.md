@@ -1,0 +1,1 @@
+Implement Sprint 27 S27-01 for Opportunities Pipeline using Reporting Insights foundation infrastructure.
