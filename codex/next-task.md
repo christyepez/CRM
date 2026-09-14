@@ -1,8 +1,7 @@
 # Next Task
 
-Sprint 24 S24-07 - CRM Assignment Reference Sprint Closure
+Sprint 25 P1 - Customer 360 Read Model Functional Baseline
 
-- Run final regression.
-- Preserve foundation-only reference boundaries.
-- Confirm Portal Identity/Security remains external.
-- Select next repository-backed CRM capability.
+- Read-only synthetic foundation capability.
+- Reuse existing CRM concepts; do not duplicate Account/Customer CRUD.
+- No cross-entity mutation, productive routes, DELETE, Common DB, Portal runtime, connectors or real data.
