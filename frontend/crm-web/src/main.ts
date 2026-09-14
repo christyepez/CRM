@@ -2580,6 +2580,43 @@ class DocumentMetadataPageComponent {
   private safeError(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review related entity and document metadata fields.'};if(e.status===404)return{title:'Document metadata not found',message:'The selected metadata record was not found.'};if(e.status===409)return{title:'Document metadata is read-only',message:'Archived metadata cannot be modified.'};}return{title:'Document metadata unavailable',message:'The foundation document metadata service could not process the request.'};}
 }
 
+type TagStatus = 'Active' | 'Archived';
+type TagRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationTag { id:string; name:string; description?:string|null; status:TagStatus; relatedEntityType?:TagRelatedEntityType|null; relatedEntityId?:string|null; persistenceMode:string; productiveCrudEnabled:boolean; portalIdentityRuntimeEnabled:boolean; }
+interface FoundationTagRequest { name:string; description?:string|null; relatedEntityType?:TagRelatedEntityType|null; relatedEntityId?:string|null; }
+interface TagApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:TagStatus|null; tag?:FoundationTag|null; }
+@Injectable({providedIn:'root'})
+class TagManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/tags';
+  constructor(private readonly http:FoundationApiClient){}
+  getTags(){return this.http.get<FoundationTag[]>(this.apiBaseUrl);}
+  getTag(id:string){return this.http.get<FoundationTag>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createTag(request:FoundationTagRequest){return this.http.post<TagApiResponse>(this.apiBaseUrl,request);}
+  updateTag(id:string,request:FoundationTagRequest){return this.http.put<TagApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveTag(id:string){return this.http.post<TagApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+@Component({standalone:true,selector:'crm-tag-management-page',imports:[ReactiveFormsModule],template:`
+<section class="workflow-shell" aria-labelledby="tagTitle"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="tagTitle">CRM Tags</h1><p class="lede">Manage synthetic CRM-owned tags and optional structural entity references. Portal identity/config runtime is not active.</p></div><span class="scope-pill">Foundation only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Tags</h2><p class="muted">Synthetic tag metadata only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New tag</button></div>
+@if(isLoading()){<p class="feedback neutral">Loading foundation tags...</p>}@else{<div class="contact-list">@for(item of tags();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{item.name}}</span><span class="contact-meta">{{item.relatedEntityType || 'Unassigned'}} · {{item.relatedEntityId || 'No entity reference'}}</span><span class="contact-status">{{item.status}}</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>{{createMode()?'New tag':'Tag details'}}</h2><p class="muted">Assignments are structural references only.</p></div>@if(selected();as item){<span class="scope-pill quiet">{{item.status}}</span>}</div>
+<form [formGroup]="form" (ngSubmit)="submit()"><label>Name</label><input formControlName="name" maxlength="80"/><label>Description</label><textarea formControlName="description" maxlength="500" rows="5"></textarea><label>Related entity type (optional)</label><select formControlName="relatedEntityType"><option value="">None</option><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select><label>Related entity id (optional)</label><input formControlName="relatedEntityId"/><button type="submit" [disabled]="submitting()||form.invalid||selected()?.status==='Archived'">{{submitting()?'Saving...':(createMode()?'Create tag':'Save tag')}}</button></form>
+@if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="submitting()" (click)="archive()">Archive tag</button></div>}}@if(message();as m){<section class="result-panel compact-result"><h2>{{m.title}}</h2><p>{{m.message}}</p></section>}@if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{e.title}}</h2><p>{{e.message}}</p></section>}</section></div></section>`})
+class TagManagementPageComponent {
+ readonly tags=signal<FoundationTag[]>([]);readonly selectedId=signal<string|null>(null);readonly isLoading=signal(true);readonly submitting=signal(false);readonly createMode=signal(true);readonly message=signal<{title:string;message:string}|null>(null);readonly error=signal<{title:string;message:string}|null>(null);
+ readonly form=this.fb.nonNullable.group({name:['',[Validators.required,Validators.maxLength(80)]],description:['',Validators.maxLength(500)],relatedEntityType:['' as ''|TagRelatedEntityType],relatedEntityId:['']});
+ constructor(private readonly api:TagManagementApiService,private readonly fb:FormBuilder){this.load();this.startCreate();}
+ selected(){const id=this.selectedId();return id?this.tags().find(x=>x.id===id)??null:null;}
+ startCreate(){this.createMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({name:'',description:'',relatedEntityType:'',relatedEntityId:''});}
+ select(id:string){this.createMode.set(false);this.selectedId.set(id);this.api.getTag(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safe(e))});}
+ submit(){this.form.markAllAsTouched();if(this.form.invalid||this.submitting()||this.selected()?.status==='Archived')return;const v=this.form.getRawValue();const req:FoundationTagRequest={name:v.name.trim(),description:v.description.trim()||null,relatedEntityType:v.relatedEntityType||null,relatedEntityId:v.relatedEntityId.trim()||null};this.submitting.set(true);this.error.set(null);const op=this.createMode()?this.api.createTag(req):this.api.updateTag(this.selectedId()??'',req);op.subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ archive(){const x=this.selected();if(!x||this.submitting())return;this.submitting.set(true);this.api.archiveTag(x.id).subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ private load(){this.api.getTags().subscribe({next:x=>{this.tags.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Tag workflow unavailable',message:'Foundation tags could not be loaded.'});this.isLoading.set(false);}});}
+ private populate(x:FoundationTag){this.form.reset({name:x.name,description:x.description??'',relatedEntityType:x.relatedEntityType??'',relatedEntityId:x.relatedEntityId??''});}
+ private upsert(x:FoundationTag){this.tags.update(xs=>[x,...xs.filter(i=>i.id!==x.id)]);}
+ private apply(r:TagApiResponse){if(r.tag){this.upsert(r.tag);this.selectedId.set(r.tag.id);this.createMode.set(false);this.populate(r.tag);}this.message.set({title:r.changed?'Tag workflow completed':'No changes were necessary',message:r.message});this.submitting.set(false);this.load();}
+ private safe(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review the tag metadata and entity reference.'};if(e.status===404)return{title:'Tag not found',message:'The selected tag was not found.'};if(e.status===409)return{title:'Tag is read-only',message:'Archived tags cannot be modified.'};}return{title:'Tag workflow unavailable',message:'The foundation Tag service could not process the request.'};}
+}
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -5072,6 +5109,7 @@ const routes: Routes = [
   { path: 'foundation/notes', component: NoteManagementPageComponent },
   { path: 'foundation/pipelines', component: PipelineCatalogPageComponent },
   { path: 'foundation/documents', component: DocumentMetadataPageComponent },
+  { path: 'foundation/tags', component: TagManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
