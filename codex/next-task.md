@@ -1,4 +1,4 @@
 ﻿# Next task
-Sprint: 25
-Slice: S25-06
-Task: run local Customer 360 integration validation on isolated ports.
+Sprint: 26
+Phase: P1
+Capability: Leads Funnel Foundation Read Model
