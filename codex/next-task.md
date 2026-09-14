@@ -1,8 +1,8 @@
 # Next Task
 
-Sprint 24 S24-06 - CRM Assignment Reference Local Integration Validation
+Sprint 24 S24-07 - CRM Assignment Reference Sprint Closure
 
-- Use localhost-only ports.
-- Validate frontend route/proxy and assignment API end-to-end.
-- Preserve productive/DELETE/Portal Security/Common DB guardrails.
-- Persist evidence and stop only processes created for the validation.
+- Run final regression.
+- Preserve foundation-only reference boundaries.
+- Confirm Portal Identity/Security remains external.
+- Select next repository-backed CRM capability.
