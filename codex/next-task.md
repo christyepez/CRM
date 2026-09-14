@@ -1,3 +1,3 @@
 ﻿# Next task
 Sprint: 26
-Slice: S26-02
+Slice: S26-03
