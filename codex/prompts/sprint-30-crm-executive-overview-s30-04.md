@@ -1,0 +1,1 @@
+Implement S30-04 frontend parity for CRM Executive Overview using shared read-only insights page.
