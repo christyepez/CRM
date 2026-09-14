@@ -1,0 +1,1 @@
+Run S27-06 local HTTP integration for Opportunities Pipeline.

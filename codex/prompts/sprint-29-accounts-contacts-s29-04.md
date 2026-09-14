@@ -1,0 +1,1 @@
+Implement S29-04 frontend parity for Accounts and Contacts using shared read-only insights page.

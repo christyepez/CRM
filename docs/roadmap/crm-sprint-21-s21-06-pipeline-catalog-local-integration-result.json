@@ -1,0 +1,19 @@
+{
+    "S2106Decision":  "Implemented",
+    "LocalBackendUrl":  "http://127.0.0.1:8098",
+    "LocalFrontendUrl":  "http://127.0.0.1:4211",
+    "FrontendApiRoutingMode":  "Proxy",
+    "ListScenario":  "PASS",
+    "DetailScenario":  "PASS",
+    "OrderedStages":  "PASS",
+    "NotFoundScenario":  "PASS",
+    "MutationRoutesAvailable":  false,
+    "ProductivePipelineRouteAvailable":  false,
+    "PortalCatalogRuntimeObserved":  false,
+    "CommonDbRuntimeObserved":  false,
+    "RealDataDetected":  false,
+    "SimulatedProductionTouched":  false,
+    "IntegrationLatencySamples":  8,
+    "LatencyAverageMs":  15.38,
+    "LatencyP95Ms":  99
+}

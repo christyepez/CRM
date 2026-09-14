@@ -1,0 +1,1 @@
+Close Sprint 27 Opportunities Pipeline after full regression.

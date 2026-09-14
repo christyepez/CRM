@@ -1,0 +1,1 @@
+Implement S27-04 frontend parity for Opportunities Pipeline using shared read-only insights page.

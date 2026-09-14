@@ -1,12 +1,23 @@
-using CRM.Api.ProductiveRoutes;
+﻿using CRM.Api.ProductiveRoutes;
 using CRM.Api.Foundation;
 using CRM.Application.AccountManagement;
 using CRM.Application.ActivityManagement;
 using CRM.Application.CampaignManagement;
+using CRM.Application.CaseManagement;
 using CRM.Application.Contracts;
 using CRM.Application.ContactManagement;
+using CRM.Application.DocumentMetadata;
 using CRM.Application.Financial;
 using CRM.Application.Foundation;
+using CRM.Application.InteractionManagement;
+using CRM.Application.NoteManagement;
+using CRM.Application.AssignmentManagement;
+using CRM.Application.Customer360;
+using CRM.Application.ReportingInsights;
+using CRM.Application.Ports.ReadModels;
+using CRM.Application.TagManagement;
+using CRM.Application.PipelineCatalog;
+using CRM.Application.Ports.PipelineCatalog;
 using CRM.Application.OpportunityManagement;
 using CRM.Application.Persistence;
 using CRM.Application.Ports.Persistence;
@@ -17,8 +28,13 @@ using CRM.Application.SegmentManagement;
 using CRM.Application.ReadModels;
 using CRM.Domain.ActivityManagement;
 using CRM.Domain.CampaignManagement;
+using CRM.Domain.CaseManagement;
+using CRM.Domain.InteractionManagement;
+using CRM.Domain.NoteManagement;
 using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
+using CRM.Infrastructure.ReadModels;
+using CRM.Infrastructure.ReportingInsights;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
 using CRM.Infrastructure.Data.CommonDb;
 using CRM.Infrastructure.Portal.Auth;
@@ -48,6 +64,15 @@ builder.Services.AddSingleton<FoundationContactCrudService>();
 builder.Services.AddSingleton<IContactManagementService, ContactManagementService>();
 builder.Services.AddSingleton<IActivityManagementService, ActivityManagementService>();
 builder.Services.AddSingleton<ICampaignManagementService, CampaignManagementService>();
+builder.Services.AddSingleton<ICaseManagementService, CaseManagementService>();
+builder.Services.AddSingleton<IInteractionManagementService, InteractionManagementService>();
+builder.Services.AddSingleton<INoteManagementService, NoteManagementService>();
+builder.Services.AddSingleton<ITagManagementService, TagManagementService>();
+builder.Services.AddSingleton<IAssignmentManagementService, AssignmentManagementService>();
+builder.Services.AddSingleton<ICustomer360ReadService, Customer360ReadService>();
+builder.Services.AddSingleton<IReportingInsightReadService, ReportingInsightReadService>();
+builder.Services.AddSingleton<IDocumentMetadataService, DocumentMetadataService>();
+builder.Services.AddSingleton<IPipelineCatalogService, PipelineCatalogService>();
 builder.Services.AddSingleton<ISegmentManagementService, SegmentManagementService>();
 builder.Services.AddSingleton<IOpportunityManagementService, OpportunityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
@@ -155,6 +180,15 @@ builder.Services.AddSingleton<IAccountFoundationStore, InMemoryAccountFoundation
 builder.Services.AddSingleton<IContactFoundationStore, InMemoryContactFoundationStore>();
 builder.Services.AddSingleton<IActivityFoundationStore, InMemoryActivityFoundationStore>();
 builder.Services.AddSingleton<ICampaignFoundationStore, InMemoryCampaignFoundationStore>();
+builder.Services.AddSingleton<ICaseFoundationStore, InMemoryCaseFoundationStore>();
+builder.Services.AddSingleton<IInteractionFoundationStore, InMemoryInteractionFoundationStore>();
+builder.Services.AddSingleton<INoteFoundationStore, InMemoryNoteFoundationStore>();
+builder.Services.AddSingleton<ITagFoundationStore, InMemoryTagFoundationStore>();
+builder.Services.AddSingleton<IAssignmentFoundationStore, InMemoryAssignmentFoundationStore>();
+builder.Services.AddSingleton<ICustomer360FoundationProvider, InMemoryCustomer360FoundationProvider>();
+builder.Services.AddSingleton<IReportingInsightFoundationProvider, InMemoryReportingInsightFoundationProvider>();
+builder.Services.AddSingleton<IDocumentMetadataFoundationStore, InMemoryDocumentMetadataFoundationStore>();
+builder.Services.AddSingleton<IPipelineCatalogSource, SyntheticPipelineCatalogSource>();
 builder.Services.AddSingleton<ISegmentFoundationStore, InMemorySegmentFoundationStore>();
 builder.Services.AddSingleton<IOpportunityFoundationStore, InMemoryOpportunityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
@@ -757,6 +791,130 @@ app.MapPost("/api/crm/foundation/campaigns/{id}/cancel", async (string id, ICamp
     var result = await service.CancelAsync(id, cancellationToken);
     return Results.Json(CampaignManagementApiResponse.From(result), statusCode: CampaignManagementApiResponse.ToStatusCode(result));
 }).WithName("CancelCrmFoundationCampaign");
+
+app.MapGet("/api/crm/foundation/cases", async (ICaseManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationCases");
+
+app.MapGet("/api/crm/foundation/cases/{id}", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var crmCase = await service.GetByIdAsync(id, cancellationToken);
+    return crmCase is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(CaseManagementErrorCode.CaseNotFound), message = "Case was not found.", foundationMode = true, productiveCrudEnabled = false, customerMutationEnabled = false, assignmentRuntimeEnabled = false, slaRuntimeEnabled = false, notificationRuntimeEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(crmCase);
+}).WithName("GetCrmFoundationCaseById");
+
+app.MapPost("/api/crm/foundation/cases", async (FoundationCaseCreateRequest request, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(CaseManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationCase");
+
+app.MapPut("/api/crm/foundation/cases/{id}", async (string id, FoundationCaseUpdateRequest request, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, CaseManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/start", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.StartAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("StartCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/resolve", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ResolveAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("ResolveCrmFoundationCase");
+
+app.MapPost("/api/crm/foundation/cases/{id}/close", async (string id, ICaseManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CloseAsync(id, cancellationToken);
+    return Results.Json(CaseManagementApiResponse.From(result), statusCode: CaseManagementApiResponse.ToStatusCode(result));
+}).WithName("CloseCrmFoundationCase");
+
+app.MapGet("/api/crm/foundation/interactions", async (IInteractionManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationInteractions");
+
+app.MapGet("/api/crm/foundation/interactions/{id}", async (string id, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var interaction = await service.GetByIdAsync(id, cancellationToken);
+    return interaction is null
+        ? Results.NotFound(new { allowed = false, changed = false, errorCode = nameof(InteractionManagementErrorCode.InteractionNotFound), message = "Interaction was not found.", foundationMode = true, productiveCrudEnabled = false, activitySchedulingEnabled = false, crossEntityMutationEnabled = false, portalRuntimeEnabled = false, commonDbRuntimeEnabled = false })
+        : Results.Ok(interaction);
+}).WithName("GetCrmFoundationInteractionById");
+
+app.MapPost("/api/crm/foundation/interactions", async (FoundationInteractionCreateRequest request, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(InteractionManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationInteraction");
+
+app.MapPut("/api/crm/foundation/interactions/{id}", async (string id, FoundationInteractionUpdateRequest request, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, InteractionManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationInteraction");
+
+app.MapPost("/api/crm/foundation/interactions/{id}/void", async (string id, IInteractionManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.VoidAsync(id, cancellationToken);
+    return Results.Json(InteractionManagementApiResponse.From(result), statusCode: InteractionManagementApiResponse.ToStatusCode(result));
+}).WithName("VoidCrmFoundationInteraction");
+app.MapGet("/api/crm/foundation/notes", async (INoteManagementService service, CancellationToken cancellationToken) =>
+    Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationNotes");
+
+app.MapGet("/api/crm/foundation/notes/{id}", async (string id, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var note = await service.GetByIdAsync(id, cancellationToken);
+    return note is null ? Results.NotFound() : Results.Ok(note);
+}).WithName("GetCrmFoundationNote");
+
+app.MapPost("/api/crm/foundation/notes", async (FoundationNoteCreateRequest request, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.CreateAsync(NoteManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("CreateCrmFoundationNote");
+
+app.MapPut("/api/crm/foundation/notes/{id}", async (string id, FoundationNoteUpdateRequest request, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.UpdateAsync(id, NoteManagementApiResponse.ToApplicationRequest(request), cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("UpdateCrmFoundationNote");
+
+app.MapPost("/api/crm/foundation/notes/{id}/archive", async (string id, INoteManagementService service, CancellationToken cancellationToken) =>
+{
+    var result = await service.ArchiveAsync(id, cancellationToken);
+    return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
+}).WithName("ArchiveCrmFoundationNote");
+app.MapGet("/api/crm/foundation/pipelines", async (IPipelineCatalogService service, CancellationToken cancellationToken) =>
+    Results.Ok((await service.GetAllAsync(cancellationToken)).Select(PipelineCatalogApiResponse.From).ToArray()))
+    .WithName("GetCrmFoundationPipelines");
+
+app.MapGet("/api/crm/foundation/pipelines/{id}", async (string id, IPipelineCatalogService service, CancellationToken cancellationToken) =>
+{
+    var item = await service.GetByIdAsync(id, cancellationToken);
+    return item is null ? Results.NotFound() : Results.Ok(PipelineCatalogApiResponse.From(item));
+}).WithName("GetCrmFoundationPipeline");
+app.MapGet("/api/crm/foundation/documents", async (IDocumentMetadataService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationDocuments");
+app.MapGet("/api/crm/foundation/documents/{id}", async (string id, IDocumentMetadataService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(id,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationDocument");
+app.MapPost("/api/crm/foundation/documents", async (FoundationDocumentCreateRequest request, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.CreateAsync(DocumentMetadataApiResponse.ToApplication(request),cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("CreateCrmFoundationDocument");
+app.MapPut("/api/crm/foundation/documents/{id}", async (string id, FoundationDocumentUpdateRequest request, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.UpdateAsync(id,DocumentMetadataApiResponse.ToApplication(request),cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("UpdateCrmFoundationDocument");
+app.MapPost("/api/crm/foundation/documents/{id}/archive", async (string id, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.ArchiveAsync(id,cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("ArchiveCrmFoundationDocument");
+app.MapGet("/api/crm/foundation/tags", async (ITagManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationTags");
+app.MapGet("/api/crm/foundation/tags/{id}", async (string id, ITagManagementService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(id,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationTag");
+app.MapPost("/api/crm/foundation/tags", async (FoundationTagCreateRequest request, ITagManagementService service, CancellationToken cancellationToken) => { var result=await service.CreateAsync(TagManagementApiResponse.ToApplication(request),cancellationToken); return Results.Json(TagManagementApiResponse.From(result),statusCode:TagManagementApiResponse.ToStatusCode(result)); }).WithName("CreateCrmFoundationTag");
+app.MapPut("/api/crm/foundation/tags/{id}", async (string id, FoundationTagUpdateRequest request, ITagManagementService service, CancellationToken cancellationToken) => { var result=await service.UpdateAsync(id,TagManagementApiResponse.ToApplication(request),cancellationToken); return Results.Json(TagManagementApiResponse.From(result),statusCode:TagManagementApiResponse.ToStatusCode(result)); }).WithName("UpdateCrmFoundationTag");
+app.MapPost("/api/crm/foundation/tags/{id}/archive", async (string id, ITagManagementService service, CancellationToken cancellationToken) => { var result=await service.ArchiveAsync(id,cancellationToken); return Results.Json(TagManagementApiResponse.From(result),statusCode:TagManagementApiResponse.ToStatusCode(result)); }).WithName("ArchiveCrmFoundationTag");
+app.MapGet("/api/crm/foundation/assignments", async (IAssignmentManagementService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationAssignments");
+app.MapGet("/api/crm/foundation/assignments/{id}", async (string id, IAssignmentManagementService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(id,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationAssignment");
+app.MapPost("/api/crm/foundation/assignments", async (FoundationAssignmentCreateRequest request, IAssignmentManagementService service, CancellationToken cancellationToken) => { var result=await service.CreateAsync(AssignmentManagementApiResponse.ToApplication(request),cancellationToken); return Results.Json(AssignmentManagementApiResponse.From(result),statusCode:AssignmentManagementApiResponse.ToStatusCode(result)); }).WithName("CreateCrmFoundationAssignment");
+app.MapPut("/api/crm/foundation/assignments/{id}", async (string id, FoundationAssignmentUpdateRequest request, IAssignmentManagementService service, CancellationToken cancellationToken) => { var result=await service.UpdateAsync(id,AssignmentManagementApiResponse.ToApplication(request),cancellationToken); return Results.Json(AssignmentManagementApiResponse.From(result),statusCode:AssignmentManagementApiResponse.ToStatusCode(result)); }).WithName("UpdateCrmFoundationAssignment");
+app.MapPost("/api/crm/foundation/assignments/{id}/archive", async (string id, IAssignmentManagementService service, CancellationToken cancellationToken) => { var result=await service.ArchiveAsync(id,cancellationToken); return Results.Json(AssignmentManagementApiResponse.From(result),statusCode:AssignmentManagementApiResponse.ToStatusCode(result)); }).WithName("ArchiveCrmFoundationAssignment");
+app.MapGet("/api/crm/foundation/customer360", async (ICustomer360ReadService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationCustomer360");
+app.MapGet("/api/crm/foundation/customer360/{customerId}", async (string customerId, ICustomer360ReadService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(customerId,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationCustomer360ById");
+app.MapGet("/api/crm/foundation/insights", async (IReportingInsightReadService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationInsights");
+app.MapGet("/api/crm/foundation/insights/{key}", async (string key, IReportingInsightReadService service, CancellationToken cancellationToken) => { var item=await service.GetByKeyAsync(key,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationInsightByKey");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();

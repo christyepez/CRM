@@ -1,0 +1,3 @@
+﻿using CRM.Application.ReportingInsights;using Microsoft.AspNetCore.Mvc.Testing;using Microsoft.Extensions.DependencyInjection;using Xunit;
+namespace CRM.UnitTests;
+public sealed class ReportingInsightReadServiceTests{[Fact]public async Task LeadsFunnel_IsFoundationMock(){using var f=new WebApplicationFactory<Program>();using var s=f.Services.CreateScope();var svc=s.ServiceProvider.GetRequiredService<IReportingInsightReadService>();var x=await svc.GetByKeyAsync("leads-funnel");Assert.NotNull(x);Assert.Equal("FoundationMock",x!.SourceMode);Assert.False(x.ProductiveRuntimeEnabled);Assert.False(x.PortalRuntimeEnabled);Assert.False(x.CommonDbRuntimeEnabled);}}

@@ -1,4 +1,4 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+﻿import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, RouterOutlet, Routes } from '@angular/router';
 import { Component, Injectable, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
@@ -2188,6 +2188,435 @@ class SegmentManagementPageComponent {
   private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Segment fields before saving.'};if(error.status===404)return{title:'Segment not found',message:'The selected Segment was not found.'};if(error.status===409)return{title:'Transition not permitted',message:'The Segment cannot move to that lifecycle state.'};}return{title:'Segment workflow unavailable',message:'The foundation Segment service could not process the request.'};}
 }
 
+type CaseStatus = 'Open' | 'InProgress' | 'Resolved' | 'Closed';
+type CasePriority = 'Low' | 'Medium' | 'High' | 'Critical';
+interface FoundationCase {
+  id: string;
+  customerId: string;
+  title: string;
+  summary: string;
+  priority: CasePriority;
+  status: CaseStatus;
+  persistenceMode: string;
+  productiveCrudEnabled: boolean;
+}
+interface FoundationCaseRequest { customerId: string; title: string; summary: string; priority: CasePriority; }
+interface CaseManagementApiResponse {
+  id?: string | null;
+  operation: string;
+  allowed: boolean;
+  changed: boolean;
+  errorCode: string;
+  message: string;
+  status?: CaseStatus | null;
+  case?: FoundationCase | null;
+}
+@Injectable({ providedIn: 'root' })
+class CaseManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/cases';
+  constructor(private readonly http: FoundationApiClient) {}
+  getCases() { return this.http.get<FoundationCase[]>(this.apiBaseUrl); }
+  getCase(id: string) { return this.http.get<FoundationCase>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createCase(request: FoundationCaseRequest) { return this.http.post<CaseManagementApiResponse>(this.apiBaseUrl, request); }
+  updateCase(id: string, request: FoundationCaseRequest) { return this.http.put<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  startCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/start`, {}); }
+  resolveCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/resolve`, {}); }
+  closeCase(id: string) { return this.http.post<CaseManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/close`, {}); }
+}
+@Component({
+  standalone: true,
+  selector: 'crm-case-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="caseTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="caseTitle">Case Management</h1><p class="lede">Manage synthetic CRM Cases through the foundation-only API.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel" aria-labelledby="caseListTitle">
+          <div class="panel-heading"><div><h2 id="caseListTitle">Cases</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New case</button></div>
+          @if (isLoading()) { <p class="feedback neutral">Loading foundation cases...</p> }
+          @else if (cases().length === 0) { <div class="empty-state"><p>No cases available yet.</p></div> }
+          @else { <div class="contact-list" aria-label="Foundation case list">
+            @for (item of cases(); track item.id) {
+              <button type="button" class="contact-list-item" [class.selected]="selectedCaseId() === item.id" (click)="selectCase(item.id)">
+                <span class="contact-name">{{ item.title }}</span><span class="contact-meta">{{ item.priority }} · {{ item.customerId }}</span><span class="contact-status">{{ item.status }}</span>
+              </button>
+            }
+          </div> }
+        </section>
+        <section class="panel" aria-labelledby="caseFormTitle">
+          <div class="panel-heading"><div><h2 id="caseFormTitle">{{ isCreateMode() ? 'New case' : 'Case details' }}</h2></div>@if (selectedCase(); as item) { <span class="scope-pill quiet">{{ item.status }}</span> }</div>
+          <form [formGroup]="caseForm" (ngSubmit)="submitCase()" novalidate>
+            <label for="caseCustomerId">CustomerId</label><input id="caseCustomerId" type="text" formControlName="customerId" />
+            <label for="caseTitleInput">Title</label><input id="caseTitleInput" type="text" maxlength="160" formControlName="title" />
+            <label for="caseSummary">Summary</label><textarea id="caseSummary" maxlength="1000" rows="6" formControlName="summary"></textarea>
+            <label for="casePriority">Priority</label><select id="casePriority" formControlName="priority"><option value="Low">Low</option><option value="Medium">Medium</option><option value="High">High</option><option value="Critical">Critical</option></select>
+            @if (validationMessage(); as message) { <p class="validation" aria-live="polite">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || caseForm.invalid || isReadOnly()">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create case' : 'Save case') }}</button>
+          </form>
+          @if (selectedCase(); as item) {
+            <div class="opportunity-actions" aria-label="Case lifecycle actions">
+              @if (item.status === 'Open') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="startSelected()">Start case</button> }
+              @if (item.status === 'Open' || item.status === 'InProgress') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="resolveSelected()">Resolve case</button> }
+              @if (item.status === 'Resolved') { <button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="closeSelected()">Close case</button> }
+            </div>
+          }
+          @if (operationMessage(); as message) { <section class="result-panel compact-result" aria-live="polite"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class CaseManagementPageComponent {
+  readonly cases = signal<FoundationCase[]>([]);
+  readonly selectedCaseId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+  readonly caseForm = this.formBuilder.nonNullable.group({
+    customerId: ['', [Validators.required]],
+    title: ['', [Validators.required, Validators.maxLength(160)]],
+    summary: ['', [Validators.required, Validators.maxLength(1000)]],
+    priority: ['Medium' as CasePriority, [Validators.required]]
+  });
+  constructor(private readonly api: CaseManagementApiService, private readonly formBuilder: FormBuilder) { this.loadCases(); this.startCreate(); }
+  selectedCase() { const id=this.selectedCaseId(); return id ? this.cases().find(x=>x.id===id) ?? null : null; }
+  isReadOnly() { const item=this.selectedCase(); return !this.isCreateMode() && (item?.status === 'Resolved' || item?.status === 'Closed'); }
+  startCreate() { this.isCreateMode.set(true); this.selectedCaseId.set(null); this.safeError.set(null); this.operationMessage.set(null); this.caseForm.reset({customerId:'',title:'',summary:'',priority:'Medium'}); }
+  selectCase(id: string) { this.isCreateMode.set(false); this.selectedCaseId.set(id); this.safeError.set(null); this.operationMessage.set(null); this.api.getCase(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))}); }
+  validationMessage() {
+    if(!this.caseForm.touched) return null;
+    const c=this.caseForm.controls;
+    if(c.customerId.invalid) return 'Enter a valid CustomerId.';
+    if(c.title.invalid) return 'Enter a Case title with 160 characters or less.';
+    if(c.summary.invalid) return 'Enter a Summary with 1000 characters or less.';
+    if(c.priority.invalid) return 'Choose a valid Case priority.';
+    return null;
+  }
+  submitCase() {
+    this.caseForm.markAllAsTouched(); if(this.caseForm.invalid || this.isSubmitting() || this.isReadOnly()) return;
+    const value=this.caseForm.getRawValue(); const request: FoundationCaseRequest={customerId:value.customerId.trim(),title:value.title.trim(),summary:value.summary.trim(),priority:value.priority};
+    this.isSubmitting.set(true); this.safeError.set(null); this.operationMessage.set(null);
+    const op=this.isCreateMode()?this.api.createCase(request):this.api.updateCase(this.selectedCaseId()??'',request);
+    op.subscribe({next:r=>this.apply(r,r.changed?'Case saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});
+  }
+  startSelected(){this.runLifecycle(x=>this.api.startCase(x.id),'Case started');}
+  resolveSelected(){this.runLifecycle(x=>this.api.resolveCase(x.id),'Case resolved');}
+  closeSelected(){this.runLifecycle(x=>this.api.closeCase(x.id),'Case closed');}
+  private loadCases(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getCases().subscribe({next:x=>{this.cases.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Case workflow unavailable',message:'Foundation cases could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item: FoundationCase){this.caseForm.reset({customerId:item.customerId,title:item.title,summary:item.summary,priority:item.priority});}
+  private upsert(item: FoundationCase){this.cases.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response: CaseManagementApiResponse,title:string){if(response.case){this.upsert(response.case);this.selectedCaseId.set(response.case.id);this.isCreateMode.set(false);this.populate(response.case);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Case workflow completed successfully.'});this.isSubmitting.set(false);this.loadCases(false);}
+  private runLifecycle(action:(item:FoundationCase)=>ReturnType<CaseManagementApiService['startCase']>,title:string){const item=this.selectedCase();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);action(item).subscribe({next:r=>this.apply(r,title),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review CustomerId, Title, Summary and Priority before saving.'};if(error.status===404)return{title:'Case not found',message:'The selected Case was not found. Refresh the list.'};if(error.status===409)return{title:'Transition not permitted',message:'The Case cannot be modified or moved to that lifecycle state.'};}return{title:'Case workflow unavailable',message:'The foundation Case service could not process the request.'};}
+}
+
+type InteractionStatus = 'Recorded' | 'Voided';
+type InteractionRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+type InteractionChannel = 'Email' | 'Phone' | 'Meeting' | 'Chat' | 'Other';
+type InteractionDirection = 'Inbound' | 'Outbound';
+interface FoundationInteraction {
+  id: string; relatedEntityType: InteractionRelatedEntityType; relatedEntityId: string;
+  channel: InteractionChannel; direction: InteractionDirection; subject: string; summary: string;
+  occurredAtUtc: string; status: InteractionStatus; persistenceMode: string; productiveCrudEnabled: boolean;
+}
+interface FoundationInteractionRequest {
+  relatedEntityType: InteractionRelatedEntityType; relatedEntityId: string; channel: InteractionChannel;
+  direction: InteractionDirection; subject: string; summary: string; occurredAtUtc: string;
+}
+interface InteractionManagementApiResponse {
+  id?: string | null; operation: string; allowed: boolean; changed: boolean; errorCode: string; message: string;
+  status?: InteractionStatus | null; interaction?: FoundationInteraction | null;
+}
+@Injectable({ providedIn: 'root' })
+class InteractionManagementApiService {
+  private readonly apiBaseUrl = '/api/crm/foundation/interactions';
+  constructor(private readonly http: FoundationApiClient) {}
+  getInteractions() { return this.http.get<FoundationInteraction[]>(this.apiBaseUrl); }
+  getInteraction(id: string) { return this.http.get<FoundationInteraction>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`); }
+  createInteraction(request: FoundationInteractionRequest) { return this.http.post<InteractionManagementApiResponse>(this.apiBaseUrl, request); }
+  updateInteraction(id: string, request: FoundationInteractionRequest) { return this.http.put<InteractionManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`, request); }
+  voidInteraction(id: string) { return this.http.post<InteractionManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/void`, {}); }
+}
+
+@Component({
+  standalone: true,
+  selector: 'crm-interaction-management-page',
+  imports: [ReactiveFormsModule],
+  template: `
+    <section class="workflow-shell" aria-labelledby="interactionTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="interactionTitle">Interaction Management</h1><p class="lede">Record synthetic CRM touchpoints without scheduling Activities or mutating related entities.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Interactions</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New interaction</button></div>
+          @if (isLoading()) { <p class="feedback neutral">Loading foundation interactions...</p> }
+          @else if (interactions().length === 0) { <div class="empty-state"><p>No interactions available yet.</p></div> }
+          @else { <div class="contact-list">@for (item of interactions(); track item.id) {<button type="button" class="contact-list-item" [class.selected]="selectedInteractionId() === item.id" (click)="selectInteraction(item.id)"><span class="contact-name">{{ item.subject }}</span><span class="contact-meta">{{ item.channel }} Â· {{ item.direction }} Â· {{ item.relatedEntityType }}</span><span class="contact-status">{{ item.status }}</span></button>}</div> }
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New interaction' : 'Interaction details' }}</h2></div>@if (selectedInteraction(); as item) { <span class="scope-pill quiet">{{ item.status }}</span> }</div>
+          <form [formGroup]="interactionForm" (ngSubmit)="submitInteraction()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>Channel</label><select formControlName="channel"><option>Email</option><option>Phone</option><option>Meeting</option><option>Chat</option><option>Other</option></select>
+            <label>Direction</label><select formControlName="direction"><option>Inbound</option><option>Outbound</option></select>
+            <label>Subject</label><input type="text" maxlength="160" formControlName="subject" />
+            <label>Summary</label><textarea maxlength="2000" rows="5" formControlName="summary"></textarea>
+            <label>Occurred at UTC</label><input type="datetime-local" formControlName="occurredAtUtc" />
+            @if (validationMessage(); as message) { <p class="validation">{{ message }}</p> }
+            <button type="submit" [disabled]="isSubmitting() || interactionForm.invalid">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create interaction' : 'Save interaction') }}</button>
+          </form>
+          @if (selectedInteraction(); as item) {@if (item.status === 'Recorded') { <div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="voidSelected()">Void interaction</button></div> }}
+          @if (operationMessage(); as message) { <section class="result-panel compact-result"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section> }
+          @if (safeError(); as error) { <section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section> }
+        </section>
+      </div>
+    </section>
+  `
+})
+class InteractionManagementPageComponent {
+  readonly interactions = signal<FoundationInteraction[]>([]);
+  readonly selectedInteractionId = signal<string | null>(null);
+  readonly isLoading = signal(true);
+  readonly isSubmitting = signal(false);
+  readonly isCreateMode = signal(true);
+  readonly safeError = signal<{ title: string; message: string } | null>(null);
+  readonly operationMessage = signal<{ title: string; message: string } | null>(null);
+  readonly interactionForm = this.formBuilder.nonNullable.group({
+    relatedEntityType: ['Contact' as InteractionRelatedEntityType, Validators.required],
+    relatedEntityId: ['', Validators.required],
+    channel: ['Email' as InteractionChannel, Validators.required],
+    direction: ['Outbound' as InteractionDirection, Validators.required],
+    subject: ['', [Validators.required, Validators.maxLength(160)]],
+    summary: ['', [Validators.required, Validators.maxLength(2000)]],
+    occurredAtUtc: ['', Validators.required]
+  });
+  constructor(private readonly api: InteractionManagementApiService, private readonly formBuilder: FormBuilder) { this.loadInteractions(); this.startCreate(); }
+  selectedInteraction() { const id=this.selectedInteractionId(); return id ? this.interactions().find(x=>x.id===id) ?? null : null; }
+  startCreate() { this.isCreateMode.set(true); this.selectedInteractionId.set(null); this.safeError.set(null); this.operationMessage.set(null); this.interactionForm.reset({relatedEntityType:'Contact',relatedEntityId:'',channel:'Email',direction:'Outbound',subject:'',summary:'',occurredAtUtc:''}); }
+  selectInteraction(id:string){this.isCreateMode.set(false);this.selectedInteractionId.set(id);this.safeError.set(null);this.operationMessage.set(null);this.api.getInteraction(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))});}
+  validationMessage(){if(!this.interactionForm.touched)return null;const c=this.interactionForm.controls;if(c.relatedEntityId.invalid)return 'Enter a valid related entity id.';if(c.subject.invalid)return 'Enter a subject with 160 characters or less.';if(c.summary.invalid)return 'Enter a summary with 2000 characters or less.';if(c.occurredAtUtc.invalid)return 'Enter the interaction timestamp.';return null;}
+  submitInteraction(){
+    this.interactionForm.markAllAsTouched(); if(this.interactionForm.invalid||this.isSubmitting())return;
+    const v=this.interactionForm.getRawValue(); const request:FoundationInteractionRequest={
+      relatedEntityType:v.relatedEntityType, relatedEntityId:v.relatedEntityId.trim(), channel:v.channel, direction:v.direction,
+      subject:v.subject.trim(), summary:v.summary.trim(), occurredAtUtc:new Date(v.occurredAtUtc).toISOString()
+    };
+    this.isSubmitting.set(true); this.safeError.set(null); this.operationMessage.set(null);
+    const op=this.isCreateMode()?this.api.createInteraction(request):this.api.updateInteraction(this.selectedInteractionId()??'',request);
+    op.subscribe({next:r=>this.apply(r,r.changed?'Interaction saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});
+  }
+  voidSelected(){const item=this.selectedInteraction();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);this.api.voidInteraction(item.id).subscribe({next:r=>this.apply(r,r.changed?'Interaction voided':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private loadInteractions(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getInteractions().subscribe({next:x=>{this.interactions.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Interaction workflow unavailable',message:'Foundation interactions could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item:FoundationInteraction){this.interactionForm.reset({relatedEntityType:item.relatedEntityType,relatedEntityId:item.relatedEntityId,channel:item.channel,direction:item.direction,subject:item.subject,summary:item.summary,occurredAtUtc:item.occurredAtUtc.substring(0,16)});}
+  private upsert(item:FoundationInteraction){this.interactions.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response:InteractionManagementApiResponse,title:string){if(response.interaction){this.upsert(response.interaction);this.selectedInteractionId.set(response.interaction.id);this.isCreateMode.set(false);this.populate(response.interaction);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Interaction workflow completed successfully.'});this.isSubmitting.set(false);this.loadInteractions(false);}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Interaction fields before saving.'};if(error.status===404)return{title:'Interaction not found',message:'The selected Interaction was not found.'};if(error.status===409)return{title:'Interaction is read-only',message:'Voided Interactions cannot be modified.'};}return{title:'Interaction workflow unavailable',message:'The foundation Interaction service could not process the request.'};}
+}
+
+type NoteStatus = 'Active' | 'Archived';
+type NoteRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationNote { id:string; relatedEntityType:NoteRelatedEntityType; relatedEntityId:string; text:string; status:NoteStatus; persistenceMode:string; productiveCrudEnabled:boolean; }
+interface FoundationNoteRequest { relatedEntityType:NoteRelatedEntityType; relatedEntityId:string; text:string; }
+interface NoteManagementApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:NoteStatus|null; note?:FoundationNote|null; }
+@Injectable({ providedIn: 'root' })
+class NoteManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/notes';
+  constructor(private readonly http:FoundationApiClient){}
+  getNotes(){return this.http.get<FoundationNote[]>(this.apiBaseUrl);}
+  getNote(id:string){return this.http.get<FoundationNote>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createNote(request:FoundationNoteRequest){return this.http.post<NoteManagementApiResponse>(this.apiBaseUrl,request);}
+  updateNote(id:string,request:FoundationNoteRequest){return this.http.put<NoteManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveNote(id:string){return this.http.post<NoteManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-note-management-page',
+  imports:[ReactiveFormsModule],
+  template:`
+    <section class="workflow-shell" aria-labelledby="noteTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="noteTitle">Note Management</h1><p class="lede">Manage synthetic CRM notes without mutating related entities or duplicating Portal services.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Notes</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New note</button></div>
+          @if(isLoading()){<p class="feedback neutral">Loading foundation notes...</p>}
+          @else if(notes().length===0){<div class="empty-state"><p>No notes available yet.</p></div>}
+          @else{<div class="contact-list">@for(item of notes();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedNoteId()===item.id" (click)="selectNote(item.id)"><span class="contact-name">{{ item.text }}</span><span class="contact-meta">{{ item.relatedEntityType }} · {{ item.relatedEntityId }}</span><span class="contact-status">{{ item.status }}</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New note' : 'Note details' }}</h2></div>@if(selectedNote();as item){<span class="scope-pill quiet">{{ item.status }}</span>}</div>
+          <form [formGroup]="noteForm" (ngSubmit)="submitNote()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>Text</label><textarea rows="8" maxlength="4000" formControlName="text"></textarea>
+            @if(validationMessage();as message){<p class="validation">{{ message }}</p>}
+            <button type="submit" [disabled]="isSubmitting() || noteForm.invalid || selectedNote()?.status==='Archived'">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create note' : 'Save note') }}</button>
+          </form>
+          @if(selectedNote();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="archiveSelected()">Archive note</button></div>}}
+          @if(operationMessage();as message){<section class="result-panel compact-result"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section>}
+          @if(safeError();as error){<section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class NoteManagementPageComponent {
+  readonly notes=signal<FoundationNote[]>([]); readonly selectedNoteId=signal<string|null>(null); readonly isLoading=signal(true); readonly isSubmitting=signal(false); readonly isCreateMode=signal(true);
+  readonly safeError=signal<{title:string;message:string}|null>(null); readonly operationMessage=signal<{title:string;message:string}|null>(null);
+  readonly noteForm=this.formBuilder.nonNullable.group({relatedEntityType:['Contact' as NoteRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],text:['',[Validators.required,Validators.maxLength(4000)]]});
+  constructor(private readonly api:NoteManagementApiService,private readonly formBuilder:FormBuilder){this.loadNotes();this.startCreate();}
+  selectedNote(){const id=this.selectedNoteId();return id?this.notes().find(x=>x.id===id)??null:null;}
+  startCreate(){this.isCreateMode.set(true);this.selectedNoteId.set(null);this.safeError.set(null);this.operationMessage.set(null);this.noteForm.reset({relatedEntityType:'Contact',relatedEntityId:'',text:''});}
+  selectNote(id:string){this.isCreateMode.set(false);this.selectedNoteId.set(id);this.safeError.set(null);this.operationMessage.set(null);this.api.getNote(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))});}
+  validationMessage(){if(!this.noteForm.touched)return null;const controls=this.noteForm.controls;if(controls.relatedEntityId.invalid)return 'Enter a valid related entity id.';if(controls.text.invalid)return 'Enter note text with 4000 characters or less.';return null;}
+  submitNote(){this.noteForm.markAllAsTouched();if(this.noteForm.invalid||this.isSubmitting())return;const selected=this.selectedNote();if(selected?.status==='Archived')return;const v=this.noteForm.getRawValue();const request:FoundationNoteRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),text:v.text.trim()};this.isSubmitting.set(true);this.safeError.set(null);this.operationMessage.set(null);const op=this.isCreateMode()?this.api.createNote(request):this.api.updateNote(this.selectedNoteId()??'',request);op.subscribe({next:r=>this.apply(r,r.changed?'Note saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  archiveSelected(){const item=this.selectedNote();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);this.api.archiveNote(item.id).subscribe({next:r=>this.apply(r,r.changed?'Note archived':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private loadNotes(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getNotes().subscribe({next:x=>{this.notes.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Note workflow unavailable',message:'Foundation notes could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item:FoundationNote){this.noteForm.reset({relatedEntityType:item.relatedEntityType,relatedEntityId:item.relatedEntityId,text:item.text});}
+  private upsert(item:FoundationNote){this.notes.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response:NoteManagementApiResponse,title:string){if(response.note){this.upsert(response.note);this.selectedNoteId.set(response.note.id);this.isCreateMode.set(false);this.populate(response.note);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Note workflow completed successfully.'});this.isSubmitting.set(false);this.loadNotes(false);}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review RelatedEntityId and Text before saving.'};if(error.status===404)return{title:'Note not found',message:'The selected Note was not found.'};if(error.status===409)return{title:'Note is read-only',message:'Archived Notes cannot be modified.'};}return{title:'Note workflow unavailable',message:'The foundation Note service could not process the request.'};}
+}
+type PipelineStageView = { id:string; name:string; order:number };
+interface FoundationPipelineCatalog { id:string; name:string; stages:PipelineStageView[]; sourceMode:string; mutable:boolean; portalCatalogRuntimeEnabled:boolean; foundationMode:boolean; }
+@Injectable({providedIn:'root'})
+class PipelineCatalogApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/pipelines';
+  constructor(private readonly http:FoundationApiClient){}
+  getPipelines(){return this.http.get<FoundationPipelineCatalog[]>(this.apiBaseUrl);}
+  getPipeline(id:string){return this.http.get<FoundationPipelineCatalog>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-pipeline-catalog-page',
+  template:`
+    <section class="workflow-shell" aria-labelledby="pipelineCatalogTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="pipelineCatalogTitle">Pipeline Catalog</h1><p class="lede">Read-only deterministic pipeline catalog. Portal Catalog runtime is not active.</p></div><span class="scope-pill">Read only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Pipelines</h2><p class="muted">Synthetic foundation catalog only.</p></div></div>
+          @if(isLoading()){<p class="feedback neutral">Loading pipeline catalog...</p>}
+          @else if(pipelines().length===0){<div class="empty-state"><p>No pipelines available.</p></div>}
+          @else{<div class="contact-list">@for(item of pipelines();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{ item.name }}</span><span class="contact-meta">{{ item.stages.length }} stages · {{ item.sourceMode }}</span><span class="contact-status">Read only</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>Ordered stages</h2><p class="muted">No create, edit, reorder or delete actions are available.</p></div></div>
+          @if(selected();as item){<ol>@for(stage of item.stages;track stage.id){<li><strong>{{ stage.order }}. {{ stage.name }}</strong></li>}</ol><p class="feedback neutral">Portal Catalog runtime enabled: {{ item.portalCatalogRuntimeEnabled ? 'Yes' : 'No' }}</p>}
+          @else{<div class="empty-state"><p>Select a pipeline to inspect its stages.</p></div>}
+          @if(errorMessage()){<section class="error-panel compact-result" role="alert"><h2>Pipeline catalog unavailable</h2><p>{{ errorMessage() }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class PipelineCatalogPageComponent {
+  readonly pipelines=signal<FoundationPipelineCatalog[]>([]); readonly selectedId=signal<string|null>(null); readonly isLoading=signal(true); readonly errorMessage=signal<string|null>(null);
+  constructor(private readonly api:PipelineCatalogApiService){this.load();}
+  selected(){const id=this.selectedId();return id?this.pipelines().find(x=>x.id===id)??null:null;}
+  select(id:string){this.selectedId.set(id);this.errorMessage.set(null);this.api.getPipeline(id).subscribe({next:item=>this.pipelines.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]),error:()=>this.errorMessage.set('The selected foundation pipeline could not be loaded.')});}
+  private load(){this.api.getPipelines().subscribe({next:items=>{this.pipelines.set(items);this.selectedId.set(items[0]?.id??null);this.isLoading.set(false);},error:()=>{this.errorMessage.set('Foundation pipeline catalog could not be loaded.');this.isLoading.set(false);}});}
+}
+type DocumentMetadataStatus = 'Active' | 'Archived';
+type DocumentRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationDocumentMetadata {
+  id:string; relatedEntityType:DocumentRelatedEntityType; relatedEntityId:string; fileReferenceId:string;
+  fileName:string; contentType?:string|null; description?:string|null; status:DocumentMetadataStatus;
+  persistenceMode:string; productiveCrudEnabled:boolean; binaryStorageEnabled:boolean; portalContentRuntimeEnabled:boolean;
+}
+interface DocumentMetadataRequest { relatedEntityType:DocumentRelatedEntityType; relatedEntityId:string; fileReferenceId:string; fileName:string; contentType?:string|null; description?:string|null; }
+interface DocumentMetadataApiResult { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:DocumentMetadataStatus|null; document?:FoundationDocumentMetadata|null; }
+@Injectable({providedIn:'root'})
+class DocumentMetadataApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/documents';
+  constructor(private readonly http:FoundationApiClient){}
+  getDocuments(){return this.http.get<FoundationDocumentMetadata[]>(this.apiBaseUrl);}
+  getDocument(id:string){return this.http.get<FoundationDocumentMetadata>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createDocument(request:DocumentMetadataRequest){return this.http.post<DocumentMetadataApiResult>(this.apiBaseUrl,request);}
+  updateDocument(id:string,request:DocumentMetadataRequest){return this.http.put<DocumentMetadataApiResult>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveDocument(id:string){return this.http.post<DocumentMetadataApiResult>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-document-metadata-page',
+  imports:[ReactiveFormsModule],
+  template:`
+    <section class="workflow-shell" aria-labelledby="documentMetadataTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="documentMetadataTitle">CRM Document Metadata</h1><p class="lede">Manage CRM document references only. Binary content remains owned by Portal Content/File API.</p></div><span class="scope-pill">Metadata only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Documents</h2><p class="muted">Synthetic metadata references only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New metadata</button></div>
+          @if(isLoading()){<p class="feedback neutral">Loading document metadata...</p>}
+          @else if(documents().length===0){<div class="empty-state"><p>No document metadata available.</p></div>}
+          @else{<div class="contact-list">@for(item of documents();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{ item.fileName }}</span><span class="contact-meta">{{ item.relatedEntityType }} Â· {{ item.fileReferenceId }}</span><span class="contact-status">{{ item.status }}</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New document metadata' : 'Document metadata details' }}</h2></div>@if(selected();as item){<span class="scope-pill quiet">{{ item.status }}</span>}</div>
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>File reference id</label><input type="text" maxlength="512" formControlName="fileReferenceId" />
+            <label>File name</label><input type="text" maxlength="255" formControlName="fileName" />
+            <label>Content type</label><input type="text" maxlength="120" formControlName="contentType" />
+            <label>Description</label><textarea rows="5" maxlength="1000" formControlName="description"></textarea>
+            <p class="feedback neutral">No file picker, upload, download or binary storage is available in CRM.</p>
+            <button type="submit" [disabled]="isSubmitting() || form.invalid || selected()?.status==='Archived'">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create metadata' : 'Save metadata') }}</button>
+          </form>
+          @if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="archiveSelected()">Archive metadata</button></div>}}
+          @if(message();as m){<section class="result-panel compact-result"><h2>{{ m.title }}</h2><p>{{ m.message }}</p></section>}
+          @if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{ e.title }}</h2><p>{{ e.message }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class DocumentMetadataPageComponent {
+  readonly documents=signal<FoundationDocumentMetadata[]>([]); readonly selectedId=signal<string|null>(null); readonly isLoading=signal(true); readonly isSubmitting=signal(false); readonly isCreateMode=signal(true);
+  readonly message=signal<{title:string;message:string}|null>(null); readonly error=signal<{title:string;message:string}|null>(null);
+  readonly form=this.formBuilder.nonNullable.group({relatedEntityType:['Customer' as DocumentRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],fileReferenceId:['',[Validators.required,Validators.maxLength(512)]],fileName:['',[Validators.required,Validators.maxLength(255)]],contentType:['',Validators.maxLength(120)],description:['',Validators.maxLength(1000)]});
+  constructor(private readonly api:DocumentMetadataApiService,private readonly formBuilder:FormBuilder){this.load();this.startCreate();}
+  selected(){const id=this.selectedId();return id?this.documents().find(x=>x.id===id)??null:null;}
+  startCreate(){this.isCreateMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({relatedEntityType:'Customer',relatedEntityId:'',fileReferenceId:'',fileName:'',contentType:'',description:''});}
+  select(id:string){this.isCreateMode.set(false);this.selectedId.set(id);this.message.set(null);this.error.set(null);this.api.getDocument(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safeError(e))});}
+  submit(){this.form.markAllAsTouched();if(this.form.invalid||this.isSubmitting())return;const current=this.selected();if(current?.status==='Archived')return;const v=this.form.getRawValue();const request:DocumentMetadataRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),fileReferenceId:v.fileReferenceId.trim(),fileName:v.fileName.trim(),contentType:v.contentType.trim()||null,description:v.description.trim()||null};this.isSubmitting.set(true);this.error.set(null);this.message.set(null);const op=this.isCreateMode()?this.api.createDocument(request):this.api.updateDocument(this.selectedId()??'',request);op.subscribe({next:r=>this.apply(r,r.changed?'Document metadata saved':'No changes were necessary'),error:e=>{this.error.set(this.safeError(e));this.isSubmitting.set(false);}});}
+  archiveSelected(){const item=this.selected();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.error.set(null);this.api.archiveDocument(item.id).subscribe({next:r=>this.apply(r,r.changed?'Document metadata archived':'No changes were necessary'),error:e=>{this.error.set(this.safeError(e));this.isSubmitting.set(false);}});}
+  private load(show=true){if(show)this.isLoading.set(true);this.api.getDocuments().subscribe({next:x=>{this.documents.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Document metadata unavailable',message:'Foundation document metadata could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(x:FoundationDocumentMetadata){this.form.reset({relatedEntityType:x.relatedEntityType,relatedEntityId:x.relatedEntityId,fileReferenceId:x.fileReferenceId,fileName:x.fileName,contentType:x.contentType??'',description:x.description??''});}
+  private upsert(x:FoundationDocumentMetadata){this.documents.update(xs=>[x,...xs.filter(y=>y.id!==x.id)]);}
+  private apply(r:DocumentMetadataApiResult,title:string){if(r.document){this.upsert(r.document);this.selectedId.set(r.document.id);this.isCreateMode.set(false);this.populate(r.document);}this.message.set({title:r.changed?title:'No changes were necessary',message:r.message||'The foundation document metadata operation completed successfully.'});this.isSubmitting.set(false);this.load(false);}
+  private safeError(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review related entity and document metadata fields.'};if(e.status===404)return{title:'Document metadata not found',message:'The selected metadata record was not found.'};if(e.status===409)return{title:'Document metadata is read-only',message:'Archived metadata cannot be modified.'};}return{title:'Document metadata unavailable',message:'The foundation document metadata service could not process the request.'};}
+}
+
+type TagStatus = 'Active' | 'Archived';
+type TagRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationTag { id:string; name:string; description?:string|null; status:TagStatus; relatedEntityType?:TagRelatedEntityType|null; relatedEntityId?:string|null; persistenceMode:string; productiveCrudEnabled:boolean; portalIdentityRuntimeEnabled:boolean; }
+interface FoundationTagRequest { name:string; description?:string|null; relatedEntityType?:TagRelatedEntityType|null; relatedEntityId?:string|null; }
+interface TagApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:TagStatus|null; tag?:FoundationTag|null; }
+@Injectable({providedIn:'root'})
+class TagManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/tags';
+  constructor(private readonly http:FoundationApiClient){}
+  getTags(){return this.http.get<FoundationTag[]>(this.apiBaseUrl);}
+  getTag(id:string){return this.http.get<FoundationTag>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createTag(request:FoundationTagRequest){return this.http.post<TagApiResponse>(this.apiBaseUrl,request);}
+  updateTag(id:string,request:FoundationTagRequest){return this.http.put<TagApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveTag(id:string){return this.http.post<TagApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+@Component({standalone:true,selector:'crm-tag-management-page',imports:[ReactiveFormsModule],template:`
+<section class="workflow-shell" aria-labelledby="tagTitle"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="tagTitle">CRM Tags</h1><p class="lede">Manage synthetic CRM-owned tags and optional structural entity references. Portal identity/config runtime is not active.</p></div><span class="scope-pill">Foundation only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Tags</h2><p class="muted">Synthetic tag metadata only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New tag</button></div>
+@if(isLoading()){<p class="feedback neutral">Loading foundation tags...</p>}@else{<div class="contact-list">@for(item of tags();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{item.name}}</span><span class="contact-meta">{{item.relatedEntityType || 'Unassigned'}} · {{item.relatedEntityId || 'No entity reference'}}</span><span class="contact-status">{{item.status}}</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>{{createMode()?'New tag':'Tag details'}}</h2><p class="muted">Assignments are structural references only.</p></div>@if(selected();as item){<span class="scope-pill quiet">{{item.status}}</span>}</div>
+<form [formGroup]="form" (ngSubmit)="submit()"><label>Name</label><input formControlName="name" maxlength="80"/><label>Description</label><textarea formControlName="description" maxlength="500" rows="5"></textarea><label>Related entity type (optional)</label><select formControlName="relatedEntityType"><option value="">None</option><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select><label>Related entity id (optional)</label><input formControlName="relatedEntityId"/><button type="submit" [disabled]="submitting()||form.invalid||selected()?.status==='Archived'">{{submitting()?'Saving...':(createMode()?'Create tag':'Save tag')}}</button></form>
+@if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="submitting()" (click)="archive()">Archive tag</button></div>}}@if(message();as m){<section class="result-panel compact-result"><h2>{{m.title}}</h2><p>{{m.message}}</p></section>}@if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{e.title}}</h2><p>{{e.message}}</p></section>}</section></div></section>`})
+class TagManagementPageComponent {
+ readonly tags=signal<FoundationTag[]>([]);readonly selectedId=signal<string|null>(null);readonly isLoading=signal(true);readonly submitting=signal(false);readonly createMode=signal(true);readonly message=signal<{title:string;message:string}|null>(null);readonly error=signal<{title:string;message:string}|null>(null);
+ readonly form=this.fb.nonNullable.group({name:['',[Validators.required,Validators.maxLength(80)]],description:['',Validators.maxLength(500)],relatedEntityType:['' as ''|TagRelatedEntityType],relatedEntityId:['']});
+ constructor(private readonly api:TagManagementApiService,private readonly fb:FormBuilder){this.load();this.startCreate();}
+ selected(){const id=this.selectedId();return id?this.tags().find(x=>x.id===id)??null:null;}
+ startCreate(){this.createMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({name:'',description:'',relatedEntityType:'',relatedEntityId:''});}
+ select(id:string){this.createMode.set(false);this.selectedId.set(id);this.api.getTag(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safe(e))});}
+ submit(){this.form.markAllAsTouched();if(this.form.invalid||this.submitting()||this.selected()?.status==='Archived')return;const v=this.form.getRawValue();const req:FoundationTagRequest={name:v.name.trim(),description:v.description.trim()||null,relatedEntityType:v.relatedEntityType||null,relatedEntityId:v.relatedEntityId.trim()||null};this.submitting.set(true);this.error.set(null);const op=this.createMode()?this.api.createTag(req):this.api.updateTag(this.selectedId()??'',req);op.subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ archive(){const x=this.selected();if(!x||this.submitting())return;this.submitting.set(true);this.api.archiveTag(x.id).subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ private load(){this.api.getTags().subscribe({next:x=>{this.tags.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Tag workflow unavailable',message:'Foundation tags could not be loaded.'});this.isLoading.set(false);}});}
+ private populate(x:FoundationTag){this.form.reset({name:x.name,description:x.description??'',relatedEntityType:x.relatedEntityType??'',relatedEntityId:x.relatedEntityId??''});}
+ private upsert(x:FoundationTag){this.tags.update(xs=>[x,...xs.filter(i=>i.id!==x.id)]);}
+ private apply(r:TagApiResponse){if(r.tag){this.upsert(r.tag);this.selectedId.set(r.tag.id);this.createMode.set(false);this.populate(r.tag);}this.message.set({title:r.changed?'Tag workflow completed':'No changes were necessary',message:r.message});this.submitting.set(false);this.load();}
+ private safe(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review the tag metadata and entity reference.'};if(e.status===404)return{title:'Tag not found',message:'The selected tag was not found.'};if(e.status===409)return{title:'Tag is read-only',message:'Archived tags cannot be modified.'};}return{title:'Tag workflow unavailable',message:'The foundation Tag service could not process the request.'};}
+}
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -4666,6 +5095,69 @@ class LeadQualificationPageComponent {
   }
 }
 
+type AssignmentStatus = 'Active' | 'Archived';
+type AssignmentRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationAssignment { id:string; relatedEntityType:AssignmentRelatedEntityType; relatedEntityId:string; assigneeReferenceId:string; assignmentLabel?:string|null; status:AssignmentStatus; persistenceMode:string; productiveCrudEnabled:boolean; portalIdentityRuntimeEnabled:boolean; }
+interface FoundationAssignmentRequest { relatedEntityType:AssignmentRelatedEntityType; relatedEntityId:string; assigneeReferenceId:string; assignmentLabel?:string|null; }
+interface AssignmentApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:AssignmentStatus|null; assignment?:FoundationAssignment|null; }
+@Injectable({providedIn:'root'})
+class AssignmentManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/assignments';
+  constructor(private readonly http:FoundationApiClient){}
+  getAssignments(){return this.http.get<FoundationAssignment[]>(this.apiBaseUrl);}
+  getAssignment(id:string){return this.http.get<FoundationAssignment>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createAssignment(request:FoundationAssignmentRequest){return this.http.post<AssignmentApiResponse>(this.apiBaseUrl,request);}
+  updateAssignment(id:string,request:FoundationAssignmentRequest){return this.http.put<AssignmentApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveAssignment(id:string){return this.http.post<AssignmentApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({standalone:true,selector:'crm-assignment-management-page',imports:[ReactiveFormsModule],template:`
+<section class="workflow-shell" aria-labelledby="assignmentTitle"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="assignmentTitle">CRM Assignments</h1><p class="lede">Manage synthetic CRM assignment references without resolving Portal users, roles or permissions.</p></div><span class="scope-pill">Reference only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Assignments</h2><p class="muted">Opaque assignee references only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New assignment</button></div>
+@if(isLoading()){<p class="feedback neutral">Loading foundation assignments...</p>}@else{<div class="contact-list">@for(item of assignments();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{item.assignmentLabel || 'Assignment'}}</span><span class="contact-meta">{{item.relatedEntityType}} · {{item.assigneeReferenceId}}</span><span class="contact-status">{{item.status}}</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>{{createMode()?'New assignment':'Assignment details'}}</h2><p class="muted">AssigneeReferenceId is not resolved against Portal Security.</p></div>@if(selected();as item){<span class="scope-pill quiet">{{item.status}}</span>}</div>
+<form [formGroup]="form" (ngSubmit)="submit()"><label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select><label>Related entity id</label><input formControlName="relatedEntityId"/><label>Assignee reference id</label><input formControlName="assigneeReferenceId" maxlength="200"/><label>Assignment label</label><input formControlName="assignmentLabel" maxlength="160"/><button type="submit" [disabled]="submitting()||form.invalid||selected()?.status==='Archived'">{{submitting()?'Saving...':(createMode()?'Create assignment':'Save assignment')}}</button></form>
+@if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="submitting()" (click)="archive()">Archive assignment</button></div>}}@if(message();as m){<section class="result-panel compact-result"><h2>{{m.title}}</h2><p>{{m.message}}</p></section>}@if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{e.title}}</h2><p>{{e.message}}</p></section>}</section></div></section>`})
+class AssignmentManagementPageComponent {
+ readonly assignments=signal<FoundationAssignment[]>([]);readonly selectedId=signal<string|null>(null);readonly isLoading=signal(true);readonly submitting=signal(false);readonly createMode=signal(true);readonly message=signal<{title:string;message:string}|null>(null);readonly error=signal<{title:string;message:string}|null>(null);
+ readonly form=this.fb.nonNullable.group({relatedEntityType:['Contact' as AssignmentRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],assigneeReferenceId:['',[Validators.required,Validators.maxLength(200)]],assignmentLabel:['',Validators.maxLength(160)]});
+ constructor(private readonly api:AssignmentManagementApiService,private readonly fb:FormBuilder){this.load();this.startCreate();}
+ selected(){const id=this.selectedId();return id?this.assignments().find(x=>x.id===id)??null:null;}
+ startCreate(){this.createMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({relatedEntityType:'Contact',relatedEntityId:'',assigneeReferenceId:'',assignmentLabel:''});}
+ select(id:string){this.createMode.set(false);this.selectedId.set(id);this.api.getAssignment(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safe(e))});}
+ submit(){this.form.markAllAsTouched();if(this.form.invalid||this.submitting()||this.selected()?.status==='Archived')return;const v=this.form.getRawValue();const req:FoundationAssignmentRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),assigneeReferenceId:v.assigneeReferenceId.trim(),assignmentLabel:v.assignmentLabel.trim()||null};this.submitting.set(true);this.error.set(null);const op=this.createMode()?this.api.createAssignment(req):this.api.updateAssignment(this.selectedId()??'',req);op.subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ archive(){const x=this.selected();if(!x||this.submitting())return;this.submitting.set(true);this.api.archiveAssignment(x.id).subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ private load(){this.api.getAssignments().subscribe({next:x=>{this.assignments.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Assignment workflow unavailable',message:'Foundation assignments could not be loaded.'});this.isLoading.set(false);}});}
+ private populate(x:FoundationAssignment){this.form.reset({relatedEntityType:x.relatedEntityType,relatedEntityId:x.relatedEntityId,assigneeReferenceId:x.assigneeReferenceId,assignmentLabel:x.assignmentLabel??''});}
+ private upsert(x:FoundationAssignment){this.assignments.update(xs=>[x,...xs.filter(i=>i.id!==x.id)]);}
+ private apply(r:AssignmentApiResponse){if(r.assignment){this.upsert(r.assignment);this.selectedId.set(r.assignment.id);this.createMode.set(false);this.populate(r.assignment);}this.message.set({title:r.changed?'Assignment workflow completed':'No changes were necessary',message:r.message});this.submitting.set(false);this.load();}
+ private safe(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review the assignment references.'};if(e.status===404)return{title:'Assignment not found',message:'The selected assignment was not found.'};if(e.status===409)return{title:'Assignment is read-only',message:'Archived assignments cannot be modified.'};}return{title:'Assignment workflow unavailable',message:'The foundation Assignment service could not process the request.'};}
+}
+
+
+type Customer360View = { customerId:string; displayName:string; contactCount:number; openOpportunityCount:number; openCaseCount:number; interactionCount:number; noteCount:number; documentCount:number; tagCount:number; assignmentCount:number; sourceMode:string; productiveRuntimeEnabled:boolean; portalRuntimeEnabled:boolean; commonDbRuntimeEnabled:boolean };
+@Injectable({providedIn:'root'})
+class Customer360ApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/customer360';
+  constructor(private readonly http:FoundationApiClient){}
+  getAll(){return this.http.get<Customer360View[]>(this.apiBaseUrl);}
+  getById(id:string){return this.http.get<Customer360View>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+}
+@Component({standalone:true,selector:'crm-customer-360-page',template:`
+<section class="workflow-shell" aria-labelledby="customer360Title"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="customer360Title">Customer 360</h1><p class="lede">Read-only deterministic CRM summary. No productive, Portal or Common DB runtime is active.</p></div><span class="scope-pill">Read only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Customers</h2><p class="muted">Synthetic Account/customer context only.</p></div></div>@if(loading()){<p class="feedback neutral">Loading Customer 360...</p>}@else{<div class="contact-list">@for(item of items();track item.customerId){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.customerId" (click)="select(item.customerId)"><span class="contact-name">{{item.displayName}}</span><span class="contact-meta">{{item.contactCount}} contacts · {{item.openOpportunityCount}} open opportunities</span><span class="contact-status">Read only</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>360 summary</h2><p class="muted">Deterministic foundation aggregates.</p></div></div>@if(selected();as x){<dl><dt>Contacts</dt><dd>{{x.contactCount}}</dd><dt>Open opportunities</dt><dd>{{x.openOpportunityCount}}</dd><dt>Open cases</dt><dd>{{x.openCaseCount}}</dd><dt>Interactions</dt><dd>{{x.interactionCount}}</dd><dt>Notes</dt><dd>{{x.noteCount}}</dd><dt>Documents</dt><dd>{{x.documentCount}}</dd><dt>Tags</dt><dd>{{x.tagCount}}</dd><dt>Assignments</dt><dd>{{x.assignmentCount}}</dd></dl><p class="feedback neutral">Source: {{x.sourceMode}} · Productive: {{x.productiveRuntimeEnabled?'Yes':'No'}} · Portal: {{x.portalRuntimeEnabled?'Yes':'No'}} · Common DB: {{x.commonDbRuntimeEnabled?'Yes':'No'}}</p>}@else{<div class="empty-state"><p>Select a synthetic customer summary.</p></div>}@if(error()){<section class="error-panel compact-result" role="alert"><h2>Customer 360 unavailable</h2><p>{{error()}}</p></section>}</section></div></section>`})
+class Customer360PageComponent {
+ readonly items=signal<Customer360View[]>([]);readonly selectedId=signal<string|null>(null);readonly loading=signal(true);readonly error=signal<string|null>(null);
+ constructor(private readonly api:Customer360ApiService){this.api.getAll().subscribe({next:x=>{this.items.set(x);this.selectedId.set(x[0]?.customerId??null);this.loading.set(false);},error:()=>{this.error.set('Foundation Customer 360 could not be loaded.');this.loading.set(false);}});}
+ selected(){const id=this.selectedId();return id?this.items().find(x=>x.customerId===id)??null:null;}
+ select(id:string){this.selectedId.set(id);this.api.getById(id).subscribe({next:x=>this.items.update(xs=>[x,...xs.filter(i=>i.customerId!==x.customerId)]),error:()=>this.error.set('The selected Customer 360 summary could not be loaded.')});}
+}
+type ReportingInsightMetricView={name:string;value:number;unit:string};
+type ReportingInsightView={key:string;title:string;metrics:ReportingInsightMetricView[];sourceMode:string;productiveRuntimeEnabled:boolean;portalRuntimeEnabled:boolean;commonDbRuntimeEnabled:boolean};
+@Injectable({providedIn:'root'}) class ReportingInsightsApiService{private readonly base='/api/crm/foundation/insights';constructor(private readonly http:FoundationApiClient){}getAll(){return this.http.get<ReportingInsightView[]>(this.base);}get(key:string){return this.http.get<ReportingInsightView>(`${this.base}/${encodeURIComponent(key)}`);}}
+@Component({standalone:true,selector:'crm-reporting-insights-page',template:`<section class="workflow-shell"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1>CRM Foundation Insights</h1><p class="lede">Read-only FoundationMock KPI views.</p></div><span class="scope-pill">Read only</span></div><div class="workflow-grid"><section class="panel"><h2>Views</h2><div class="contact-list">@for(item of items();track item.key){<button type="button" class="contact-list-item" [class.selected]="selectedKey()===item.key" (click)="select(item.key)"><span class="contact-name">{{item.title}}</span><span class="contact-meta">{{item.sourceMode}}</span><span class="contact-status">Read only</span></button>}</div></section><section class="panel"><h2>Metrics</h2>@if(selected();as x){@for(m of x.metrics;track m.name){<p><strong>{{m.name}}</strong>: {{m.value}} {{m.unit}}</p>}<p class="feedback neutral">Productive: {{x.productiveRuntimeEnabled?'Yes':'No'}} · Portal: {{x.portalRuntimeEnabled?'Yes':'No'}} · Common DB: {{x.commonDbRuntimeEnabled?'Yes':'No'}}</p>}</section></div></section>`})
+class ReportingInsightsPageComponent{readonly items=signal<ReportingInsightView[]>([]);readonly selectedKey=signal<string|null>(null);constructor(private readonly api:ReportingInsightsApiService){api.getAll().subscribe({next:x=>{this.items.set(x);this.selectedKey.set(x[0]?.key??null);}});}selected(){const k=this.selectedKey();return k?this.items().find(x=>x.key===k)??null:null;}select(k:string){this.selectedKey.set(k);this.api.get(k).subscribe({next:x=>this.items.update(xs=>[x,...xs.filter(i=>i.key!==x.key)])});}}
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
@@ -4675,6 +5167,15 @@ const routes: Routes = [
   { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
   { path: 'foundation/campaigns', component: CampaignManagementPageComponent },
   { path: 'foundation/segments', component: SegmentManagementPageComponent },
+  { path: 'foundation/cases', component: CaseManagementPageComponent },
+  { path: 'foundation/interactions', component: InteractionManagementPageComponent },
+  { path: 'foundation/notes', component: NoteManagementPageComponent },
+  { path: 'foundation/pipelines', component: PipelineCatalogPageComponent },
+  { path: 'foundation/documents', component: DocumentMetadataPageComponent },
+  { path: 'foundation/tags', component: TagManagementPageComponent },
+  { path: 'foundation/assignments', component: AssignmentManagementPageComponent },
+  { path: 'foundation/customer360', component: Customer360PageComponent },
+  { path: 'foundation/insights', component: ReportingInsightsPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 

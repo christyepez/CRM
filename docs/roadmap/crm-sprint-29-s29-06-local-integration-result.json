@@ -1,0 +1,18 @@
+{
+    "Sprint":  "29",
+    "Decision":  "Implemented",
+    "InsightKey":  "accounts-contacts",
+    "Title":  "Accounts and Contacts",
+    "SourceMode":  "FoundationMock",
+    "ProductiveRuntimeEnabled":  false,
+    "PortalRuntimeEnabled":  false,
+    "CommonDbRuntimeEnabled":  false,
+    "MutationRoutesAvailable":  false,
+    "ProductiveRouteAvailable":  false,
+    "FrontendRoute":  "PASS",
+    "FrontendProxy":  "PASS",
+    "IntegrationLatencySamples":  7,
+    "LatencyAverageMs":  7.71,
+    "LatencyP95Ms":  33,
+    "RunId":  "77ed70e4"
+}

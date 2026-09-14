@@ -1,0 +1,1 @@
+﻿$ErrorActionPreference='Stop';$r=Split-Path $PSScriptRoot -Parent;if(!(Test-Path (Join-Path $r 'docs\releases\crm-sprint-25-customer-360-closure.md'))){throw 'Missing closure'};Write-Host 'CRM Sprint 25 S25-07 verification passed.'

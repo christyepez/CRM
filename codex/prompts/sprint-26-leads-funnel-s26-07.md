@@ -1,0 +1,1 @@
+Close Sprint 26 after full regression.

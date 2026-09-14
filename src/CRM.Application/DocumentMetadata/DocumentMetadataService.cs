@@ -1,0 +1,17 @@
+﻿using CRM.Application.Ports.Persistence;
+using CRM.Domain.DocumentMetadata;
+namespace CRM.Application.DocumentMetadata;
+public sealed class DocumentMetadataService(IDocumentMetadataFoundationStore store):IDocumentMetadataService
+{
+ private const string PersistenceMode="FoundationOnly";
+ public async Task<IReadOnlyCollection<DocumentMetadataApplicationDocument>> GetAllAsync(CancellationToken c=default)=>(await store.GetAllAsync(c)).Select(Map).ToArray();
+ public async Task<DocumentMetadataApplicationDocument?> GetByIdAsync(string id,CancellationToken c=default){var x=await store.GetByIdAsync(id,c);return x is null?null:Map(x);}
+ public async Task<DocumentMetadataApplicationResult> CreateAsync(DocumentMetadataCreateRequest r,CancellationToken c=default){var e=DocumentMetadataPolicy.Evaluate(new(DocumentMetadataOperation.Create,null,r.RelatedEntityType,r.RelatedEntityId,r.FileReferenceId,r.FileName,r.ContentType,r.Description));if(!e.Success||!e.Changed)return Result(e,null);var s=await store.SaveAsync(Record(Guid.NewGuid().ToString("D"),e),c);return Result(e with {DocumentId=s.Id},Map(s));}
+ public async Task<DocumentMetadataApplicationResult> UpdateAsync(string id,DocumentMetadataUpdateRequest r,CancellationToken c=default){var x=await store.GetByIdAsync(id,c);if(x is null)return Missing(DocumentMetadataOperation.Update,id);var e=DocumentMetadataPolicy.Evaluate(new(DocumentMetadataOperation.Update,id,r.RelatedEntityType,r.RelatedEntityId,r.FileReferenceId,r.FileName,r.ContentType,r.Description,Snap(x)));if(!e.Success)return Result(e,null);if(!e.Changed)return Result(e,Map(x));var s=await store.SaveAsync(Record(id,e),c);return Result(e,Map(s));}
+ public async Task<DocumentMetadataApplicationResult> ArchiveAsync(string id,CancellationToken c=default){var x=await store.GetByIdAsync(id,c);if(x is null)return Missing(DocumentMetadataOperation.Archive,id);var e=DocumentMetadataPolicy.Evaluate(new(DocumentMetadataOperation.Archive,id,x.RelatedEntityType,x.RelatedEntityId,x.FileReferenceId,x.FileName,x.ContentType,x.Description,Snap(x)));if(!e.Success)return Result(e,null);if(!e.Changed)return Result(e,Map(x));var s=await store.SaveAsync(Record(id,e),c);return Result(e,Map(s));}
+ private static DocumentMetadataSnapshot Snap(DocumentMetadataFoundationRecord x)=>new(x.Id,x.RelatedEntityType,x.RelatedEntityId,x.FileReferenceId,x.FileName,x.ContentType,x.Description,x.Status);
+ private static DocumentMetadataFoundationRecord Record(string id,DocumentMetadataRuleResult e)=>new(id,e.RelatedEntityType,e.NormalizedRelatedEntityId!,e.NormalizedFileReferenceId!,e.NormalizedFileName!,e.NormalizedContentType,e.NormalizedDescription,e.ResultStatus);
+ private static DocumentMetadataApplicationDocument Map(DocumentMetadataFoundationRecord x)=>new(x.Id,x.RelatedEntityType,x.RelatedEntityId,x.FileReferenceId,x.FileName,x.ContentType,x.Description,x.Status,PersistenceMode,false,false,false);
+ private static DocumentMetadataApplicationResult Result(DocumentMetadataRuleResult e,DocumentMetadataApplicationDocument? x)=>new(x?.Id??e.DocumentId,e.Operation.ToString(),e.Allowed,e.Changed,e.ErrorCode.ToString(),e.Message,x?.Status??e.ResultStatus,x);
+ private static DocumentMetadataApplicationResult Missing(DocumentMetadataOperation op,string id)=>new(id,op.ToString(),false,false,DocumentMetadataErrorCode.DocumentNotFound.ToString(),"Document metadata was not found.",null,null);
+}

@@ -1,0 +1,1 @@
+﻿$r=Split-Path $PSScriptRoot -Parent;$d=Get-Content (Join-Path $r 'docs\roadmap\crm-sprint-26-leads-funnel-functional-baseline.md') -Raw;if($d-notmatch 'LeadConversionRate' -or $d-notmatch 'FoundationMock'){throw 'Invalid baseline'};Write-Host 'CRM Sprint 26 P1 verification passed.'

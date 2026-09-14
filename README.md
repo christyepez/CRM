@@ -4,11 +4,69 @@
 
 CRM now keeps Codex task handoff files under `codex/`. Update `codex/next-task.md` to prepare the next task; once merged to `main`, GitHub Actions creates a labeled Codex task Issue. See `docs/operations/crm-codex-automation-runbook.md`.
 
+## CRM Sprint 19 S19-03 - Interaction Foundation API
+
+S19-03 exposes Interaction Management through foundation-only HTTP endpoints under `/api/crm/foundation/interactions` using `IInteractionManagementService` and explicit API DTOs. Validation failures map to 400, missing Interaction to 404, voided-update conflicts to 409, and idempotent `Changed=false` update/void successes remain 200. No productive Interaction route, DELETE, Angular page, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 19 S19-04 - Interaction Frontend Foundation Page`.
+
+## CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
+
+S19-01 adds authoritative Interaction Management domain contracts and deterministic create/update/void lifecycle rules. Interactions capture `RelatedEntityType` + related GUID, Channel, Direction, Subject, Summary and UTC OccurredAt; create records as `Recorded`, update is allowed only while `Recorded`, void changes `Recorded` to `Voided`, and repeated void is idempotent with `Changed=false`.
+
+The story is domain-only: no Interaction Application service/store, API, Angular page, productive route, DELETE, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+## CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+
+S19-02 adds Interaction Management application orchestration and a deterministic in-memory Foundation store over the S19-01 domain policy. The service supports list/detail/create/update/void, suppresses writes for invalid, missing, rejected and `Changed=false` outcomes, and seeds only synthetic Interaction records. No Interaction API/frontend route, productive route, DELETE, Activity scheduling, cross-entity mutation, Portal runtime, Common DB/EF/SQL, real data, connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 19 S19-03 - Interaction Foundation API`.
+
+## CRM Sprint 17 Closure - Segment Management
+
+Sprint 17 Segment Management is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local HTTP integration are complete for Segment create/update/activate/deactivate with Name, CriteriaSummary and Draft/Active/Inactive lifecycle semantics. Productive Segment routes, DELETE, criteria execution, Campaign targeting, Account auto-classification, Portal Auth runtime, Common DB/EF/SQL, real data, connectors and Production remain disabled/untouched.
+
+Next business slice: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
+
+## CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog
+
+Sprint 18 starts Case Management as a foundation-only business slice. P1 inventories Case as a documented CRM capability with no dedicated domain policy, Application service, foundation store, API or Angular workflow, and defines the first executable story without activating runtime Case routes, DELETE, Portal Auth, Common DB/EF/schema/SQL, real data, external connectors, port 8094 or Production.
+
+Canonical foundation proposal: CustomerId + Title + Summary + Priority + Status with Low/Medium/High/Critical priority and Open/InProgress/Resolved/Closed lifecycle.
+
+Next gate: `CRM Sprint 18 S18-01 - Case Contracts and Domain Rules`.
+
+## CRM Sprint 18 S18-01 - Case Contracts and Domain Rules
+
+S18-01 adds authoritative Case Management domain contracts and deterministic lifecycle rules for New, InProgress, Resolved and Closed cases. The story is domain-only: no Case Application service/store, API, Angular page, productive routes, DELETE, customer mutation, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 18 S18-02 - Case Application Service and Foundation Store`.
+
+## CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+
+S18-02 adds Case Management application orchestration and a deterministic in-memory Foundation store over the S18-01 domain policy. The service supports list/detail/create/update/start/resolve/close, suppresses writes for invalid, not-found, no-change and rejected lifecycle outcomes, and seeds only synthetic Case records. No Case API/frontend route, productive route, DELETE, customer mutation, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Validation: 519 Unit + 149 Architecture = 668 .NET tests PASS; Angular build/test, foundation verifier, guardrails and Sprint 18 S18-02 verifier PASS.
+
+Next gate: `CRM Sprint 18 S18-03 - Case Foundation API`.
+
+## CRM Sprint 18 S18-03 - Case Foundation API
+
+S18-03 exposes Case Management through foundation-only HTTP endpoints under `/api/crm/foundation/cases` using `ICaseManagementService` and explicit API DTOs. Validation failures map to 400, missing Case to 404, invalid lifecycle transitions to 409, and idempotent `Changed=false` successes remain 200. No productive Case route, DELETE, Angular page, Customer mutation, assignment, SLA, notification runtime, Portal runtime, Common DB/EF/schema/SQL, real data, external connectors, `crm-prod-sim`, port 8094 or Production changes are activated.
+
+Next gate: `CRM Sprint 18 S18-04 - Case Frontend Foundation Page`.
+
 ## CRM Sprint 14 Closure - Opportunity Pipeline
 
 Sprint 14 Opportunity Pipeline is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, hardening and local integration are complete. Productive Opportunity routes, DELETE, Portal Auth runtime, Common DB/EF/SQL, real data and simulated Production remain disabled/untouched.
 
 Next business slice: CRM Sprint 15 P1 - Campaign Management Functional Baseline and Backlog.
+
+## CRM Sprint 17 Closure - Segment Management
+
+Sprint 17 Segment Management is closed successfully as a foundation-only business slice. Domain, Application, in-memory Foundation store, foundation API, Angular UX, guardrails and local integration evidence are complete. Productive Segment routes, DELETE, criteria execution, Campaign targeting, Account auto-classification, Portal Auth runtime, Common DB/EF/schema/SQL, real data, external connectors and Production remain disabled/untouched.
+
+Next business slice: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
 
 ## CRM Sprint 14 S14-06 - Opportunity Pipeline Local Integration Validation
 

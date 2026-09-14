@@ -1,0 +1,10 @@
+﻿using CRM.Application.Ports.Persistence; using CRM.Application.TagManagement; using CRM.Domain.TagManagement; using Xunit;
+namespace CRM.UnitTests;
+public sealed class TagManagementServiceTests
+{
+ sealed class Store:ITagFoundationStore{public readonly List<TagFoundationRecord> Items=[new("aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa","Priority","seed",TagStatus.Active,TagRelatedEntityType.Contact,"11111111-1111-1111-1111-111111111111")];public int Saves;public Task<IReadOnlyCollection<TagFoundationRecord>> GetAllAsync(CancellationToken c=default)=>Task.FromResult<IReadOnlyCollection<TagFoundationRecord>>(Items.ToArray());public Task<TagFoundationRecord?> GetByIdAsync(string id,CancellationToken c=default)=>Task.FromResult(Items.FirstOrDefault(x=>x.Id==id));public Task<TagFoundationRecord> SaveAsync(TagFoundationRecord x,CancellationToken c=default){Saves++;Items.RemoveAll(i=>i.Id==x.Id);Items.Add(x);return Task.FromResult(x);}}
+ [Fact] public async Task Create_NormalizesAndPersists(){var s=new Store();var r=await new TagManagementService(s).CreateAsync(new(" VIP "," note ",TagRelatedEntityType.Lead,Guid.NewGuid().ToString("D")));Assert.True(r.Success);Assert.True(r.Changed);Assert.Equal("VIP",r.Tag!.Name);Assert.Equal(1,s.Saves);Assert.False(r.Tag.PortalIdentityRuntimeEnabled);}
+ [Fact] public async Task Update_NoChange_SuppressesPersistence(){var s=new Store();var r=await new TagManagementService(s).UpdateAsync(s.Items[0].Id,new("Priority","seed",TagRelatedEntityType.Contact,s.Items[0].RelatedEntityId));Assert.True(r.Success);Assert.False(r.Changed);Assert.Equal(0,s.Saves);}
+ [Fact] public async Task Update_AssignmentOnlyChange_Persists(){var s=new Store();var r=await new TagManagementService(s).UpdateAsync(s.Items[0].Id,new("Priority","seed",TagRelatedEntityType.Lead,Guid.NewGuid().ToString("D")));Assert.True(r.Changed);Assert.Equal(1,s.Saves);}
+ [Fact] public async Task Archive_IsIdempotent(){var s=new Store();var svc=new TagManagementService(s);var a=await svc.ArchiveAsync(s.Items[0].Id);var b=await svc.ArchiveAsync(s.Items[0].Id);Assert.True(a.Changed);Assert.False(b.Changed);Assert.Equal(1,s.Saves);}
+}

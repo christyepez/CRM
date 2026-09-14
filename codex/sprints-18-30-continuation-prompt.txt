@@ -1,0 +1,19 @@
+You are the implementation agent for christyepez/CRM. Continue from the current branch crm-sprint-17-s17-07-segment-management-sprint-closure and work continuously through Sprint 30 unless a true human approval gate is encountered.
+
+Read AGENTS.md, codex/INSTRUCTIONS.md, codex/ARCHITECTURE_RULES.md, codex/TASKS.md, current/next task and relevant prior sprint artifacts before editing.
+
+Preserve the established pattern: P1 functional baseline/backlog; Sxx-01 contracts/domain; -02 application/store; -03 foundation API; -04 Angular foundation page; -05 tests/guardrails; -06 local integration; -07 closure. Use bounded foundation-only slices and synthetic data.
+
+Never enable productive routes, DELETE, Portal auth runtime, Common DB/EF/migrations/schema/SQL/real data, external connectors, crm-prod-sim, port 8094 or real Production. Never touch secrets. Any such action is a human approval gate: stop and clearly report it.
+
+Finish Sprint 17 S17-07 first using the existing uncommitted artifacts. Select Case Management for Sprint 18 as already staged. Then implement Sprints 18 through 30. At each sprint closure, select exactly one next bounded CRM business capability from repository evidence; if repository evidence is exhausted, define a low-risk foundation capability that composes existing CRM domain concepts without external infrastructure.
+
+For every phase create/update codex prompt, docs, verifiers, TASKS/README/next-task as established. Add real domain/application/API/frontend code and tests where required; do not satisfy implementation phases with docs only. Reuse prior sprint patterns rather than broad refactors. Controllers/endpoints remain thin; application/domain own logic; stores behind interfaces; Angular typed services/pages; negative productive-route tests.
+
+Run dotnet build/test, Angular build/test, foundation and phase verifiers. Fix failures before continuing. For Sxx-06 run local HTTP integration on 8093/4200 only when safe; reuse an existing unrelated 4200 process rather than killing it; only stop processes you start.
+
+Do not push, merge, open PRs, or rewrite git history. Make local git commits at meaningful completed milestones, preferably one commit per phase, so the supervisor can push/PR/merge later. Never commit generated node_modules/package-lock unless already tracked by policy.
+
+Keep an execution journal in docs/roadmap/crm-sprints-18-30-execution-journal.md with sprint, phase, commit, test counts, guardrail status, and next phase. Do not fabricate test evidence.
+
+If a genuine approval gate appears, stop. Otherwise continue until Sprint 30 S30-07 ClosedSuccessfully and leave the working tree clean.

@@ -1,0 +1,18 @@
+{
+    "Sprint":  "30",
+    "Decision":  "Implemented",
+    "InsightKey":  "crm-executive-overview",
+    "Title":  "CRM Executive Overview",
+    "SourceMode":  "FoundationMock",
+    "ProductiveRuntimeEnabled":  false,
+    "PortalRuntimeEnabled":  false,
+    "CommonDbRuntimeEnabled":  false,
+    "MutationRoutesAvailable":  false,
+    "ProductiveRouteAvailable":  false,
+    "FrontendRoute":  "PASS",
+    "FrontendProxy":  "PASS",
+    "IntegrationLatencySamples":  7,
+    "LatencyAverageMs":  7.57,
+    "LatencyP95Ms":  33,
+    "RunId":  "6c127442"
+}

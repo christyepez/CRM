@@ -1,0 +1,1 @@
+Implement S27-02 provider/service parity for Opportunities Pipeline.

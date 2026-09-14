@@ -1,4 +1,4 @@
-namespace CRM.Domain.Enums;
+﻿namespace CRM.Domain.Enums;
 
 public enum LeadStatus
 {
@@ -73,4 +73,20 @@ public enum SegmentStatus
     Draft = 0,
     Active = 1,
     Inactive = 2
+}
+
+public enum CasePriority
+{
+    Low = 0,
+    Medium = 1,
+    High = 2,
+    Critical = 3
+}
+
+public enum CaseStatus
+{
+    Open = 0,
+    InProgress = 1,
+    Resolved = 2,
+    Closed = 3
 }

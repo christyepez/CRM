@@ -5265,3 +5265,212 @@ NextTaskPromptFile: codex/prompts/sprint-15-campaign-management-s15-03.md
 - Productive Segment, DELETE, criteria execution, Campaign targeting and Account auto-classification remain disabled.
 - Portal/Common DB/real data/connectors/Production remain disabled.
 - Next: S17-06 Segment Local Integration Validation.
+
+## Sprint 17 S17-07 - Segment Management Sprint Closure
+- S1707Decision: ClosedSuccessfully
+- Sprint17SegmentManagementClosed: true
+- S17-06 local HTTP integration evidence reviewed: PASS.
+- Foundation verifier: PASS during S17-07 validation.
+- Debug `dotnet build CRM.sln` was blocked by an existing unrelated `CRM.Api` process locking Debug output files; process was not stopped because it was not started by this agent.
+- ProductiveSegmentRouteEnabled: false
+- DeleteBehaviorAdded: false
+- CriteriaExecutionEnabled: false
+- CampaignTargetingEnabled: false
+- AccountAutoClassificationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- RecommendedNextSliceId: S18-CASE
+- RecommendedNextSlice: Case Management Foundation
+- Next: CRM Sprint 18 P1 - Case Management Functional Baseline and Backlog.
+
+## CRM Sprint 18 P1 - Case Management Functional Baseline
+- Base: `7be7140`
+- SelectedSliceId: S18-CASE
+- Decision: ReadyForS1801CaseContractsAndDomainRules
+- Repository evidence lists Case/Cases in CRM model, README capabilities and backlog.
+- No dedicated Case domain policy, Application service, typed foundation store, foundation API or Angular workflow found.
+- Canonical fields: Id, CustomerId, Title, Summary, Priority, Status
+- Priority: Low, Medium, High, Critical
+- Lifecycle: Open -> InProgress -> Resolved -> Closed
+- Productive Case route: disabled
+- Foundation Case route by P1: disabled
+- DELETE: disabled
+- Customer conversion/mutation, assignment, SLA and notification runtime: disabled
+- Portal/Common DB/real data/connectors/port 8094/Production: disabled
+- Next: S18-01 Case Contracts and Domain Rules
+
+## CRM Sprint 18 S18-01 - Case Contracts and Domain Rules
+- S1801Decision: Implemented
+- Dedicated Case domain policy and contracts added.
+- Title/CustomerName normalization and bounds enforced.
+- Priority: Low, Medium, High, Critical
+- Lifecycle: New -> InProgress -> Resolved -> Closed
+- Repeated Start/Resolve/Close lifecycle actions are idempotent no-change success.
+- Closed cases are terminal except repeated close no-change success.
+- ProductiveCaseRouteEnabled: false
+- FoundationCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- CustomerConversionEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- Port8094Touched: false
+- Next: S18-02 Case Application Service and Foundation Store
+
+## CRM Sprint 18 S18-02 - Case Application Service and Foundation Store
+- S1802Decision: Implemented
+- Base: `d756147`
+- Added explicit `ICaseManagementService` and Case application contracts.
+- Added `ICaseFoundationStore` and `InMemoryCaseFoundationStore` with deterministic synthetic seed data.
+- Added `CaseManagementService` orchestration for list/detail/create/update/start/resolve/close through `CaseManagementPolicy`.
+- Invalid, not-found, no-change and rejected lifecycle outcomes suppress persistence.
+- Case service/store registered in DI; no Case API or Angular page added.
+- Focused Case tests: 32 Unit + 5 Architecture PASS.
+- Release regression: 519 Unit + 149 Architecture = 668 .NET tests PASS.
+- Angular build/test, CRM foundation verifier, CRM guardrails, S18 P1, S18-01 and S18-02 verifiers PASS.
+- ProductiveCaseRouteEnabled: false
+- FoundationCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- CustomerConversionEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- Next: S18-03 Case Foundation API
+
+## CRM Sprint 18 S18-03 - Case Foundation API
+- S1803Decision: Implemented
+- Base: `ddeffe7`
+- Added explicit Case foundation API DTOs and response contract.
+- Added list/detail/create/update/start/resolve/close endpoints under `/api/crm/foundation/cases`.
+- Routed all behavior through `ICaseManagementService`.
+- Validation failures map to 400, missing Case to 404 and invalid lifecycle transition to 409.
+- Changed=false idempotent lifecycle/update success remains 200.
+- Added Case foundation API endpoint tests and architecture guardrails.
+- ProductiveCaseRouteEnabled: false
+- DeleteBehaviorAdded: false
+- AngularCasePageAdded: false
+- CustomerCreationEnabled: false
+- CustomerMutationEnabled: false
+- AssignmentRuntimeEnabled: false
+- SlaRuntimeEnabled: false
+- NotificationRuntimeEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- Next: S18-04 Case Frontend Foundation Page
+
+## CRM Sprint 19 S19-01 - Interaction Contracts and Domain Rules
+- S1901Decision: Implemented
+- InteractionManagementDomain: Implemented
+- InteractionManagementPolicy: Implemented
+- Enums: RelatedEntityType, Channel, Direction, Status, Operation
+- Validation: Subject max 160, Summary max 2000, related GUID non-empty, UTC occurred timestamp required and not future
+- Lifecycle: Create -> Recorded; Update only Recorded; Void Recorded -> Voided; repeated Void Changed=false
+- DeterministicTimePolicy: command-supplied `EvaluatedAtUtc`
+- InteractionApplicationService: NotImplemented
+- InteractionFoundationStore: NotImplemented
+- InteractionApi: NotImplemented
+- InteractionFrontend: NotImplemented
+- ProductiveInteractionRouteEnabled: false
+- DeleteBehaviorAdded: false
+- ActivitySchedulingEnabled: false
+- CrossEntityMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- UnitTestsAfter: 566
+- ArchitectureTestsAfter: 152
+- S1901FocusedInteractionTests: 38 PASS
+- NextTaskPhase: CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+- NextTaskPromptFile: codex/prompts/sprint-19-interaction-management-s19-02.md
+
+## CRM Sprint 19 S19-02 - Interaction Application Service and Foundation Store
+- S1902Decision: Implemented
+- InteractionApplicationService: Implemented
+- InteractionFoundationStore: Implemented
+- Added explicit `IInteractionManagementService` and create/update result contracts.
+- Added `IInteractionFoundationStore` and `InMemoryInteractionFoundationStore` with deterministic synthetic seed data only.
+- Added `InteractionManagementService` orchestration for list/detail/create/update/void through `InteractionManagementPolicy`.
+- Invalid, missing, rejected and `Changed=false` evaluations suppress persistence.
+- Interaction service/store registered in DI for later foundation API use.
+- InteractionApi: NotImplemented
+- InteractionFrontend: NotImplemented
+- ProductiveInteractionRouteEnabled: false
+- FoundationInteractionRouteEnabled: false
+- DeleteBehaviorAdded: false
+- ActivitySchedulingEnabled: false
+- CrossEntityMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- S1902FocusedInteractionUnitTests: 43 PASS
+- S1902FocusedInteractionArchitectureTests: 4 PASS
+- ReleaseBuild: PASS
+- NextTaskPhase: CRM Sprint 19 S19-03 - Interaction Foundation API
+
+## CRM Sprint 19 S19-03 - Interaction Foundation API
+- S1903Decision: Implemented
+- InteractionFoundationApi: Implemented
+- Added explicit Interaction foundation API DTOs and response contract.
+- Added list/detail/create/update/void endpoints under `/api/crm/foundation/interactions`.
+- Routed all behavior through `IInteractionManagementService`.
+- Validation failures map to 400, missing Interaction to 404 and voided-update conflicts to 409.
+- Changed=false update and repeated void success remains 200.
+- Added Interaction foundation API endpoint tests and architecture guardrails.
+- ProductiveInteractionRouteEnabled: false
+- DeleteBehaviorAdded: false
+- AngularInteractionPageAdded: false
+- ActivitySchedulingEnabled: false
+- CrossEntityMutationEnabled: false
+- PortalRuntimeEnabled: false
+- CommonDbRuntimeEnabled: false
+- EfRuntimeEnabled: false
+- MigrationsCreated: false
+- SchemaChangesDetected: false
+- SqlAdded: false
+- RealDataDetected: false
+- ExternalConnectorRuntimeEnabled: false
+- SimulatedProductionTouched: false
+- CrmProdSimTouched: false
+- Port8094Touched: false
+- S1903FocusedInteractionUnitApiTests: 13 PASS
+- S1903FocusedInteractionArchitectureTests: 5 PASS
+- ReleaseRegression: 579 Unit + 157 Architecture = 736 .NET tests PASS
+- NextTaskPhase: CRM Sprint 19 S19-04 - Interaction Frontend Foundation Page

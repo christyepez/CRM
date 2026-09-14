@@ -1,0 +1,1 @@
+Implement S28-05 hardening for Sales Activities.
