@@ -1,7 +1,7 @@
 # Next Task
 
-Sprint 25 P1 - Customer 360 Read Model Functional Baseline
+Sprint 25 S25-01 - Customer 360 Read Model Contracts and Validation Rules
 
-- Read-only synthetic foundation capability.
-- Reuse existing CRM concepts; do not duplicate Account/Customer CRUD.
-- No cross-entity mutation, productive routes, DELETE, Common DB, Portal runtime, connectors or real data.
+- Read-only deterministic contracts/rules.
+- Account remains the customer organization container.
+- No mutation, Portal runtime, Common DB, connectors, real data or productive routes.
