@@ -2414,6 +2414,67 @@ class InteractionManagementPageComponent {
   private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review the Interaction fields before saving.'};if(error.status===404)return{title:'Interaction not found',message:'The selected Interaction was not found.'};if(error.status===409)return{title:'Interaction is read-only',message:'Voided Interactions cannot be modified.'};}return{title:'Interaction workflow unavailable',message:'The foundation Interaction service could not process the request.'};}
 }
 
+type NoteStatus = 'Active' | 'Archived';
+type NoteRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationNote { id:string; relatedEntityType:NoteRelatedEntityType; relatedEntityId:string; text:string; status:NoteStatus; persistenceMode:string; productiveCrudEnabled:boolean; }
+interface FoundationNoteRequest { relatedEntityType:NoteRelatedEntityType; relatedEntityId:string; text:string; }
+interface NoteManagementApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:NoteStatus|null; note?:FoundationNote|null; }
+@Injectable({ providedIn: 'root' })
+class NoteManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/notes';
+  constructor(private readonly http:FoundationApiClient){}
+  getNotes(){return this.http.get<FoundationNote[]>(this.apiBaseUrl);}
+  getNote(id:string){return this.http.get<FoundationNote>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createNote(request:FoundationNoteRequest){return this.http.post<NoteManagementApiResponse>(this.apiBaseUrl,request);}
+  updateNote(id:string,request:FoundationNoteRequest){return this.http.put<NoteManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveNote(id:string){return this.http.post<NoteManagementApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-note-management-page',
+  imports:[ReactiveFormsModule],
+  template:`
+    <section class="workflow-shell" aria-labelledby="noteTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="noteTitle">Note Management</h1><p class="lede">Manage synthetic CRM notes without mutating related entities or duplicating Portal services.</p></div><span class="scope-pill">Foundation only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Notes</h2><p class="muted">Synthetic foundation records only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New note</button></div>
+          @if(isLoading()){<p class="feedback neutral">Loading foundation notes...</p>}
+          @else if(notes().length===0){<div class="empty-state"><p>No notes available yet.</p></div>}
+          @else{<div class="contact-list">@for(item of notes();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedNoteId()===item.id" (click)="selectNote(item.id)"><span class="contact-name">{{ item.text }}</span><span class="contact-meta">{{ item.relatedEntityType }} · {{ item.relatedEntityId }}</span><span class="contact-status">{{ item.status }}</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New note' : 'Note details' }}</h2></div>@if(selectedNote();as item){<span class="scope-pill quiet">{{ item.status }}</span>}</div>
+          <form [formGroup]="noteForm" (ngSubmit)="submitNote()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>Text</label><textarea rows="8" maxlength="4000" formControlName="text"></textarea>
+            @if(validationMessage();as message){<p class="validation">{{ message }}</p>}
+            <button type="submit" [disabled]="isSubmitting() || noteForm.invalid || selectedNote()?.status==='Archived'">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create note' : 'Save note') }}</button>
+          </form>
+          @if(selectedNote();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="archiveSelected()">Archive note</button></div>}}
+          @if(operationMessage();as message){<section class="result-panel compact-result"><h2>{{ message.title }}</h2><p>{{ message.message }}</p></section>}
+          @if(safeError();as error){<section class="error-panel compact-result" role="alert"><h2>{{ error.title }}</h2><p>{{ error.message }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class NoteManagementPageComponent {
+  readonly notes=signal<FoundationNote[]>([]); readonly selectedNoteId=signal<string|null>(null); readonly isLoading=signal(true); readonly isSubmitting=signal(false); readonly isCreateMode=signal(true);
+  readonly safeError=signal<{title:string;message:string}|null>(null); readonly operationMessage=signal<{title:string;message:string}|null>(null);
+  readonly noteForm=this.formBuilder.nonNullable.group({relatedEntityType:['Contact' as NoteRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],text:['',[Validators.required,Validators.maxLength(4000)]]});
+  constructor(private readonly api:NoteManagementApiService,private readonly formBuilder:FormBuilder){this.loadNotes();this.startCreate();}
+  selectedNote(){const id=this.selectedNoteId();return id?this.notes().find(x=>x.id===id)??null:null;}
+  startCreate(){this.isCreateMode.set(true);this.selectedNoteId.set(null);this.safeError.set(null);this.operationMessage.set(null);this.noteForm.reset({relatedEntityType:'Contact',relatedEntityId:'',text:''});}
+  selectNote(id:string){this.isCreateMode.set(false);this.selectedNoteId.set(id);this.safeError.set(null);this.operationMessage.set(null);this.api.getNote(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.safeError.set(this.toSafeError(e))});}
+  validationMessage(){if(!this.noteForm.touched)return null;const controls=this.noteForm.controls;if(controls.relatedEntityId.invalid)return 'Enter a valid related entity id.';if(controls.text.invalid)return 'Enter note text with 4000 characters or less.';return null;}
+  submitNote(){this.noteForm.markAllAsTouched();if(this.noteForm.invalid||this.isSubmitting())return;const selected=this.selectedNote();if(selected?.status==='Archived')return;const v=this.noteForm.getRawValue();const request:FoundationNoteRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),text:v.text.trim()};this.isSubmitting.set(true);this.safeError.set(null);this.operationMessage.set(null);const op=this.isCreateMode()?this.api.createNote(request):this.api.updateNote(this.selectedNoteId()??'',request);op.subscribe({next:r=>this.apply(r,r.changed?'Note saved':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  archiveSelected(){const item=this.selectedNote();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.safeError.set(null);this.api.archiveNote(item.id).subscribe({next:r=>this.apply(r,r.changed?'Note archived':'No changes were necessary'),error:e=>{this.safeError.set(this.toSafeError(e));this.isSubmitting.set(false);}});}
+  private loadNotes(showLoading=true){if(showLoading)this.isLoading.set(true);this.api.getNotes().subscribe({next:x=>{this.notes.set(x);this.isLoading.set(false);},error:()=>{this.safeError.set({title:'Note workflow unavailable',message:'Foundation notes could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(item:FoundationNote){this.noteForm.reset({relatedEntityType:item.relatedEntityType,relatedEntityId:item.relatedEntityId,text:item.text});}
+  private upsert(item:FoundationNote){this.notes.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]);}
+  private apply(response:NoteManagementApiResponse,title:string){if(response.note){this.upsert(response.note);this.selectedNoteId.set(response.note.id);this.isCreateMode.set(false);this.populate(response.note);}this.operationMessage.set({title:response.changed?title:'No changes were necessary',message:response.message||'The foundation Note workflow completed successfully.'});this.isSubmitting.set(false);this.loadNotes(false);}
+  private toSafeError(error:unknown){if(error instanceof FoundationApiErrorResponse){if(error.status===400)return{title:'Validation issue',message:'Review RelatedEntityId and Text before saving.'};if(error.status===404)return{title:'Note not found',message:'The selected Note was not found.'};if(error.status===409)return{title:'Note is read-only',message:'Archived Notes cannot be modified.'};}return{title:'Note workflow unavailable',message:'The foundation Note service could not process the request.'};}
+}
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -4903,6 +4964,7 @@ const routes: Routes = [
   { path: 'foundation/segments', component: SegmentManagementPageComponent },
   { path: 'foundation/cases', component: CaseManagementPageComponent },
   { path: 'foundation/interactions', component: InteractionManagementPageComponent },
+  { path: 'foundation/notes', component: NoteManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
