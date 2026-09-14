@@ -869,6 +869,15 @@ app.MapPost("/api/crm/foundation/notes/{id}/archive", async (string id, INoteMan
     var result = await service.ArchiveAsync(id, cancellationToken);
     return Results.Json(NoteManagementApiResponse.From(result), statusCode: NoteManagementApiResponse.ToStatusCode(result));
 }).WithName("ArchiveCrmFoundationNote");
+app.MapGet("/api/crm/foundation/pipelines", async (IPipelineCatalogService service, CancellationToken cancellationToken) =>
+    Results.Ok((await service.GetAllAsync(cancellationToken)).Select(PipelineCatalogApiResponse.From).ToArray()))
+    .WithName("GetCrmFoundationPipelines");
+
+app.MapGet("/api/crm/foundation/pipelines/{id}", async (string id, IPipelineCatalogService service, CancellationToken cancellationToken) =>
+{
+    var item = await service.GetByIdAsync(id, cancellationToken);
+    return item is null ? Results.NotFound() : Results.Ok(PipelineCatalogApiResponse.From(item));
+}).WithName("GetCrmFoundationPipeline");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();
