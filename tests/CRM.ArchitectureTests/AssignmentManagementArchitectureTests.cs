@@ -16,14 +16,15 @@ public sealed class AssignmentManagementArchitectureTests
     }
 
     [Fact]
-    public void S2402_IsReferenceOnlyFoundationSlice_WithoutApiRoutes()
+    public void S2403_ExposesOnlyFoundationAssignmentRoutes()
     {
         var root = Root();
         var program = File.ReadAllText(Path.Combine(root, "src", "CRM.Api", "Program.cs"));
         var service = File.ReadAllText(Path.Combine(root, "src", "CRM.Application", "AssignmentManagement", "AssignmentManagementService.cs"));
-        Assert.Contains("IAssignmentManagementService, AssignmentManagementService", program);
-        Assert.Contains("IAssignmentFoundationStore, InMemoryAssignmentFoundationStore", program);
-        Assert.DoesNotContain("/api/crm/foundation/assignments", program, StringComparison.OrdinalIgnoreCase);
+        Assert.Contains("/api/crm/foundation/assignments", program, StringComparison.Ordinal);
+        Assert.Contains("MapPut(\"/api/crm/foundation/assignments/{id}\"", program, StringComparison.Ordinal);
+        Assert.DoesNotContain("MapDelete(\"/api/crm/foundation/assignments", program, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("\"/api/crm/assignments\"", program, StringComparison.OrdinalIgnoreCase);
         Assert.Contains("PortalIdentityRuntimeEnabled: false", service, StringComparison.Ordinal);
         Assert.DoesNotContain("Security API", service, StringComparison.OrdinalIgnoreCase);
     }

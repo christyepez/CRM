@@ -157,7 +157,8 @@ public sealed class ArchitectureDependencyTests
             .Replace("MapPut(\"/api/crm/foundation/interactions/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/notes/{id}\"", string.Empty, StringComparison.Ordinal)
             .Replace("MapPut(\"/api/crm/foundation/documents/{id}\"", string.Empty, StringComparison.Ordinal)
-            .Replace("MapPut(\"/api/crm/foundation/tags/{id}\"", string.Empty, StringComparison.Ordinal));
+            .Replace("MapPut(\"/api/crm/foundation/tags/{id}\"", string.Empty, StringComparison.Ordinal)
+            .Replace("MapPut(\"/api/crm/foundation/assignments/{id}\"", string.Empty, StringComparison.Ordinal));
         Assert.DoesNotContain("MapPatch", program);
         Assert.DoesNotContain("MapDelete", program);
         Assert.DoesNotContain("Create" + "Lead", program);
