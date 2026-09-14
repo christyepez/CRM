@@ -1,9 +1,9 @@
 # Next Task
 
-Phase: CRM Sprint 22 S22-01 - CRM Document Metadata Contracts and Domain Rules
-Prompt: codex/prompts/sprint-22-crm-document-metadata-s22-01.md
+Phase: CRM Sprint 22 S22-02 - CRM Document Metadata Application Service and Foundation Store
+Prompt: codex/prompts/sprint-22-crm-document-metadata-s22-02.md
 
-Implement only deterministic CRM document metadata/reference domain contracts and rules.
+Implement application orchestration and deterministic FoundationOnly store for CRM document metadata/reference records.
 
 Guardrails:
 - metadata/reference only; no binary content
