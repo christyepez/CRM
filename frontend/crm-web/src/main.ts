@@ -1,4 +1,4 @@
-import { bootstrapApplication } from '@angular/platform-browser';
+﻿import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter, RouterOutlet, Routes } from '@angular/router';
 import { Component, Injectable, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
@@ -5135,6 +5135,24 @@ class AssignmentManagementPageComponent {
 }
 
 
+type Customer360View = { customerId:string; displayName:string; contactCount:number; openOpportunityCount:number; openCaseCount:number; interactionCount:number; noteCount:number; documentCount:number; tagCount:number; assignmentCount:number; sourceMode:string; productiveRuntimeEnabled:boolean; portalRuntimeEnabled:boolean; commonDbRuntimeEnabled:boolean };
+@Injectable({providedIn:'root'})
+class Customer360ApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/customer360';
+  constructor(private readonly http:FoundationApiClient){}
+  getAll(){return this.http.get<Customer360View[]>(this.apiBaseUrl);}
+  getById(id:string){return this.http.get<Customer360View>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+}
+@Component({standalone:true,selector:'crm-customer-360-page',template:`
+<section class="workflow-shell" aria-labelledby="customer360Title"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="customer360Title">Customer 360</h1><p class="lede">Read-only deterministic CRM summary. No productive, Portal or Common DB runtime is active.</p></div><span class="scope-pill">Read only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Customers</h2><p class="muted">Synthetic Account/customer context only.</p></div></div>@if(loading()){<p class="feedback neutral">Loading Customer 360...</p>}@else{<div class="contact-list">@for(item of items();track item.customerId){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.customerId" (click)="select(item.customerId)"><span class="contact-name">{{item.displayName}}</span><span class="contact-meta">{{item.contactCount}} contacts · {{item.openOpportunityCount}} open opportunities</span><span class="contact-status">Read only</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>360 summary</h2><p class="muted">Deterministic foundation aggregates.</p></div></div>@if(selected();as x){<dl><dt>Contacts</dt><dd>{{x.contactCount}}</dd><dt>Open opportunities</dt><dd>{{x.openOpportunityCount}}</dd><dt>Open cases</dt><dd>{{x.openCaseCount}}</dd><dt>Interactions</dt><dd>{{x.interactionCount}}</dd><dt>Notes</dt><dd>{{x.noteCount}}</dd><dt>Documents</dt><dd>{{x.documentCount}}</dd><dt>Tags</dt><dd>{{x.tagCount}}</dd><dt>Assignments</dt><dd>{{x.assignmentCount}}</dd></dl><p class="feedback neutral">Source: {{x.sourceMode}} · Productive: {{x.productiveRuntimeEnabled?'Yes':'No'}} · Portal: {{x.portalRuntimeEnabled?'Yes':'No'}} · Common DB: {{x.commonDbRuntimeEnabled?'Yes':'No'}}</p>}@else{<div class="empty-state"><p>Select a synthetic customer summary.</p></div>}@if(error()){<section class="error-panel compact-result" role="alert"><h2>Customer 360 unavailable</h2><p>{{error()}}</p></section>}</section></div></section>`})
+class Customer360PageComponent {
+ readonly items=signal<Customer360View[]>([]);readonly selectedId=signal<string|null>(null);readonly loading=signal(true);readonly error=signal<string|null>(null);
+ constructor(private readonly api:Customer360ApiService){this.api.getAll().subscribe({next:x=>{this.items.set(x);this.selectedId.set(x[0]?.customerId??null);this.loading.set(false);},error:()=>{this.error.set('Foundation Customer 360 could not be loaded.');this.loading.set(false);}});}
+ selected(){const id=this.selectedId();return id?this.items().find(x=>x.customerId===id)??null:null;}
+ select(id:string){this.selectedId.set(id);this.api.getById(id).subscribe({next:x=>this.items.update(xs=>[x,...xs.filter(i=>i.customerId!==x.customerId)]),error:()=>this.error.set('The selected Customer 360 summary could not be loaded.')});}
+}
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
@@ -5151,6 +5169,7 @@ const routes: Routes = [
   { path: 'foundation/documents', component: DocumentMetadataPageComponent },
   { path: 'foundation/tags', component: TagManagementPageComponent },
   { path: 'foundation/assignments', component: AssignmentManagementPageComponent },
+  { path: 'foundation/customer360', component: Customer360PageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
