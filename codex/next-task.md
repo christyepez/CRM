@@ -1,7 +1,6 @@
 # Next Task
-
-Branch next: `crm-sprint-24-s24-02-crm-assignment-reference-application-foundation-store`
-
-Execute Sprint 24 S24-02 from `codex/prompts/sprint-24-crm-assignment-s24-02.md`.
-
-Assignment remains structural metadata/reference only. Portal Security owns users, roles, identity and authorization.
+Sprint: 24
+Slice: S24-03
+Task: CRM Assignment Reference Foundation API
+Branch: crm-sprint-24-s24-03-crm-assignment-reference-foundation-api
+Guardrail: foundation-only; no Portal identity runtime; no productive route; no DELETE.
