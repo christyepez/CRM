@@ -1,9 +1,10 @@
-﻿using CRM.Application.Ports.ReadModels;using CRM.Domain.ReportingInsights;
+using CRM.Application.Ports.ReadModels;using CRM.Domain.ReportingInsights;
 namespace CRM.Infrastructure.ReportingInsights;
 public sealed class InMemoryReportingInsightFoundationProvider:IReportingInsightFoundationProvider
 {
  private static readonly ReportingInsightSnapshot[] Items=[
   new(ReportingInsightKeys.LeadsFunnel,"Leads Funnel",[new("LeadConversionRate",24.5m,"Percent"),new("QualifiedLeads",38m,"Count")],"FoundationMock")
+  ,new(ReportingInsightKeys.OpportunitiesPipeline,"Opportunities Pipeline",[new("OpportunitiesWon",12m,"Count"),new("OpportunitiesLost",5m,"Count"),new("PipelineValue",245000m,"Amount")],"FoundationMock")
   // INSIGHT_ITEMS
  ];
  public Task<IReadOnlyCollection<ReportingInsightSnapshot>> GetAllAsync(CancellationToken ct=default){ct.ThrowIfCancellationRequested();return Task.FromResult<IReadOnlyCollection<ReportingInsightSnapshot>>(Items);}
