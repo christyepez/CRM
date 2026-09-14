@@ -1,7 +1,7 @@
 # Next Task
 
-Branch next: `crm-sprint-23-s23-07-crm-tag-sprint-closure`
+Branch next: `crm-sprint-24-p1-crm-assignment-reference-functional-baseline`
 
-Execute Sprint 23 S23-07 closure from `codex/prompts/sprint-23-crm-tag-s23-07.md`.
+Execute Sprint 24 P1 from `codex/prompts/sprint-24-crm-assignment-p1.md`.
 
-Do not relax foundation-only, synthetic-data, no-DELETE, no-Portal-runtime, no-CommonDB and no-Production guardrails.
+CRM Assignment remains structural metadata/reference only. Portal Security owns users, roles, identity and authorization. Foundation-only guardrails remain mandatory.
