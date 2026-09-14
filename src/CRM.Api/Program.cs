@@ -913,6 +913,8 @@ app.MapPut("/api/crm/foundation/assignments/{id}", async (string id, FoundationA
 app.MapPost("/api/crm/foundation/assignments/{id}/archive", async (string id, IAssignmentManagementService service, CancellationToken cancellationToken) => { var result=await service.ArchiveAsync(id,cancellationToken); return Results.Json(AssignmentManagementApiResponse.From(result),statusCode:AssignmentManagementApiResponse.ToStatusCode(result)); }).WithName("ArchiveCrmFoundationAssignment");
 app.MapGet("/api/crm/foundation/customer360", async (ICustomer360ReadService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationCustomer360");
 app.MapGet("/api/crm/foundation/customer360/{customerId}", async (string customerId, ICustomer360ReadService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(customerId,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationCustomer360ById");
+app.MapGet("/api/crm/foundation/insights", async (IReportingInsightReadService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationInsights");
+app.MapGet("/api/crm/foundation/insights/{key}", async (string key, IReportingInsightReadService service, CancellationToken cancellationToken) => { var item=await service.GetByKeyAsync(key,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationInsightByKey");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();
