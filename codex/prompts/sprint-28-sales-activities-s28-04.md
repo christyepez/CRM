@@ -1,0 +1,1 @@
+Implement S28-04 frontend parity for Sales Activities using shared read-only insights page.
