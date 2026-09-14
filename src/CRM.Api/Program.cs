@@ -1,4 +1,4 @@
-using CRM.Api.ProductiveRoutes;
+﻿using CRM.Api.ProductiveRoutes;
 using CRM.Api.Foundation;
 using CRM.Application.AccountManagement;
 using CRM.Application.ActivityManagement;
@@ -12,6 +12,8 @@ using CRM.Application.Foundation;
 using CRM.Application.InteractionManagement;
 using CRM.Application.NoteManagement;
 using CRM.Application.AssignmentManagement;
+using CRM.Application.Customer360;
+using CRM.Application.Ports.ReadModels;
 using CRM.Application.TagManagement;
 using CRM.Application.PipelineCatalog;
 using CRM.Application.Ports.PipelineCatalog;
@@ -30,6 +32,7 @@ using CRM.Domain.InteractionManagement;
 using CRM.Domain.NoteManagement;
 using CRM.Domain.OpportunityManagement;
 using CRM.Infrastructure.Persistence.Foundation;
+using CRM.Infrastructure.ReadModels;
 using CRM.Infrastructure.Persistence.RuntimeProbe;
 using CRM.Infrastructure.Data.CommonDb;
 using CRM.Infrastructure.Portal.Auth;
@@ -64,6 +67,7 @@ builder.Services.AddSingleton<IInteractionManagementService, InteractionManageme
 builder.Services.AddSingleton<INoteManagementService, NoteManagementService>();
 builder.Services.AddSingleton<ITagManagementService, TagManagementService>();
 builder.Services.AddSingleton<IAssignmentManagementService, AssignmentManagementService>();
+builder.Services.AddSingleton<ICustomer360ReadService, Customer360ReadService>();
 builder.Services.AddSingleton<IDocumentMetadataService, DocumentMetadataService>();
 builder.Services.AddSingleton<IPipelineCatalogService, PipelineCatalogService>();
 builder.Services.AddSingleton<ISegmentManagementService, SegmentManagementService>();
@@ -178,6 +182,7 @@ builder.Services.AddSingleton<IInteractionFoundationStore, InMemoryInteractionFo
 builder.Services.AddSingleton<INoteFoundationStore, InMemoryNoteFoundationStore>();
 builder.Services.AddSingleton<ITagFoundationStore, InMemoryTagFoundationStore>();
 builder.Services.AddSingleton<IAssignmentFoundationStore, InMemoryAssignmentFoundationStore>();
+builder.Services.AddSingleton<ICustomer360FoundationProvider, InMemoryCustomer360FoundationProvider>();
 builder.Services.AddSingleton<IDocumentMetadataFoundationStore, InMemoryDocumentMetadataFoundationStore>();
 builder.Services.AddSingleton<IPipelineCatalogSource, SyntheticPipelineCatalogSource>();
 builder.Services.AddSingleton<ISegmentFoundationStore, InMemorySegmentFoundationStore>();
