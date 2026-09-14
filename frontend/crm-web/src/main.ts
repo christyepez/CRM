@@ -5095,6 +5095,46 @@ class LeadQualificationPageComponent {
   }
 }
 
+type AssignmentStatus = 'Active' | 'Archived';
+type AssignmentRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationAssignment { id:string; relatedEntityType:AssignmentRelatedEntityType; relatedEntityId:string; assigneeReferenceId:string; assignmentLabel?:string|null; status:AssignmentStatus; persistenceMode:string; productiveCrudEnabled:boolean; portalIdentityRuntimeEnabled:boolean; }
+interface FoundationAssignmentRequest { relatedEntityType:AssignmentRelatedEntityType; relatedEntityId:string; assigneeReferenceId:string; assignmentLabel?:string|null; }
+interface AssignmentApiResponse { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:AssignmentStatus|null; assignment?:FoundationAssignment|null; }
+@Injectable({providedIn:'root'})
+class AssignmentManagementApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/assignments';
+  constructor(private readonly http:FoundationApiClient){}
+  getAssignments(){return this.http.get<FoundationAssignment[]>(this.apiBaseUrl);}
+  getAssignment(id:string){return this.http.get<FoundationAssignment>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createAssignment(request:FoundationAssignmentRequest){return this.http.post<AssignmentApiResponse>(this.apiBaseUrl,request);}
+  updateAssignment(id:string,request:FoundationAssignmentRequest){return this.http.put<AssignmentApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveAssignment(id:string){return this.http.post<AssignmentApiResponse>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({standalone:true,selector:'crm-assignment-management-page',imports:[ReactiveFormsModule],template:`
+<section class="workflow-shell" aria-labelledby="assignmentTitle"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="assignmentTitle">CRM Assignments</h1><p class="lede">Manage synthetic CRM assignment references without resolving Portal users, roles or permissions.</p></div><span class="scope-pill">Reference only</span></div>
+<div class="workflow-grid"><section class="panel"><div class="panel-heading"><div><h2>Assignments</h2><p class="muted">Opaque assignee references only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New assignment</button></div>
+@if(isLoading()){<p class="feedback neutral">Loading foundation assignments...</p>}@else{<div class="contact-list">@for(item of assignments();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{item.assignmentLabel || 'Assignment'}}</span><span class="contact-meta">{{item.relatedEntityType}} · {{item.assigneeReferenceId}}</span><span class="contact-status">{{item.status}}</span></button>}</div>}</section>
+<section class="panel"><div class="panel-heading"><div><h2>{{createMode()?'New assignment':'Assignment details'}}</h2><p class="muted">AssigneeReferenceId is not resolved against Portal Security.</p></div>@if(selected();as item){<span class="scope-pill quiet">{{item.status}}</span>}</div>
+<form [formGroup]="form" (ngSubmit)="submit()"><label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select><label>Related entity id</label><input formControlName="relatedEntityId"/><label>Assignee reference id</label><input formControlName="assigneeReferenceId" maxlength="200"/><label>Assignment label</label><input formControlName="assignmentLabel" maxlength="160"/><button type="submit" [disabled]="submitting()||form.invalid||selected()?.status==='Archived'">{{submitting()?'Saving...':(createMode()?'Create assignment':'Save assignment')}}</button></form>
+@if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="submitting()" (click)="archive()">Archive assignment</button></div>}}@if(message();as m){<section class="result-panel compact-result"><h2>{{m.title}}</h2><p>{{m.message}}</p></section>}@if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{e.title}}</h2><p>{{e.message}}</p></section>}</section></div></section>`})
+class AssignmentManagementPageComponent {
+ readonly assignments=signal<FoundationAssignment[]>([]);readonly selectedId=signal<string|null>(null);readonly isLoading=signal(true);readonly submitting=signal(false);readonly createMode=signal(true);readonly message=signal<{title:string;message:string}|null>(null);readonly error=signal<{title:string;message:string}|null>(null);
+ readonly form=this.fb.nonNullable.group({relatedEntityType:['Contact' as AssignmentRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],assigneeReferenceId:['',[Validators.required,Validators.maxLength(200)]],assignmentLabel:['',Validators.maxLength(160)]});
+ constructor(private readonly api:AssignmentManagementApiService,private readonly fb:FormBuilder){this.load();this.startCreate();}
+ selected(){const id=this.selectedId();return id?this.assignments().find(x=>x.id===id)??null:null;}
+ startCreate(){this.createMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({relatedEntityType:'Contact',relatedEntityId:'',assigneeReferenceId:'',assignmentLabel:''});}
+ select(id:string){this.createMode.set(false);this.selectedId.set(id);this.api.getAssignment(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safe(e))});}
+ submit(){this.form.markAllAsTouched();if(this.form.invalid||this.submitting()||this.selected()?.status==='Archived')return;const v=this.form.getRawValue();const req:FoundationAssignmentRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),assigneeReferenceId:v.assigneeReferenceId.trim(),assignmentLabel:v.assignmentLabel.trim()||null};this.submitting.set(true);this.error.set(null);const op=this.createMode()?this.api.createAssignment(req):this.api.updateAssignment(this.selectedId()??'',req);op.subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ archive(){const x=this.selected();if(!x||this.submitting())return;this.submitting.set(true);this.api.archiveAssignment(x.id).subscribe({next:r=>this.apply(r),error:e=>{this.error.set(this.safe(e));this.submitting.set(false);}});}
+ private load(){this.api.getAssignments().subscribe({next:x=>{this.assignments.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Assignment workflow unavailable',message:'Foundation assignments could not be loaded.'});this.isLoading.set(false);}});}
+ private populate(x:FoundationAssignment){this.form.reset({relatedEntityType:x.relatedEntityType,relatedEntityId:x.relatedEntityId,assigneeReferenceId:x.assigneeReferenceId,assignmentLabel:x.assignmentLabel??''});}
+ private upsert(x:FoundationAssignment){this.assignments.update(xs=>[x,...xs.filter(i=>i.id!==x.id)]);}
+ private apply(r:AssignmentApiResponse){if(r.assignment){this.upsert(r.assignment);this.selectedId.set(r.assignment.id);this.createMode.set(false);this.populate(r.assignment);}this.message.set({title:r.changed?'Assignment workflow completed':'No changes were necessary',message:r.message});this.submitting.set(false);this.load();}
+ private safe(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review the assignment references.'};if(e.status===404)return{title:'Assignment not found',message:'The selected assignment was not found.'};if(e.status===409)return{title:'Assignment is read-only',message:'Archived assignments cannot be modified.'};}return{title:'Assignment workflow unavailable',message:'The foundation Assignment service could not process the request.'};}
+}
+
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
@@ -5110,6 +5150,7 @@ const routes: Routes = [
   { path: 'foundation/pipelines', component: PipelineCatalogPageComponent },
   { path: 'foundation/documents', component: DocumentMetadataPageComponent },
   { path: 'foundation/tags', component: TagManagementPageComponent },
+  { path: 'foundation/assignments', component: AssignmentManagementPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
