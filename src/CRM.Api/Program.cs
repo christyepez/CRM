@@ -10,6 +10,8 @@ using CRM.Application.Financial;
 using CRM.Application.Foundation;
 using CRM.Application.InteractionManagement;
 using CRM.Application.NoteManagement;
+using CRM.Application.PipelineCatalog;
+using CRM.Application.Ports.PipelineCatalog;
 using CRM.Application.OpportunityManagement;
 using CRM.Application.Persistence;
 using CRM.Application.Ports.Persistence;
@@ -57,6 +59,7 @@ builder.Services.AddSingleton<ICampaignManagementService, CampaignManagementServ
 builder.Services.AddSingleton<ICaseManagementService, CaseManagementService>();
 builder.Services.AddSingleton<IInteractionManagementService, InteractionManagementService>();
 builder.Services.AddSingleton<INoteManagementService, NoteManagementService>();
+builder.Services.AddSingleton<IPipelineCatalogService, PipelineCatalogService>();
 builder.Services.AddSingleton<ISegmentManagementService, SegmentManagementService>();
 builder.Services.AddSingleton<IOpportunityManagementService, OpportunityManagementService>();
 builder.Services.AddSingleton<FoundationCrudStatusService>();
@@ -167,6 +170,7 @@ builder.Services.AddSingleton<ICampaignFoundationStore, InMemoryCampaignFoundati
 builder.Services.AddSingleton<ICaseFoundationStore, InMemoryCaseFoundationStore>();
 builder.Services.AddSingleton<IInteractionFoundationStore, InMemoryInteractionFoundationStore>();
 builder.Services.AddSingleton<INoteFoundationStore, InMemoryNoteFoundationStore>();
+builder.Services.AddSingleton<IPipelineCatalogSource, SyntheticPipelineCatalogSource>();
 builder.Services.AddSingleton<ISegmentFoundationStore, InMemorySegmentFoundationStore>();
 builder.Services.AddSingleton<IOpportunityFoundationStore, InMemoryOpportunityFoundationStore>();
 builder.Services.AddSingleton<ICrmFoundationUnitOfWork, InMemoryCrmFoundationUnitOfWork>();
