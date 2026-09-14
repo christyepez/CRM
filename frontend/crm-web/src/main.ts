@@ -2512,6 +2512,74 @@ class PipelineCatalogPageComponent {
   select(id:string){this.selectedId.set(id);this.errorMessage.set(null);this.api.getPipeline(id).subscribe({next:item=>this.pipelines.update(xs=>[item,...xs.filter(x=>x.id!==item.id)]),error:()=>this.errorMessage.set('The selected foundation pipeline could not be loaded.')});}
   private load(){this.api.getPipelines().subscribe({next:items=>{this.pipelines.set(items);this.selectedId.set(items[0]?.id??null);this.isLoading.set(false);},error:()=>{this.errorMessage.set('Foundation pipeline catalog could not be loaded.');this.isLoading.set(false);}});}
 }
+type DocumentMetadataStatus = 'Active' | 'Archived';
+type DocumentRelatedEntityType = 'Customer' | 'Contact' | 'Lead' | 'Opportunity' | 'Case';
+interface FoundationDocumentMetadata {
+  id:string; relatedEntityType:DocumentRelatedEntityType; relatedEntityId:string; fileReferenceId:string;
+  fileName:string; contentType?:string|null; description?:string|null; status:DocumentMetadataStatus;
+  persistenceMode:string; productiveCrudEnabled:boolean; binaryStorageEnabled:boolean; portalContentRuntimeEnabled:boolean;
+}
+interface DocumentMetadataRequest { relatedEntityType:DocumentRelatedEntityType; relatedEntityId:string; fileReferenceId:string; fileName:string; contentType?:string|null; description?:string|null; }
+interface DocumentMetadataApiResult { id?:string|null; operation:string; allowed:boolean; changed:boolean; errorCode:string; message:string; status?:DocumentMetadataStatus|null; document?:FoundationDocumentMetadata|null; }
+@Injectable({providedIn:'root'})
+class DocumentMetadataApiService {
+  private readonly apiBaseUrl='/api/crm/foundation/documents';
+  constructor(private readonly http:FoundationApiClient){}
+  getDocuments(){return this.http.get<FoundationDocumentMetadata[]>(this.apiBaseUrl);}
+  getDocument(id:string){return this.http.get<FoundationDocumentMetadata>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`);}
+  createDocument(request:DocumentMetadataRequest){return this.http.post<DocumentMetadataApiResult>(this.apiBaseUrl,request);}
+  updateDocument(id:string,request:DocumentMetadataRequest){return this.http.put<DocumentMetadataApiResult>(`${this.apiBaseUrl}/${encodeURIComponent(id)}`,request);}
+  archiveDocument(id:string){return this.http.post<DocumentMetadataApiResult>(`${this.apiBaseUrl}/${encodeURIComponent(id)}/archive`,{});}
+}
+
+@Component({
+  standalone:true,
+  selector:'crm-document-metadata-page',
+  imports:[ReactiveFormsModule],
+  template:`
+    <section class="workflow-shell" aria-labelledby="documentMetadataTitle">
+      <div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1 id="documentMetadataTitle">CRM Document Metadata</h1><p class="lede">Manage CRM document references only. Binary content remains owned by Portal Content/File API.</p></div><span class="scope-pill">Metadata only</span></div>
+      <div class="workflow-grid">
+        <section class="panel"><div class="panel-heading"><div><h2>Documents</h2><p class="muted">Synthetic metadata references only.</p></div><button type="button" class="secondary-action" (click)="startCreate()">New metadata</button></div>
+          @if(isLoading()){<p class="feedback neutral">Loading document metadata...</p>}
+          @else if(documents().length===0){<div class="empty-state"><p>No document metadata available.</p></div>}
+          @else{<div class="contact-list">@for(item of documents();track item.id){<button type="button" class="contact-list-item" [class.selected]="selectedId()===item.id" (click)="select(item.id)"><span class="contact-name">{{ item.fileName }}</span><span class="contact-meta">{{ item.relatedEntityType }} Â· {{ item.fileReferenceId }}</span><span class="contact-status">{{ item.status }}</span></button>}</div>}
+        </section>
+        <section class="panel"><div class="panel-heading"><div><h2>{{ isCreateMode() ? 'New document metadata' : 'Document metadata details' }}</h2></div>@if(selected();as item){<span class="scope-pill quiet">{{ item.status }}</span>}</div>
+          <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+            <label>Related entity type</label><select formControlName="relatedEntityType"><option>Customer</option><option>Contact</option><option>Lead</option><option>Opportunity</option><option>Case</option></select>
+            <label>Related entity id</label><input type="text" formControlName="relatedEntityId" />
+            <label>File reference id</label><input type="text" maxlength="512" formControlName="fileReferenceId" />
+            <label>File name</label><input type="text" maxlength="255" formControlName="fileName" />
+            <label>Content type</label><input type="text" maxlength="120" formControlName="contentType" />
+            <label>Description</label><textarea rows="5" maxlength="1000" formControlName="description"></textarea>
+            <p class="feedback neutral">No file picker, upload, download or binary storage is available in CRM.</p>
+            <button type="submit" [disabled]="isSubmitting() || form.invalid || selected()?.status==='Archived'">{{ isSubmitting() ? 'Saving...' : (isCreateMode() ? 'Create metadata' : 'Save metadata') }}</button>
+          </form>
+          @if(selected();as item){@if(item.status==='Active'){<div class="opportunity-actions"><button type="button" class="secondary-action" [disabled]="isSubmitting()" (click)="archiveSelected()">Archive metadata</button></div>}}
+          @if(message();as m){<section class="result-panel compact-result"><h2>{{ m.title }}</h2><p>{{ m.message }}</p></section>}
+          @if(error();as e){<section class="error-panel compact-result" role="alert"><h2>{{ e.title }}</h2><p>{{ e.message }}</p></section>}
+        </section>
+      </div>
+    </section>`
+})
+class DocumentMetadataPageComponent {
+  readonly documents=signal<FoundationDocumentMetadata[]>([]); readonly selectedId=signal<string|null>(null); readonly isLoading=signal(true); readonly isSubmitting=signal(false); readonly isCreateMode=signal(true);
+  readonly message=signal<{title:string;message:string}|null>(null); readonly error=signal<{title:string;message:string}|null>(null);
+  readonly form=this.formBuilder.nonNullable.group({relatedEntityType:['Customer' as DocumentRelatedEntityType,Validators.required],relatedEntityId:['',Validators.required],fileReferenceId:['',[Validators.required,Validators.maxLength(512)]],fileName:['',[Validators.required,Validators.maxLength(255)]],contentType:['',Validators.maxLength(120)],description:['',Validators.maxLength(1000)]});
+  constructor(private readonly api:DocumentMetadataApiService,private readonly formBuilder:FormBuilder){this.load();this.startCreate();}
+  selected(){const id=this.selectedId();return id?this.documents().find(x=>x.id===id)??null:null;}
+  startCreate(){this.isCreateMode.set(true);this.selectedId.set(null);this.message.set(null);this.error.set(null);this.form.reset({relatedEntityType:'Customer',relatedEntityId:'',fileReferenceId:'',fileName:'',contentType:'',description:''});}
+  select(id:string){this.isCreateMode.set(false);this.selectedId.set(id);this.message.set(null);this.error.set(null);this.api.getDocument(id).subscribe({next:x=>{this.upsert(x);this.populate(x);},error:e=>this.error.set(this.safeError(e))});}
+  submit(){this.form.markAllAsTouched();if(this.form.invalid||this.isSubmitting())return;const current=this.selected();if(current?.status==='Archived')return;const v=this.form.getRawValue();const request:DocumentMetadataRequest={relatedEntityType:v.relatedEntityType,relatedEntityId:v.relatedEntityId.trim(),fileReferenceId:v.fileReferenceId.trim(),fileName:v.fileName.trim(),contentType:v.contentType.trim()||null,description:v.description.trim()||null};this.isSubmitting.set(true);this.error.set(null);this.message.set(null);const op=this.isCreateMode()?this.api.createDocument(request):this.api.updateDocument(this.selectedId()??'',request);op.subscribe({next:r=>this.apply(r,r.changed?'Document metadata saved':'No changes were necessary'),error:e=>{this.error.set(this.safeError(e));this.isSubmitting.set(false);}});}
+  archiveSelected(){const item=this.selected();if(!item||this.isSubmitting())return;this.isSubmitting.set(true);this.error.set(null);this.api.archiveDocument(item.id).subscribe({next:r=>this.apply(r,r.changed?'Document metadata archived':'No changes were necessary'),error:e=>{this.error.set(this.safeError(e));this.isSubmitting.set(false);}});}
+  private load(show=true){if(show)this.isLoading.set(true);this.api.getDocuments().subscribe({next:x=>{this.documents.set(x);this.isLoading.set(false);},error:()=>{this.error.set({title:'Document metadata unavailable',message:'Foundation document metadata could not be loaded.'});this.isLoading.set(false);}});}
+  private populate(x:FoundationDocumentMetadata){this.form.reset({relatedEntityType:x.relatedEntityType,relatedEntityId:x.relatedEntityId,fileReferenceId:x.fileReferenceId,fileName:x.fileName,contentType:x.contentType??'',description:x.description??''});}
+  private upsert(x:FoundationDocumentMetadata){this.documents.update(xs=>[x,...xs.filter(y=>y.id!==x.id)]);}
+  private apply(r:DocumentMetadataApiResult,title:string){if(r.document){this.upsert(r.document);this.selectedId.set(r.document.id);this.isCreateMode.set(false);this.populate(r.document);}this.message.set({title:r.changed?title:'No changes were necessary',message:r.message||'The foundation document metadata operation completed successfully.'});this.isSubmitting.set(false);this.load(false);}
+  private safeError(e:unknown){if(e instanceof FoundationApiErrorResponse){if(e.status===400)return{title:'Validation issue',message:'Review related entity and document metadata fields.'};if(e.status===404)return{title:'Document metadata not found',message:'The selected metadata record was not found.'};if(e.status===409)return{title:'Document metadata is read-only',message:'Archived metadata cannot be modified.'};}return{title:'Document metadata unavailable',message:'The foundation document metadata service could not process the request.'};}
+}
+
 type AccountStatus = 'Draft' | 'Active' | 'Inactive';
 
 interface FoundationAccount {
@@ -5003,6 +5071,7 @@ const routes: Routes = [
   { path: 'foundation/interactions', component: InteractionManagementPageComponent },
   { path: 'foundation/notes', component: NoteManagementPageComponent },
   { path: 'foundation/pipelines', component: PipelineCatalogPageComponent },
+  { path: 'foundation/documents', component: DocumentMetadataPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
