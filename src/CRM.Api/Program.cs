@@ -881,6 +881,11 @@ app.MapGet("/api/crm/foundation/pipelines/{id}", async (string id, IPipelineCata
     var item = await service.GetByIdAsync(id, cancellationToken);
     return item is null ? Results.NotFound() : Results.Ok(PipelineCatalogApiResponse.From(item));
 }).WithName("GetCrmFoundationPipeline");
+app.MapGet("/api/crm/foundation/documents", async (IDocumentMetadataService service, CancellationToken cancellationToken) => Results.Ok(await service.GetAllAsync(cancellationToken))).WithName("GetCrmFoundationDocuments");
+app.MapGet("/api/crm/foundation/documents/{id}", async (string id, IDocumentMetadataService service, CancellationToken cancellationToken) => { var item=await service.GetByIdAsync(id,cancellationToken); return item is null?Results.NotFound():Results.Ok(item); }).WithName("GetCrmFoundationDocument");
+app.MapPost("/api/crm/foundation/documents", async (FoundationDocumentCreateRequest request, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.CreateAsync(DocumentMetadataApiResponse.ToApplication(request),cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("CreateCrmFoundationDocument");
+app.MapPut("/api/crm/foundation/documents/{id}", async (string id, FoundationDocumentUpdateRequest request, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.UpdateAsync(id,DocumentMetadataApiResponse.ToApplication(request),cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("UpdateCrmFoundationDocument");
+app.MapPost("/api/crm/foundation/documents/{id}/archive", async (string id, IDocumentMetadataService service, CancellationToken cancellationToken) => { var result=await service.ArchiveAsync(id,cancellationToken); return Results.Json(DocumentMetadataApiResponse.From(result),statusCode:DocumentMetadataApiResponse.ToStatusCode(result)); }).WithName("ArchiveCrmFoundationDocument");
 app.TryMapLockedProductiveRoutes();
 
 app.Run();
