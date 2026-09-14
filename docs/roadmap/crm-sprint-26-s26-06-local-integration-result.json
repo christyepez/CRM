@@ -1,0 +1,18 @@
+{
+    "Sprint":  "26",
+    "Decision":  "Implemented",
+    "InsightKey":  "leads-funnel",
+    "Title":  "Leads Funnel",
+    "SourceMode":  "FoundationMock",
+    "ProductiveRuntimeEnabled":  false,
+    "PortalRuntimeEnabled":  false,
+    "CommonDbRuntimeEnabled":  false,
+    "MutationRoutesAvailable":  false,
+    "ProductiveRouteAvailable":  false,
+    "FrontendRoute":  "PASS",
+    "FrontendProxy":  "PASS",
+    "IntegrationLatencySamples":  7,
+    "LatencyAverageMs":  13.57,
+    "LatencyP95Ms":  54,
+    "RunId":  "0e70ce89"
+}
