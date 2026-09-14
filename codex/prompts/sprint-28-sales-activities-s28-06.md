@@ -1,0 +1,1 @@
+Run S28-06 local HTTP integration for Sales Activities.
