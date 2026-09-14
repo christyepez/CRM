@@ -1,13 +1,13 @@
 # Next Task
 
-CRM Sprint 21 S21-01 - Pipeline Catalog Contracts and Domain Validation
+CRM Sprint 21 S21-02 - Pipeline Catalog Application Read Model
 
-Branch: crm-sprint-21-s21-01-pipeline-catalog-contracts-domain-validation
-Prompt: codex/prompts/sprint-21-pipeline-catalog-s21-01.md
-Suggested commit: feat(crm): add pipeline catalog contracts and validation
+Branch: crm-sprint-21-s21-02-pipeline-catalog-application-read-model
+Prompt: codex/prompts/sprint-21-pipeline-catalog-s21-02.md
+Suggested commit: feat(crm): add pipeline catalog application read model
 
 ## Guardrails
-- Read-only deterministic synthetic catalog.
-- No Pipeline mutation, Opportunity mutation or DELETE.
-- No productive Pipeline route or Portal Catalog runtime.
+- Read-only Foundation catalog.
+- No POST/PUT/PATCH/DELETE or Opportunity mutation.
+- No Portal Catalog runtime.
 - No Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 or Production.
