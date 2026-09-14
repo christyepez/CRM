@@ -9,7 +9,7 @@ namespace CRM.UnitTests;
 public sealed class NoteFoundationApiEndpointTests
 {
     private const string SeedNoteId = "77777777-7777-7777-7777-777777777777";
-    private const string SeedRelatedEntityId = "22222222-2222-2222-2222-222222222222";
+    private const string SeedRelatedEntityId = "11111111-1111-1111-1111-111111111111";
 
     [Fact]
     public async Task ListDetailCreate_AreAvailable()
@@ -52,5 +52,29 @@ public sealed class NoteFoundationApiEndpointTests
         Assert.Equal(HttpStatusCode.NotFound, (await client.GetAsync("/api/crm/notes")).StatusCode);
         var foundationDelete = await client.DeleteAsync($"/api/crm/foundation/notes/{SeedNoteId}");
         Assert.True(foundationDelete.StatusCode is HttpStatusCode.NotFound or HttpStatusCode.MethodNotAllowed);
+    }
+    [Fact]
+    public async Task Create_TextAboveMax_ReturnsSafeBadRequest()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var response = await client.PostAsJsonAsync("/api/crm/foundation/notes", new { relatedEntityType = "Contact", relatedEntityId = SeedRelatedEntityId, text = new string('x', 4001) });
+        var raw = await response.Content.ReadAsStringAsync();
+        using var body = JsonDocument.Parse(raw);
+        Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("TextTooLong", body.RootElement.GetProperty("errorCode").GetString());
+        Assert.DoesNotContain("Exception", raw, StringComparison.OrdinalIgnoreCase);
+        Assert.DoesNotContain("StackTrace", raw, StringComparison.OrdinalIgnoreCase);
+    }
+
+    [Fact]
+    public async Task Update_NoChange_ReturnsChangedFalse()
+    {
+        using var factory = new WebApplicationFactory<Program>();
+        using var client = factory.CreateClient();
+        var response = await client.PutAsJsonAsync($"/api/crm/foundation/notes/{SeedNoteId}", new { relatedEntityType = "Contact", relatedEntityId = SeedRelatedEntityId, text = "Synthetic CRM note for foundation validation." });
+        using var body = JsonDocument.Parse(await response.Content.ReadAsStringAsync());
+        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
+        Assert.False(body.RootElement.GetProperty("changed").GetBoolean());
     }
 }
