@@ -1,14 +1,13 @@
 # Next Task
 
-CRM Sprint 20 S20-06 - Note Local Integration Validation
+CRM Sprint 20 S20-07 - Note Management Sprint Closure
 
-Branch: crm-sprint-20-s20-06-note-local-integration-validation
-Prompt: codex/prompts/sprint-20-note-management-s20-06.md
-Suggested commit: test(crm): validate note local integration
+Branch: crm-sprint-20-s20-07-note-management-sprint-closure
+Prompt: codex/prompts/sprint-20-note-management-s20-07.md
+Suggested commit: docs(crm): close note management sprint
 
 ## Guardrails
-- Foundation-only Note integration validation.
-- Synthetic data and isolated local ports only.
+- Close only from verified evidence.
+- Preserve foundation-only Note scope and Portal-first ownership.
 - No productive Note route or DELETE.
-- No cross-entity mutation, Activity scheduling or Portal-owned capability duplication.
 - No Portal runtime, Common DB/EF/SQL, real data, connectors, crm-prod-sim, 8094 or Production.
