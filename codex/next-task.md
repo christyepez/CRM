@@ -1,5 +1,5 @@
 ﻿# Next Task
-Phase: CRM Sprint 23 S23-02 - CRM Tag Application Foundation Store
-Branch: crm-sprint-23-s23-02-crm-tag-application-foundation-store
-Prompt: codex/prompts/sprint-23-crm-tag-s23-02.md
-Guardrails: Foundation-only, no API/frontend yet, no productive CRUD/DELETE, no related-entity mutation, no Portal runtime, no Common DB/EF/SQL/real data/connectors/Production, never touch port 8094.
+Phase: CRM Sprint 23 S23-03 - CRM Tag Foundation API
+Branch: crm-sprint-23-s23-03-crm-tag-foundation-api
+Prompt: codex/prompts/sprint-23-crm-tag-s23-03.md
+Guardrails: Foundation-only, no productive route/DELETE, no Portal identity/config runtime, no related-entity mutation, no Common DB/EF/SQL/real data/connectors/Production, never touch port 8094.

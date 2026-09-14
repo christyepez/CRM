@@ -12,7 +12,7 @@ public static class TagPolicy
   if(name.Length>MaxNameLength)return R(c,TagErrorCode.NameTooLong,"Tag name is too long.",id,name,desc);
   if(desc?.Length>MaxDescriptionLength)return R(c,TagErrorCode.DescriptionTooLong,"Description is too long.",id,name,desc);
   if(c.Assignment is not null){if(!Enum.IsDefined(c.Assignment.RelatedEntityType))return R(c,TagErrorCode.InvalidRelatedEntityType,"Invalid related entity type.",id,name,desc);var rid=N(c.Assignment.RelatedEntityId);if(rid is null)return R(c,TagErrorCode.RelatedEntityIdRequired,"Related entity id is required.",id,name,desc);if(!ValidId(rid))return R(c,TagErrorCode.InvalidRelatedEntityId,"Related entity id must be a non-empty GUID.",id,name,desc);c=c with{Assignment=new(c.Assignment.RelatedEntityType,rid)};}
-  var changed=c.Operation==TagOperation.Create||c.ExistingTag!.Name!=name||c.ExistingTag.Description!=desc;
+  var changed=c.Operation==TagOperation.Create||c.ExistingTag!.Name!=name||c.ExistingTag.Description!=desc||!Equals(c.ExistingTag.Assignment,c.Assignment);
   return new(id,c.Operation,true,changed,TagErrorCode.None,changed?"Tag accepted.":"No changes were necessary.",name,desc,c.Assignment,TagStatus.Active);
  }
  static TagRuleResult R(TagCommand c,TagErrorCode e,string m,string? id,string? n,string? d,TagStatus s=TagStatus.Active)=>new(id,c.Operation,false,false,e,m,n,d,c.Assignment,s);
