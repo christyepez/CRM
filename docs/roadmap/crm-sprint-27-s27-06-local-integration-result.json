@@ -1,0 +1,18 @@
+{
+    "Sprint":  "27",
+    "Decision":  "Implemented",
+    "InsightKey":  "opportunities-pipeline",
+    "Title":  "Opportunities Pipeline",
+    "SourceMode":  "FoundationMock",
+    "ProductiveRuntimeEnabled":  false,
+    "PortalRuntimeEnabled":  false,
+    "CommonDbRuntimeEnabled":  false,
+    "MutationRoutesAvailable":  false,
+    "ProductiveRouteAvailable":  false,
+    "FrontendRoute":  "PASS",
+    "FrontendProxy":  "PASS",
+    "IntegrationLatencySamples":  7,
+    "LatencyAverageMs":  12,
+    "LatencyP95Ms":  52,
+    "RunId":  "c8a23786"
+}
