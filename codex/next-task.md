@@ -1,4 +1,7 @@
-﻿# Next Task
-Phase: CRM Sprint 23 S23-06 - CRM Tag Local Integration Validation
-Branch: crm-sprint-23-s23-06-crm-tag-local-integration-validation
-Prompt: codex/prompts/sprint-23-crm-tag-s23-06.md
+# Next Task
+
+Branch next: `crm-sprint-23-s23-07-crm-tag-sprint-closure`
+
+Execute Sprint 23 S23-07 closure from `codex/prompts/sprint-23-crm-tag-s23-07.md`.
+
+Do not relax foundation-only, synthetic-data, no-DELETE, no-Portal-runtime, no-CommonDB and no-Production guardrails.
