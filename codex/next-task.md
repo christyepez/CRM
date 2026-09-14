@@ -1,7 +1,7 @@
 # Next Task
 
-Branch next: `crm-sprint-24-s24-01-crm-assignment-reference-contracts-domain-rules`
+Branch next: `crm-sprint-24-s24-02-crm-assignment-reference-application-foundation-store`
 
-Execute Sprint 24 S24-01 from `codex/prompts/sprint-24-crm-assignment-s24-01.md`.
+Execute Sprint 24 S24-02 from `codex/prompts/sprint-24-crm-assignment-s24-02.md`.
 
-Preserve foundation-only guardrails and Portal Security ownership of users/roles/identity/authorization.
+Assignment remains structural metadata/reference only. Portal Security owns users, roles, identity and authorization.
