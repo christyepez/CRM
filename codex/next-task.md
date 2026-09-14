@@ -1,7 +1,6 @@
-# Next Task
-
-Sprint 25 S25-01 - Customer 360 Read Model Contracts and Validation Rules
-
-- Read-only deterministic contracts/rules.
-- Account remains the customer organization container.
-- No mutation, Portal runtime, Common DB, connectors, real data or productive routes.
+﻿# Next task
+Sprint: 25
+Slice: S25-02
+Capability: Customer 360 Read Model Foundation
+Task: implement application read service and deterministic synthetic provider/store.
+Guardrails: read-only, foundation-only, no productive route, no DELETE/mutation, no Portal runtime, no Common DB, no external connector.
