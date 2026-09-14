@@ -1,6 +1,8 @@
 # Next Task
-Sprint: 24
-Slice: S24-05
-Task: CRM Assignment Reference Test / Guardrail Hardening
-Branch: crm-sprint-24-s24-05-crm-assignment-reference-test-guardrail-hardening
-Guardrail: reference-only; no Portal Security runtime; no productive route; no DELETE.
+
+Sprint 24 S24-06 - CRM Assignment Reference Local Integration Validation
+
+- Use localhost-only ports.
+- Validate frontend route/proxy and assignment API end-to-end.
+- Preserve productive/DELETE/Portal Security/Common DB guardrails.
+- Persist evidence and stop only processes created for the validation.
