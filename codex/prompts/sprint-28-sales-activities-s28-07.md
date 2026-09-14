@@ -1,0 +1,1 @@
+Close Sprint 28 Sales Activities after full regression.

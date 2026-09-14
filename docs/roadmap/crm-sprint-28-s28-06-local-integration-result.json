@@ -1,0 +1,18 @@
+{
+    "Sprint":  "28",
+    "Decision":  "Implemented",
+    "InsightKey":  "sales-activities",
+    "Title":  "Sales Activities",
+    "SourceMode":  "FoundationMock",
+    "ProductiveRuntimeEnabled":  false,
+    "PortalRuntimeEnabled":  false,
+    "CommonDbRuntimeEnabled":  false,
+    "MutationRoutesAvailable":  false,
+    "ProductiveRouteAvailable":  false,
+    "FrontendRoute":  "PASS",
+    "FrontendProxy":  "PASS",
+    "IntegrationLatencySamples":  7,
+    "LatencyAverageMs":  9.14,
+    "LatencyP95Ms":  43,
+    "RunId":  "7367dc05"
+}
