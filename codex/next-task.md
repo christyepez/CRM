@@ -1,3 +1,4 @@
 # Next task
 Sprint: 30
-Slice: S30-07
+Slice: COMPLETE
+Objective: CRM foundation roadmap through Sprint 30 closed
