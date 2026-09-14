@@ -5153,6 +5153,11 @@ class Customer360PageComponent {
  selected(){const id=this.selectedId();return id?this.items().find(x=>x.customerId===id)??null:null;}
  select(id:string){this.selectedId.set(id);this.api.getById(id).subscribe({next:x=>this.items.update(xs=>[x,...xs.filter(i=>i.customerId!==x.customerId)]),error:()=>this.error.set('The selected Customer 360 summary could not be loaded.')});}
 }
+type ReportingInsightMetricView={name:string;value:number;unit:string};
+type ReportingInsightView={key:string;title:string;metrics:ReportingInsightMetricView[];sourceMode:string;productiveRuntimeEnabled:boolean;portalRuntimeEnabled:boolean;commonDbRuntimeEnabled:boolean};
+@Injectable({providedIn:'root'}) class ReportingInsightsApiService{private readonly base='/api/crm/foundation/insights';constructor(private readonly http:FoundationApiClient){}getAll(){return this.http.get<ReportingInsightView[]>(this.base);}get(key:string){return this.http.get<ReportingInsightView>(`${this.base}/${encodeURIComponent(key)}`);}}
+@Component({standalone:true,selector:'crm-reporting-insights-page',template:`<section class="workflow-shell"><div class="workflow-hero"><div><p class="eyebrow">Development / Foundation</p><h1>CRM Foundation Insights</h1><p class="lede">Read-only FoundationMock KPI views.</p></div><span class="scope-pill">Read only</span></div><div class="workflow-grid"><section class="panel"><h2>Views</h2><div class="contact-list">@for(item of items();track item.key){<button type="button" class="contact-list-item" [class.selected]="selectedKey()===item.key" (click)="select(item.key)"><span class="contact-name">{{item.title}}</span><span class="contact-meta">{{item.sourceMode}}</span><span class="contact-status">Read only</span></button>}</div></section><section class="panel"><h2>Metrics</h2>@if(selected();as x){@for(m of x.metrics;track m.name){<p><strong>{{m.name}}</strong>: {{m.value}} {{m.unit}}</p>}<p class="feedback neutral">Productive: {{x.productiveRuntimeEnabled?'Yes':'No'}} · Portal: {{x.portalRuntimeEnabled?'Yes':'No'}} · Common DB: {{x.commonDbRuntimeEnabled?'Yes':'No'}}</p>}</section></div></section>`})
+class ReportingInsightsPageComponent{readonly items=signal<ReportingInsightView[]>([]);readonly selectedKey=signal<string|null>(null);constructor(private readonly api:ReportingInsightsApiService){api.getAll().subscribe({next:x=>{this.items.set(x);this.selectedKey.set(x[0]?.key??null);}});}selected(){const k=this.selectedKey();return k?this.items().find(x=>x.key===k)??null:null;}select(k:string){this.selectedKey.set(k);this.api.get(k).subscribe({next:x=>this.items.update(xs=>[x,...xs.filter(i=>i.key!==x.key)])});}}
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
@@ -5170,6 +5175,7 @@ const routes: Routes = [
   { path: 'foundation/tags', component: TagManagementPageComponent },
   { path: 'foundation/assignments', component: AssignmentManagementPageComponent },
   { path: 'foundation/customer360', component: Customer360PageComponent },
+  { path: 'foundation/insights', component: ReportingInsightsPageComponent },
   { path: 'foundation/accounts', component: AccountManagementPageComponent }
 ];
 
