@@ -1,0 +1,27 @@
+services:
+  crm-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ASPNETCORE_URLS: http://+:8080
+      CRM__EnvironmentClassification: LocalProduction
+      CRM__RuntimeMode: LocalProduction
+      CRM__PortalIntegration: Enabled
+      CRM__FinancialIntegration: Enabled
+    expose:
+      - "8080"
+    networks:
+      - portal-local-network
+    healthcheck:
+      test: ["CMD-SHELL", "grep -q ':1F90 ' /proc/net/tcp /proc/net/tcp6"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
+
+networks:
+  portal-local-network:
+    external: true
