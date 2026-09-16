@@ -1,0 +1,27 @@
+name: CRM Portal Integration CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'crm-portal-*'
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Restore
+        run: dotnet restore CRM.sln
+      - name: Build
+        run: dotnet build CRM.sln -c Release --no-restore
+      - name: Test
+        run: dotnet test CRM.sln -c Release --no-build
+      - name: Validate Portal PROD-local compose
+        run: docker compose -f docker-compose.portal-prod-local.yml config --quiet
