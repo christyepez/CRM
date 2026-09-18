@@ -31,6 +31,7 @@ public sealed class SqlRecordStore<T> where T : class
 
     public async Task<IReadOnlyCollection<T>> ReadAllAsync(CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         await using var db = createContext();
         var rows = await db.Records.AsNoTracking().Where(x => x.TenantId == tenant && x.Store == store)
             .OrderBy(x => x.Id).ToListAsync(cancellationToken);
@@ -39,6 +40,7 @@ public sealed class SqlRecordStore<T> where T : class
 
     public async Task<T?> ReadByIdAsync(string id, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         ValidateId(id);
         await using var db = createContext();
         var row = await db.Records.AsNoTracking().SingleOrDefaultAsync(
@@ -48,6 +50,7 @@ public sealed class SqlRecordStore<T> where T : class
 
     public async Task<T> SaveAsync(T item, CancellationToken cancellationToken = default)
     {
+        cancellationToken.ThrowIfCancellationRequested();
         var id = getId(item);
         var records = SnapshotValidation.ValidateRecords([new(store, id, encode(item))], false);
         // Decode before writing to catch unsupported/invalid domain rehydration.
