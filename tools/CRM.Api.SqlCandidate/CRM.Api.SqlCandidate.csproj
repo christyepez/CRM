@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework><ImplicitUsings>enable</ImplicitUsings><Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <DefineConstants>$(DefineConstants);CRM_CENTRALIZATION_CANDIDATE</DefineConstants>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="../../src/CRM.Api/**/*.cs" Exclude="../../src/CRM.Api/bin/**;../../src/CRM.Api/obj/**" LinkBase="SharedApi" />
+    <ProjectReference Include="../../src/CRM.Application/CRM.Application.csproj" />
+    <ProjectReference Include="../../src/CRM.Infrastructure/CRM.Infrastructure.csproj" />
+    <ProjectReference Include="../CRM.Runtime.Sql/CRM.Runtime.Sql.csproj" />
+  </ItemGroup>
+</Project>
