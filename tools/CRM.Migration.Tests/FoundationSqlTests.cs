@@ -18,6 +18,21 @@ public sealed class FoundationSqlTests
     private static CrmFoundationPreviewItemContract Preview(string id="preview-001") =>
         new(id,"Lead","Synthetic","Preview",Utc,new Dictionary<string,string>{{"internal","preserved"}});
 
+    [Theory][InlineData("PortalSecurity")][InlineData("master")][InlineData("CrmMigration_")][InlineData("crmmigration_other")]
+    public void SqlCandidateRejectsOtherDatabasesBeforeConnecting(string database)
+    {
+        var options=new DbContextOptionsBuilder<FoundationDbContext>().UseSqlServer(
+            "Server=tcp:127.0.0.1,1433;Database="+database+";Integrated Security=true;Encrypt=true").Options;
+        Assert.Throws<InvalidOperationException>(()=>new FoundationDbContext(options));
+    }
+    [Fact] public void SqlCandidateAllowsDedicatedDatabaseWithoutOpeningConnection()
+    {
+        var options=new DbContextOptionsBuilder<FoundationDbContext>().UseSqlServer(
+            "Server=tcp:127.0.0.1,1433;Database=CrmMigration_Synthetic;Integrated Security=true;Encrypt=true").Options;
+        using var db=new FoundationDbContext(options);
+        Assert.Equal(System.Data.ConnectionState.Closed,db.Database.GetDbConnection().State);
+    }
+
     [Fact] public async Task PreviewSurvivesNewContextsAndUpdateWithStatusAndBlockedClear()
     {
         await using var fixture = await Fixture.CreateAsync();

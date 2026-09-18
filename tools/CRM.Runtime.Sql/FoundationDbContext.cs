@@ -10,8 +10,17 @@ public sealed class FoundationRow
     public string PayloadJson { get; set; } = "";
 }
 
-public sealed class FoundationDbContext(DbContextOptions<FoundationDbContext> options) : DbContext(options)
+public sealed class FoundationDbContext : DbContext
 {
+    public FoundationDbContext(DbContextOptions<FoundationDbContext> options) : base(options)
+    {
+        if (Database.IsSqlServer())
+        {
+            var catalog = Database.GetDbConnection().Database;
+            if (!catalog.StartsWith("CrmMigration_", StringComparison.Ordinal) || catalog.Length <= 13)
+                throw new InvalidOperationException("SQL candidate requires a dedicated CrmMigration_ acceptance database.");
+        }
+    }
     public DbSet<FoundationRow> Records => Set<FoundationRow>();
     protected override void OnModelCreating(ModelBuilder model)
     {
