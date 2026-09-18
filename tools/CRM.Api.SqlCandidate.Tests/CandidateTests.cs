@@ -35,7 +35,7 @@ public sealed class CandidateTests
             typeof(IAssignmentFoundationStore),typeof(IDocumentMetadataFoundationStore),typeof(ISegmentFoundationStore),typeof(IOpportunityFoundationStore)};
         foreach(var type in types)
         {
-            Assert.Single(builder.Services.Where(x=>x.ServiceType==type));
+            Assert.Single(builder.Services,x=>x.ServiceType==type);
             Assert.Equal(typeof(FoundationDbContext).Assembly,services.GetRequiredService(type).GetType().Assembly);
         }
         Assert.Equal("http://127.0.0.1:0",builder.Configuration["urls"]);
@@ -53,13 +53,19 @@ public sealed class CandidateTests
     [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=PortalSecurity;User ID=sa;Password=synthetic")]
     [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_Test;User ID=sa;Password=synthetic")]
     [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_Test;User ID=test;Password=synthetic;Encrypt=False")]
+    [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_;User ID=test;Password=synthetic")]
+    [InlineData("ConnectionStrings:CrmCandidate","Database=CrmMigration_Test;User ID=test;Password=synthetic")]
+    [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_Test;Integrated Security=true")]
+    [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_Test;Password=synthetic")]
+    [InlineData("ConnectionStrings:CrmCandidate","Server=tcp:127.0.0.1,1433;Database=CrmMigration_Test;User ID=test")]
+    [InlineData("ConnectionStrings:CrmCandidate","Server=untrusted.invalid;Database=CrmMigration_Test;User ID=test;Password=synthetic;TrustServerCertificate=true")]
     public void UnsafeConfigurationFailsClosedWithoutEchoingValues(string key,string value)
     {
         var builder=WebApplication.CreateBuilder(new WebApplicationOptions{EnvironmentName="Development"});
         var settings=Settings(); settings[key]=value; builder.Configuration.AddInMemoryCollection(settings);
         var exception=Assert.ThrowsAny<Exception>(()=>CandidateComposition.Configure(builder));
         Assert.DoesNotContain("Password=",exception.Message,StringComparison.OrdinalIgnoreCase);
-        Assert.Empty(builder.Services.Where(x=>x.ServiceType==typeof(ILeadFoundationStore)));
+        Assert.DoesNotContain(builder.Services,x=>x.ServiceType==typeof(ILeadFoundationStore));
     }
 
     [Theory][InlineData("GET","/api/crm/foundation/leads")][InlineData("POST","/api/crm/foundation/leads")]
