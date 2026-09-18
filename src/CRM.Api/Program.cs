@@ -201,7 +201,15 @@ builder.Services.AddSingleton<CrmFoundationPermissionGuard>();
 builder.Services.AddSingleton<CrmPortalAuthorizationSimulationService>();
 builder.Services.AddSingleton<CrmPortalAuthRuntimeContractStatusService>();
 
+#if CRM_CENTRALIZATION_CANDIDATE
+CRM.CentralizationCandidate.CandidateComposition.Configure(builder);
+#endif
+
 var app = builder.Build();
+
+#if CRM_CENTRALIZATION_CANDIDATE
+CRM.CentralizationCandidate.CandidateComposition.LockHttpSurface(app);
+#endif
 
 app.Use(async (context, next) =>
 {
@@ -922,3 +930,4 @@ app.Run();
 public partial class Program
 {
 }
+
