@@ -51,6 +51,15 @@ public sealed class SnapshotTests
     [Fact] public void DuplicateIdentityRejectedIgnoringCase() =>
         Assert.Throws<ArgumentException>(() => SnapshotValidation.ValidateRecords([Record("A"), Record("a")], false));
     [Fact] public void SameIdAcrossStoresAllowed() => Assert.Equal(2, SnapshotValidation.ValidateRecords([Record(), Record(store:"ContactPreview")],false).Count);
+    [Theory][InlineData("DocumentMetadata")][InlineData("Tag")]
+    public async Task AdditionalFoundationStoresRoundTripWithoutLosingPayload(string store)
+    {
+        await using var fixture = await SqliteFixture.CreateAsync();
+        var service = new SnapshotMigrationService(fixture.Repository,"default");
+        var snapshot = Snapshot(Record(store:store));
+        Assert.False((await service.ImportAsync(snapshot)).AlreadyPresent);
+        Assert.Equal(snapshot.DataSha256,(await service.ExportAsync()).DataSha256);
+    }
     [Fact] public void EmptyRequiresExplicitPermission()
     {
         Assert.Throws<ArgumentException>(() => SnapshotValidation.ValidateRecords([], false));

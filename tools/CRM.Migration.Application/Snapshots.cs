@@ -22,7 +22,8 @@ public static class SnapshotValidation
     // Contract names, not visual configuration. New kinds require a schema review.
     public static readonly IReadOnlySet<string> Stores = new[]
     { "LeadPreview", "AccountPreview", "Account", "ContactPreview", "CampaignPreview",
-      "Activity", "Opportunity", "Case", "Interaction", "Note", "Segment", "Assignment" }.ToFrozenSet(StringComparer.Ordinal);
+      "Activity", "Opportunity", "Case", "Interaction", "Note", "Segment", "Assignment",
+      "DocumentMetadata", "Tag" }.ToFrozenSet(StringComparer.Ordinal);
     public static JsonSerializerOptions JsonOptions { get; } = new(JsonSerializerDefaults.Web)
     { PropertyNameCaseInsensitive = false, UnmappedMemberHandling = JsonUnmappedMemberHandling.Disallow, MaxDepth = 32 };
 

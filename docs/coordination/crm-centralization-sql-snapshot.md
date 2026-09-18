@@ -22,6 +22,8 @@ Commands: `dotnet run --project tools/CRM.Migration.Tool -- validate <tenant> <s
 
 ## Explicit remaining gates
 
+Checkpoint 2026-09-18: core commit `fa45a5dd5489eaea5c1244d333ab6fa0f41b832a` built in Release with zero warnings/errors on MarketingIndo and trabajo, and passed 34/34 tests on each. MarketingIndo Application/Infrastructure coverage: 119/119 lines and 77/78 branches. This excludes the CLI and live CRM. Draft PR: https://github.com/christyepez/CRM/pull/252. Subsequent contract inventory also identified DocumentMetadata and Tag stores; their snapshot kinds and relational round-trip tests are included separately. No live CRM service was restarted or reconfigured by this slice.
+
 1. Capture the LIVE in-memory store state faithfully before any source restart. Public DTO responses may omit internal state; they must not be treated automatically as full store snapshots.
 2. Implement typed SQL adapters for every active CRM store and map full internal state, not just exposed DTOs. Review business invariants, reference integrity and lifecycle compatibility.
 3. Integrate SQL mode and a faithful export/import boundary into a tested candidate runtime. Do not silently fall back to in-memory storage.
