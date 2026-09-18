@@ -31,11 +31,11 @@ public sealed class FoundationSqlTests
         Assert.Equal("Updated",Assert.Single(await reopened.GetPreviewAsync()).DisplayName);
         var status = await reopened.GetStatusAsync();
         Assert.True(status.DurablePersistence); Assert.Equal(1,status.PreviewCount);
-        Assert.Throws<NotSupportedException>(()=>reopened.ClearPreviewAsync());
+        await Assert.ThrowsAsync<NotSupportedException>(()=>reopened.ClearPreviewAsync());
         Assert.Single(await reopened.GetPreviewAsync());
         await Assert.ThrowsAsync<ArgumentException>(()=>reopened.SavePreviewAsync(Preview("PREVIEW-001")));
         using var cancel = new CancellationTokenSource(); cancel.Cancel();
-        Assert.Throws<OperationCanceledException>(()=>reopened.ClearPreviewAsync(cancel.Token));
+        await Assert.ThrowsAsync<OperationCanceledException>(()=>reopened.ClearPreviewAsync(cancel.Token));
     }
 
     [Fact] public async Task AllRecordAdaptersPreserveCompleteTypedContracts()
@@ -55,7 +55,7 @@ public sealed class FoundationSqlTests
         Assert.Single(await account.GetPreviewAsync());
         Assert.NotNull(await account.GetPreviewByIdAsync("preview-001"));
         Assert.Equal(1,(await account.GetStatusAsync()).PreviewCount);
-        Assert.Throws<NotSupportedException>(()=>account.ClearPreviewAsync());
+        await Assert.ThrowsAsync<NotSupportedException>(()=>account.ClearPreviewAsync());
         var contact = new SqlContactFoundationStore(f.Db,"default");
         var campaign = new SqlCampaignFoundationStore(f.Db,"default");
         await contact.SavePreviewAsync(Preview()); await campaign.SavePreviewAsync(Preview());
