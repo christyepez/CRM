@@ -7,7 +7,8 @@ const required = [
   'angular.json',
   'src/main.ts',
   'src/index.html',
-  'src/styles.css'
+  'src/styles.css',
+  'src/lead-management.component.ts'
 ];
 const forbidden = ['localStorage', 'sessionStorage', 'access_token', 'refresh_token', 'AddIdentity', 'JwtBearer', 'CookieAuthentication', 'CreateLead', 'UpdateLead', 'DeleteLead', '/api/crm/leads'];
 const failures = [];
@@ -1197,3 +1198,15 @@ if (failures.length > 0) {
 }
 
 console.log('CRM frontend foundation checks passed.');
+
+const leadManagement = readFileSync(join(root, 'src/lead-management.component.ts'), 'utf8');
+for (const token of ['Gestión de Leads', '/api/crm/foundation/leads', 'Nuevo Lead', 'Guardar cambios', 'Aplicar calificación', '<table class="crm-grid">']) {
+  if (!leadManagement.includes(token)) failures.push(`Lead management workspace missing ${token}`);
+}
+const mainSource = readFileSync(join(root, 'src/main.ts'), 'utf8');
+if (!mainSource.includes("{ path: 'foundation/leads', component: LeadManagementPageComponent }")) failures.push('CRM route must expose full Lead management workspace.');
+
+if (failures.length > 0) {
+  console.error(failures.join('\n'));
+  process.exit(1);
+}
