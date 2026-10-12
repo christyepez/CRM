@@ -3875,13 +3875,22 @@ class ActivityManagementPageComponent {
   selector: 'crm-home',
   template: `
     <section class="card">
-      <h1>CRM Foundation</h1>
-      <nav class="foundation-nav" aria-label="Foundation workflows">
-        <a href="foundation/leads/qualification">Lead Qualification</a>
-        <a href="foundation/contacts">Contact Management</a>
-        <a href="foundation/activities">Activities & Follow-Up</a>
-        <a href="foundation/opportunities">Opportunity Pipeline</a>
+      <h1>CRM operativo</h1>
+      <p>Gestión comercial integrada al Portal. Los módulos siguientes usan las APIs CRM activas del ambiente local.</p>
+      <nav class="foundation-nav" aria-label="CRM operational workflows">
+        <a href="foundation/leads/qualification">Leads</a>
+        <a href="foundation/accounts">Cuentas</a>
+        <a href="foundation/contacts">Contactos</a>
+        <a href="foundation/activities">Actividades</a>
+        <a href="foundation/opportunities">Oportunidades</a>
+        <a href="foundation/campaigns">Campañas</a>
+        <a href="foundation/segments">Segmentos</a>
+        <a href="foundation/cases">Casos</a>
+        <a href="foundation/customer360">Customer 360</a>
+        <a href="foundation/insights">Insights</a>
       </nav>
+      <details class="card" style="margin-top:1rem">
+        <summary><strong>Readiness técnico e historial de productización</strong></summary>
       <p>CRM Domain Catalog: Draft</p>
       <p>Leads Foundation: PreviewOnly</p>
       <p>Accounts Foundation: PreviewOnly</p>
@@ -4741,6 +4750,7 @@ class ActivityManagementPageComponent {
       <p>Sprint 10 P1 Warning: Sprint 10 P1 Productization Readiness Decision: Exists; no runtime activation is approved</p>
       <p>Next Gate: Sprint10P2CommonDbControlledActivationPlan</p>
       <p>Non-Production</p>
+      </details>
     </section>
   `
 })
