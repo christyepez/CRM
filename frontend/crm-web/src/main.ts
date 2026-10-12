@@ -1,5 +1,5 @@
 ﻿import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter, RouterOutlet, Routes } from '@angular/router';
+import { provideRouter, RouterLink, RouterLinkActive, RouterOutlet, Routes } from '@angular/router';
 import { Component, Injectable, signal } from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import {
@@ -3877,10 +3877,10 @@ class ActivityManagementPageComponent {
     <section class="card">
       <h1>CRM Foundation</h1>
       <nav class="foundation-nav" aria-label="Foundation workflows">
-        <a href="/foundation/leads/qualification">Lead Qualification</a>
-        <a href="/foundation/contacts">Contact Management</a>
-        <a href="/foundation/activities">Activities & Follow-Up</a>
-        <a href="/foundation/opportunities">Opportunity Pipeline</a>
+        <a href="foundation/leads/qualification">Lead Qualification</a>
+        <a href="foundation/contacts">Contact Management</a>
+        <a href="foundation/activities">Activities & Follow-Up</a>
+        <a href="foundation/opportunities">Opportunity Pipeline</a>
       </nav>
       <p>CRM Domain Catalog: Draft</p>
       <p>Leads Foundation: PreviewOnly</p>
@@ -3889,8 +3889,8 @@ class ActivityManagementPageComponent {
       <p>Read Models: PreviewOnly</p>
       <p>Persistence Strategy: Draft</p>
       <p>Persistence: None</p>
-      <p>Portal Integration Planned</p>
-      <p>Portal Connected: false</p>
+      <p>Portal Integration: Active</p>
+      <p>Portal Connected: true</p>
       <p>Capability Owner: PortalCorporativo</p>
       <p>Auth/Menu/Permissions/Audit/Notification/Configuration: External</p>
       <p>Financial Integration Planned</p>
@@ -5182,8 +5182,30 @@ const routes: Routes = [
 @Component({
   standalone: true,
   selector: 'crm-root',
-  template: '<main><router-outlet /></main>',
-  imports: [RouterOutlet]
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
+  template: `
+    <div class="crm-shell">
+      <aside class="crm-shell__sidebar">
+        <div class="crm-shell__brand">CRM</div>
+        <div class="crm-shell__caption">Gestión comercial integrada en Portal</div>
+        <nav class="crm-shell__nav" aria-label="CRM navigation">
+          <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Inicio</a>
+          <a routerLink="/foundation/leads/qualification" routerLinkActive="active">Leads</a>
+          <a routerLink="/foundation/accounts" routerLinkActive="active">Cuentas</a>
+          <a routerLink="/foundation/contacts" routerLinkActive="active">Contactos</a>
+          <a routerLink="/foundation/activities" routerLinkActive="active">Actividades</a>
+          <a routerLink="/foundation/opportunities" routerLinkActive="active">Oportunidades</a>
+          <a routerLink="/foundation/campaigns" routerLinkActive="active">Campañas</a>
+          <a routerLink="/foundation/segments" routerLinkActive="active">Segmentos</a>
+          <a routerLink="/foundation/cases" routerLinkActive="active">Casos</a>
+          <a routerLink="/foundation/customer360" routerLinkActive="active">Customer 360</a>
+          <a routerLink="/foundation/insights" routerLinkActive="active">Insights</a>
+          <a routerLink="/readiness" routerLinkActive="active">Readiness</a>
+        </nav>
+      </aside>
+      <main class="crm-shell__content"><router-outlet /></main>
+    </div>
+  `
 })
 class AppComponent {
 }
