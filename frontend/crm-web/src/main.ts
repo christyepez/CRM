@@ -8,6 +8,7 @@ import {
   provideHttpClient as provideFoundationApiClient
 } from '@angular/common/http';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { LeadManagementPageComponent } from './lead-management.component';
 
 @Injectable({ providedIn: 'root' })
 class CrmReadinessService {
@@ -3877,7 +3878,7 @@ class ActivityManagementPageComponent {
     <section class="card">
       <h1>CRM Foundation</h1>
       <nav class="foundation-nav" aria-label="Foundation workflows">
-        <a href="foundation/leads/qualification">Lead Qualification</a>
+        <a href="foundation/leads">Lead Qualification</a>
         <a href="foundation/contacts">Contact Management</a>
         <a href="foundation/activities">Activities & Follow-Up</a>
         <a href="foundation/opportunities">Opportunity Pipeline</a>
@@ -5161,7 +5162,8 @@ class ReportingInsightsPageComponent{readonly items=signal<ReportingInsightView[
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'readiness', component: ReadinessComponent },
-  { path: 'foundation/leads/qualification', component: LeadQualificationPageComponent },
+  { path: 'foundation/leads', component: LeadManagementPageComponent },
+  { path: 'foundation/leads/qualification', component: LeadManagementPageComponent },
   { path: 'foundation/contacts', component: ContactManagementPageComponent },
   { path: 'foundation/activities', component: ActivityManagementPageComponent },
   { path: 'foundation/opportunities', component: OpportunityPipelinePageComponent },
@@ -5190,7 +5192,7 @@ const routes: Routes = [
         <div class="crm-shell__caption">Gestión comercial integrada en Portal</div>
         <nav class="crm-shell__nav" aria-label="CRM navigation">
           <a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Inicio</a>
-          <a routerLink="/foundation/leads/qualification" routerLinkActive="active">Leads</a>
+          <a routerLink="/foundation/leads" routerLinkActive="active">Leads</a>
           <a routerLink="/foundation/accounts" routerLinkActive="active">Cuentas</a>
           <a routerLink="/foundation/contacts" routerLinkActive="active">Contactos</a>
           <a routerLink="/foundation/activities" routerLinkActive="active">Actividades</a>
